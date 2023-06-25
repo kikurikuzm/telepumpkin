@@ -251,6 +251,11 @@ func _process(delta):
 	
 	if hasTPP:
 		$Teleport.visible = false
+		$Teleport.set_process(false)
+	else:
+		$Teleport.visible = true
+		$Teleport.set_process(true)
+	
 		
 	if holdingTPP:
 		tpp.visible = true

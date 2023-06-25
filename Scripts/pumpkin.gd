@@ -37,7 +37,7 @@ func _physics_process(delta):
 		animationTree.active = true
 		animationTree.set("parameters/blend_position", float(unstableTeleport) / float(maxUnst))
 	
-	highlighted = false
+	
 	
 	var areaArray = $Area2D.get_overlapping_areas()
 	for area in areaArray:
@@ -56,6 +56,9 @@ func _process(delta):
 	else:
 		sprite.modulate = lerp(sprite.modulate, Color(1.0, 1.0, 1.0), 0.15)
 		$selectParticles.emitting = false
+	
+	highlighted = false
+	
 
 func teleport(hostPos: Transform2D):
 	#called by the player script when the pumpkin is teleported

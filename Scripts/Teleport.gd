@@ -12,17 +12,22 @@ func _process(delta):
 		
 		for node in selected:
 			if node.is_in_group("pumpkin") and !availablePumpkins.has(node):
+		#adding all the pumpkins to availablePumpkins if not already added
+		#and making them not highlighted
 				availablePumpkins.append(node)
 				node.highlighted = false
 		
 		if len(availablePumpkins) > 0:
-			var nearestPumpkin = availablePumpkins[0]
-		
+			var farthestPumpkin = availablePumpkins[0]
+		#changing the nearest pumpkin to be the first one in the list
+		#if the list contains anything
 			for pumpkin in availablePumpkins:
-				if pumpkin.global_position.distance_to(self.global_position) > nearestPumpkin.global_position.distance_to(self.global_position):
-					nearestPumpkin = pumpkin
+				if pumpkin.global_position.distance_to(self.global_position) > farthestPumpkin.global_position.distance_to(self.global_position):
+					farthestPumpkin = pumpkin
+				#going over availablePumpkins and seeing if there are any farther than the current one
+				#and highlighting the selected one
 				
-			nearestPumpkin.highlighted = true
+			farthestPumpkin.highlighted = true
 
 
 func rangeTeleport(teleportPos:Transform2D) -> void:
