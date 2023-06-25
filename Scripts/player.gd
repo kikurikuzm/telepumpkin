@@ -55,160 +55,160 @@ signal enteringEntrance(scene)
 func jump(strength):
 	customVelocity.y = -strength
 
-func _physics_process(delta):
-	var direction = 0
-	
-	if is_on_ceiling_only():
-		gravity = 22
-		customVelocity.y = 0
-	
-	var interactArray = interactArea.get_overlapping_areas()
-	for area in interactArray:
-		if area.get_parent().is_in_group("manhole"):
-			if area.get_parent().enterManhole(customVelocity) != null:
-				var manhole = area.get_parent()
-				var exitVariables = manhole.enterManhole(customVelocity)
-				if exitVariables[2] <= 0:
-					position = exitVariables[0]
-					customVelocity = exitVariables[1]
-	
-	if is_on_floor():
-		customVelocity.y = 0
-	
-	if inDialog:
-		customVelocity = Vector2(0,0)
-		accel = 0
-		spriteAnim.animation = "Idle"
-	
-	#
-	if Input.is_action_just_released("left") or Input.is_action_just_released("right"):
-		curveX = 0
-	
-	if Input.is_action_pressed("right"):
-		spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, 3.0, 0.2)
-		accel += accelerate(1)
-		specAnim.play("walk")
-		direction += 1
-		spriteAnim.flip_h = false
-		#if is_on_floor():
-			
-		#if !is_on_floor():
-		#	direction += 1
-		
-	if Input.is_action_pressed("left"):
-		spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, -3.0, 0.2)
-		accel -= accelerate(1)
-		specAnim.play("walk")
-		direction -= 1
-		spriteAnim.flip_h = true
-		#if is_on_floor():
-			
-		#if !is_on_floor():
-		#	direction -= 1
-		
-	if direction == 0:
-		if is_on_floor():
-			spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, 0.0, 0.3)
-			specAnim.play("idle")
-			customVelocity.x = accel * 14.0
-			accel = lerp(accel, 0.0, 0.15)
-			curveX = 0
-			if abs(accel) > 0.6 and is_on_floor():
-				specAnim.play("stop")
-	else:
-		customVelocity.x = ((direction * speed) * (accel / 4)) * direction
-	accel = clamp(accel, -mSpeed, mSpeed)
-	$debugText.text = str(jumpStrength)
-		
-		
-	#stretch up
-	if Input.is_action_pressed("up"):
-		$Teleport.scale.x = lerp($Teleport.scale.x, 0.4, 0.1)
-		$Teleport.scale.y = lerp($Teleport.scale.y, 3.0, 0.1)
-		specAnim.play("Stretch")
-		jumpStrength += 9
-		jumpStrength = clamp(jumpStrength, 0, 300)
-		mSpeed = 4
-		speed = 65
-		
-		if hasTPP and !holdingTPP: tppInst.stretchUp()
-	
-	if Input.is_action_just_released("up"):
-		if is_on_floor():
-			spriteAnim.animation = "walk"
-			spriteAnim.frame = 0
-			$Teleport.scale.x = 1.594
-			$Teleport.scale.y = 1.594
-			mSpeed = MAXSPEED
-			speed = 100
-			curveX = 0
-			curveY = 0
-			jump(jumpStrength)
-		if !is_on_floor():
-			$Teleport.scale.x = 1.594
-			$Teleport.scale.y = 1.594
-			mSpeed = MAXSPEED
-			speed = 100
-		if hasTPP and !holdingTPP: tppInst.stretching = false
-	
-	if !is_on_floor():
-		if jumpStrength > 0:
-			jumpStrength = 0
-	
-	#gravity adjusting based on player velocity
-	if customVelocity.y > 0:
-		gravity = 22
-	elif customVelocity.y < 0 and !is_on_floor():
-		gravity = 8
-	elif !Input.is_action_pressed("up"):
-		gravity = 22
-	
-	customVelocity.y += gravity
-	
-	#squish
-	if Input.is_action_pressed("down") and !Input.is_action_pressed("up"):
-		$Teleport.scale.x = lerp($Teleport.scale.x, 3.0, 0.25)
-		$Teleport.scale.y = lerp($Teleport.scale.y, 0.4, 0.15)
-		specAnim.play("stretchDown")
-		mSpeed = 2
-		speed = 40
-		if hasTPP and !holdingTPP: get_parent().get_node("tpp").stretchDown()
-		
-	if Input.is_action_just_released("down"):
-		$Teleport.scale.x = 1.594
-		$Teleport.scale.y = 1.594
-		if hasTPP and !holdingTPP: get_parent().get_node("tpp").stretching = false
-		mSpeed = MAXSPEED
-		speed = 100
-	
-	#sliding
-#	if Input.is_action_just_pressed("down") and (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
-#		specAnim.play("squish")
-#		spriteAnim.play("Stop")
-#		mSpeed = 12
-#		accel += 10 * direction 
-#		sliding = true
-		
-	#play stop animation while changing direction
-	if direction != 0:
-		if is_on_floor():
-			pass
-		if sign(accel) != direction:
-			specAnim.play("stop")
-			spriteAnim.flip_h = convert(abs(direction + 1), 1)
-	
-	#removing all acceleration if colliding with wall
-	if is_on_wall() and direction == 0:
-		accel = 0
-	
-	#big chunk of code for move_and_slide()
-	set_velocity(customVelocity)
-	set_up_direction(Vector2.UP)
-	set_floor_stop_on_slope_enabled(true)
-	set_max_slides(4)
-	set_floor_max_angle(0.785398)
-	move_and_slide()
-	velocity = customVelocity
+#func _physics_process(delta):
+#	var direction = 0
+#
+#	if is_on_ceiling_only():
+#		gravity = 22
+#		customVelocity.y = 0
+#
+#	var interactArray = interactArea.get_overlapping_areas()
+#	for area in interactArray:
+#		if area.get_parent().is_in_group("manhole"):
+#			if area.get_parent().enterManhole(customVelocity) != null:
+#				var manhole = area.get_parent()
+#				var exitVariables = manhole.enterManhole(customVelocity)
+#				if exitVariables[2] <= 0:
+#					position = exitVariables[0]
+#					customVelocity = exitVariables[1]
+#
+#	if is_on_floor():
+#		customVelocity.y = 0
+#
+#	if inDialog:
+#		customVelocity = Vector2(0,0)
+#		accel = 0
+#		spriteAnim.animation = "Idle"
+#
+#	#
+#	if Input.is_action_just_released("left") or Input.is_action_just_released("right"):
+#		curveX = 0
+#
+#	if Input.is_action_pressed("right"):
+#		spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, 3.0, 0.2)
+#		accel += accelerate(1)
+#		specAnim.play("walk")
+#		direction += 1
+#		spriteAnim.flip_h = false
+#		#if is_on_floor():
+#
+#		#if !is_on_floor():
+#		#	direction += 1
+#
+#	if Input.is_action_pressed("left"):
+#		spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, -3.0, 0.2)
+#		accel -= accelerate(1)
+#		specAnim.play("walk")
+#		direction -= 1
+#		spriteAnim.flip_h = true
+#		#if is_on_floor():
+#
+#		#if !is_on_floor():
+#		#	direction -= 1
+#
+#	if direction == 0:
+#		if is_on_floor():
+#			spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, 0.0, 0.3)
+#			specAnim.play("idle")
+#			customVelocity.x = accel * 14.0
+#			accel = lerp(accel, 0.0, 0.15)
+#			curveX = 0
+#			if abs(accel) > 0.6 and is_on_floor():
+#				specAnim.play("stop")
+#	else:
+#		customVelocity.x = ((direction * speed) * (accel / 4)) * direction
+#	accel = clamp(accel, -mSpeed, mSpeed)
+#	$debugText.text = str(jumpStrength)
+#
+#
+#	#stretch up
+#	if Input.is_action_pressed("up"):
+#		$Teleport.scale.x = lerp($Teleport.scale.x, 0.4, 0.1)
+#		$Teleport.scale.y = lerp($Teleport.scale.y, 3.0, 0.1)
+#		specAnim.play("Stretch")
+#		jumpStrength += 9
+#		jumpStrength = clamp(jumpStrength, 0, 300)
+#		mSpeed = 4
+#		speed = 65
+#
+#		if hasTPP and !holdingTPP: tppInst.stretchUp()
+#
+#	if Input.is_action_just_released("up"):
+#		if is_on_floor():
+#			spriteAnim.animation = "walk"
+#			spriteAnim.frame = 0
+#			$Teleport.scale.x = 1.594
+#			$Teleport.scale.y = 1.594
+#			mSpeed = MAXSPEED
+#			speed = 100
+#			curveX = 0
+#			curveY = 0
+#			jump(jumpStrength)
+#		if !is_on_floor():
+#			$Teleport.scale.x = 1.594
+#			$Teleport.scale.y = 1.594
+#			mSpeed = MAXSPEED
+#			speed = 100
+#		if hasTPP and !holdingTPP: tppInst.stretching = false
+#
+#	if !is_on_floor():
+#		if jumpStrength > 0:
+#			jumpStrength = 0
+#
+#	#gravity adjusting based on player velocity
+#	if customVelocity.y > 0:
+#		gravity = 22
+#	elif customVelocity.y < 0 and !is_on_floor():
+#		gravity = 8
+#	elif !Input.is_action_pressed("up"):
+#		gravity = 22
+#
+#	customVelocity.y += gravity
+#
+#	#squish
+#	if Input.is_action_pressed("down") and !Input.is_action_pressed("up"):
+#		$Teleport.scale.x = lerp($Teleport.scale.x, 3.0, 0.25)
+#		$Teleport.scale.y = lerp($Teleport.scale.y, 0.4, 0.15)
+#		specAnim.play("stretchDown")
+#		mSpeed = 2
+#		speed = 40
+#		if hasTPP and !holdingTPP: get_parent().get_node("tpp").stretchDown()
+#
+#	if Input.is_action_just_released("down"):
+#		$Teleport.scale.x = 1.594
+#		$Teleport.scale.y = 1.594
+#		if hasTPP and !holdingTPP: get_parent().get_node("tpp").stretching = false
+#		mSpeed = MAXSPEED
+#		speed = 100
+#
+#	#sliding
+##	if Input.is_action_just_pressed("down") and (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
+##		specAnim.play("squish")
+##		spriteAnim.play("Stop")
+##		mSpeed = 12
+##		accel += 10 * direction 
+##		sliding = true
+#
+#	#play stop animation while changing direction
+#	if direction != 0:
+#		if is_on_floor():
+#			pass
+#		if sign(accel) != direction:
+#			specAnim.play("stop")
+#			spriteAnim.flip_h = convert(abs(direction + 1), 1)
+#
+#	#removing all acceleration if colliding with wall
+#	if is_on_wall() and direction == 0:
+#		accel = 0
+#
+#	#big chunk of code for move_and_slide()
+#	set_velocity(customVelocity)
+#	set_up_direction(Vector2.UP)
+#	set_floor_stop_on_slope_enabled(true)
+#	set_max_slides(4)
+#	set_floor_max_angle(0.785398)
+#	move_and_slide()
+#	velocity = customVelocity
 	
 func _process(delta):
 	
@@ -311,15 +311,15 @@ func _process(delta):
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
-	if Input.is_action_just_pressed("up") and Input.is_action_pressed("down"):
-		specAnim.play("stretchUp")
-		stretchAudio.play()
-	if Input.is_action_just_pressed("down") and !Input.is_action_pressed("up"):
-		specAnim.play("stretchDown")
-		stretchAudio.play()
-	if Input.is_action_just_released("down") or Input.is_action_just_released("up"):
-		specAnim.stop()
-		stretchAudio.stop()
+#	if Input.is_action_just_pressed("up") and Input.is_action_pressed("down"):
+#		specAnim.play("stretchUp")
+#		stretchAudio.play()
+#	if Input.is_action_just_pressed("down") and !Input.is_action_pressed("up"):
+#		specAnim.play("stretchDown")
+#		stretchAudio.play()
+#	if Input.is_action_just_released("down") or Input.is_action_just_released("up"):
+#		specAnim.stop()
+#		stretchAudio.stop()
 		
 	if Input.is_action_just_released("teleport"):
 		$debugText.visible = false

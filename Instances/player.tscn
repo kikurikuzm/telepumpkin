@@ -1,9 +1,12 @@
-[gd_scene load_steps=42 format=3 uid="uid://dgkkgvrt7qcat"]
+[gd_scene load_steps=42 format=3 uid="uid://ck3y2as0labp0"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cr5rv"]
-[ext_resource type="Script" path="res://Scripts/stateFactory.gd" id="2_yfeb8"]
+[ext_resource type="Script" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerIdle.gd" id="3_k086q"]
 [ext_resource type="Texture2D" uid="uid://bg5c6q3i5107" path="res://Sprites/Kin/new kin.png" id="3_qlsd8"]
 [ext_resource type="Texture2D" uid="uid://dr1cy8d7cna7w" path="res://Sprites/TPP/tppfull.png" id="4_ky4s4"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerWalking.gd" id="4_v361r"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerStop.gd" id="5_c0d7w"]
 [ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="5_qpng8"]
 [ext_resource type="PackedScene" uid="uid://b75y4tjamjhxd" path="res://Instances/Level Components/teleportRange.tscn" id="6_6y066"]
 [ext_resource type="PackedScene" uid="uid://chbbs287xrcbf" path="res://Instances/Helpers/footstepManager.tscn" id="7_lr33s"]
@@ -27,18 +30,6 @@ colors = PackedColorArray(0.807843, 0.419608, 0.929412, 1, 0.807843, 0.6, 0.7725
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qna8a"]
 radius = 14.0
 height = 32.0
-
-[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_2kq4x"]
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6eert"]
-animation = &"walk"
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_m1l4w"]
-nodes/Add2/node = SubResource("AnimationNodeAdd2_2kq4x")
-nodes/Add2/position = Vector2(-40, 160)
-nodes/Animation/node = SubResource("AnimationNodeAnimation_6eert")
-nodes/Animation/position = Vector2(-320, 160)
-node_connections = [&"output", 0, &"Add2", &"Add2", 0, &"Animation"]
 
 [sub_resource type="Animation" id="Animation_ur6mr"]
 length = 0.001
@@ -480,6 +471,28 @@ slide_on_ceiling = false
 floor_constant_speed = true
 script = ExtResource("1_cr5rv")
 
+[node name="stateFactory" type="Node" parent="." node_paths=PackedStringArray("debugtext", "initial_state")]
+script = ExtResource("2_7igkb")
+debugtext = NodePath("../debugText")
+initial_state = NodePath("playerIdle")
+
+[node name="playerIdle" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer")]
+script = ExtResource("3_k086q")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+
+[node name="playerWalking" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
+script = ExtResource("4_v361r")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+playerSprite = NodePath("../../AnimatedSprite2D")
+
+[node name="playerStop" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
+script = ExtResource("5_c0d7w")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+playerSprite = NodePath("../../AnimatedSprite2D")
+
 [node name="tppLine" type="Line2D" parent="."]
 visible = false
 z_index = -1
@@ -491,27 +504,11 @@ gradient = SubResource("Gradient_8ca8h")
 joint_mode = 2
 end_cap_mode = 2
 
-[node name="stateFactory" type="Node" parent="."]
-script = ExtResource("2_yfeb8")
-
-[node name="idle" type="Node" parent="stateFactory"]
-
-[node name="walk" type="Node" parent="stateFactory"]
-
-[node name="jump" type="Node" parent="stateFactory"]
-
-[node name="fall" type="Node" parent="stateFactory"]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_qna8a")
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendTree_m1l4w")
-anim_player = NodePath("AnimationPlayer")
-parameters/Add2/add_amount = 0.14
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree"]
-root_node = NodePath("../../AnimatedSprite2D")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
 libraries = {
 "": SubResource("AnimationLibrary_cxkr1")
 }
@@ -586,7 +583,6 @@ wait_time = 0.2
 one_shot = true
 
 [node name="debugText" type="Label" parent="."]
-visible = false
 offset_left = -22.0
 offset_top = -30.0
 offset_right = 141.0
@@ -600,5 +596,5 @@ volume_db = -0.084
 target_position = Vector2(0, 32)
 hit_from_inside = true
 
-[connection signal="animation_changed" from="AnimationTree/AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
-[connection signal="animation_started" from="AnimationTree/AnimationPlayer" to="." method="_on_animation_player_animation_started"]
+[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
