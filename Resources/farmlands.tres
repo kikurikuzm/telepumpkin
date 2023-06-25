@@ -1,0 +1,13 @@
+[gd_resource type="Environment" load_steps=3 format=3 uid="uid://b78b4va1c3s1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y0gek"]
+sky_top_color = Color(0.623529, 0.709804, 0.85098, 1)
+sun_angle_max = 49.85
+
+[sub_resource type="Sky" id="Sky_344v2"]
+sky_material = SubResource("ProceduralSkyMaterial_y0gek")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_344v2")
+sky_rotation = Vector3(-0.802851, 0, 0)

@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpjxvum0s7d37"]
+
+[ext_resource type="Script" path="res://Scripts/auto_tiler.gd" id="1_3sons"]
+
+[node name="autoTiler" type="Node2D"]
+script = ExtResource("1_3sons")
+
+[node name="rayHolder" type="Node2D" parent="."]
+
+[node name="down" type="RayCast2D" parent="rayHolder"]
+target_position = Vector2(0, 25)
+collision_mask = 3
+hit_from_inside = true
+
+[node name="left" type="RayCast2D" parent="rayHolder"]
+target_position = Vector2(-25, 0)
+collision_mask = 3
+hit_from_inside = true
+
+[node name="up" type="RayCast2D" parent="rayHolder"]
+target_position = Vector2(0, -25)
+collision_mask = 3
+hit_from_inside = true
+
+[node name="right" type="RayCast2D" parent="rayHolder"]
+target_position = Vector2(25, 0)
+collision_mask = 3
+hit_from_inside = true

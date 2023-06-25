@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7oa4p0xn7ya"]
+
+[ext_resource type="Script" path="res://Scripts/interactIcon.gd" id="1_a5j2p"]
+[ext_resource type="Texture2D" uid="uid://wt3k8w4av4gt" path="res://Sprites/Misc/interact.png" id="2_n6542"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1btng"]
+atlas = ExtResource("2_n6542")
+region = Rect2(0, 0, 32, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5k4j"]
+atlas = ExtResource("2_n6542")
+region = Rect2(32, 0, 32, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lfsyg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1btng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5k4j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_bvlid"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_x74su"]
+gradient = SubResource("Gradient_bvlid")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwy6t"]
+size = Vector2(38, 52)
+
+[node name="interactIcon" type="Node2D"]
+script = ExtResource("1_a5j2p")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_lfsyg")
+autoplay = "default"
+frame_progress = 0.694957
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.1875, 0.196875)
+texture = SubResource("GradientTexture2D_x74su")
+
+[node name="Label" type="Label" parent="Sprite2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -52.0
+offset_right = -11.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_kwy6t")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

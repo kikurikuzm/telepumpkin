@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce55buakgjg5x"]
+
+[ext_resource type="Texture2D" uid="uid://bx8kppsh2xusm" path="res://Sprites/Misc/radio.png" id="1"]
+
+[node name="Radio" type="AudioStreamPlayer2D"]
+autoplay = true
+max_distance = 1185.0
+attenuation = 0.378929
+bus = &"radio"
+
+[node name="Radio" type="Sprite2D" parent="."]
+texture = ExtResource("1")

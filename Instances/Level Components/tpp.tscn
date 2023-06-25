@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://ctcjvamn72bwl"]
+
+[ext_resource type="Script" path="res://Scripts/tpp.gd" id="1_8cce5"]
+[ext_resource type="Texture2D" uid="uid://dr1cy8d7cna7w" path="res://Sprites/TPP/tppfull.png" id="2_2p2xa"]
+[ext_resource type="Texture2D" uid="uid://bl1sih4l2hc1o" path="res://Sprites/Misc/telecircle.png" id="3_mnji8"]
+[ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="4_037hj"]
+[ext_resource type="Script" path="res://Scripts/Teleport.gd" id="4_srt4t"]
+[ext_resource type="AudioStream" uid="uid://big37bu0irl0d" path="res://Audio/sfx/pop.ogg" id="5_e133v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o6q5d"]
+rough = true
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_76bij"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tntab"]
+radius = 32.0983
+
+[node name="tpp" type="RigidBody2D" groups=["tpp"]]
+disable_mode = 1
+collision_layer = 17
+collision_mask = 17
+physics_material_override = SubResource("PhysicsMaterial_o6q5d")
+gravity_scale = 8.0
+continuous_cd = 2
+can_sleep = false
+script = ExtResource("1_8cce5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, 6)
+polygon = PackedVector2Array(7, 10, 12, 5, 10, -5, 1, -10, -10, -6, -13, 1, -9, 10)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2p2xa")
+
+[node name="Teleport" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.45098)
+z_index = -2
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_76bij")
+position = Vector2(1, 6)
+scale = Vector2(1.594, 1.594)
+texture = ExtResource("3_mnji8")
+script = ExtResource("4_srt4t")
+
+[node name="Area2D" type="Area2D" parent="Teleport" groups=["tpArea"]]
+collision_layer = 20
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport/Area2D"]
+shape = SubResource("CircleShape2D_tntab")
+
+[node name="teleport" type="Timer" parent="Teleport"]
+one_shot = true
+
+[node name="teleportAudio" type="AudioStreamPlayer2D" parent="Teleport"]
+stream = ExtResource("5_e133v")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -10)
+color = Color(0.666667, 0.0784314, 0, 1)
+energy = 1.26
+texture = ExtResource("4_037hj")
+texture_scale = 0.02

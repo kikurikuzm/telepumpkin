@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1y1rpndwskya"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cip6t"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_j7yee"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.978261, 0.2), -2.42545, 0.0, 0, 0]
+point_count = 2
+
+[node name="manholeConnector" type="Line2D" groups=["connector"]]
+z_index = 10
+material = SubResource("CanvasItemMaterial_cip6t")
+width = 5.0
+width_curve = SubResource("Curve_j7yee")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

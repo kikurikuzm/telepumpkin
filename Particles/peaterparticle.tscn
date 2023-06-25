@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq235mvlmma6h"]
+
+[ext_resource type="Script" path="res://Scripts/genericParticleClean.gd" id="1_2606d"]
+
+[sub_resource type="Gradient" id="Gradient_38jp5"]
+offsets = PackedFloat32Array(0.672646, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o1n8v"]
+gradient = SubResource("Gradient_38jp5")
+
+[sub_resource type="Curve" id="Curve_hs6sy"]
+_data = [Vector2(0, 0.442308), 0.0, 11.1282, 0, 0, Vector2(0.677419, 0.403846), -2.03134, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xndif"]
+curve = SubResource("Curve_hs6sy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6wrs6"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 24.07
+gravity = Vector3(0, 130, 0)
+initial_velocity_min = 70.34
+initial_velocity_max = 106.31
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 113.9
+scale_min = 1.88
+scale_max = 2.42
+scale_curve = SubResource("CurveTexture_xndif")
+color = Color(0.909804, 0.772549, 0.478431, 1)
+color_ramp = SubResource("GradientTexture1D_o1n8v")
+
+[node name="peaterparticle" type="GPUParticles2D"]
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_6wrs6")
+lifetime = 2.31
+one_shot = true
+speed_scale = 1.54
+explosiveness = 1.0
+randomness = 0.2
+fixed_fps = 60
+trail_lifetime = 0.01
+trail_sections = 2
+script = ExtResource("1_2606d")
+
+[node name="Timer" type="Timer" parent="."]

@@ -1,0 +1,14 @@
+[gd_resource type="ParticleProcessMaterial" format=2]
+
+[resource]
+lifetime_randomness = 0.36
+flag_disable_z = true
+gravity = Vector3( 15, -13.432, 0 )
+initial_velocity = 25.0
+initial_velocity_random = 0.54
+angular_velocity = 2.39
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -8.78
+scale = 1.46
+scale_random = 0.49

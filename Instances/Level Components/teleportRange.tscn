@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://b75y4tjamjhxd"]
+
+[ext_resource type="Texture2D" uid="uid://bl1sih4l2hc1o" path="res://Sprites/Misc/telecircle.png" id="1_w6wk4"]
+[ext_resource type="Script" path="res://Scripts/Teleport.gd" id="2_i76v6"]
+[ext_resource type="AudioStream" uid="uid://big37bu0irl0d" path="res://Audio/sfx/pop.ogg" id="3_i142d"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_76bij"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tntab"]
+radius = 32.0983
+
+[node name="Teleport" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.45098)
+z_index = -2
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_76bij")
+scale = Vector2(1.594, 1.594)
+texture = ExtResource("1_w6wk4")
+script = ExtResource("2_i76v6")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_tntab")
+
+[node name="teleport" type="Timer" parent="."]
+one_shot = true
+
+[node name="teleportAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_i142d")

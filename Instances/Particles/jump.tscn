@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://c47s7bcptcs5v"]
+
+[sub_resource type="Curve" id="Curve_fpph1"]
+_data = [Vector2(0.65, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -9.42148, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_itlxa"]
+curve = SubResource("Curve_fpph1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n6pu4"]
+lifetime_randomness = 0.07
+particle_flag_align_y = true
+particle_flag_disable_z = true
+direction = Vector3(0, 180, 0)
+spread = 69.44
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 82.02
+initial_velocity_max = 82.02
+orbit_velocity_min = -0.6
+orbit_velocity_max = 0.6
+scale_min = 0.83
+scale_max = 1.3
+scale_curve = SubResource("CurveTexture_itlxa")
+collision_mode = 1
+collision_friction = 0.36
+collision_bounce = 0.19
+
+[node name="jump" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_n6pu4")
+explosiveness = 1.0
+fixed_fps = 60

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://pn1m7mimnnwj"
+path="res://.godot/imported/door open sound effect.ogg-ee9770f4421fe1df9cc89859446df8ab.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/sfx/door open sound effect.ogg"
+dest_files=["res://.godot/imported/door open sound effect.ogg-ee9770f4421fe1df9cc89859446df8ab.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

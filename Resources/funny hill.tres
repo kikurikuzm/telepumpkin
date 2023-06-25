@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ceru65j0aqtgm"]
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.690196, 0.937255, 0.733333, 1)
+heightmap_scale = 0.504
+backlight = Color(0.568627, 0, 0.0784314, 1)
+disable_receive_shadows = true
+distance_fade_min_distance = 3.84

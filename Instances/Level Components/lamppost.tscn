@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://xr8202de1yy1"]
+
+[ext_resource type="Texture2D" uid="uid://bywchk6gywd7a" path="res://Sprites/lights/post.png" id="1_ou7ot"]
+[ext_resource type="Texture2D" uid="uid://cfj7t8g508v5o" path="res://Sprites/lights/bulb.png" id="2_kf2hd"]
+[ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="3_u2pke"]
+
+[node name="lamppost" type="Node2D"]
+
+[node name="Lamp" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_ou7ot")
+
+[node name="bulb" type="Sprite2D" parent="Lamp"]
+light_mask = 32
+z_index = -1
+texture = ExtResource("2_kf2hd")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(16, -38)
+color = Color(1, 0.894118, 0.470588, 1)
+shadow_enabled = true
+shadow_filter = 1
+texture = ExtResource("3_u2pke")
+offset = Vector2(0, 68)

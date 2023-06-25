@@ -1,0 +1,31 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://nys14wdgen6o"]
+
+[sub_resource type="Gradient" id="Gradient_yl6e0"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.505208, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ebdc3"]
+gradient = SubResource("Gradient_yl6e0")
+
+[resource]
+lifetime_randomness = 0.15
+emission_shape = 1
+emission_sphere_radius = 9.32
+particle_flag_align_y = true
+direction = Vector3(0, -180, -2)
+spread = 25.98
+gravity = Vector3(0, 70, 0)
+initial_velocity_min = 129.85
+initial_velocity_max = 129.85
+angle_min = -105.4
+angle_max = 82.0
+scale_max = 1.49
+color = Color(0.870588, 0.870588, 0.870588, 1)
+color_ramp = SubResource("GradientTexture1D_ebdc3")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+turbulence_enabled = true
+turbulence_noise_scale = 8.63
+turbulence_noise_speed_random = 0.89
+turbulence_initial_displacement_max = 6.5

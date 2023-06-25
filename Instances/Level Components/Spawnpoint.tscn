@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://csigyecrman8f"]
+
+[ext_resource type="Texture2D" uid="uid://bdqacqbu2o8tr" path="res://Sprites/Kin/kin idle.png" id="1"]
+
+[node name="spawn" type="Node2D"]
+editor_description = "Place this where you want the player to spawn."
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.196078)
+texture = ExtResource("1")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dver4moetuuw8"]
+
+[ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="1_ehfmo"]
+
+[node name="teleportLight" type="PointLight2D"]
+position = Vector2(0, 9)
+color = Color(0.933333, 0.396078, 0.933333, 1)
+texture = ExtResource("1_ehfmo")

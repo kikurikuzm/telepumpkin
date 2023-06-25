@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddp3f62huxqab"]
+
+[ext_resource type="Script" path="res://Scripts/debugUI.gd" id="1"]
+
+[sub_resource type="Theme" id="1"]
+ItemList/colors/font_color = Color(0.784314, 0.784314, 0.784314, 1)
+ItemList/colors/guide_color = Color(0.580392, 0.580392, 0.580392, 0.352941)
+
+[node name="debugUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -472.0
+offset_top = -265.0
+offset_right = 472.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelSelect" type="ItemList" parent="TabContainer"]
+layout_mode = 2
+theme = SubResource("1")
+
+[node name="Debug Settings" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="mouseFly" type="CheckButton" parent="TabContainer/Debug Settings"]
+layout_mode = 0
+offset_right = 76.0
+offset_bottom = 40.0
+shortcut_in_tooltip = false
+text = "Mouse Teleport"
+
+[node name="timeScaleSlider" type="HSlider" parent="TabContainer/Debug Settings"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 266.0
+offset_bottom = 64.0
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="levNumb" type="SpinBox" parent="TabContainer/Debug Settings"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 71.0
+offset_right = 119.0
+offset_bottom = 102.0
+prefix = "levnumb"
+
+[node name="currentLevel" type="Label" parent="TabContainer/Debug Settings/levNumb"]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 3.0
+offset_right = 388.0
+offset_bottom = 29.0
+text = "CURRENTLEVEL"
+vertical_alignment = 1
+
+[node name="givetpLabel" type="Label" parent="TabContainer/Debug Settings"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 119.0
+offset_right = 46.0
+offset_bottom = 142.0
+text = "Give TP"
+
+[node name="givetp" type="CheckButton" parent="TabContainer/Debug Settings/givetpLabel"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 2.0
+offset_right = 102.0
+offset_bottom = 26.0
+
+[node name="Psudoconsole" type="Panel" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="consoleLabel" type="Label" parent="TabContainer/Psudoconsole"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 936.0
+offset_bottom = 494.0
+text = "the console"
+
+[connection signal="item_activated" from="TabContainer/LevelSelect" to="." method="_on_Levels_item_activated"]
+[connection signal="toggled" from="TabContainer/Debug Settings/mouseFly" to="." method="_on_mouse_fly_toggled"]
+[connection signal="value_changed" from="TabContainer/Debug Settings/timeScaleSlider" to="." method="_on_time_scale_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Debug Settings/levNumb" to="." method="_on_lev_numb_value_changed"]
+[connection signal="toggled" from="TabContainer/Debug Settings/givetpLabel/givetp" to="." method="_on_givetp_toggled"]

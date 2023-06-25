@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3f2yxhryw6hu"]
+
+[ext_resource type="Material" uid="uid://nys14wdgen6o" path="res://Resources/exitParticles.tres" id="1_s7p43"]
+[ext_resource type="Script" path="res://Scripts/genericParticleClean.gd" id="2_cx48x"]
+
+[node name="pumpkinAchieve" type="GPUParticles2D"]
+emitting = false
+amount = 100
+process_material = ExtResource("1_s7p43")
+lifetime = 3.84
+one_shot = true
+explosiveness = 0.94
+randomness = 0.12
+script = ExtResource("2_cx48x")
+
+[node name="Timer" type="Timer" parent="."]

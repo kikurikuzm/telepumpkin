@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ditloehdm87ci"]
+
+[ext_resource type="Script" path="res://Scripts/timedStream.gd" id="1_6gxc8"]
+
+[node name="timedStream" type="AudioStreamPlayer2D"]
+volume_db = 6.71
+autoplay = true
+script = ExtResource("1_6gxc8")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

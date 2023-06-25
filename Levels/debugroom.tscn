@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://cg7daib18pq0c"]
+
+[ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="1"]
+[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Resources/Tile Sets/farmlandTiles.tres" id="2"]
+[ext_resource type="PackedScene" uid="uid://ce55buakgjg5x" path="res://Instances/Level Components/radio.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="5_eesqr"]
+[ext_resource type="AudioStream" uid="uid://cq7edrbcnpmme" path="res://Audio/Kings and Queens of Wasteland.mp3" id="5_rsidw"]
+[ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_28gtu"]
+[ext_resource type="PackedScene" path="res://Instances/Level Components/NPC.tscn" id="7_6nr3k"]
+[ext_resource type="AudioStream" uid="uid://co4dnomyhsvwk" path="res://Audio/sfx/dialog/dialogue-01.ogg" id="8_vcyrj"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_rqx7x"]
+
+[node name="TileMap" type="TileMap"]
+tile_set = ExtResource("2")
+format = 2
+layer_0/tile_data = PackedInt32Array(1900564, 0, 0, 1900565, 0, 0, 1900566, 0, 0, 1900567, 0, 0, 1900568, 0, 0, 1900569, 0, 0, 1900570, 0, 0, 1900571, 0, 0, 1900572, 0, 0, 1900573, 0, 0, 1900574, 0, 0, 1900575, 0, 0, 1900576, 0, 0, 1900577, 0, 0, 1900578, 0, 0, 1900579, 0, 0, 1966115, 0, 0, 1966116, 0, 0, 1966117, 0, 0, 1900581, 0, 0, 1900580, 0, 0, 1966114, 0, 0, 1966113, 0, 0, 1966112, 0, 0, 1966111, 0, 0, 1966110, 0, 0, 1966109, 0, 0, 1966108, 0, 0, 1966107, 0, 0, 1966106, 0, 0, 1966105, 0, 0, 2031640, 0, 0, 2031639, 0, 0, 2031638, 0, 0, 2031637, 0, 0, 1966101, 0, 0, 1966100, 0, 0, 1966102, 0, 0, 1966103, 0, 0, 1966104, 0, 0, 1703961, 0, 0, 1703962, 0, 0, 1703963, 0, 0, 1703964, 0, 0, 1638426, 0, 0, 1638427, 0, 0, 1638428, 0, 0, 1572891, 0, 0, 1572892, 0, 0)
+
+[node name="spawn" parent="." instance=ExtResource("1")]
+position = Vector2(726, 891)
+
+[node name="pumpkin" parent="." instance=ExtResource("4")]
+position = Vector2(873, 884)
+
+[node name="Radio" parent="." instance=ExtResource("3")]
+position = Vector2(1118, 920)
+stream = ExtResource("5_rsidw")
+volume_db = -0.017
+autoplay = false
+
+[node name="manhole" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(911, 764)
+
+[node name="manhole2" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(755, 926)
+direction = 1
+
+[node name="levelVariables" parent="." instance=ExtResource("6_28gtu")]
+position = Vector2(728, 852)
+playerZoom = 3.0
+levelAmbience = ExtResource("8_vcyrj")
+levelBackground = null
+levelForeground = null
+
+[node name="NPC" parent="." instance=ExtResource("7_6nr3k")]
+position = Vector2(1035, 896)
+npcLook = "kin"
+
+[node name="trigger" parent="." instance=ExtResource("9_rqx7x")]
+position = Vector2(645, 902)
+triggerId = 5
+
+[node name="manhole3" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(942, 926)
+id = 1
+
+[node name="manhole4" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(673, 794)
+id = 1
+direction = 1
+
+[node name="manhole6" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(1159, 803)
+id = 2
+
+[node name="manhole5" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(775, 708)
+id = 2
+direction = 1
+
+[node name="thumb" type="Camera2D" parent="."]
+position = Vector2(899, 780)
+zoom = Vector2(1.589, 1.589)
