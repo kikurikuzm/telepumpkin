@@ -23,7 +23,7 @@ extends CharacterBody2D
 
 var curveX : float
 var curveY : float
-
+var jumpstrength: float
 
 var inDialog = false
 
@@ -55,7 +55,8 @@ signal enteringEntrance(scene)
 func jump(strength):
 	customVelocity.y = -strength
 
-#func _physics_process(delta):
+func _physics_process(delta):
+	velocity.y += gravity
 #	var direction = 0
 #
 #	if is_on_ceiling_only():

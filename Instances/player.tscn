@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://ck3y2as0labp0"]
+[gd_scene load_steps=45 format=3 uid="uid://ck3y2as0labp0"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -9,7 +9,10 @@
 [ext_resource type="Script" path="res://Scripts/State/player states/playerStop.gd" id="5_c0d7w"]
 [ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="5_qpng8"]
 [ext_resource type="PackedScene" uid="uid://b75y4tjamjhxd" path="res://Instances/Level Components/teleportRange.tscn" id="6_6y066"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerJump.gd" id="6_40u7v"]
 [ext_resource type="PackedScene" uid="uid://chbbs287xrcbf" path="res://Instances/Helpers/footstepManager.tscn" id="7_lr33s"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerFalling.gd" id="7_u8qku"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerStretch.gd" id="8_sjiu6"]
 [ext_resource type="AudioStream" uid="uid://c1666rseg7wjt" path="res://Audio/sfx/grassStep-01.ogg" id="8_vg4jm"]
 [ext_resource type="AudioStream" uid="uid://buope0rqbdyn8" path="res://Audio/sfx/grassStep-02.ogg" id="9_7ukhu"]
 [ext_resource type="AudioStream" uid="uid://dlvp15rgvkl2g" path="res://Audio/sfx/grassStep-03.ogg" id="10_yc71b"]
@@ -476,10 +479,11 @@ script = ExtResource("2_7igkb")
 debugtext = NodePath("../debugText")
 initial_state = NodePath("playerIdle")
 
-[node name="playerIdle" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer")]
+[node name="playerIdle" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
 script = ExtResource("3_k086q")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
+playerSprite = NodePath("../../AnimatedSprite2D")
 
 [node name="playerWalking" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
 script = ExtResource("4_v361r")
@@ -489,6 +493,22 @@ playerSprite = NodePath("../../AnimatedSprite2D")
 
 [node name="playerStop" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
 script = ExtResource("5_c0d7w")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+playerSprite = NodePath("../../AnimatedSprite2D")
+
+[node name="playerJump" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer")]
+script = ExtResource("6_40u7v")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+
+[node name="playerFalling" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer")]
+script = ExtResource("7_u8qku")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+
+[node name="playerStretch" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
+script = ExtResource("8_sjiu6")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
