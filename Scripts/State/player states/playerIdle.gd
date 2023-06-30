@@ -13,6 +13,9 @@ func exit():
 	pass
 
 func update(delta: float):
+	if !player.is_on_floor():
+		transitioned.emit(self, "playerfalling")
+	
 	if Input.is_action_pressed("left") or \
 	Input.is_action_pressed("right"):
 		transitioned.emit(self, "playerwalking")
@@ -22,5 +25,4 @@ func update(delta: float):
 		transitioned.emit(self, "playerstretch")
 
 func physics_update(delta: float):
-	if !player.is_on_floor():
-		transitioned.emit(self, "playerfalling")
+	pass

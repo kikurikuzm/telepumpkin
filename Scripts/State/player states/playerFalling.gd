@@ -3,6 +3,7 @@ class_name playerFalling
 
 @export var player : CharacterBody2D
 @export var animPlayer : AnimationPlayer
+@export var impactAudio : AudioStreamPlayer2D
 
 var aircontrol = 1
 
@@ -11,7 +12,9 @@ func enter():
 	player.gravity = 22
 
 func exit():
-	pass
+	if player.is_on_floor():
+		impactAudio.pitch_scale = randf_range(0.75, 1.0)
+		impactAudio.play()
 
 func update(delta: float):
 	if Input.is_action_pressed("left"):

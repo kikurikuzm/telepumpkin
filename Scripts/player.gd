@@ -2,10 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 @onready var spriteAnim = get_node("AnimatedSprite2D")
-@onready var specAnim = get_node("AnimationTree/AnimationPlayer")
 @onready var teleportRange = get_node("Teleport")
 @onready var mouseStretch = get_node("mouseStretch")
-@onready var footstepManager = get_node("footstepManager")
 @onready var playerCam = get_node("Camera2D")
 @onready var interactArea = get_node("interactArea")
 @onready var tpp = get_node("AnimatedSprite2D/tpp")
@@ -124,6 +122,7 @@ func _process(delta):
 								get_parent().get_node("questManager").changeQuest(npcVariables[3])
 								inDialog = false
 								dialogBox.visible = false
+								$stateFactory.on_child_transition($stateFactory.current_state, "playeridle")
 						if dialogText.visible_ratio < 1.0 and $dialogTimer.is_stopped():
 							dialogText.visible_ratio = 0.99
 					break
@@ -162,10 +161,9 @@ var currentDialog : int
 var dialogSpeed : float
 
 func initiateDialog(npcVariables: Array):
-	if currentDialog == 0:
+	if currentDialog == 0 and is_on_floor():
 		print("started")
-		set_physics_process(false)
-		#specAnim.play("idle")
+		$stateFactory.on_child_transition($stateFactory.current_state, "playertalking")
 		var text = npcVariables[0]
 		var portrait = npcVariables[1]
 	
