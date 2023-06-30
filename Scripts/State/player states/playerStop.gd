@@ -5,7 +5,7 @@ class_name playerStop
 @export var animPlayer : AnimationPlayer
 @export var playerSprite : AnimatedSprite2D
 
-@export var friction = 3
+@export var friction = 6
 
 var stopThreshold = 8
 

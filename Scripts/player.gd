@@ -11,7 +11,7 @@ extends CharacterBody2D
 @onready var tpp = get_node("AnimatedSprite2D/tpp")
 @onready var tppLine = get_node("tppLine")
 
-@onready var stretchAudio = get_node("stretchstream")
+@onready var collectAudio = $collectAudio
 
 @onready var questManager = get_parent().get_node("questManager")
 
@@ -21,8 +21,6 @@ extends CharacterBody2D
 
 @onready var accelCurve = load("res://Resources/movement_accel.tres")
 
-var curveX : float
-var curveY : float
 var jumpstrength: float
 
 var inDialog = false
@@ -31,185 +29,20 @@ var hasTPP = false
 var holdingTPP = false
 var tppInst
 
-var sliding = false
-
 @export var speed = 100
 @export var gravity = 11
 @export var jumpStrength = 200
 
-var mSpeed = 5
-const MAXSPEED = 5
-const ACCELRATE = 0.00025
-
 var cameraZoom = 3.5
-
-var accel : float
-
-var customVelocity = Vector2.ZERO
 
 #debug variables
 var mousefly = false
 
 signal enteringEntrance(scene)
 
-func jump(strength):
-	customVelocity.y = -strength
-
 func _physics_process(delta):
-	velocity.y += gravity
-#	var direction = 0
-#
-#	if is_on_ceiling_only():
-#		gravity = 22
-#		customVelocity.y = 0
-#
-#	var interactArray = interactArea.get_overlapping_areas()
-#	for area in interactArray:
-#		if area.get_parent().is_in_group("manhole"):
-#			if area.get_parent().enterManhole(customVelocity) != null:
-#				var manhole = area.get_parent()
-#				var exitVariables = manhole.enterManhole(customVelocity)
-#				if exitVariables[2] <= 0:
-#					position = exitVariables[0]
-#					customVelocity = exitVariables[1]
-#
-#	if is_on_floor():
-#		customVelocity.y = 0
-#
-#	if inDialog:
-#		customVelocity = Vector2(0,0)
-#		accel = 0
-#		spriteAnim.animation = "Idle"
-#
-#	#
-#	if Input.is_action_just_released("left") or Input.is_action_just_released("right"):
-#		curveX = 0
-#
-#	if Input.is_action_pressed("right"):
-#		spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, 3.0, 0.2)
-#		accel += accelerate(1)
-#		specAnim.play("walk")
-#		direction += 1
-#		spriteAnim.flip_h = false
-#		#if is_on_floor():
-#
-#		#if !is_on_floor():
-#		#	direction += 1
-#
-#	if Input.is_action_pressed("left"):
-#		spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, -3.0, 0.2)
-#		accel -= accelerate(1)
-#		specAnim.play("walk")
-#		direction -= 1
-#		spriteAnim.flip_h = true
-#		#if is_on_floor():
-#
-#		#if !is_on_floor():
-#		#	direction -= 1
-#
-#	if direction == 0:
-#		if is_on_floor():
-#			spriteAnim.rotation_degrees = lerp(spriteAnim.rotation_degrees, 0.0, 0.3)
-#			specAnim.play("idle")
-#			customVelocity.x = accel * 14.0
-#			accel = lerp(accel, 0.0, 0.15)
-#			curveX = 0
-#			if abs(accel) > 0.6 and is_on_floor():
-#				specAnim.play("stop")
-#	else:
-#		customVelocity.x = ((direction * speed) * (accel / 4)) * direction
-#	accel = clamp(accel, -mSpeed, mSpeed)
-#	$debugText.text = str(jumpStrength)
-#
-#
-#	#stretch up
-#	if Input.is_action_pressed("up"):
-#		$Teleport.scale.x = lerp($Teleport.scale.x, 0.4, 0.1)
-#		$Teleport.scale.y = lerp($Teleport.scale.y, 3.0, 0.1)
-#		specAnim.play("Stretch")
-#		jumpStrength += 9
-#		jumpStrength = clamp(jumpStrength, 0, 300)
-#		mSpeed = 4
-#		speed = 65
-#
-#		if hasTPP and !holdingTPP: tppInst.stretchUp()
-#
-#	if Input.is_action_just_released("up"):
-#		if is_on_floor():
-#			spriteAnim.animation = "walk"
-#			spriteAnim.frame = 0
-#			$Teleport.scale.x = 1.594
-#			$Teleport.scale.y = 1.594
-#			mSpeed = MAXSPEED
-#			speed = 100
-#			curveX = 0
-#			curveY = 0
-#			jump(jumpStrength)
-#		if !is_on_floor():
-#			$Teleport.scale.x = 1.594
-#			$Teleport.scale.y = 1.594
-#			mSpeed = MAXSPEED
-#			speed = 100
-#		if hasTPP and !holdingTPP: tppInst.stretching = false
-#
-#	if !is_on_floor():
-#		if jumpStrength > 0:
-#			jumpStrength = 0
-#
-#	#gravity adjusting based on player velocity
-#	if customVelocity.y > 0:
-#		gravity = 22
-#	elif customVelocity.y < 0 and !is_on_floor():
-#		gravity = 8
-#	elif !Input.is_action_pressed("up"):
-#		gravity = 22
-#
-#	customVelocity.y += gravity
-#
-#	#squish
-#	if Input.is_action_pressed("down") and !Input.is_action_pressed("up"):
-#		$Teleport.scale.x = lerp($Teleport.scale.x, 3.0, 0.25)
-#		$Teleport.scale.y = lerp($Teleport.scale.y, 0.4, 0.15)
-#		specAnim.play("stretchDown")
-#		mSpeed = 2
-#		speed = 40
-#		if hasTPP and !holdingTPP: get_parent().get_node("tpp").stretchDown()
-#
-#	if Input.is_action_just_released("down"):
-#		$Teleport.scale.x = 1.594
-#		$Teleport.scale.y = 1.594
-#		if hasTPP and !holdingTPP: get_parent().get_node("tpp").stretching = false
-#		mSpeed = MAXSPEED
-#		speed = 100
-#
-#	#sliding
-##	if Input.is_action_just_pressed("down") and (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
-##		specAnim.play("squish")
-##		spriteAnim.play("Stop")
-##		mSpeed = 12
-##		accel += 10 * direction 
-##		sliding = true
-#
-#	#play stop animation while changing direction
-#	if direction != 0:
-#		if is_on_floor():
-#			pass
-#		if sign(accel) != direction:
-#			specAnim.play("stop")
-#			spriteAnim.flip_h = convert(abs(direction + 1), 1)
-#
-#	#removing all acceleration if colliding with wall
-#	if is_on_wall() and direction == 0:
-#		accel = 0
-#
-#	#big chunk of code for move_and_slide()
-#	set_velocity(customVelocity)
-#	set_up_direction(Vector2.UP)
-#	set_floor_stop_on_slope_enabled(true)
-#	set_max_slides(4)
-#	set_floor_max_angle(0.785398)
-#	move_and_slide()
-#	velocity = customVelocity
+	if !is_on_floor():
+		velocity.y += gravity
 	
 func _process(delta):
 	
@@ -306,7 +139,7 @@ func _process(delta):
 		tppHandler()
 	if mousefly:
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-			customVelocity = Vector2.ZERO
+			velocity = Vector2.ZERO
 			self.position = get_global_mouse_position()
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
@@ -332,7 +165,7 @@ func initiateDialog(npcVariables: Array):
 	if currentDialog == 0:
 		print("started")
 		set_physics_process(false)
-		specAnim.play("idle")
+		#specAnim.play("idle")
 		var text = npcVariables[0]
 		var portrait = npcVariables[1]
 	
@@ -352,13 +185,6 @@ func progressDialog(npcVariables: Array):
 	dialogText.text = text
 	$dialogTimer.start(0.2)
 
-func accelerate(moveDir):
-	curveY = 0
-	curveX += ACCELRATE
-	curveY = (accelCurve.sample(curveX) * 7) * moveDir
-	clamp(curveX, -mSpeed, mSpeed)
-	return(curveY)
-
 func tppHandler():
 	if hasTPP and holdingTPP:
 		holdingTPP = false
@@ -366,7 +192,7 @@ func tppHandler():
 		var tpInstance = tpLoad.instantiate()
 		get_parent().add_child(tpInstance)
 		tpInstance.global_position = global_position
-		tpInstance.throw(customVelocity * 4)
+		tpInstance.throw(velocity * 4)
 		tppInst = tpInstance
 		return
 	if !holdingTPP:
@@ -375,11 +201,9 @@ func tppHandler():
 			for i in collectArray:
 				if i.is_in_group("tpArea"):
 					holdingTPP = i.get_parent().get_parent().tppReturn()
+					collectAudio.pitch_scale = randf_range(0.8, 1.05)
+					collectAudio.play()
 					hasTPP = true
 	if hasTPP and !holdingTPP:
 		get_parent().get_node("tpp").TPteleport(global_transform)
 		return
-
-func _on_animation_player_animation_started(anim_name):
-	if anim_name == "walk" and is_on_floor():
-		footstepManager.mainStep()

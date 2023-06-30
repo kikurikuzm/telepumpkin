@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctcjvamn72bwl"]
+[gd_scene load_steps=16 format=3 uid="uid://ctcjvamn72bwl"]
 
 [ext_resource type="Script" path="res://Scripts/tpp.gd" id="1_8cce5"]
 [ext_resource type="Texture2D" uid="uid://dr1cy8d7cna7w" path="res://Sprites/TPP/tppfull.png" id="2_2p2xa"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="4_037hj"]
 [ext_resource type="Script" path="res://Scripts/Teleport.gd" id="4_srt4t"]
 [ext_resource type="AudioStream" uid="uid://big37bu0irl0d" path="res://Audio/sfx/pop.ogg" id="5_e133v"]
+[ext_resource type="AudioStream" uid="uid://diqw6fe0sax1m" path="res://Audio/sfx/metal hi newt.ogg" id="7_2v4sm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o6q5d"]
 rough = true
@@ -15,6 +16,31 @@ rough = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_tntab"]
 radius = 32.0983
 
+[sub_resource type="Gradient" id="Gradient_hn1uu"]
+colors = PackedColorArray(1, 1, 1, 0.807843, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7a1sb"]
+gradient = SubResource("Gradient_hn1uu")
+
+[sub_resource type="Curve" id="Curve_q24bg"]
+_data = [Vector2(0.86747, 0.963636), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vrjb7"]
+curve = SubResource("Curve_q24bg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_82xq8"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 1.91
+scale_max = 1.91
+scale_curve = SubResource("CurveTexture_vrjb7")
+color = Color(1, 0.568627, 0.337255, 1)
+color_ramp = SubResource("GradientTexture1D_7a1sb")
+
 [node name="tpp" type="RigidBody2D" groups=["tpp"]]
 disable_mode = 1
 collision_layer = 17
@@ -22,6 +48,8 @@ collision_mask = 17
 physics_material_override = SubResource("PhysicsMaterial_o6q5d")
 gravity_scale = 8.0
 continuous_cd = 2
+max_contacts_reported = 6
+contact_monitor = true
 can_sleep = false
 script = ExtResource("1_8cce5")
 
@@ -60,3 +88,19 @@ color = Color(0.666667, 0.0784314, 0, 1)
 energy = 1.26
 texture = ExtResource("4_037hj")
 texture_scale = 0.02
+
+[node name="clangAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_2v4sm")
+volume_db = -1.874
+attenuation = 1.93187
+
+[node name="lighttrail" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, -10)
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_82xq8")
+fixed_fps = 60
+trail_lifetime = 0.16
+trail_sections = 16
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

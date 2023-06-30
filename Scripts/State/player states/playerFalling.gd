@@ -7,7 +7,7 @@ class_name playerFalling
 var aircontrol = 1
 
 func enter():
-	animPlayer.play("idle")
+	animPlayer.play("fall")
 	player.gravity = 22
 
 func exit():

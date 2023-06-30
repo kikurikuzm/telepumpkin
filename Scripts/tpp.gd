@@ -32,3 +32,7 @@ func tppReturn():
 	print("returned")
 	self.queue_free()
 	return(true)
+
+func _on_body_entered(body):
+	$clangAudio.pitch_scale = randf_range(0.7, 1.0)
+	$clangAudio.play()

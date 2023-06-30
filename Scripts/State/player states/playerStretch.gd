@@ -9,6 +9,7 @@ class_name playerStretch
 @export var teleportRange : Sprite2D
 
 const MAXSPEED = 45
+var walkspeed = 3.5
 const ACCELERATE = 0.012
 
 @export var friction = 3
@@ -37,11 +38,11 @@ func update(delta: float):
 func physics_update(delta: float):
 	if Input.is_action_pressed("left"):
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
-		player.velocity.x -= accelerate(1)
+		player.velocity.x -= walkspeed
 		playerSprite.flip_h = true
 	if Input.is_action_pressed("right"):
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
-		player.velocity.x += accelerate(1)
+		player.velocity.x += walkspeed
 		playerSprite.flip_h = false
 		
 	if Input.is_action_just_released("left") or \
@@ -60,8 +61,10 @@ func physics_update(delta: float):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 3.0, 0.1)
 		teleportRange.scale.y = lerp(teleportRange.scale.y, 0.4, 0.1)
 	
-	if Input.is_action_just_released("up") and player.is_on_floor():
-		transitioned.emit(self, "playerjump")
+	if Input.is_action_just_released("up"):
+		if player.is_on_floor():
+			transitioned.emit(self, "playerjump")
+		else: transitioned.emit(self, "playerfalling")
 		
 	if Input.is_action_just_released("down"):
 		transitioned.emit(self, "playeridle")

@@ -6,6 +6,7 @@ class_name playerMoving
 @export var player : CharacterBody2D
 @export var animPlayer : AnimationPlayer
 @export var playerSprite : AnimatedSprite2D
+@export var footStream : AudioStreamPlayer2D
 
 const MAXSPEED = 125
 const ACCELERATE = 0.005

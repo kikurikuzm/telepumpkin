@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://diqw6fe0sax1m"
+path="res://.godot/imported/metal hi newt.ogg-cf9c0ab9f450c9aae6e148af483a98e7.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/sfx/metal hi newt.ogg"
+dest_files=["res://.godot/imported/metal hi newt.ogg-cf9c0ab9f450c9aae6e148af483a98e7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

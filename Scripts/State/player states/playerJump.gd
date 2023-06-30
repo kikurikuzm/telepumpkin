@@ -7,7 +7,7 @@ class_name playerJump
 var aircontrol = 3
 
 func enter():
-	animPlayer.play("idle")
+	animPlayer.play("jump")
 	player.velocity.y -= player.jumpstrength
 	player.gravity = 8
 
