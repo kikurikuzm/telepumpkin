@@ -7,6 +7,8 @@ class_name playerStop
 
 @export var friction = 3
 
+var stopThreshold = 8
+
 func enter():
 	animPlayer.play("stop")
 
@@ -14,16 +16,17 @@ func exit():
 	pass
 
 func update(delta: float):
-	if Input.is_action_pressed("left"):
-		transitioned.emit(self, "playerwalking")
-	if Input.is_action_pressed("right"):
-		transitioned.emit(self, "playerwalking")
+#	if Input.is_action_pressed("left"):
+#		transitioned.emit(self, "playerwalking")
+#	if Input.is_action_pressed("right"):
+#		transitioned.emit(self, "playerwalking")
+	pass
 
 func physics_update(delta: float):
 	playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 0.0, 0.2)
 	
-	if player.velocity.x <= 2 and \
-	player.velocity.x >= -2:
+	if player.velocity.x <= stopThreshold and \
+	player.velocity.x >= -stopThreshold:
 		transitioned.emit(self, "playeridle")
 	
 	player.velocity.x += friction * sign(player.velocity.x) * -1

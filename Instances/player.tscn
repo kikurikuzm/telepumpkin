@@ -236,6 +236,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_tq1i8"]
 resource_name = "stretchDown"
@@ -507,11 +519,12 @@ script = ExtResource("7_u8qku")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 
-[node name="playerStretch" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
+[node name="playerStretch" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange")]
 script = ExtResource("8_sjiu6")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
+teleportRange = NodePath("../../Teleport")
 
 [node name="tppLine" type="Line2D" parent="."]
 visible = false

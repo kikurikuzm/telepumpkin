@@ -7,8 +7,8 @@ class_name playerMoving
 @export var animPlayer : AnimationPlayer
 @export var playerSprite : AnimatedSprite2D
 
-@export var MAXSPEED = 90
-@export var ACCELERATE = 0.005
+const MAXSPEED = 125
+const ACCELERATE = 0.005
 
 var curveY : float
 var curveX : float
@@ -31,8 +31,8 @@ func update(delta: float):
 	pass
 
 func physics_update(delta: float):
-	if Input.is_action_just_pressed("up") or \
-	Input.is_action_just_pressed("down"):
+	if Input.is_action_pressed("up") or \
+	Input.is_action_pressed("down"):
 		transitioned.emit(self, "playerstretch")
 	
 	if Input.is_action_pressed("left"):
