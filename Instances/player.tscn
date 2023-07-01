@@ -785,11 +785,12 @@ animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 footStream = NodePath("../../footstepAudio")
 
-[node name="playerStop" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
+[node name="playerStop" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "turnTimer")]
 script = ExtResource("5_c0d7w")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
+turnTimer = NodePath("../../turnTimer")
 
 [node name="playerJump" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer")]
 script = ExtResource("6_40u7v")
@@ -890,6 +891,9 @@ shape = SubResource("RectangleShape2D_4bcid")
 
 [node name="dialogTimer" type="Timer" parent="."]
 wait_time = 0.2
+one_shot = true
+
+[node name="turnTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="debugText" type="Label" parent="."]

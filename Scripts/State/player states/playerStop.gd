@@ -4,6 +4,7 @@ class_name playerStop
 @export var player : CharacterBody2D
 @export var animPlayer : AnimationPlayer
 @export var playerSprite : AnimatedSprite2D
+@export var turnTimer : Timer
 
 @export var friction = 6
 
@@ -11,6 +12,7 @@ var stopThreshold = 8
 
 func enter():
 	animPlayer.play("stop")
+	turnTimer.start(0.15)
 
 func exit():
 	pass
@@ -28,6 +30,11 @@ func physics_update(delta: float):
 	if player.velocity.x <= stopThreshold and \
 	player.velocity.x >= -stopThreshold:
 		transitioned.emit(self, "playeridle")
+	
+	if turnTimer.is_stopped():
+		if Input.is_action_pressed("left") or \
+		Input.is_action_pressed("right"):
+			transitioned.emit(self, "playerwalking")
 	
 	player.velocity.x += friction * sign(player.velocity.x) * -1
 	

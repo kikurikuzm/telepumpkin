@@ -30,6 +30,7 @@ var tppInst
 @export var speed = 100
 @export var gravity = 11
 @export var jumpStrength = 200
+var direction
 
 var cameraZoom = 3.5
 

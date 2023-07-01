@@ -49,6 +49,9 @@ func physics_update(delta: float):
 	Input.is_action_just_released("right"):
 		transitioned.emit(self, "playerstop")
 	
+	if player.velocity.y > 0:
+		transitioned.emit(self, "playerfalling")
+	
 	player.velocity.x = clampf(player.velocity.x, -MAXSPEED, MAXSPEED)
 	
 	player.move_and_slide()
