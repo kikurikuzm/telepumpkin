@@ -11,6 +11,11 @@ class_name playerStop
 var stopThreshold = 8
 
 func enter():
+	if sign(player.velocity.x) == -1:
+		playerSprite.flip_h = true
+	elif sign(player.velocity.x) == 1:
+		playerSprite.flip_h = false
+		
 	animPlayer.play("stop")
 	turnTimer.start(0.15)
 
@@ -18,6 +23,8 @@ func exit():
 	pass
 
 func update(delta: float):
+	
+	
 #	if Input.is_action_pressed("left"):
 #		transitioned.emit(self, "playerwalking")
 #	if Input.is_action_pressed("right"):
@@ -37,7 +44,5 @@ func physics_update(delta: float):
 			transitioned.emit(self, "playerwalking")
 	
 	player.velocity.x += friction * sign(player.velocity.x) * -1
-	
-	print(player.velocity.x)
 	
 	player.move_and_slide()

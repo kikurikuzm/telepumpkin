@@ -43,6 +43,16 @@ func _physics_process(delta):
 	if !is_on_floor():
 		velocity.y += gravity
 	
+	var interactArray = interactArea.get_overlapping_areas()
+	for area in interactArray:
+		if area.get_parent().is_in_group("manhole"):
+			if area.get_parent().enterManhole(velocity) != null:
+				var manhole = area.get_parent()
+				var exitVariables = manhole.enterManhole(velocity)
+				if exitVariables[2] <= 0:
+					position = exitVariables[0]
+					velocity = exitVariables[1]
+	
 func _process(delta):
 	
 	#playerCam.offset = lerp(playerCam.offset, self.global_position - playerCam.global_position, 0.05)
@@ -86,7 +96,6 @@ func _process(delta):
 		$Teleport.visible = false
 		$Teleport.set_process(false)
 	else:
-		$Teleport.visible = true
 		$Teleport.set_process(true)
 	
 		
@@ -100,7 +109,6 @@ func _process(delta):
 	mousefly = gvars.mousefly
 
 	if Input.is_action_just_pressed("teleport"):
-		print(currentDialog)
 		if interactArea.get_overlapping_areas() != []:
 			for node in interactArea.get_overlapping_areas():
 				if node.is_in_group("npc"):
@@ -108,7 +116,6 @@ func _process(delta):
 					var dialogLength = len(npcVariables[0]) - 1
 					
 					if !inDialog:
-						print("test")
 						currentDialog = 0
 						initiateDialog(npcVariables)
 					if inDialog:

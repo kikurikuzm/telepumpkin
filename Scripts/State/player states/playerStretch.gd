@@ -49,6 +49,9 @@ func physics_update(delta: float):
 	Input.is_action_just_released("right"):
 		curveX = 0
 	
+	if player.velocity.x <= 1 and \
+	player.velocity.x >= -1:
+		player.velocity.x = 0
 	
 	if Input.is_action_pressed("up"):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 0.4, 0.1)

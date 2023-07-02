@@ -36,11 +36,11 @@ func physics_update(delta: float):
 	Input.is_action_pressed("down"):
 		transitioned.emit(self, "playerstretch")
 	
-	if Input.is_action_pressed("left"):
+	if Input.is_action_pressed("left") and !Input.is_action_pressed("right"):
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
 		player.velocity.x -= accelerate(1)
 		playerSprite.flip_h = true
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("right") and !Input.is_action_pressed("left"):
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
 		player.velocity.x += accelerate(1)
 		playerSprite.flip_h = false

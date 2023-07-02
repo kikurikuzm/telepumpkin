@@ -8,6 +8,12 @@ func _process(delta):
 	if !stretching:
 		$Teleport.scale.x = lerp($Teleport.scale.x, 1.594, 0.1)
 		$Teleport.scale.y = lerp($Teleport.scale.y, 1.594, 0.1)
+	
+	if Input.is_action_pressed("up"):
+		stretchUp()
+	elif Input.is_action_pressed("down"):
+		stretchDown()
+	else: stretching = false
 
 func throw(velocity:Vector2):
 	print("thrown")
