@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ck3y2as0labp0"]
+[gd_scene load_steps=55 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://Scripts/State/player states/playerStretch.gd" id="8_sjiu6"]
 [ext_resource type="AudioStream" uid="uid://c1666rseg7wjt" path="res://Audio/sfx/grassStep-01.ogg" id="8_vg4jm"]
 [ext_resource type="AudioStream" uid="uid://buope0rqbdyn8" path="res://Audio/sfx/grassStep-02.ogg" id="9_7ukhu"]
-[ext_resource type="Script" path="res://Scripts/State/player states/playerTalking.gd" id="9_bgynj"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerBusy.gd" id="9_8rj2v"]
 [ext_resource type="AudioStream" uid="uid://dlvp15rgvkl2g" path="res://Audio/sfx/grassStep-03.ogg" id="10_yc71b"]
 [ext_resource type="AudioStream" uid="uid://rjkd5e5f8lks" path="res://Audio/sfx/concretestep1.ogg" id="11_u8ed2"]
 [ext_resource type="AudioStream" uid="uid://svt0a04xus22" path="res://Audio/sfx/concretestep2.ogg" id="12_2jc7n"]
@@ -810,8 +810,8 @@ animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 
-[node name="playerTalking" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
-script = ExtResource("9_bgynj")
+[node name="playerBusy" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
+script = ExtResource("9_8rj2v")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")

@@ -1,5 +1,5 @@
 extends State
-class_name playerTalking
+class_name playerBusy
 
 @export var player : CharacterBody2D
 @export var animPlayer : AnimationPlayer

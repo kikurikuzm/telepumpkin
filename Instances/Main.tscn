@@ -1,7 +1,7 @@
 [gd_scene load_steps=53 format=3 uid="uid://bywnukq17v208"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_dpdcl"]
-[ext_resource type="PackedScene" uid="uid://ck3y2as0labp0" path="res://Instances/player.tscn" id="2_pxkbr"]
+[ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="2_pxkbr"]
 [ext_resource type="PackedScene" uid="uid://biwxpg0o4st6v" path="res://Instances/Helpers/questManager.tscn" id="3_6pp5x"]
 [ext_resource type="Environment" uid="uid://b8wuygwcxt70r" path="res://Resources/Environments/Farmlands.tres" id="5_hwca2"]
 [ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="6_3rkpl"]
