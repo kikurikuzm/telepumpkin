@@ -6,6 +6,7 @@ class_name playerFalling
 @export var impactAudio : AudioStreamPlayer2D
 
 var aircontrol = 1
+var currentVelocityY: float
 
 func enter():
 	animPlayer.play("fall")
@@ -14,6 +15,8 @@ func enter():
 func exit():
 	if player.is_on_floor():
 		impactAudio.pitch_scale = randf_range(0.75, 1.0)
+		impactAudio.volume_db = (currentVelocityY / 30) - 10
+		impactAudio.volume_db = clampf(impactAudio.volume_db, -30.0, 10.0)
 		impactAudio.play()
 
 func update(delta: float):
@@ -23,6 +26,9 @@ func update(delta: float):
 		player.velocity.x += aircontrol
 
 func physics_update(delta: float):
+	if player.velocity.y > 0:
+		currentVelocityY = player.velocity.y
+	
 	if player.velocity.y < 0:
 		transitioned.emit(self, "playerjump")
 	

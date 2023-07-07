@@ -443,6 +443,7 @@ one_shot = true
 [node name="selectParticles" type="GPUParticles2D" parent="."]
 z_index = -1
 position = Vector2(0, 10)
+emitting = false
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_rdjmg")
 lifetime = 1.79

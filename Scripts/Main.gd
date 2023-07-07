@@ -12,6 +12,7 @@ extends Node2D
 @onready var l10 = preload("res://Levels/TPlev3.tscn")
 @onready var l11 = preload("res://Levels/TPlev4.tscn")
 @onready var l12 = preload("res://Levels/TPlev5.tscn")
+@onready var l13 = preload("res://Levels/TPlev6.tscn")
 
 @onready var crumpleSFX = preload("res://Audio/sfx/crumpleclose1.ogg")
 
@@ -24,7 +25,7 @@ extends Node2D
 var tppInstCount = 0
 var tppCurrentInst = null
 
-@onready var levArray = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12]
+@onready var levArray = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13]
 #zero based levels, dont forget!
 var levNum = 0
 
@@ -159,27 +160,6 @@ func _on_level_complete():
 		print(levNum)
 	else:
 		get_tree().change_scene_to_file("res://Levels/3dTest.tscn")
-
-#func _input(event):
-	
-	
-#	if Input.is_action_just_pressed("checkQuests"):
-#		$"3DView/3DScene/3DPlayer".play("get")
-#		var tempPlayer = AudioStreamPlayer.new()
-#		add_child(tempPlayer)
-#		tempPlayer.stream = crumpleSFX
-#		tempPlayer.pitch_scale = randf_range(0.85, 1.1)
-#		tempPlayer.volume_db = -10
-#		tempPlayer.play()
-#		$"uiLayer/3DViewSprite".visible = true
-#		$worldEnd.environment.background_mode = 2
-#		#Engine.max_fps = 12
-#		await $"3DView/3DScene/3DPlayer".animation_finished
-#		$"3DView/3DScene/3DPlayer".play("idle")
-#		tempPlayer.queue_free()
-#	if Input.is_action_just_released("checkQuests"):
-#		$"uiLayer/3DViewSprite".visible = false
-#		$worldEnd.environment.background_mode = 3
 
 func _on_debug_lChange(level):
 	loadLevel(ResourceLoader.load(NodePath("res://Levels/" + level)))
