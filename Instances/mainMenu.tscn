@@ -387,24 +387,6 @@ focus_mode = 0
 theme = SubResource("Theme_2unvs")
 text = "levcopy"
 
-[node name="graphicsSettings" type="OptionButton" parent="settingsMenu"]
-material = SubResource("ShaderMaterial_a22bf")
-layout_mode = 0
-offset_left = 1030.0
-offset_top = -6.0
-offset_right = 1251.0
-offset_bottom = 34.0
-tooltip_text = "The only difference this currently makes is adjusting the antialiasing"
-theme = ExtResource("2_kn6pq")
-item_count = 3
-selected = 1
-popup/item_0/text = "Low"
-popup/item_0/id = 0
-popup/item_1/text = "Medium"
-popup/item_1/id = 1
-popup/item_2/text = "High"
-popup/item_2/id = 2
-
 [node name="resolutionSettings" type="OptionButton" parent="settingsMenu"]
 material = SubResource("ShaderMaterial_a22bf")
 layout_mode = 0
@@ -421,6 +403,24 @@ popup/item_0/id = 0
 popup/item_1/text = "1920x1080"
 popup/item_1/id = 1
 popup/item_2/text = "1280x800"
+popup/item_2/id = 2
+
+[node name="graphicsSettings" type="OptionButton" parent="settingsMenu"]
+material = SubResource("ShaderMaterial_a22bf")
+layout_mode = 0
+offset_left = 1030.0
+offset_top = -6.0
+offset_right = 1251.0
+offset_bottom = 34.0
+tooltip_text = "The only difference this currently makes is adjusting the antialiasing"
+theme = ExtResource("2_kn6pq")
+item_count = 3
+selected = 1
+popup/item_0/text = "Low"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "High"
 popup/item_2/id = 2
 
 [node name="fullscreen" type="CheckBox" parent="settingsMenu"]
@@ -559,8 +559,8 @@ libraries = {
 [connection signal="pressed" from="settingsMenu/save" to="." method="_on_apply_pressed"]
 [connection signal="pressed" from="settingsMenu/saveRemove" to="." method="_on_save_remove_pressed"]
 [connection signal="pressed" from="settingsMenu/levelRecopy" to="." method="_on_level_recopy_pressed"]
-[connection signal="item_selected" from="settingsMenu/graphicsSettings" to="." method="_on_graphics_settings_item_selected"]
 [connection signal="item_selected" from="settingsMenu/resolutionSettings" to="." method="_on_resolution_settings_item_selected"]
+[connection signal="item_selected" from="settingsMenu/graphicsSettings" to="." method="_on_graphics_settings_item_selected"]
 [connection signal="toggled" from="settingsMenu/fullscreen" to="." method="_on_fullscreen_toggled"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]

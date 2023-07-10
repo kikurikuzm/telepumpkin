@@ -2,7 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Resources/Tile Sets/apartments.tres" id="1_nrola"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_e0sts"]
-[ext_resource type="PackedScene" path="res://Instances/Level Components/NPC.tscn" id="5_xighm"]
+[ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="5_xighm"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_ednj5"]
 [ext_resource type="AudioStream" uid="uid://cn2rga2b8wx3a" path="res://Audio/Quiet Basement Ambience (Background Effect) (128 kbps)(1).mp3" id="7_5ygls"]
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="8_1wjnn"]

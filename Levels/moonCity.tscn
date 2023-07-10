@@ -1,13 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=21 format=3 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="1_lcx57"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_ekeby"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="3_3vfoy"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="4_1ugjb"]
-[ext_resource type="PackedScene" uid="uid://tghaei2oeomp" path="res://Levels/apartments.tscn" id="5_tji4g"]
+[ext_resource type="PackedScene" uid="uid://csvh7gcr765im" path="res://Levels/apartments.tscn" id="5_tji4g"]
 [ext_resource type="PackedScene" uid="uid://cpafis3j1jvn0" path="res://Levels/library.tscn" id="6_3mlwe"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_kgxg5"]
-[ext_resource type="AudioStream" uid="uid://cuf5nriufgpbu" path="res://Audio/city ambience.ogg" id="7_2nntn"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_1hlch"]
 [ext_resource type="Environment" uid="uid://bdkllmoqon3ww" path="res://Resources/Environments/moonCity.tres" id="8_cm0pj"]
 [ext_resource type="Texture2D" uid="uid://b14mb3oy84jyr" path="res://Sprites/tiles/poster.png" id="9_102g8"]
@@ -24,18 +23,23 @@ gradient = SubResource("Gradient_rhcef")
 width = 1024
 height = 2048
 
-[sub_resource type="Gradient" id="Gradient_qne3f"]
+[sub_resource type="Gradient" id="Gradient_nx7bn"]
 interpolation_mode = 1
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_x6tfr"]
-gradient = SubResource("Gradient_qne3f")
+gradient = SubResource("Gradient_nx7bn")
+
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_huega"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_haxfc"]
 font_size = 15
 font_color = Color(0.227451, 0.176471, 0.054902, 1)
 shadow_color = Color(0, 0, 0, 0.266667)
 shadow_offset = Vector2(0.5, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37ck6"]
+size = Vector2(2632, 1427)
 
 [node name="base" type="TileMap"]
 z_index = -1
@@ -107,7 +111,7 @@ canTeleport = false
 playerZoom = 5.0
 hasVignette = true
 hasMapView = false
-levelAmbience = ExtResource("7_2nntn")
+levelAmbience = SubResource("AudioStreamMP3_huega")
 levelTransition = 2
 levelBackground = ExtResource("8_1hlch")
 levelForeground = null
@@ -191,6 +195,15 @@ position = Vector2(1131, 704)
 
 [node name="lamppost4" parent="." instance=ExtResource("13_0aphl")]
 position = Vector2(448, 704)
+
+[node name="reverbArea" type="Area2D" parent="."]
+position = Vector2(452, 624)
+audio_bus_override = true
+audio_bus_name = &"reverb"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="reverbArea"]
+position = Vector2(0, -22.5)
+shape = SubResource("RectangleShape2D_37ck6")
 
 [node name="Graffiti1" type="Sprite2D" parent="."]
 position = Vector2(-228, 692)

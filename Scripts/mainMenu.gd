@@ -14,9 +14,15 @@ func _ready():
 		$settingsMenu/saveRemove.disabled = false
 	$version.text = gvars.versionNum
 	mainscene = preload("res://Instances/Main.tscn")
-	$settingsMenu/graphicsSettings.select(clamp(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa_2d")/2, 0, 2))
-	$settingsMenu/fullscreen.button_pressed = bool(ProjectSettings.get_setting("display/window/size/mode") / 4)
 	animation_player.stop()
+	
+	if FileAccess.file_exists("user://cfg.dat"):
+		var cfgfile = FileAccess.open("user://cfg.dat", FileAccess.READ)
+		var resIndex = cfgfile.get_8()
+		$settingsMenu/resolutionSettings.selected = resIndex
+		_on_resolution_settings_item_selected(resIndex)
+		$settingsMenu/graphicsSettings.selected = cfgfile.get_8()
+		$settingsMenu/fullscreen.button_pressed = bool(cfgfile.get_8())
 
 #func _process(delta):
 #	if !animation_player.is_playing():
@@ -56,13 +62,18 @@ func _on_graphics_settings_item_selected(index):
 
 func _on_fullscreen_toggled(button_pressed):
 	if button_pressed == true:
-		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_FULLSCREEN)
 	if button_pressed == false:
-		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_WINDOWED)
+		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_MAXIMIZED)
 
 func _on_apply_pressed():
 	ProjectSettings.save_custom("override.cfg")
 	print("saved cfg")
+	DirAccess.remove_absolute("user://cfg.dat")
+	var file = FileAccess.open("user://cfg.dat", FileAccess.WRITE)
+	file.store_8($settingsMenu/resolutionSettings.get_selected_id())
+	file.store_8($settingsMenu/graphicsSettings.get_selected_id())
+	file.store_8($settingsMenu/fullscreen.button_pressed)
 
 func _on_resolution_settings_item_selected(index):
 	match index:
@@ -76,7 +87,7 @@ func _on_resolution_settings_item_selected(index):
 		2:
 			ProjectSettings.set_setting("display/window/size/viewport_width", 1280)
 			ProjectSettings.set_setting("display/window/size/viewport_height", 800)
-			gvars.zoomOutScale = 1.2
+			gvars.zoomOutScale = 1.35
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_down"):
