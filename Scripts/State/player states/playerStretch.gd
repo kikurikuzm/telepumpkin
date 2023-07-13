@@ -1,32 +1,11 @@
-extends State
+extends PlayerState
 class_name playerStretch
 
-@onready var accelCurve = load("res://Resources/movement_accel.tres")
-
-@export var player : CharacterBody2D
-@export var animPlayer : AnimationPlayer
-@export var playerSprite : AnimatedSprite2D
-@export var teleportRange : Sprite2D
-
-const MAXSPEED = 45
-var walkspeed = 3.5
-const ACCELERATE = 0.012
-
-@export var friction = 3
-
-var curveY : float
-var curveX : float
-
-var stretchSpeed = 4
-
-func accelerate(moveDir:int):
-	curveY = 0
-	curveX += ACCELERATE
-	curveY = (accelCurve.sample(curveX) * 7) * moveDir
-	clamp(curveX, -MAXSPEED, MAXSPEED)
-	return(curveY)
+var walkspeed = 6.0
 
 func enter():
+	MAXSPEED = 45
+	ACCELERATE = 0.012
 	animPlayer.play("stretch")
 
 func exit():
@@ -37,12 +16,14 @@ func update(delta: float):
 
 func physics_update(delta: float):
 	if Input.is_action_pressed("left"):
+		var direction = -1
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
-		player.velocity.x -= walkspeed
+		player.velocity.x = walkspeed * accelerate(direction)
 		playerSprite.flip_h = true
 	if Input.is_action_pressed("right"):
+		var direction = 1
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
-		player.velocity.x += walkspeed
+		player.velocity.x = walkspeed * accelerate(direction)
 		playerSprite.flip_h = false
 		
 	if Input.is_action_just_released("left") or \

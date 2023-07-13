@@ -1,9 +1,5 @@
-extends State
+extends PlayerState
 class_name playerBusy
-
-@export var player : CharacterBody2D
-@export var animPlayer : AnimationPlayer
-@export var playerSprite : AnimatedSprite2D
 
 func enter():
 	player.velocity = Vector2.ZERO

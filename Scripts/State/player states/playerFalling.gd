@@ -1,9 +1,5 @@
-extends State
+extends PlayerState
 class_name playerFalling
-
-@export var player : CharacterBody2D
-@export var animPlayer : AnimationPlayer
-@export var impactAudio : AudioStreamPlayer2D
 
 var aircontrol = 1
 var currentVelocityY: float

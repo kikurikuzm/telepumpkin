@@ -9,7 +9,7 @@ extends Node2D
 var dialogSpeed = 0.05
 
 var dialogArray = [
- ["Another one, huh?", "You know, The only organic things we get down here are rejects from that farm above.", "Guess you must be one of them."],
+ ["Another one, huh?", "You know, the only organic things we get down here are rejects from that farm above."],
  ["You hear about the sewer?", "Not knowing what else could be down there gives me the creeps.."],
  ["Yea, tell me about it.", "I certainly hope whatever poor sap finds themself down there can make it out."],
  ["Man, I wish I could go to the moon...", "Just to know what was up there."],

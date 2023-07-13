@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://iy2lrf3a1bu3"]
+[gd_scene load_steps=14 format=3 uid="uid://iy2lrf3a1bu3"]
 
 [ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Resources/Tile Sets/apartments.tres" id="1_nrola"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_e0sts"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="8_1wjnn"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="8_efneq"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="9_52yw3"]
-[ext_resource type="PackedScene" uid="uid://bwif5kh6bhds0" path="res://Levels/moonCity.tscn" id="9_85nj3"]
 [ext_resource type="PackedScene" uid="uid://ce55buakgjg5x" path="res://Instances/Level Components/radio.tscn" id="10_ufuia"]
 [ext_resource type="AudioStream" uid="uid://dtj1w48e4fi3" path="res://Audio/yt1s.com_-_Dark_Fantasy1.mp3" id="11_ut4vn"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="12_bx6h3"]
@@ -74,7 +73,6 @@ levelForeground = null
 
 [node name="entrance" parent="." instance=ExtResource("8_efneq")]
 position = Vector2(774, 822)
-scene = ExtResource("9_85nj3")
 
 [node name="Radio" parent="." instance=ExtResource("10_ufuia")]
 position = Vector2(871, 824)

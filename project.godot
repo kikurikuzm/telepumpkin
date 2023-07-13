@@ -135,6 +135,7 @@ sprint={
 [physics]
 
 2d/run_on_separate_thread=true
+common/max_physics_steps_per_frame=32
 2d/default_gravity=200.0
 2d/solver/solver_iterations=64
 common/enable_pause_aware_picking=true
@@ -148,7 +149,6 @@ lights_and_shadows/positional_shadow/soft_shadow_filter_quality=1
 shading/overrides/force_vertex_shading=true
 shading/overrides/force_lambert_over_burley=true
 environment/ssil/quality=3
-anti_aliasing/quality/msaa_2d=2
 lights_and_shadows/positional_shadow/atlas_size=1024
 quality/filters/sharpen_intensity=0.021
 quality/filters/anisotropic_filter_level=8

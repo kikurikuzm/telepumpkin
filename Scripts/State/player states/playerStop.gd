@@ -1,12 +1,5 @@
-extends State
+extends PlayerState
 class_name playerStop
-
-@export var player : CharacterBody2D
-@export var animPlayer : AnimationPlayer
-@export var playerSprite : AnimatedSprite2D
-@export var turnTimer : Timer
-
-@export var friction = 6
 
 var stopThreshold = 8
 

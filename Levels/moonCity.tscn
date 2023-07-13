@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_ekeby"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="3_3vfoy"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="4_1ugjb"]
-[ext_resource type="PackedScene" uid="uid://csvh7gcr765im" path="res://Levels/apartments.tscn" id="5_tji4g"]
+[ext_resource type="PackedScene" path="res://Levels/apartments.tscn" id="5_tji4g"]
 [ext_resource type="PackedScene" uid="uid://cpafis3j1jvn0" path="res://Levels/library.tscn" id="6_3mlwe"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_kgxg5"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_1hlch"]
@@ -197,6 +197,7 @@ position = Vector2(1131, 704)
 position = Vector2(448, 704)
 
 [node name="reverbArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(452, 624)
 audio_bus_override = true
 audio_bus_name = &"reverb"

@@ -18,10 +18,12 @@ func _ready():
 	
 	if FileAccess.file_exists("user://cfg.dat"):
 		var cfgfile = FileAccess.open("user://cfg.dat", FileAccess.READ)
-		var resIndex = cfgfile.get_8()
-		$settingsMenu/resolutionSettings.selected = resIndex
-		_on_resolution_settings_item_selected(resIndex)
-		$settingsMenu/graphicsSettings.selected = cfgfile.get_8()
+		var tempIndex = cfgfile.get_8()
+		$settingsMenu/resolutionSettings.selected = tempIndex
+		_on_resolution_settings_item_selected(tempIndex)
+		tempIndex = cfgfile.get_8()
+		$settingsMenu/graphicsSettings.selected = tempIndex
+		_on_graphics_settings_item_selected(tempIndex)
 		$settingsMenu/fullscreen.button_pressed = bool(cfgfile.get_8())
 
 #func _process(delta):
@@ -54,11 +56,13 @@ func _on_graphics_settings_item_selected(index):
 			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 0)
 			print("low settings")
 		1:
-			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 2)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 1)
 			print("medium settings")
 		2:
-			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 4)
+			ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 2)
 			print("high settings")
+			
+	print(ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa_2d"))
 
 func _on_fullscreen_toggled(button_pressed):
 	if button_pressed == true:

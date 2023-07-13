@@ -1,8 +1,5 @@
-extends State
+extends PlayerState
 class_name playerJump
-
-@export var player : CharacterBody2D
-@export var animPlayer : AnimationPlayer
 
 var aircontrol = 3
 

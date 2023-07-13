@@ -1,27 +1,9 @@
-extends State
+extends PlayerState
 class_name playerMoving
 
-@onready var accelCurve = load("res://Resources/movement_accel.tres")
-
-@export var player : CharacterBody2D
-@export var animPlayer : AnimationPlayer
-@export var playerSprite : AnimatedSprite2D
-@export var footStream : AudioStreamPlayer2D
-
-const MAXSPEED = 125
-const ACCELERATE = 0.005
-
-var curveY : float
-var curveX : float
-
-func accelerate(moveDir:int):
-	curveY = 0
-	curveX += ACCELERATE
-	curveY = (accelCurve.sample(curveX) * 7) * moveDir
-	clamp(curveX, -MAXSPEED, MAXSPEED)
-	return(curveY)
-
 func enter():
+	MAXSPEED = 125
+	ACCELERATE = 0.005
 	animPlayer.play("walk")
 
 func exit():

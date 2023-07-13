@@ -5,9 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="3_tdg5v"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_3dwea"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="6_fktvw"]
-[ext_resource type="AudioStream" uid="uid://cuf5nriufgpbu" path="res://Audio/city ambience.ogg" id="7_ing2r"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="8_i8vbr"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_06yn4"]
+
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_3od47"]
 
 [sub_resource type="Gradient" id="Gradient_5qcdb"]
 interpolation_mode = 2
@@ -44,7 +45,7 @@ position = Vector2(664, 679)
 canTeleport = false
 hasVignette = true
 hasMapView = false
-levelAmbience = ExtResource("7_ing2r")
+levelAmbience = SubResource("AudioStreamMP3_3od47")
 levelBackground = SubResource("GradientTexture2D_8ceel")
 levelForeground = null
 
