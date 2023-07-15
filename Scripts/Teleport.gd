@@ -3,7 +3,11 @@ extends Sprite2D
 @onready var teleTimer = get_node("teleport")
 @onready var teleArea = get_node("Area2D")
 
+var selectedPumpkin : Node2D
+
 func _process(delta):
+	selectedPumpkin = null
+	
 	self.modulate = lerp(self.modulate, Color(1.0, 1.0, 1.0, 0.15), 0.1)
 	if teleArea.get_overlapping_bodies().size() > 0 and teleTimer.is_stopped():
 		#getting all the physics bodies within the teleport range
@@ -29,6 +33,7 @@ func _process(delta):
 				#and highlighting the selected one
 				
 			farthestPumpkin.highlighted = true
+			selectedPumpkin = farthestPumpkin
 			self.modulate = lerp(self.modulate, Color(1.0, 1.0, 1.0, 0.6), 0.14)
 
 

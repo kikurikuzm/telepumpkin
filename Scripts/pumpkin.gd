@@ -94,6 +94,8 @@ func _integrate_forces(state):
 		custom_integrator = false
 
 func spawnTracer(oldPosition:Vector2):
+	apply_impulse(Vector2(0, -60))
+	
 	var rayInst = raycast.instantiate()
 	get_parent().add_child(rayInst)
 	rayInst.sender = self

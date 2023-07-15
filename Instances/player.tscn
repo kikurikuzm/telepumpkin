@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://buope0rqbdyn8" path="res://Audio/sfx/grassStep-02.ogg" id="9_7ukhu"]
 [ext_resource type="Script" path="res://Scripts/State/player states/playerBusy.gd" id="9_8rj2v"]
 [ext_resource type="AudioStream" uid="uid://dlvp15rgvkl2g" path="res://Audio/sfx/grassStep-03.ogg" id="10_yc71b"]
+[ext_resource type="Gradient" uid="uid://blengyjxsisxd" path="res://Resources/purplegradient.tres" id="11_6kb3m"]
 [ext_resource type="AudioStream" uid="uid://rjkd5e5f8lks" path="res://Audio/sfx/concretestep1.ogg" id="11_u8ed2"]
 [ext_resource type="AudioStream" uid="uid://svt0a04xus22" path="res://Audio/sfx/concretestep2.ogg" id="12_2jc7n"]
 [ext_resource type="AudioStream" uid="uid://junj2m4vfse4" path="res://Audio/sfx/concretestep3.ogg" id="13_yi6rr"]
@@ -33,9 +34,6 @@
 [sub_resource type="Curve" id="Curve_bucuf"]
 _data = [Vector2(0, 0.730769), 0.0, 0.0, 0, 0, Vector2(0.981884, 0.153846), -0.225859, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_8ca8h"]
-colors = PackedColorArray(0.807843, 0.419608, 0.929412, 1, 0.807843, 0.6, 0.772549, 0.266667)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qna8a"]
 radius = 14.0
@@ -808,11 +806,11 @@ script = ExtResource("6_40u7v")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 
-[node name="playerFalling" type="Node" parent="stateFactory" node_paths=PackedStringArray("impactAudio", "player", "animPlayer")]
+[node name="playerFalling" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "impactAudio")]
 script = ExtResource("7_u8qku")
-impactAudio = NodePath("../../fallThump")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
+impactAudio = NodePath("../../fallThump")
 friction = null
 
 [node name="playerStretch" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "turnTimer")]
@@ -835,8 +833,7 @@ z_index = -1
 points = PackedVector2Array(0, 0, 58, -5)
 width = 6.0
 width_curve = SubResource("Curve_bucuf")
-default_color = Color(0.807843, 0.6, 0.772549, 0.8)
-gradient = SubResource("Gradient_8ca8h")
+gradient = ExtResource("11_6kb3m")
 joint_mode = 2
 end_cap_mode = 2
 

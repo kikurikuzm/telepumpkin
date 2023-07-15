@@ -59,7 +59,8 @@ func _process(delta):
 	
 	if tppInst != null:
 		tppLine.visible = true
-		tppLine.set_point_position(1, to_local(tppInst.global_position))
+		tppLine.set_point_position(1, to_local(tppInst.pointPos))
+		tppLine.gradient = tppInst.lineColor
 		
 	if holdingTPP:
 		tppInst = null
@@ -171,7 +172,7 @@ var dialogSpeed : float
 func initiateDialog(npcVariables: Array):
 	if currentDialog == 0 and is_on_floor():
 		print("started")
-		$stateFactory.on_child_transition($stateFactory.current_state, "playertalking")
+		$stateFactory.on_child_transition($stateFactory.current_state, "playerbusy")
 		var text = npcVariables[0]
 		var portrait = npcVariables[1]
 	
