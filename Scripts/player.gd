@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var tppLine = get_node("tppLine")
 
 @onready var collectAudio = $collectAudio
+@onready var footstepAudio = $footstepAudio
 
 @onready var questManager = get_parent().get_node("questManager")
 
@@ -61,7 +62,9 @@ func _process(delta):
 		tppLine.visible = true
 		tppLine.set_point_position(1, to_local(tppInst.pointPos))
 		tppLine.gradient = tppInst.lineColor
-		
+	else:
+		tppLine.set_point_position(1, Vector2.ZERO)
+	
 	if holdingTPP:
 		tppInst = null
 		tppLine.visible = false
@@ -214,3 +217,4 @@ func tppHandler():
 	if hasTPP and !holdingTPP:
 		get_parent().get_node("tpp").TPteleport(global_transform)
 		return
+

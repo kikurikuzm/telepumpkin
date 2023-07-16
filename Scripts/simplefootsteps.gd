@@ -21,7 +21,7 @@ extends RayCast2D
 @export var footStream : AudioStreamPlayer2D
 
 
-func _on_animation_player_animation_started(anim_name):
+func _on_animated_sprite_2d_animation_looped():
 	var currentTileMap
 	
 	if get_collider() is TileMap: 

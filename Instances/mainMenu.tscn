@@ -20,6 +20,18 @@ outline_size = 9
 outline_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
 shadow_size = 629
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a22bf"]
+shader = ExtResource("4_j7w7e")
+shader_parameter/height = 2.0
+shader_parameter/frequency = 3.0
+shader_parameter/speed = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x35js"]
+shader = ExtResource("4_j7w7e")
+shader_parameter/height = 2.0
+shader_parameter/frequency = 3.0
+shader_parameter/speed = 2.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_us17e"]
 shader = ExtResource("4_j7w7e")
 shader_parameter/height = 1.305
@@ -94,18 +106,6 @@ Label/constants/shadow_outline_size = 13
 Label/font_sizes/font_size = 20
 Label/fonts/font = ExtResource("4_tyi58")
 Panel/styles/panel = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a22bf"]
-shader = ExtResource("4_j7w7e")
-shader_parameter/height = 2.0
-shader_parameter/frequency = 3.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x35js"]
-shader = ExtResource("4_j7w7e")
-shader_parameter/height = 2.0
-shader_parameter/frequency = 3.0
-shader_parameter/speed = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v5r0w"]
 shader = ExtResource("4_j7w7e")
@@ -309,95 +309,37 @@ text = "Settings"
 label_settings = SubResource("LabelSettings_wnjly")
 horizontal_alignment = 1
 
-[node name="back" type="Button" parent="settingsMenu"]
-material = SubResource("ShaderMaterial_us17e")
+[node name="VBoxContainer" type="VBoxContainer" parent="settingsMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 1227.0
-offset_top = 219.0
-offset_right = 1457.0
-offset_bottom = 277.0
+offset_left = 1203.0
+offset_top = -67.0
+offset_right = 1460.0
+offset_bottom = 235.0
 grow_horizontal = 2
 grow_vertical = 2
-tooltip_text = "Go back to the main menu"
-focus_mode = 0
-theme = ExtResource("2_kn6pq")
-text = "Back"
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="save" type="Button" parent="settingsMenu"]
-material = SubResource("ShaderMaterial_us17e")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1213.5
-offset_top = 132.0
-offset_right = 1470.5
-offset_bottom = 190.0
-grow_horizontal = 2
-grow_vertical = 2
-tooltip_text = "Changing the settings requires a restart"
-focus_mode = 0
-theme = SubResource("Theme_2unvs")
-text = "Save Config
-"
+[node name="GridContainer" type="GridContainer" parent="settingsMenu/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 25
+columns = 3
 
-[node name="saveRemove" type="Button" parent="settingsMenu"]
-material = SubResource("ShaderMaterial_us17e")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1214.0
-offset_top = 303.0
-offset_right = 1471.0
-offset_bottom = 361.0
-grow_horizontal = 2
-grow_vertical = 2
-tooltip_text = "Deletes your save data"
-focus_mode = 0
-theme = SubResource("Theme_2unvs")
-disabled = true
-text = "Delete Save"
-
-[node name="levelRecopy" type="Button" parent="settingsMenu"]
-material = SubResource("ShaderMaterial_us17e")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1214.0
-offset_top = 379.0
-offset_right = 1471.0
-offset_bottom = 437.0
-grow_horizontal = 2
-grow_vertical = 2
-tooltip_text = "Deletes your save data"
-focus_mode = 0
-theme = SubResource("Theme_2unvs")
-text = "levcopy"
-
-[node name="resolutionSettings" type="OptionButton" parent="settingsMenu"]
+[node name="resolutionSettings" type="OptionButton" parent="settingsMenu/VBoxContainer/GridContainer"]
 material = SubResource("ShaderMaterial_a22bf")
-layout_mode = 0
-offset_left = 1030.0
-offset_top = -75.0
-offset_right = 1255.0
-offset_bottom = -35.0
+layout_mode = 2
 tooltip_text = "Adjust the resolution"
 theme = ExtResource("2_kn6pq")
 item_count = 3
-selected = 0
+selected = 1
 popup/item_0/text = "2560x1440"
 popup/item_0/id = 0
 popup/item_1/text = "1920x1080"
@@ -405,14 +347,11 @@ popup/item_1/id = 1
 popup/item_2/text = "1280x800"
 popup/item_2/id = 2
 
-[node name="graphicsSettings" type="OptionButton" parent="settingsMenu"]
+[node name="graphicsSettings" type="OptionButton" parent="settingsMenu/VBoxContainer/GridContainer"]
 material = SubResource("ShaderMaterial_a22bf")
-layout_mode = 0
-offset_left = 1030.0
-offset_top = -6.0
-offset_right = 1251.0
-offset_bottom = 34.0
-tooltip_text = "The only difference this currently makes is adjusting the antialiasing"
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+tooltip_text = "Adjusts the Anti-Aliasing"
 theme = ExtResource("2_kn6pq")
 item_count = 3
 selected = 1
@@ -423,17 +362,58 @@ popup/item_1/id = 1
 popup/item_2/text = "High"
 popup/item_2/id = 2
 
-[node name="fullscreen" type="CheckBox" parent="settingsMenu"]
+[node name="mute" type="CheckBox" parent="settingsMenu/VBoxContainer/GridContainer"]
 material = SubResource("ShaderMaterial_x35js")
-layout_mode = 0
-offset_left = 1030.0
-offset_top = 66.0
-offset_right = 1274.0
-offset_bottom = 104.0
+layout_mode = 2
+tooltip_text = "Enable or disable fullscreen"
+theme = ExtResource("2_kn6pq")
+text = "Mute Audio"
+
+[node name="fullscreen" type="CheckBox" parent="settingsMenu/VBoxContainer/GridContainer"]
+material = SubResource("ShaderMaterial_x35js")
+layout_mode = 2
 tooltip_text = "Enable or disable fullscreen"
 theme = ExtResource("2_kn6pq")
 text = "Fullscreen
 "
+
+[node name="HSeparator" type="HSeparator" parent="settingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="back" type="Button" parent="settingsMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_us17e")
+layout_mode = 2
+tooltip_text = "Go back to the main menu"
+focus_mode = 0
+theme = ExtResource("2_kn6pq")
+text = "Back"
+
+[node name="save" type="Button" parent="settingsMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_us17e")
+layout_mode = 2
+tooltip_text = "Changing the settings requires a restart"
+focus_mode = 0
+theme = SubResource("Theme_2unvs")
+text = "Save Config
+"
+
+[node name="saveRemove" type="Button" parent="settingsMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_us17e")
+layout_mode = 2
+tooltip_text = "Deletes your save data"
+focus_mode = 0
+theme = SubResource("Theme_2unvs")
+disabled = true
+text = "Delete Save"
+
+[node name="levelRecopy" type="Button" parent="settingsMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_us17e")
+layout_mode = 2
+tooltip_text = "Deletes your save data"
+focus_mode = 0
+theme = SubResource("Theme_2unvs")
+text = "levcopy"
 
 [node name="title" type="Label" parent="."]
 material = SubResource("ShaderMaterial_v5r0w")
@@ -555,13 +535,14 @@ libraries = {
 
 [node name="shakeInterval" type="Timer" parent="."]
 
-[connection signal="pressed" from="settingsMenu/back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="settingsMenu/save" to="." method="_on_apply_pressed"]
-[connection signal="pressed" from="settingsMenu/saveRemove" to="." method="_on_save_remove_pressed"]
-[connection signal="pressed" from="settingsMenu/levelRecopy" to="." method="_on_level_recopy_pressed"]
-[connection signal="item_selected" from="settingsMenu/resolutionSettings" to="." method="_on_resolution_settings_item_selected"]
-[connection signal="item_selected" from="settingsMenu/graphicsSettings" to="." method="_on_graphics_settings_item_selected"]
-[connection signal="toggled" from="settingsMenu/fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="item_selected" from="settingsMenu/VBoxContainer/GridContainer/resolutionSettings" to="." method="_on_resolution_settings_item_selected"]
+[connection signal="item_selected" from="settingsMenu/VBoxContainer/GridContainer/graphicsSettings" to="." method="_on_graphics_settings_item_selected"]
+[connection signal="toggled" from="settingsMenu/VBoxContainer/GridContainer/mute" to="." method="_on_mute_toggled"]
+[connection signal="toggled" from="settingsMenu/VBoxContainer/GridContainer/fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="pressed" from="settingsMenu/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="settingsMenu/VBoxContainer/save" to="." method="_on_apply_pressed"]
+[connection signal="pressed" from="settingsMenu/VBoxContainer/saveRemove" to="." method="_on_save_remove_pressed"]
+[connection signal="pressed" from="settingsMenu/VBoxContainer/levelRecopy" to="." method="_on_level_recopy_pressed"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]

@@ -27,8 +27,6 @@ var dialogArray = [
  ["The one book you can reach is titled: \"The Knowledge of the Universe\".", "All the pages are ripped out."]
 ]
 
-var dialogSFX = [load("res://Audio/sfx/dialog/dialogue-01.ogg"), load("res://Audio/sfx/dialog/dialogue-02.ogg"), load("res://Audio/sfx/dialog/dialogue-03.ogg"), load("res://Audio/sfx/dialog/dialogue-04.ogg"), load("res://Audio/sfx/dialog/dialogue-05.ogg"), load("res://Audio/sfx/dialog/dialogue-06.ogg")]
-
 func _ready():
 	animSprite.flip_h = spriteFlip
 	animSprite.play(npcLook)
@@ -38,8 +36,3 @@ func getDialogInfo():
 		return([dialogArray[dialogID], npcLook, dialogSpeed, questID])
 	else:
 		return
-
-func interactSound():
-	dialogSFX.shuffle()
-	$interactAudio.stream = dialogSFX[0]
-	$interactAudio.play()

@@ -76,20 +76,20 @@ dialogID = 4
 questID = 2
 
 [node name="NPC4" parent="." instance=ExtResource("3_3vfoy")]
-position = Vector2(1358, 736)
+position = Vector2(1358, 1032)
 npcLook = "kid"
 spriteFlip = true
 dialogID = 3
 
 [node name="NPC3" parent="." instance=ExtResource("3_3vfoy")]
 z_index = 3
-position = Vector2(1153, 736)
+position = Vector2(1153, 1032)
 npcLook = "cool"
 dialogID = 2
 
 [node name="NPC2" parent="." instance=ExtResource("3_3vfoy")]
 z_index = 3
-position = Vector2(1080, 736)
+position = Vector2(1080, 1032)
 npcLook = "bald"
 spriteFlip = true
 dialogID = 1

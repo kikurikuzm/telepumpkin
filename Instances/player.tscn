@@ -828,9 +828,8 @@ animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 
 [node name="tppLine" type="Line2D" parent="."]
-visible = false
 z_index = -1
-points = PackedVector2Array(0, 0, 58, -5)
+points = PackedVector2Array(0, 0, 0, 1)
 width = 6.0
 width_curve = SubResource("Curve_bucuf")
 gradient = ExtResource("11_6kb3m")
@@ -927,7 +926,7 @@ stream = ExtResource("24_x075c")
 volume_db = -10.0
 pitch_scale = 0.79
 
-[node name="materialFootstep" type="RayCast2D" parent="." node_paths=PackedStringArray("footStream")]
+[node name="footstepManager" type="RayCast2D" parent="." node_paths=PackedStringArray("footStream")]
 target_position = Vector2(0, 32)
 hit_from_inside = true
 script = ExtResource("25_v543r")
@@ -944,7 +943,3 @@ farmlandTiles = ExtResource("26_gdvr1")
 cityTiles = ExtResource("27_fgwwr")
 woodTiles = ExtResource("28_btkl4")
 footStream = NodePath("../footstepAudio")
-
-[connection signal="animation_changed" from="AnimationPlayer" to="." method="_on_animation_player_animation_changed"]
-[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
-[connection signal="animation_started" from="AnimationPlayer" to="materialFootstep" method="_on_animation_player_animation_started"]

@@ -7,24 +7,39 @@ var mainscene
 
 var inSettings = false
 
+@onready var saveRemove = $settingsMenu/VBoxContainer/saveRemove
+@onready var resolutionSettings = $settingsMenu/VBoxContainer/GridContainer/resolutionSettings
+@onready var graphicsSettings = $settingsMenu/VBoxContainer/GridContainer/graphicsSettings
+@onready var fullscreen = $settingsMenu/VBoxContainer/GridContainer/fullscreen
+@onready var mute = $settingsMenu/VBoxContainer/GridContainer/mute
+
 func _ready():
 	animation_player.play("init")
 	if FileAccess.file_exists("user://save.dat"):
 		$start.text = "Resume"
-		$settingsMenu/saveRemove.disabled = false
+		saveRemove.disabled = false
 	$version.text = gvars.versionNum
 	mainscene = preload("res://Instances/Main.tscn")
 	animation_player.stop()
 	
 	if FileAccess.file_exists("user://cfg.dat"):
 		var cfgfile = FileAccess.open("user://cfg.dat", FileAccess.READ)
+		
 		var tempIndex = cfgfile.get_8()
-		$settingsMenu/resolutionSettings.selected = tempIndex
+		resolutionSettings.selected = tempIndex
 		_on_resolution_settings_item_selected(tempIndex)
+		
 		tempIndex = cfgfile.get_8()
-		$settingsMenu/graphicsSettings.selected = tempIndex
+		graphicsSettings.selected = tempIndex
 		_on_graphics_settings_item_selected(tempIndex)
-		$settingsMenu/fullscreen.button_pressed = bool(cfgfile.get_8())
+		
+		tempIndex = bool(cfgfile.get_8())
+		_on_fullscreen_toggled(tempIndex)
+		fullscreen.button_pressed = tempIndex
+		
+		tempIndex = bool(cfgfile.get_8())
+		_on_mute_toggled(tempIndex)
+		mute.button_pressed = tempIndex
 
 #func _process(delta):
 #	if !animation_player.is_playing():
@@ -75,9 +90,12 @@ func _on_apply_pressed():
 	print("saved cfg")
 	DirAccess.remove_absolute("user://cfg.dat")
 	var file = FileAccess.open("user://cfg.dat", FileAccess.WRITE)
-	file.store_8($settingsMenu/resolutionSettings.get_selected_id())
-	file.store_8($settingsMenu/graphicsSettings.get_selected_id())
-	file.store_8($settingsMenu/fullscreen.button_pressed)
+	file.store_8(resolutionSettings.get_selected_id())
+	file.store_8(graphicsSettings.get_selected_id())
+	file.store_8(fullscreen.button_pressed)
+	file.store_8(mute.button_pressed)
+	
+	get_tree().quit()
 
 func _on_resolution_settings_item_selected(index):
 	match index:
@@ -111,7 +129,7 @@ func _on_save_remove_pressed():
 			for file in levelDir.get_files():
 				copyDir.copy(str(levelDir.get_current_dir(), "/", file), str(currentDir, "/Levels/", file))
 
-		$settingsMenu/saveRemove.disabled = true
+		saveRemove.disabled = true
 		$start.text = "Start"
 
 func shakeCam(intensity: float, interval: float) -> void:
@@ -140,3 +158,9 @@ func _on_level_recopy_pressed():
 		print(copydir.get_current_dir())
 		for file in levelDir.get_files():
 			copydir.copy(str(levelDir.get_current_dir(), "/", file), str(currentDir, "/BaseLevels/", file))
+
+func _on_mute_toggled(button_pressed):
+	if button_pressed == true:
+		AudioServer.set_bus_mute(0, true)
+	if button_pressed == false:
+		AudioServer.set_bus_mute(0, false)

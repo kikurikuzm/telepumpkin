@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var movePos : Vector2
-var pointPos : Vector2
+var pointPos = global_position
 var lineColor : Gradient
 
 var purpleGradient = preload("res://Resources/purplegradient.tres")
