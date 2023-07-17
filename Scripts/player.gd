@@ -34,6 +34,7 @@ var tppInst
 var direction
 
 var cameraZoom = 3.5
+var oldZoom : Vector2
 
 #debug variables
 var mousefly = false
@@ -77,7 +78,7 @@ func _process(delta):
 			dialogBox.get_node("progress").visible = true
 		else:
 			dialogBox.get_node("progress").visible = false
-		playerCam.zoom = lerp(playerCam.zoom, Vector2(5.5, 5.5), 0.2)
+		playerCam.zoom = lerp(playerCam.zoom, Vector2(1.5, 1.5) + oldZoom, 0.2)
 		#playing text noise when letters appear
 		if dialogBox.get_node("textSpeed").is_stopped():
 			if dialogText.visible_ratio <= 1.0:
@@ -87,6 +88,7 @@ func _process(delta):
 			dialogBox.get_node("textSpeed").start(dialogSpeed)
 			
 	if !inDialog:
+		oldZoom = playerCam.zoom
 		playerCam.zoom = lerp(playerCam.zoom, Vector2(cameraZoom, cameraZoom), 0.1)
 	
 	var interactArray = interactArea.get_overlapping_areas()
