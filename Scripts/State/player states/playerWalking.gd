@@ -29,7 +29,10 @@ func physics_update(delta: float):
 		
 	if Input.is_action_just_released("left") or \
 	Input.is_action_just_released("right"):
-		transitioned.emit(self, "playerstop")
+		if abs(player.velocity.x) > 30:
+			transitioned.emit(self, "playerstop")
+		else:
+			transitioned.emit(self, "playeridle")
 	
 	if player.velocity.y > 0:
 		transitioned.emit(self, "playerfalling")

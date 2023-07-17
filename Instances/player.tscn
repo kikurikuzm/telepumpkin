@@ -101,18 +101,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../footstepAudio:playing")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
 
 [sub_resource type="Animation" id="Animation_gpbgi"]
 resource_name = "fall"
@@ -629,18 +617,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../footstepAudio:playing")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cxkr1"]
 _data = {
@@ -772,7 +748,7 @@ player = NodePath("..")
 animPlayer = NodePath("../AnimationPlayer")
 playerSprite = NodePath("../AnimatedSprite2D")
 teleportRange = NodePath("../Teleport")
-footStream = NodePath("../footstepAudio")
+footStream = NodePath("")
 impactAudio = NodePath("../fallThump")
 turnTimer = NodePath("../turnTimer")
 
@@ -792,7 +768,6 @@ script = ExtResource("4_v361r")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
-friction = null
 
 [node name="playerStop" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "turnTimer")]
 script = ExtResource("5_c0d7w")
@@ -918,15 +893,12 @@ stream = ExtResource("23_hnh6d")
 volume_db = 3.388
 pitch_scale = 0.96
 
-[node name="footstepAudio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_vg4jm")
-
 [node name="fallThump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("24_x075c")
 volume_db = -10.0
 pitch_scale = 0.79
 
-[node name="footstepManager" type="RayCast2D" parent="." node_paths=PackedStringArray("footStream")]
+[node name="footstepManager" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32)
 hit_from_inside = true
 script = ExtResource("25_v543r")
@@ -942,4 +914,5 @@ wood3 = ExtResource("16_1x2s6")
 farmlandTiles = ExtResource("26_gdvr1")
 cityTiles = ExtResource("27_fgwwr")
 woodTiles = ExtResource("28_btkl4")
-footStream = NodePath("../footstepAudio")
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="footstepManager" method="_on_animated_sprite_2d_frame_changed"]

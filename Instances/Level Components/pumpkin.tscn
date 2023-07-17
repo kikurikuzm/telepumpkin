@@ -398,6 +398,7 @@ position = Vector2(0, 2)
 texture = ExtResource("1")
 
 [node name="abberation" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_fxkg7")
 position = Vector2(0, 4)
 texture = ExtResource("1")
