@@ -742,13 +742,12 @@ slide_on_ceiling = false
 floor_constant_speed = true
 script = ExtResource("1_cr5rv")
 
-[node name="PlayerState" type="Node" parent="." node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "footStream", "impactAudio", "turnTimer")]
+[node name="PlayerState" type="Node" parent="." node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("2_x6j3q")
 player = NodePath("..")
 animPlayer = NodePath("../AnimationPlayer")
 playerSprite = NodePath("../AnimatedSprite2D")
 teleportRange = NodePath("../Teleport")
-footStream = NodePath("")
 impactAudio = NodePath("../fallThump")
 turnTimer = NodePath("../turnTimer")
 

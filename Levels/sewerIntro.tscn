@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cq2psyjn17dql"]
+[gd_scene load_steps=14 format=3 uid="uid://cq2psyjn17dql"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="1_5y7pe"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_l8akl"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_3dwea"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="6_fktvw"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="8_i8vbr"]
+[ext_resource type="Script" path="res://Scripts/enterLevelTemp.gd" id="8_uml40"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_06yn4"]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_3od47"]
@@ -62,10 +63,10 @@ dialogID = 9
 position = Vector2(411, 766)
 
 [node name="trigger" parent="." instance=ExtResource("9_06yn4")]
-visible = false
-position = Vector2(411, 747)
+editor_description = "Select the nodes that you want to trigger. Ensure that the given nodes have the 'trigger()' function."
+position = Vector2(411, 750)
 scale = Vector2(0.560005, 0.560005)
-triggerId = 4
+triggerList = [NodePath("../templevelgo")]
 
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(556.25, 267.5)
@@ -74,3 +75,6 @@ energy = 0.65
 blend_mode = 1
 texture = SubResource("GradientTexture2D_vavtp")
 metadata/_edit_lock_ = true
+
+[node name="templevelgo" type="Node" parent="."]
+script = ExtResource("8_uml40")

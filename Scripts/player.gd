@@ -91,13 +91,6 @@ func _process(delta):
 		oldZoom = playerCam.zoom
 		playerCam.zoom = lerp(playerCam.zoom, Vector2(cameraZoom, cameraZoom), 0.1)
 	
-	var interactArray = interactArea.get_overlapping_areas()
-	for area in interactArray:
-		if area.get_parent().is_in_group("trigger"):
-			questManager.changeQuest(area.get_parent().triggerId)
-			area.get_parent().queue_free()
-	
-	
 	if hasTPP:
 		$Teleport.visible = false
 		$Teleport.set_process(false)
