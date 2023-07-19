@@ -1,8 +1,9 @@
-[gd_scene load_steps=53 format=3 uid="uid://bywnukq17v208"]
+[gd_scene load_steps=34 format=3 uid="uid://bywnukq17v208"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_dpdcl"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="2_pxkbr"]
 [ext_resource type="PackedScene" uid="uid://biwxpg0o4st6v" path="res://Instances/Helpers/questManager.tscn" id="3_6pp5x"]
+[ext_resource type="Script" path="res://Scripts/mainCamera.gd" id="3_kq2kl"]
 [ext_resource type="Environment" uid="uid://b8wuygwcxt70r" path="res://Resources/Environments/Farmlands.tres" id="5_hwca2"]
 [ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="6_3rkpl"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wavy.gdshader" id="7_s4ple"]
@@ -12,17 +13,6 @@
 [ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="11_ur5wi"]
 [ext_resource type="Script" path="res://Scripts/Limitbar.gd" id="12_ir7nj"]
 [ext_resource type="PackedScene" uid="uid://ddp3f62huxqab" path="res://Instances/debugUI.tscn" id="13_7f5fb"]
-[ext_resource type="Shader" path="res://Resources/Shaders/wigglewavy.gdshader" id="14_5tfwf"]
-[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="15_tdnbe"]
-[ext_resource type="Texture2D" uid="uid://b04t6sqntivuo" path="res://Sprites/NPCs/Portraits/old.png" id="16_jddlc"]
-[ext_resource type="Texture2D" uid="uid://c3x4vjtt6g37j" path="res://Sprites/NPCs/Portraits/bovi.png" id="17_cp6lb"]
-[ext_resource type="Texture2D" uid="uid://bobh42kleuhmh" path="res://Sprites/NPCs/Portraits/keeper.png" id="18_p8u4w"]
-[ext_resource type="Texture2D" uid="uid://p82qwfpglcr" path="res://Sprites/NPCs/Portraits/cool.png" id="19_dun1g"]
-[ext_resource type="Texture2D" uid="uid://c30f5ip1wkft8" path="res://Sprites/NPCs/Portraits/hat.png" id="20_1tpri"]
-[ext_resource type="Texture2D" uid="uid://ds5mnp3oxr7bh" path="res://Sprites/NPCs/Portraits/kin.png" id="21_nxwoq"]
-[ext_resource type="Texture2D" uid="uid://cdeq8ydlmp5e5" path="res://Sprites/NPCs/Portraits/portrait.png" id="22_21o0q"]
-[ext_resource type="AudioStream" uid="uid://bwmmara6fxk1j" path="res://Audio/sfx/Tick.wav" id="23_j40ph"]
-[ext_resource type="Texture2D" uid="uid://b8qxi8stcmydv" path="res://Sprites/Misc/dialogArrow.png" id="24_wxd66"]
 [ext_resource type="Texture2D" uid="uid://dmjo1q6ukx12l" path="res://Sprites/backgrounds/farmlandSky.tres" id="25_5yaeg"]
 [ext_resource type="Texture2D" uid="uid://bfi80xpxhxye6" path="res://Sprites/backgrounds/farmforeground.png" id="26_a23wb"]
 [ext_resource type="PackedScene" uid="uid://cg7daib18pq0c" path="res://Levels/debugroom.tscn" id="27_702vk"]
@@ -337,126 +327,6 @@ shader_parameter/color = null
 shader_parameter/multiplier = -0.177
 shader_parameter/softness = 1.406
 
-[sub_resource type="ShaderMaterial" id="11"]
-shader = ExtResource("14_5tfwf")
-shader_parameter/height = 10.0
-shader_parameter/frequency = 3.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="ShaderMaterial" id="12"]
-shader = ExtResource("7_s4ple")
-shader_parameter/height = 3.0
-shader_parameter/frequency = 2.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="Theme" id="14"]
-Label/colors/font_color = Color(0, 0, 0, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 0
-Label/font_sizes/font_size = 28
-Label/fonts/font = ExtResource("15_tdnbe")
-
-[sub_resource type="ShaderMaterial" id="16"]
-shader = ExtResource("7_s4ple")
-shader_parameter/height = 1.2
-shader_parameter/frequency = 0.4
-shader_parameter/speed = 1.5
-
-[sub_resource type="SpriteFrames" id="15"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("16_jddlc")
-}],
-"loop": true,
-"name": &"bald",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("17_cp6lb")
-}],
-"loop": true,
-"name": &"bovi",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("18_p8u4w")
-}],
-"loop": true,
-"name": &"cloak",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("19_dun1g")
-}],
-"loop": true,
-"name": &"cool",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": null
-}],
-"loop": true,
-"name": &"inspect",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("20_1tpri")
-}],
-"loop": true,
-"name": &"kid",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("21_nxwoq")
-}],
-"loop": true,
-"name": &"kin",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("22_21o0q")
-}],
-"loop": true,
-"name": &"smoke",
-"speed": 5.0
-}]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvkk1"]
-shader = ExtResource("7_s4ple")
-shader_parameter/height = 0.5
-shader_parameter/frequency = 3.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ee30a"]
-atlas = ExtResource("24_wxd66")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ucsnm"]
-atlas = ExtResource("24_wxd66")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_s34qy"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ee30a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ucsnm")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_tx2l4"]
 viewport_path = NodePath("3DView")
 
@@ -469,6 +339,12 @@ gradient = SubResource("Gradient_lq8tc")
 [node name="Root" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_dpdcl")
+
+[node name="mainCamera" type="Camera2D" parent="."]
+position = Vector2(1120, 728)
+zoom = Vector2(4.5, 4.5)
+position_smoothing_speed = 7.0
+script = ExtResource("3_kq2kl")
 
 [node name="Player" parent="." instance=ExtResource("2_pxkbr")]
 position = Vector2(1120, 748)
@@ -671,65 +547,6 @@ offset_right = -208.0
 offset_bottom = -163.0
 scale = Vector2(4, 4)
 script = ExtResource("12_ir7nj")
-
-[node name="dialogBox" type="ColorRect" parent="uiLayer"]
-visible = false
-top_level = true
-texture_filter = 1
-material = SubResource("11")
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -537.0
-offset_top = 154.0
-offset_right = 537.0
-offset_bottom = 330.0
-grow_horizontal = 2
-color = Color(0.372549, 0.372549, 0.372549, 0.490196)
-
-[node name="text" type="Label" parent="uiLayer/dialogBox"]
-material = SubResource("12")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -387.0
-offset_top = -60.0
-offset_right = 507.0
-offset_bottom = 47.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("14")
-text = "Hey, you aren't from around here, are you?"
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="portrait" type="AnimatedSprite2D" parent="uiLayer/dialogBox"]
-material = SubResource("16")
-position = Vector2(74, 70)
-scale = Vector2(7.84375, 7.84375)
-sprite_frames = SubResource("15")
-animation = &"kin"
-speed_scale = 0.0
-
-[node name="textSpeed" type="Timer" parent="uiLayer/dialogBox"]
-one_shot = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="uiLayer/dialogBox"]
-stream = ExtResource("23_j40ph")
-volume_db = -4.831
-max_polyphony = 8
-
-[node name="progress" type="AnimatedSprite2D" parent="uiLayer/dialogBox"]
-modulate = Color(0, 0, 0, 0.2)
-material = SubResource("ShaderMaterial_cvkk1")
-position = Vector2(999, 124)
-scale = Vector2(2.4, 2.4)
-sprite_frames = SubResource("SpriteFrames_s34qy")
-autoplay = "default"
-frame_progress = 0.10839
 
 [node name="3DViewSprite" type="Sprite2D" parent="uiLayer"]
 visible = false

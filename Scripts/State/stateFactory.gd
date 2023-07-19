@@ -16,9 +16,6 @@ func _ready():
 	if initial_state:
 		initial_state.enter()
 		current_state = initial_state
-	
-	print(states)
-
 
 func _process(delta):
 	debugtext.text = str(current_state)
@@ -44,4 +41,3 @@ func on_child_transition(state, new_state_name):
 	new_state.enter()
 	
 	current_state = new_state
-	print("changed state ", new_state_name)

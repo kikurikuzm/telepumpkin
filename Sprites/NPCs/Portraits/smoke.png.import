@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdeq8ydlmp5e5"
-path="res://.godot/imported/portrait.png-765d8f33e93228762188ef4c229847d7.ctex"
+path="res://.godot/imported/smoke.png-2d0e7322156bda2d57c74a72403b9163.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/NPCs/Portraits/portrait.png"
-dest_files=["res://.godot/imported/portrait.png-765d8f33e93228762188ef4c229847d7.ctex"]
+source_file="res://Sprites/NPCs/Portraits/smoke.png"
+dest_files=["res://.godot/imported/smoke.png-2d0e7322156bda2d57c74a72403b9163.ctex"]
 
 [params]
 

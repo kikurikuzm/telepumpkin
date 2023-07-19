@@ -841,15 +841,6 @@ energy = 1.26
 texture = ExtResource("5_qpng8")
 texture_scale = 0.02
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -20)
-zoom = Vector2(3.5, 3.5)
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
-
-[node name="Node2D" type="Node2D" parent="Camera2D"]
-z_index = 25
-
 [node name="Teleport" parent="." instance=ExtResource("6_6y066")]
 modulate = Color(1, 1, 1, 0.454902)
 

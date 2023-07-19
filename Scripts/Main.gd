@@ -85,7 +85,7 @@ func _process(delta):
 			levelCamera.make_current()
 			inMap = true
 		elif inMap:
-			player.get_node("Camera2D").make_current()
+			$mainCamera.make_current()
 			inMap = false
 
 func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
@@ -145,7 +145,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	player.inDialog = false
 	$pauseMenu.unpause()
 	gvars.pCollected = 0
-	player.playerCam.reset_smoothing()
+	$mainCamera.reset_smoothing()
 	
 func _on_pumpkin_collected():
 	print("pumpkin collected")

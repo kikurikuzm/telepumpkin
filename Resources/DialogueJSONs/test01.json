@@ -1,0 +1,47 @@
+[
+    {"conversation": [
+        {
+        "character":"NPC1",
+        "text":"this is a test",
+        "portrait":"smoke.png",
+        "speed":0.06
+        },
+        {
+        "character":"NPC2",
+        "text":"woah im a test too",
+        "portrait":"cool.png",
+        "speed":0.06
+        },
+        {
+        "character":"NPC1",
+        "text":"wanna freggin smooch",
+        "portrait":"smoke.png",
+        "speed":0.06
+        },
+        {
+        "character":"NPC2",
+        "text":"eww wth no",
+        "portrait":"cool.png",
+        "speed":0.06
+        },
+        {
+        "character":"NPC1",
+        "text":"ok :(",
+        "portrait":"smoke.png",
+        "speed":0.08
+        },
+        {
+            "character":"player",
+            "text":"hey guys its me the main character",
+            "portrait":"kin.png",
+            "speed":0.05
+        },
+        {
+            "character":"NPC1",
+            "text":"A MOTHERFUCKING PUMPKIN??????",
+            "portrait":"smoke.png",
+            "speed":0.09
+        }
+     ]
+    }
+]
