@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bywnukq17v208"]
+[gd_scene load_steps=37 format=3 uid="uid://bywnukq17v208"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_dpdcl"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="2_pxkbr"]
@@ -324,8 +324,8 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4rtp"]
 shader = ExtResource("10_ujvdg")
 shader_parameter/color = null
-shader_parameter/multiplier = -0.177
-shader_parameter/softness = 1.406
+shader_parameter/multiplier = 0.013
+shader_parameter/softness = 0.691
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tx2l4"]
 viewport_path = NodePath("3DView")
@@ -335,6 +335,44 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_r2ii1"]
 gradient = SubResource("Gradient_lq8tc")
+
+[sub_resource type="Animation" id="Animation_jp8t5"]
+resource_name = "vignette"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/vignette:material:shader_parameter/multiplier")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.013, -0.187]
+}
+
+[sub_resource type="Animation" id="Animation_jwip2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/vignette:material:shader_parameter/multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.013]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6paru"]
+_data = {
+"RESET": SubResource("Animation_jwip2"),
+"vignette": SubResource("Animation_jp8t5")
+}
 
 [node name="Root" type="Node2D"]
 process_mode = 1
@@ -458,7 +496,7 @@ one_shot = true
 
 [node name="transitionLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 2
+layer = 4
 script = ExtResource("9_psqbl")
 
 [node name="ColorRect" type="ColorRect" parent="transitionLayer"]
@@ -467,10 +505,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 1934.0
-offset_top = -209.0
-offset_right = 4597.0
-offset_bottom = 1289.0
+offset_left = 974.0
+offset_top = -749.0
+offset_right = 3637.0
+offset_bottom = 749.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -483,10 +521,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 560.0
-offset_top = 489.0
-offset_right = 1347.0
-offset_bottom = 648.0
+offset_left = -400.0
+offset_top = -51.0
+offset_right = 387.0
+offset_bottom = 108.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Intermission..."
@@ -587,6 +625,12 @@ texture = SubResource("GradientTexture1D_r2ii1")
 color = Color(0.937255, 0.909804, 0.901961, 1)
 
 [node name="levelTimer" type="Timer" parent="."]
+
+[node name="miscAnimation" type="AnimationPlayer" parent="."]
+autoplay = "vignette"
+libraries = {
+"": SubResource("AnimationLibrary_6paru")
+}
 
 [connection signal="pressed" from="pauseMenu/resume" to="pauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="pauseMenu/restart" to="pauseMenu" method="_on_restart_pressed"]

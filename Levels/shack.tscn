@@ -41,7 +41,7 @@ position = Vector2(775, 822)
 exit = true
 
 [node name="NPC" parent="." instance=ExtResource("4_ybaqi")]
-position = Vector2(706, 800)
+position = Vector2(663, 800)
 npcLook = "corpse"
 spriteFlip = true
 
