@@ -23,10 +23,8 @@ func questModify():
 			var scene = load(scenePath)
 			var root = scene.instantiate()
 			for node in root.get_children():
-				if node.is_in_group("npc"):
-					if node.dialogID == 6:
-						node.dialogID = 8
-						node.questID = 3
+				if node.name == "NPC2":
+					node.convoID = 2
 			scene.pack(root)
 			ResourceSaver.save(scene, scenePath)
 			questSFX()

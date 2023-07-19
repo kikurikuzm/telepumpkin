@@ -58,7 +58,6 @@ texture = ExtResource("6_fktvw")
 [node name="NPC1" parent="." instance=ExtResource("3_tdg5v")]
 position = Vector2(284, 736)
 spriteFlip = true
-dialogID = 9
 
 [node name="NPC2" parent="." instance=ExtResource("3_tdg5v")]
 position = Vector2(341, 736)

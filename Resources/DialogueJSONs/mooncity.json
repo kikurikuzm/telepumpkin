@@ -1,0 +1,60 @@
+[
+    {"conversation": [
+        {
+        "character":"NPC",
+        "text":"Another one, huh.",
+        "portrait":"smoke.png",
+        "speed":0.07,
+        "cameraSpeed":0.1,
+        "zoom":"Vector2(5.5,5.5)"
+        },
+        {
+            "character":"NPC",
+            "text":"You know, the only organic things we get down here are rejects from above.",
+            "portrait":"smoke.png",
+            "speed":0.07
+        }
+     ]
+    },
+    {"conversation": [
+        {
+        "character":"NPC5",
+        "text":"[wave]I see you are interested in this moon trip...",
+        "portrait":"cloak.png",
+        "speed":0.07,
+        "cameraSpeed":0.1,
+        "zoom":"Vector2(5.5,5.5)"
+        },
+        {
+            "character":"NPC5",
+            "text":"[wave]Lucky for you, I have one more ticket left.",
+            "portrait":"cloak.png",
+            "speed":0.07
+        },
+        {
+            "character":"NPC5",
+            "text":"[wave]Five dollars is the measly cost for a trip to the moon. A once-in-a-lifetime experience...",
+            "portrait":"cloak.png",
+            "speed":0.07
+        },
+        {
+            "character":"NPC5",
+            "text":"[wave]So if you want this here ticket, then you'll need to cough up that five dollars [/wave][color=red]fast.[/color]",
+            "portrait":"cloak.png",
+            "speed":0.07,
+            "quest":2
+        }
+     ]
+    },
+    {"conversation": [
+        {
+            "character":"hotel entrance",
+            "text":"[wave]Take a look around, I'm sure there are some folks who'll pay you for something.",
+            "portrait":"cloak.png",
+            "speed":0.07,
+            "cameraSpeed":0.05,
+            "zoom":"Vector2(6,6)"
+        }
+     ]
+    }
+]

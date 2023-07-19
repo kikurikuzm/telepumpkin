@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=27 format=3 uid="uid://dcjjt5y3i5fjm"]
+[gd_resource type="SpriteFrames" load_steps=28 format=3 uid="uid://dcjjt5y3i5fjm"]
 
 [ext_resource type="Texture2D" uid="uid://xfx0bxxbk2om" path="res://Sprites/NPCs/npc5.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://cd0ptu0ud55xm" path="res://Sprites/NPCs/npc4.png" id="2"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://877ld2vjy2ax" path="res://Sprites/NPCs/npc2.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://0hcc2e427rln" path="res://Sprites/NPCs/npc.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://bdqacqbu2o8tr" path="res://Sprites/Kin/kin idle.png" id="5_k8y6j"]
+[ext_resource type="Texture2D" uid="uid://crumahhb7m1xs" path="res://Sprites/NPCs/corpse.png" id="5_x3lnn"]
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("4")
@@ -159,6 +160,14 @@ animations = [{
 "loop": true,
 "name": &"cool",
 "speed": 2.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_x3lnn")
+}],
+"loop": true,
+"name": &"corpse",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,

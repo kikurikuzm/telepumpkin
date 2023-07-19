@@ -18,6 +18,8 @@ extends Node2D
 
 @onready var connector = preload("res://Instances/Level Components/manholeConnector.tscn")
 
+@onready var questManager = $questManager
+
 @onready var player = get_node("Player")
 @onready var playerVisibility = get_node("Player/VisibleOnScreenNotifier2D")
 

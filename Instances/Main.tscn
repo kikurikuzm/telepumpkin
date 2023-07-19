@@ -343,7 +343,6 @@ script = ExtResource("1_dpdcl")
 [node name="mainCamera" type="Camera2D" parent="."]
 position = Vector2(1120, 728)
 zoom = Vector2(4.5, 4.5)
-position_smoothing_speed = 7.0
 script = ExtResource("3_kq2kl")
 
 [node name="Player" parent="." instance=ExtResource("2_pxkbr")]

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bobh42kleuhmh"
-path="res://.godot/imported/keeper.png-e5cbcfb7a54434fa6b394bec01c731e2.ctex"
+path="res://.godot/imported/cloak.png-267e4be85f790e8df12b4a84997c6100.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/NPCs/Portraits/keeper.png"
-dest_files=["res://.godot/imported/keeper.png-e5cbcfb7a54434fa6b394bec01c731e2.ctex"]
+source_file="res://Sprites/NPCs/Portraits/cloak.png"
+dest_files=["res://.godot/imported/cloak.png-267e4be85f790e8df12b4a84997c6100.ctex"]
 
 [params]
 

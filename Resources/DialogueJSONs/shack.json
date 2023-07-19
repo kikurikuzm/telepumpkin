@@ -1,0 +1,19 @@
+[
+    {"conversation": [
+        {
+        "character":"NPC",
+        "text":"...",
+        "portrait":"",
+        "speed":0.3,
+        "cameraSpeed":0.8,
+        "zoom":"Vector2(7,7)"
+        },
+        {
+            "character":"NPC",
+            "text":"Something's wrong.",
+            "portrait":"",
+            "speed":0.09
+        }
+     ]
+    }
+]

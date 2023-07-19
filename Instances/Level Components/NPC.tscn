@@ -29,3 +29,6 @@ shape = SubResource("1")
 
 [node name="interactAudio" type="AudioStreamPlayer2D" parent="."]
 volume_db = 14.273
+
+[connection signal="area_entered" from="npcArea" to="." method="_on_npc_area_area_entered"]
+[connection signal="body_entered" from="npcArea" to="." method="_on_npc_area_body_entered"]

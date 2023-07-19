@@ -3,9 +3,12 @@ extends Camera2D
 @onready var currentParent = $"../Player"
 var playerRef
 var smoothAmount = 0.2
+var oldZoom
+var desiredZoom = Vector2(4.5, 4.5)
 
 func _ready():
 	playerRef = currentParent
 
 func _process(delta):
 	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
+	zoom = lerp(zoom, desiredZoom, smoothAmount)
