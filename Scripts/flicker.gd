@@ -7,6 +7,6 @@ extends Node2D
 func _process(delta):
 	if randi_range(1, 150) == 50:
 		light.enabled = false
-		flickerTimer.start(randf_range(0.03, 0.1))
+		flickerTimer.start(randf_range(0.0, 0.03))
 		await flickerTimer.timeout
 		light.enabled = true

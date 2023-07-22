@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var writingSFX = preload("res://Audio/sfx/632476__ani_music__pencil-writing-on-paper-7-strokes.wav")
 
-var questID = 0
+var questID : int
 
 func questModify():
 	match questID:

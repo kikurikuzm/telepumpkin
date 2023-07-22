@@ -11,6 +11,7 @@ func _on_area_2d_area_entered(area):
 	if !hasTriggered:
 		for i in triggerList:
 			get_node(i).trigger()
+			print("triggered ", str(i))
 	
 	if triggersOnce:
 		hasTriggered = true

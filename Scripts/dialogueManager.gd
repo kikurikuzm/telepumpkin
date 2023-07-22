@@ -76,7 +76,6 @@ func progressDialogue():
 		dialogueText.visible_ratio = 1
 	if quickConvoVar["portrait"] == "":
 		dialoguePortrait.texture = Texture2D.new()
-	print(currentTextIndex)
 	
 	currentTextIndex += 1
 	
@@ -89,12 +88,17 @@ func progressDialogue():
 	
 
 func endDialogue():
-	get_parent().get_parent().player.changeState("playeridle")
+	var rootnode = get_parent().get_parent()
+	rootnode.player.changeState("playeridle")
+	if questIndex != null:
+		rootnode.get_node("questManager").changeQuest(questIndex)
+	
 	dialogueBox.visible = false
 	dialogueContinue.visible = false
 	inDialogue = false
 	
 	currentTextIndex = 0
+	questIndex = null
 	
 	mainCamera.desiredZoom = mainCamera.oldZoom
 	mainCamera.smoothAmount = 0.2
