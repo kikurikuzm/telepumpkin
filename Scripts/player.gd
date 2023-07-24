@@ -56,7 +56,7 @@ func _process(delta):
 		tppLine.set_point_position(1, to_local(tppInst.pointPos))
 		tppLine.gradient = tppInst.lineColor
 	else:
-		tppLine.set_point_position(1, Vector2.ZERO)
+		tppLine.set_point_position(1, to_local(global_position))
 	
 	if holdingTPP:
 		tppInst = null
@@ -153,8 +153,9 @@ func tppHandler():
 		holdingTPP = false
 		var tpLoad = load("res://Instances/Level Components/tpp.tscn")
 		var tpInstance = tpLoad.instantiate()
+		tpInstance.pointPos = self.global_position
 		get_parent().add_child(tpInstance)
-		tpInstance.global_position = global_position
+		tpInstance.global_position = self.global_position
 		tpInstance.throw(velocity * 4)
 		tppInst = tpInstance
 		return

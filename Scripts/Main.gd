@@ -127,7 +127,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		levelCamera.zoom = levelCamera.zoom / gvars.zoomOutScale
 	if levInst.has_node("levelVariables"):
 		var levelVariables = levInst.get_node("levelVariables")
-		player.cameraZoom = levelVariables.playerZoom
+		$mainCamera.desiredZoom = Vector2(levelVariables.playerZoom, levelVariables.playerZoom)
 		$Player/Teleport.visible = levelVariables.canTeleport
 		if levelVariables.levelAmbience != null and $ambiencePlayer.stream != levelVariables.levelAmbience: 
 			$ambiencePlayer.stream = levelVariables.levelAmbience

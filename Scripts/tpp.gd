@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var movePos : Vector2
-var pointPos = global_position
+var pointPos : Vector2
 var lineColor : Gradient
 
 var purpleGradient = preload("res://Resources/purplegradient.tres")
@@ -10,6 +10,7 @@ var orangeGradient = preload("res://Resources/orangegradient.tres")
 var stretching = false
 
 func _process(delta):
+	print(global_position)
 	if !stretching:
 		$Teleport.scale.x = lerp($Teleport.scale.x, 1.594, 0.1)
 		$Teleport.scale.y = lerp($Teleport.scale.y, 1.594, 0.1)
@@ -17,8 +18,8 @@ func _process(delta):
 	if $Teleport.selectedPumpkin != null:
 		pointPos = lerp(pointPos, $Teleport.selectedPumpkin.global_position + Vector2(0, 6), 0.2)
 		lineColor = orangeGradient
-	else:
-		pointPos = lerp(pointPos, global_position + Vector2(0, 6), 0.2)
+	elif global_position != Vector2.ZERO:
+		pointPos = lerp(pointPos, global_position + Vector2(0, 6), 0.36)
 		lineColor = purpleGradient
 	
 	

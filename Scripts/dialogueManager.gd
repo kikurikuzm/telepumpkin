@@ -108,13 +108,14 @@ func convoInitialize(convoNumb=0):
 	conversation = parseJSON()
 	currentConversation = convoNumb
 	mainCamera.oldZoom = mainCamera.desiredZoom
+	$textSkipDelay.start()
 	progressDialogue()
 	
 func trigger():
 	convoInitialize()
 
 func _input(event):
-	if Input.is_action_just_pressed("teleport") and inDialogue and dialogueText.visible_characters > 2:
+	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped():
 		if dialogueText.visible_characters == len(dialogueText.get_parsed_text()):
 			if questIndex != null:
 				get_parent().get_parent().questManager.changeQuest(questIndex)
