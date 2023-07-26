@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cg7daib18pq0c"]
+[gd_scene load_steps=16 format=3 uid="uid://cg7daib18pq0c"]
 
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="1"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Resources/Tile Sets/farmlandTiles.tres" id="2"]
@@ -13,6 +13,38 @@
 [ext_resource type="AudioStream" uid="uid://co4dnomyhsvwk" path="res://Audio/sfx/dialog/dialogue-01.ogg" id="8_vcyrj"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_rqx7x"]
 [ext_resource type="Script" path="res://Scripts/CutscenePlayer.gd" id="12_hpse0"]
+
+[sub_resource type="Animation" id="Animation_eb6fa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("placeholderCam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(918, 905)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("placeholderCam:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vmxry"]
+_data = {
+"RESET": SubResource("Animation_eb6fa")
+}
 
 [node name="TileMap" type="TileMap"]
 tile_set = ExtResource("2")
@@ -78,9 +110,15 @@ direction = 1
 position = Vector2(899, 780)
 zoom = Vector2(1.589, 1.589)
 
-[node name="CutscenePlayer" type="AnimationPlayer" parent="."]
+[node name="CutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera")]
 libraries = {
+"": SubResource("AnimationLibrary_vmxry"),
 "debugtest": ExtResource("4_lk6nl")
 }
 script = ExtResource("12_hpse0")
 animationName = "debugtest/cutsceneTest"
+placeholderCamera = NodePath("../placeholderCam")
+
+[node name="placeholderCam" type="Marker2D" parent="."]
+position = Vector2(918, 905)
+scale = Vector2(3, 3)

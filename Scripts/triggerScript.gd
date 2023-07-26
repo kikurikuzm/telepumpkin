@@ -4,14 +4,25 @@ extends EditorElement
 
 @export var triggerList : Array
 @export var triggersOnce = true
+@export var anythingTriggers = false
+@export var mustInteract = false
 
 var hasTriggered = false
 
-func _on_area_2d_area_entered(area):
+func triggerThings(cause) -> void:
 	if !hasTriggered:
-		for i in triggerList:
-			get_node(i).trigger()
-			print("triggered ", str(i))
+		if anythingTriggers:
+			for i in triggerList:
+				get_node(i).trigger()
+				print("triggered ", str(i))
+		if !anythingTriggers and cause.is_in_group("player"):
+			for i in triggerList:
+				get_node(i).trigger()
+				print("triggered ", str(i))
 	
 	if triggersOnce:
 		hasTriggered = true
+
+func _on_area_2d_area_entered(area) -> void:
+	if !mustInteract:
+		triggerThings(area)

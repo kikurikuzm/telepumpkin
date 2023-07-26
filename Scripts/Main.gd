@@ -144,7 +144,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	
 	manholeVisLine()
 	
-	player.inDialog = false
+	player.changeState("playeridle")
 	$pauseMenu.unpause()
 	gvars.pCollected = 0
 	$mainCamera.reset_smoothing()

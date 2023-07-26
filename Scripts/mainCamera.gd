@@ -10,5 +10,8 @@ func _ready():
 	playerRef = currentParent
 
 func _process(delta):
+	if !is_instance_valid(currentParent):
+		currentParent = $"../Player"
+	
 	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
 	zoom = lerp(zoom, desiredZoom, smoothAmount)

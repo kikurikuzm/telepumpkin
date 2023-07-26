@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bywnukq17v208"]
+[gd_scene load_steps=42 format=3 uid="uid://bywnukq17v208"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_dpdcl"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="2_pxkbr"]
@@ -327,6 +327,11 @@ shader_parameter/color = null
 shader_parameter/multiplier = 0.013
 shader_parameter/softness = 0.691
 
+[sub_resource type="LabelSettings" id="LabelSettings_mnnfc"]
+font_size = 30
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_tx2l4"]
 viewport_path = NodePath("3DView")
 
@@ -372,6 +377,96 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_jwip2"),
 "vignette": SubResource("Animation_jp8t5")
+}
+
+[sub_resource type="Animation" id="Animation_ha8df"]
+resource_name = "in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 1080), Vector2(0, 980)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("uiLayer/cinemaBoxes/top:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -100), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xpddm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1080)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("uiLayer/cinemaBoxes/top:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+
+[sub_resource type="Animation" id="Animation_rh5sk"]
+resource_name = "out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/cinemaBoxes/top:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 980), Vector2(0, 1080)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1ka4y"]
+_data = {
+"RESET": SubResource("Animation_xpddm"),
+"in": SubResource("Animation_ha8df"),
+"out": SubResource("Animation_rh5sk")
 }
 
 [node name="Root" type="Node2D"]
@@ -562,14 +657,15 @@ texture_filter = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = -132.0
-offset_right = 220.001
-offset_bottom = -106.0
+offset_left = 9.0
+offset_top = -42.0
+offset_right = 234.0
+offset_bottom = 3.0
 grow_vertical = 0
-scale = Vector2(5, 5)
 theme = ExtResource("11_ur5wi")
 text = "Alpha"
+label_settings = SubResource("LabelSettings_mnnfc")
+vertical_alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="uiLayer"]
 visible = false
@@ -590,6 +686,38 @@ visible = false
 position = Vector2(969, 546.5)
 scale = Vector2(3.02813, 2.27708)
 texture = SubResource("ViewportTexture_tx2l4")
+
+[node name="cinemaBoxes" type="Control" parent="uiLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="top" type="ColorRect" parent="uiLayer/cinemaBoxes"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -100.0
+offset_right = 5760.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="bottom" type="ColorRect" parent="uiLayer/cinemaBoxes"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 5760.0
+offset_bottom = 99.9995
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -626,10 +754,15 @@ color = Color(0.937255, 0.909804, 0.901961, 1)
 
 [node name="levelTimer" type="Timer" parent="."]
 
-[node name="miscAnimation" type="AnimationPlayer" parent="."]
+[node name="vignette" type="AnimationPlayer" parent="."]
 autoplay = "vignette"
 libraries = {
 "": SubResource("AnimationLibrary_6paru")
+}
+
+[node name="cinemaboxes" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1ka4y")
 }
 
 [connection signal="pressed" from="pauseMenu/resume" to="pauseMenu" method="_on_resume_pressed"]
