@@ -13,6 +13,7 @@
 [ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="11_ur5wi"]
 [ext_resource type="Script" path="res://Scripts/Limitbar.gd" id="12_ir7nj"]
 [ext_resource type="PackedScene" uid="uid://ddp3f62huxqab" path="res://Instances/debugUI.tscn" id="13_7f5fb"]
+[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="13_hh7bn"]
 [ext_resource type="Texture2D" uid="uid://dmjo1q6ukx12l" path="res://Sprites/backgrounds/farmlandSky.tres" id="25_5yaeg"]
 [ext_resource type="Texture2D" uid="uid://bfi80xpxhxye6" path="res://Sprites/backgrounds/farmforeground.png" id="26_a23wb"]
 [ext_resource type="PackedScene" uid="uid://cg7daib18pq0c" path="res://Levels/debugroom.tscn" id="27_702vk"]
@@ -328,12 +329,11 @@ shader_parameter/multiplier = 0.013
 shader_parameter/softness = 0.691
 
 [sub_resource type="LabelSettings" id="LabelSettings_mnnfc"]
+font = ExtResource("13_hh7bn")
 font_size = 30
+font_color = Color(1, 1, 1, 0.596078)
 outline_size = 5
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_tx2l4"]
-viewport_path = NodePath("3DView")
+outline_color = Color(0, 0, 0, 0.462745)
 
 [sub_resource type="Gradient" id="Gradient_lq8tc"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -379,6 +379,33 @@ _data = {
 "vignette": SubResource("Animation_jp8t5")
 }
 
+[sub_resource type="Animation" id="Animation_xpddm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1080)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("uiLayer/cinemaBoxes/top:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+
 [sub_resource type="Animation" id="Animation_ha8df"]
 resource_name = "in"
 length = 0.5
@@ -405,33 +432,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -100), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_xpddm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 1080)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("uiLayer/cinemaBoxes/top:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -100)]
 }
 
 [sub_resource type="Animation" id="Animation_rh5sk"]
@@ -600,10 +600,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 974.0
-offset_top = -749.0
-offset_right = 3637.0
-offset_bottom = 749.0
+offset_left = 1934.0
+offset_top = -209.0
+offset_right = 4597.0
+offset_bottom = 1289.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -616,10 +616,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -51.0
-offset_right = 387.0
-offset_bottom = 108.0
+offset_left = 560.0
+offset_top = 489.0
+offset_right = 1347.0
+offset_bottom = 648.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Intermission..."
@@ -657,9 +657,9 @@ texture_filter = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 9.0
+offset_left = 3.0
 offset_top = -42.0
-offset_right = 234.0
+offset_right = 228.0
 offset_bottom = 3.0
 grow_vertical = 0
 theme = ExtResource("11_ur5wi")
@@ -681,12 +681,6 @@ offset_bottom = -163.0
 scale = Vector2(4, 4)
 script = ExtResource("12_ir7nj")
 
-[node name="3DViewSprite" type="Sprite2D" parent="uiLayer"]
-visible = false
-position = Vector2(969, 546.5)
-scale = Vector2(3.02813, 2.27708)
-texture = SubResource("ViewportTexture_tx2l4")
-
 [node name="cinemaBoxes" type="Control" parent="uiLayer"]
 layout_mode = 3
 anchors_preset = 15
@@ -701,7 +695,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -100.0
-offset_right = 5760.0
+offset_right = 26880.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
@@ -712,8 +706,9 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 5760.0
-offset_bottom = 99.9995
+offset_top = 1080.0
+offset_right = 26880.0
+offset_bottom = 1180.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3

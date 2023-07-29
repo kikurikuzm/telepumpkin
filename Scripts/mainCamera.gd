@@ -15,3 +15,7 @@ func _process(delta):
 	
 	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
 	zoom = lerp(zoom, desiredZoom, smoothAmount)
+
+func snapToParent():
+	global_position = currentParent.global_position
+	zoom = desiredZoom

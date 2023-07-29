@@ -9,6 +9,12 @@ extends EditorElement
 
 var hasTriggered = false
 
+func _input(event):
+	if Input.is_action_just_pressed("teleport") and mustInteract:
+		for node in area2d.get_overlapping_areas():
+			if node.is_in_group("player"):
+				triggerThings(node)
+
 func triggerThings(cause) -> void:
 	if !hasTriggered:
 		if anythingTriggers:

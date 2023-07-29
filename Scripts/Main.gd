@@ -145,9 +145,10 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	manholeVisLine()
 	
 	player.changeState("playeridle")
+	player.visible = true
 	$pauseMenu.unpause()
 	gvars.pCollected = 0
-	$mainCamera.reset_smoothing()
+	$mainCamera.snapToParent()
 	
 func _on_pumpkin_collected():
 	print("pumpkin collected")

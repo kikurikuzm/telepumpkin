@@ -2,6 +2,7 @@ extends Node2D
 class_name DialogueManager
 
 @export var dialogueJSONPath = "JSON FILEPATH HERE"
+@export var cutsceneManager : cutscenePlayer
 
 @onready var dialogueBox = $CanvasLayer/dialogBox
 
@@ -12,6 +13,7 @@ class_name DialogueManager
 @onready var textSpeed = $textSpeed
 
 @onready var mainCamera = get_parent().get_parent().get_node("mainCamera")
+var oldZoom
 
 var currentConversation = 0
 var currentTextIndex = 0
@@ -19,6 +21,7 @@ var currentTextIndex = 0
 var questIndex
 
 static var inDialogue = false
+var inCutscene = false
 
 var conversation : Array
 
@@ -70,6 +73,22 @@ func progressDialogue():
 		mainCamera.desiredZoom = str_to_var(quickConvoVar["zoom"])
 	if quickConvoVar.has("quest"):
 		questIndex = quickConvoVar["quest"]
+	if quickConvoVar.has("cutscene"):
+		var cutscene = quickConvoVar["cutscene"][0]
+		var playDuringDialogue = bool(quickConvoVar["cutscene"][1])
+		
+		if playDuringDialogue:
+			cutsceneManager.startCutscene(cutscene, false)
+		if !playDuringDialogue:
+			inCutscene = true
+			dialogueBox.visible = false
+			dialogueText.visible = false
+			cutsceneManager.startCutscene(cutscene)
+			await cutsceneManager.animation_finished
+			inCutscene = false
+			dialogueBox.visible = true
+			dialogueText.visible = true
+		
 		
 	if quickConvoVar["text"] == "":
 		dialogueBox.visible = false
@@ -100,14 +119,14 @@ func endDialogue():
 	currentTextIndex = 0
 	questIndex = null
 	
-	mainCamera.desiredZoom = mainCamera.oldZoom
+	mainCamera.desiredZoom = oldZoom
 	mainCamera.smoothAmount = 0.2
 	mainCamera.currentParent = mainCamera.playerRef
 	
 func convoInitialize(convoNumb=0):
 	conversation = parseJSON()
 	currentConversation = convoNumb
-	mainCamera.oldZoom = mainCamera.desiredZoom
+	oldZoom = mainCamera.desiredZoom
 	$textSkipDelay.start()
 	progressDialogue()
 	
@@ -115,7 +134,7 @@ func trigger():
 	convoInitialize()
 
 func _input(event):
-	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped():
+	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped() and !inCutscene:
 		if dialogueText.visible_characters == len(dialogueText.get_parsed_text()):
 			if questIndex != null:
 				get_parent().get_parent().questManager.changeQuest(questIndex)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cq2psyjn17dql"]
+[gd_scene load_steps=22 format=3 uid="uid://cq2psyjn17dql"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="1_5y7pe"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_l8akl"]
@@ -6,9 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_3dwea"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="6_fktvw"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="8_i8vbr"]
-[ext_resource type="Script" path="res://Scripts/enterLevelTemp.gd" id="8_uml40"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="9_2yq15"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_06yn4"]
+[ext_resource type="Script" path="res://Scripts/CutscenePlayer.gd" id="10_dshrw"]
+[ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="10_lfg40"]
+[ext_resource type="PackedScene" uid="uid://ba0c1ufll43t0" path="res://Instances/Level Components/levelChange.tscn" id="11_pfe6o"]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_3od47"]
 
@@ -29,6 +31,236 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vavtp"]
 gradient = SubResource("Gradient_qne3f")
+
+[sub_resource type="Animation" id="Animation_wl32f"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cam:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(411, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cam:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(745, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cam:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(411, 745)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("playerDummy:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("playerDummy:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(411, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("playerDummy:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(752, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("playerDummy:animation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("cam:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("levelChange:animationChangeLevel")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1mpa6"]
+_data = {
+"RESET": SubResource("Animation_wl32f")
+}
+
+[sub_resource type="Animation" id="Animation_blcne"]
+resource_name = "enterHole"
+length = 4.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cam:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.48, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(411, 748), Vector2(411, 735), Vector2(411, 808), Vector2(411, 806)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("playerDummy:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("playerDummy:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(411, -0.25, 0, 0.25, 0, 411, -0.25, 0, 0.25, 0, 411, -0.25, 0, 0.25, 0, 411, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6, 1.1, 1.4)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("playerDummy:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(752, -0.25, 0, 0.1, -9.5, 741, -0.2, 1.5, 0.3, -1.5, 737.5, -0.4, 3, 0.2, -1, 786, -0.1, -56.5, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 1.1, 1.4)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("playerDummy:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.25223),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Jump", &"Fall"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("cam:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(5.5, 5.5), Vector2(6, 6)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("levelChange:animationChangeLevel")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_y7735"]
+resource_name = "introduceManhole"
+length = 4.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cam:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(284, -0.25, 0, 0.5, 1.99997, 411, -1.4, -12, 0.25, 0),
+"times": PackedFloat32Array(0, 3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cam:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(731, -0.25, 0, 0.25, 0, 742, -1.4, 5, 0.25, 0),
+"times": PackedFloat32Array(0, 2.9)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gd4c1"]
+_data = {
+"enterHole": SubResource("Animation_blcne"),
+"introduceManhole": SubResource("Animation_y7735")
+}
 
 [node name="base" type="TileMap"]
 z_index = -1
@@ -57,20 +289,18 @@ texture = ExtResource("6_fktvw")
 
 [node name="NPC1" parent="." instance=ExtResource("3_tdg5v")]
 position = Vector2(284, 736)
+scale = Vector2(-1, 1)
 spriteFlip = true
-
-[node name="NPC2" parent="." instance=ExtResource("3_tdg5v")]
-position = Vector2(341, 736)
-npcLook = "cool"
 
 [node name="manhole" parent="." instance=ExtResource("8_i8vbr")]
 position = Vector2(411, 766)
 
 [node name="trigger" parent="." instance=ExtResource("9_06yn4")]
 editor_description = "Select the nodes that you want to trigger. Ensure that the given nodes have the 'trigger()' function."
-position = Vector2(239, 783)
+position = Vector2(411, 746)
 scale = Vector2(0.560005, 0.560005)
-triggerList = [NodePath("../dialogueManager")]
+triggerList = [NodePath("../cutscenePlayer")]
+mustInteract = true
 
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(556.25, 267.5)
@@ -80,8 +310,29 @@ blend_mode = 1
 texture = SubResource("GradientTexture2D_vavtp")
 metadata/_edit_lock_ = true
 
-[node name="templevelgo" type="Node" parent="."]
-script = ExtResource("8_uml40")
+[node name="dialogueManager" parent="." node_paths=PackedStringArray("cutsceneManager") instance=ExtResource("9_2yq15")]
+dialogueJSONPath = "res://Resources/DialogueJSONs/sewerIntro.json"
+cutsceneManager = NodePath("../cutscenePlayer")
 
-[node name="dialogueManager" parent="." instance=ExtResource("9_2yq15")]
-dialogueJSONPath = "res://Resources/DialogueJSONs/test01.json"
+[node name="cutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera", "placeholderPlayer")]
+libraries = {
+"": SubResource("AnimationLibrary_1mpa6"),
+"sewerIntro": SubResource("AnimationLibrary_gd4c1")
+}
+script = ExtResource("10_dshrw")
+animationName = "sewerIntro/enterHole"
+placeholderCamera = NodePath("../cam")
+placeholderPlayer = NodePath("../playerDummy")
+
+[node name="cam" type="Marker2D" parent="."]
+position = Vector2(411, 745)
+scale = Vector2(5, 5)
+
+[node name="playerDummy" parent="." instance=ExtResource("10_lfg40")]
+visible = false
+z_index = -1
+position = Vector2(411, 752)
+animation = &"Idle"
+
+[node name="levelChange" parent="." instance=ExtResource("11_pfe6o")]
+level = "res://Levels/Level5.tscn"
