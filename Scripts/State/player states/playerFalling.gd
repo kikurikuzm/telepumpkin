@@ -6,7 +6,7 @@ var currentVelocityY: float
 
 func enter():
 	animPlayer.play("fall")
-	player.gravity = 22
+	player.gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2.3
 
 func exit():
 	if player.is_on_floor():

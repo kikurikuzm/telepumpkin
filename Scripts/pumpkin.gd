@@ -6,8 +6,8 @@ extends RigidBody2D
 var highlighted = false
 var maxUnst
 
-@onready var animationPlayer = get_node("abberation/AnimationPlayer")
-@onready var animationTree = get_node("abberation/AnimationTree")
+@onready var animationPlayer = get_node("pumpkin2/abberation/AnimationPlayer")
+@onready var animationTree = get_node("pumpkin2/abberation/AnimationTree")
 @onready var poofs = preload("res://Instances/Particles/poofs.tscn")
 @onready var teleportLight = preload("res://Instances/Particles/teleport_light.tscn")
 var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
@@ -15,7 +15,7 @@ var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 @onready var sprite = $pumpkin2
 
 var testpos
-var gravity = 3
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var customVelocity = Vector2.ZERO
 
 #random size adjustment when pumpkins are spawned
@@ -26,13 +26,12 @@ func _init():
 func _ready():
 	if unstable:
 		maxUnst = unstableTeleport
-		$abberation.visible = true
+		$pumpkin2/abberation.visible = true
 		animationPlayer.play("idle")
 	if !unstable:
 		animationPlayer.play("normalIdle")
 
 func _physics_process(delta):
-	#basic physics for the pumpkins
 	if unstable:
 		animationTree.active = true
 		animationTree.set("parameters/blend_position", float(unstableTeleport) / float(maxUnst))
@@ -51,10 +50,11 @@ func _physics_process(delta):
 
 func _process(delta):
 	if highlighted:
-		sprite.modulate = lerp(sprite.modulate, Color(0.8, 0.75, 1.0), 0.25)
+		$pumpkin2/abberation.texture.noise.seed = randi()
+		sprite.self_modulate = lerp(sprite.self_modulate, Color(0.8, 0.75, 1.0), 0.25)
 		$selectParticles.emitting = true
 	else:
-		sprite.modulate = lerp(sprite.modulate, Color(1.0, 1.0, 1.0), 0.15)
+		sprite.self_modulate = lerp(sprite.self_modulate, Color(1.0, 1.0, 1.0), 0.15)
 		$selectParticles.emitting = false
 	
 	highlighted = false
@@ -66,7 +66,7 @@ func teleport(hostPos: Transform2D):
 	custom_integrator = true
 	
 	if unstable:
-		$abberation.visible = true
+		$pumpkin2/abberation.visible = true
 		if unstableTeleport > 0:
 			unstableTeleport -= 1
 			animationPlayer.play("teleport")

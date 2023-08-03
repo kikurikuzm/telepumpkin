@@ -24,7 +24,7 @@ var holdingTPP = false
 var tppInst
 
 @export var speed = 100
-@export var gravity = 11
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var jumpStrength = 200
 var direction
 

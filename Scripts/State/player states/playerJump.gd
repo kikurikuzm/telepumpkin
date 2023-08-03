@@ -6,7 +6,7 @@ var aircontrol = 3
 func enter():
 	animPlayer.play("jump")
 	player.velocity.y -= player.jumpstrength
-	player.gravity = 8
+	player.gravity = ProjectSettings.get_setting("physics/3d/default_gravity") / 1.2
 
 func exit():
 	player.jumpstrength = 0

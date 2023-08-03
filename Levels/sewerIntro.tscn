@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cq2psyjn17dql"]
+[gd_scene load_steps=23 format=3 uid="uid://cq2psyjn17dql"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="1_5y7pe"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_l8akl"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/CutscenePlayer.gd" id="10_dshrw"]
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="10_lfg40"]
 [ext_resource type="PackedScene" uid="uid://ba0c1ufll43t0" path="res://Instances/Level Components/levelChange.tscn" id="11_pfe6o"]
+[ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="12_a7utv"]
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_3od47"]
 
@@ -289,7 +290,6 @@ texture = ExtResource("6_fktvw")
 
 [node name="NPC1" parent="." instance=ExtResource("3_tdg5v")]
 position = Vector2(284, 736)
-scale = Vector2(-1, 1)
 spriteFlip = true
 
 [node name="manhole" parent="." instance=ExtResource("8_i8vbr")]
@@ -336,3 +336,6 @@ animation = &"Idle"
 
 [node name="levelChange" parent="." instance=ExtResource("11_pfe6o")]
 level = "res://Levels/Level5.tscn"
+
+[node name="interactIcon" parent="." instance=ExtResource("12_a7utv")]
+position = Vector2(411, 781)

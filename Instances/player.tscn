@@ -785,7 +785,6 @@ script = ExtResource("7_u8qku")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 impactAudio = NodePath("../../fallThump")
-friction = null
 
 [node name="playerStretch" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "turnTimer")]
 script = ExtResource("8_sjiu6")
