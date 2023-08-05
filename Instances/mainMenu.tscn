@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dvodnr4utvfun"]
+[gd_scene load_steps=28 format=3 uid="uid://dvodnr4utvfun"]
 
 [ext_resource type="Script" path="res://Scripts/mainMenu.gd" id="1_s2c4v"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wiggle.gdshader" id="2_kksby"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bel1p0o5a3qog" path="res://Sprites/Misc/win moment.png" id="3_0djys"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wavy.gdshader" id="4_j7w7e"]
 [ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="4_tyi58"]
+[ext_resource type="Texture2D" uid="uid://dsfqewqchle4p" path="res://Sprites/Misc/controls.png" id="7_5afku"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_or5xf"]
 shader = ExtResource("2_kksby")
@@ -279,6 +280,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 245.0
+offset_right = 245.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_s2c4v")
@@ -515,15 +518,14 @@ position = Vector2(960, 540)
 gizmo_extents = 341.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(0.6, 0.6)
+motion_scale = Vector2(0.15, 0.15)
 
 [node name="bg" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 modulate = Color(1, 1, 1, 0.415686)
 z_index = -1
-position = Vector2(846, 634)
+position = Vector2(1006, 634)
 scale = Vector2(0.854305, 0.854305)
 texture = ExtResource("3_0djys")
 
@@ -534,6 +536,21 @@ libraries = {
 }
 
 [node name="shakeInterval" type="Timer" parent="."]
+
+[node name="controls" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = 32.0
+offset_right = -240.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_5afku")
 
 [connection signal="item_selected" from="settingsMenu/VBoxContainer/GridContainer/resolutionSettings" to="." method="_on_resolution_settings_item_selected"]
 [connection signal="item_selected" from="settingsMenu/VBoxContainer/GridContainer/graphicsSettings" to="." method="_on_graphics_settings_item_selected"]

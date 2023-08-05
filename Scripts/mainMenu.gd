@@ -7,6 +7,7 @@ var mainscene
 
 var inSettings = false
 
+@onready var controlHelp = $controls
 @onready var saveRemove = $settingsMenu/VBoxContainer/saveRemove
 @onready var resolutionSettings = $settingsMenu/VBoxContainer/GridContainer/resolutionSettings
 @onready var graphicsSettings = $settingsMenu/VBoxContainer/GridContainer/graphicsSettings
@@ -14,6 +15,7 @@ var inSettings = false
 @onready var mute = $settingsMenu/VBoxContainer/GridContainer/mute
 
 func _ready():
+	controlHelp.visible = true
 	animation_player.play("init")
 	if FileAccess.file_exists("user://save.dat"):
 		$start.text = "Resume"
@@ -114,6 +116,8 @@ func _on_resolution_settings_item_selected(index):
 func _input(event):
 	if Input.is_action_just_pressed("ui_down"):
 		shakeCam(2.0, 0.02)
+	if event is InputEventKey:
+		controlHelp.visible = false
 
 func _on_save_remove_pressed():
 	if FileAccess.file_exists("user://save.dat"):
@@ -164,3 +168,6 @@ func _on_mute_toggled(button_pressed):
 		AudioServer.set_bus_mute(0, true)
 	if button_pressed == false:
 		AudioServer.set_bus_mute(0, false)
+
+func _process(delta):
+	camera.offset = lerp(camera.offset, get_viewport().get_mouse_position() / 16 + Vector2(-70, -40), 0.1)
