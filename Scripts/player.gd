@@ -64,41 +64,18 @@ func _process(delta):
 	
 	gvars.onFloor = is_on_floor()
 	
-#	if inDialog:
-#		#little dialog arrow indicator
-#		if dialogText.visible_ratio >= 1.0:
-#			dialogBox.get_node("progress").visible = true
-#		else:
-#			dialogBox.get_node("progress").visible = false
-#		playerCam.zoom = lerp(playerCam.zoom, Vector2(1.5, 1.5) + oldZoom, 0.2)
-#		#playing text noise when letters appear
-#		if dialogBox.get_node("textSpeed").is_stopped():
-#			if dialogText.visible_ratio <= 1.0:
-#				dialogBox.get_node("AudioStreamPlayer").pitch_scale = randf_range(0.9, 1.1)
-#				dialogBox.get_node("AudioStreamPlayer").play()
-#			dialogText.visible_characters += 1
-#			dialogBox.get_node("textSpeed").start(dialogSpeed)
-			
-#	if !inDialog:
-#		oldZoom = playerCam.zoom
-#		playerCam.zoom = lerp(playerCam.zoom, Vector2(cameraZoom, cameraZoom), 0.1)
-	
 	if hasTPP:
 		$Teleport.visible = false
 		$Teleport.set_process(false)
 	else:
 		$Teleport.set_process(true)
 	
-		
+	
 	if holdingTPP:
 		tpp.visible = true
 	else:
 		tpp.visible = false
 	
-	
-	#debug checks (gross way but idk how the hell else to do it)
-	mousefly = gvars.mousefly
-
 	if Input.is_action_just_pressed("teleport"):
 		if interactArea.get_overlapping_areas() != []:
 			for node in interactArea.get_overlapping_areas():
@@ -111,42 +88,9 @@ func _process(delta):
 		if !hasTPP:
 			teleportRange.rangeTeleport(global_transform)
 		tppHandler()
-	if mousefly:
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-			velocity = Vector2.ZERO
-			self.position = get_global_mouse_position()
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		
 	if Input.is_action_just_released("teleport"):
 		$debugText.visible = false
-	
-var currentDialog : int
-var dialogSpeed : float
-
-#func initiateDialog(npcVariables: Array):
-#	if currentDialog == 0 and is_on_floor():
-#		print("started")
-#		$stateFactory.on_child_transition($stateFactory.current_state, "playerbusy")
-#		var text = npcVariables[0]
-#		var portrait = npcVariables[1]
-#
-#		dialogSpeed = npcVariables[2]
-#		dialogText.visible_ratio = 0.0
-#		inDialog = true
-#		dialogBox.visible = true
-#		dialogText.text = text[0]
-#		dialogPortrait.animation = npcVariables[1]
-#		$dialogTimer.start(0.2)
-#
-#func progressDialog(npcVariables: Array):
-#	var text = npcVariables[0][currentDialog]
-#	var portrait = npcVariables[1]
-#
-#	dialogText.visible_ratio = 0.0
-#	dialogText.text = text
-#	$dialogTimer.start(0.2)
 
 func tppHandler():
 	if hasTPP and holdingTPP:

@@ -42,7 +42,7 @@ layout_mode = 0
 offset_right = 76.0
 offset_bottom = 40.0
 shortcut_in_tooltip = false
-text = "Mouse Teleport"
+text = "Noclip"
 
 [node name="timeScaleSlider" type="HSlider" parent="TabContainer/Debug Settings"]
 layout_mode = 0
@@ -85,17 +85,6 @@ offset_left = 58.0
 offset_top = 2.0
 offset_right = 102.0
 offset_bottom = 26.0
-
-[node name="Psudoconsole" type="Panel" parent="TabContainer"]
-visible = false
-layout_mode = 2
-
-[node name="consoleLabel" type="Label" parent="TabContainer/Psudoconsole"]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 936.0
-offset_bottom = 494.0
-text = "the console"
 
 [connection signal="item_activated" from="TabContainer/LevelSelect" to="." method="_on_Levels_item_activated"]
 [connection signal="toggled" from="TabContainer/Debug Settings/mouseFly" to="." method="_on_mouse_fly_toggled"]

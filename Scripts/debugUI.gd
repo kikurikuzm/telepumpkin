@@ -29,7 +29,10 @@ func _on_Levels_item_activated(index):
 	gvars.emit_signal("debugLChange", levels[index])
 
 func _on_mouse_fly_toggled(button_pressed):
-	gvars.mousefly = button_pressed
+	if button_pressed:
+		mainNode.player.changeState("playerbusy")
+	if !button_pressed:
+		mainNode.player.changeState("playeridle")
 
 func _on_time_scale_slider_value_changed(value):
 	Engine.time_scale = value
@@ -42,6 +45,3 @@ func _on_lev_numb_value_changed(value):
 func _on_givetp_toggled(button_pressed):
 	get_parent().get_parent().player.hasTPP = button_pressed
 	get_parent().get_parent().player.holdingTPP = button_pressed
-
-func sendToConsole(text):
-	$TabContainer/Psudoconsole/consoleLabel.text += '\n' + text
