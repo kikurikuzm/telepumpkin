@@ -54,6 +54,8 @@ var tempExit2
 var storedX = 0
 var storedY = 0
 
+signal saveComplete
+
 func _init():
 	gvars.connect("debugLChange",Callable(self,"_on_debug_lChange"))
 	gvars.connect("pumpkinCollected",Callable(self,"_on_pumpkin_collected"))
@@ -91,6 +93,10 @@ func _process(delta):
 			inMap = false
 
 func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
+	saveScene()
+	
+	#await saveComplete
+	
 	if nextTransition != null:
 		transition = nextTransition
 	if transition == 1:
@@ -222,53 +228,9 @@ func manholeVisLine():
 			hole1ID = null
 			hole2ID = null
 
-#func _on_entrance_entered(scene):
-#	if !FileAccess.file_exists("user://plrData.dat"):
-#		var saveDict = {
-#			"scene" : scene,
-#			"xPos" : player.global_position.x,
-#			"yPos" : player.global_position.y
-#		}
-#
-#		var file = FileAccess.open("user://plrData.dat", FileAccess.WRITE)
-#		var jsonString = JSON.stringify(saveDict)
-#		file.store_string(jsonString)
-#
-#		file.store_line(jsonString)
-#	if FileAccess.file_exists("user://plrData.dat"):
-#		var loadFile = FileAccess.open("user://plrData.dat", FileAccess.READ_WRITE)
-#		while loadFile.get_position() < loadFile.get_length():
-#			var jsonString = loadFile.get_line()
-#			var json = JSON.new()
-#
-#			var parseResult = json.parse(jsonString)
-#			if not parseResult == OK:
-#				print("json parsing error :(")
-#				continue
-#
-#			var nodeData = json.get_data()
-#
-#			var correctScene = true
-#
-#			for i in nodeData.keys():
-#				if i == "scene":
-#					if scene == nodeData[i]:
-#						continue
-#						print("correct scene")
-#					else:
-#						correctScene = false
-#						break
-#						print("incorrect scene")
-#				elif i == "xPos":
-#					player.global_position.x = nodeData[i]
-#					print("loaded xpos")
-#				elif i == "yPos":
-#					player.global_position.y = nodeData[i]
-#					print("loaded ypos")
-#
-#			if correctScene == true:
-#				loadFile.close()
-#				DirAccess.remove_absolute("user://plrData.dat")
-#				print("deleted file")
-#			elif correctScene == false:
-#				loadFile.close()
+func saveScene():
+	var levelChildren = currentLevel.get_children()
+	for node in levelChildren:
+		if node.is_in_group("saveable"):
+			print("saved ", node)
+	emit_signal("saveComplete")

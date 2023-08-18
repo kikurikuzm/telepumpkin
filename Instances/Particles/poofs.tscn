@@ -45,11 +45,9 @@ process_material = SubResource("ParticleProcessMaterial_k0cfb")
 lifetime = 2.32
 explosiveness = 1.0
 randomness = 0.23
-fixed_fps = 60
 visibility_rect = Rect2(-24.8001, -18.6598, 52.8013, 39.1099)
 trail_enabled = true
 trail_lifetime = 0.07
-trail_sections = 6
 script = ExtResource("2_rbjjh")
 
 [node name="Timer" type="Timer" parent="."]

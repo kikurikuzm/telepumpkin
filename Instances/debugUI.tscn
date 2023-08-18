@@ -86,8 +86,13 @@ offset_top = 2.0
 offset_right = 102.0
 offset_bottom = 26.0
 
+[node name="Instance Spawner" type="ItemList" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
 [connection signal="item_activated" from="TabContainer/LevelSelect" to="." method="_on_Levels_item_activated"]
 [connection signal="toggled" from="TabContainer/Debug Settings/mouseFly" to="." method="_on_mouse_fly_toggled"]
 [connection signal="value_changed" from="TabContainer/Debug Settings/timeScaleSlider" to="." method="_on_time_scale_slider_value_changed"]
 [connection signal="value_changed" from="TabContainer/Debug Settings/levNumb" to="." method="_on_lev_numb_value_changed"]
 [connection signal="toggled" from="TabContainer/Debug Settings/givetpLabel/givetp" to="." method="_on_givetp_toggled"]
+[connection signal="item_activated" from="TabContainer/Instance Spawner" to="." method="_on_instance_spawner_item_activated"]

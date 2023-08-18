@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://mp7xv3dv0xyn"]
 
-[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="1_e8s6j"]
+[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_e8s6j"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_0ffp0"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_bttrq"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="3_aasaa"]

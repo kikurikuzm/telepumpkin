@@ -12,12 +12,14 @@ func exit():
 	player.jumpstrength = 0
 
 func update(delta: float):
+	pass
+
+func physics_update(delta: float):
 	if Input.is_action_pressed("left"):
 		player.velocity.x -= aircontrol
 	if Input.is_action_pressed("right"):
 		player.velocity.x += aircontrol
-
-func physics_update(delta: float):
+	
 	if player.velocity.y > 0:
 		transitioned.emit(self, "playerfalling")
 	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://burivqi403j3x"]
 
-[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Resources/Tile Sets/farmlandTiles.tres" id="1_ufe1h"]
+[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_ufe1h"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_pqe6e"]
 [ext_resource type="PackedScene" uid="uid://b7dv2veqbf001" path="res://Instances/Level Components/loadTrigger.tscn" id="4_k8akb"]
 [ext_resource type="PackedScene" uid="uid://bwif5kh6bhds0" path="res://Levels/moonCity.tscn" id="5_1grd4"]

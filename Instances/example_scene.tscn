@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddx1bntnnapvr"]
 
-[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Resources/Tile Sets/farmlandTiles.tres" id="1_rig8h"]
+[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_rig8h"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_f8cqy"]
 [ext_resource type="PackedScene" uid="uid://bpjxvum0s7d37" path="res://Instances/Helpers/auto_tiler.tscn" id="2_l7dcr"]
 

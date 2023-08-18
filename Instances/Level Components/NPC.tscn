@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(34, 62)
 
-[node name="NPC" type="Node2D" groups=["npc"]]
+[node name="NPC" type="Node2D" groups=["npc", "saveable"]]
 script = ExtResource("1_o0077")
 
 [node name="interactIcon" parent="." instance=ExtResource("2_pj100")]

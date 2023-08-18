@@ -27,9 +27,9 @@
 [ext_resource type="AudioStream" uid="uid://cd7bmqexlqs4e" path="res://Audio/sfx/pickuptoo.ogg" id="23_hnh6d"]
 [ext_resource type="AudioStream" uid="uid://bhay6ynm00fpy" path="res://Audio/sfx/fall thump.ogg" id="24_x075c"]
 [ext_resource type="Script" path="res://Scripts/simplefootsteps.gd" id="25_v543r"]
-[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Resources/Tile Sets/farmlandTiles.tres" id="26_gdvr1"]
-[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="27_fgwwr"]
-[ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Resources/Tile Sets/apartments.tres" id="28_btkl4"]
+[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="28_exmif"]
+[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="29_yvakp"]
+[ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="30_e5rbn"]
 
 [sub_resource type="Curve" id="Curve_bucuf"]
 _data = [Vector2(0, 0.730769), 0.0, 0.0, 0, 0, Vector2(0.981884, 0.153846), -0.225859, 0.0, 0, 0]
@@ -900,8 +900,8 @@ metal3 = ExtResource("13_yi6rr")
 wood1 = ExtResource("14_mbwwd")
 wood2 = ExtResource("15_breqs")
 wood3 = ExtResource("16_1x2s6")
-farmlandTiles = ExtResource("26_gdvr1")
-cityTiles = ExtResource("27_fgwwr")
-woodTiles = ExtResource("28_btkl4")
+farmlandTiles = ExtResource("28_exmif")
+cityTiles = ExtResource("29_yvakp")
+woodTiles = ExtResource("30_e5rbn")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="footstepManager" method="_on_animated_sprite_2d_frame_changed"]

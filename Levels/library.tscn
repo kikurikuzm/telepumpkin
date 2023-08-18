@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://cpafis3j1jvn0"]
 
-[ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Resources/Tile Sets/apartments.tres" id="1_d4keh"]
+[ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="1_d4keh"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_ckqg2"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="3_c58ar"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="5_xhu3m"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_ebrtg"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="8_ohovq"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="9_g63xh"]
-[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="10_dwmwe"]
+[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="10_dwmwe"]
 [ext_resource type="Texture2D" uid="uid://blip6bjacflhv" path="res://Sprites/Decoration/bookshelf.png" id="11_4jog3"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="12_44oyr"]
 
