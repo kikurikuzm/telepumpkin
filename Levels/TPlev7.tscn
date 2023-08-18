@@ -48,7 +48,7 @@ zoom = Vector2(4.22, 4.22)
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(941, 748)
 scale = Vector2(25.2656, 11.3125)
-energy = 0.5
+energy = 0.65
 blend_mode = 1
 texture = SubResource("GradientTexture2D_r4bnp")
 metadata/_edit_lock_ = true

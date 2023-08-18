@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=27 format=3 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Texture2D" uid="uid://duokp1u0wgyb8" path="res://Sprites/backgrounds/fog.png" id="2_acwq0"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" path="res://Levels/apartments.tscn" id="5_tji4g"]
 [ext_resource type="PackedScene" uid="uid://cpafis3j1jvn0" path="res://Levels/library.tscn" id="6_3mlwe"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_kgxg5"]
-[ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_1hlch"]
 [ext_resource type="Environment" uid="uid://bdkllmoqon3ww" path="res://Resources/Environments/moonCity.tres" id="8_cm0pj"]
 [ext_resource type="Texture2D" uid="uid://b14mb3oy84jyr" path="res://Sprites/tiles/poster.png" id="9_102g8"]
 [ext_resource type="AudioStream" uid="uid://b8wehmsmse6tt" path="res://Audio/ambience.ogg" id="10_bsqva"]
@@ -94,6 +93,18 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_x6tfr"]
 gradient = SubResource("Gradient_nx7bn")
+
+[sub_resource type="Gradient" id="Gradient_lqwkb"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.365591, 0.672043, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.0707183, 0.131765, 1, 5.41471e-08, 0.135012, 0.227279, 1, 9.62615e-08, 0.277376, 0.300149, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pt1lr"]
+gradient = SubResource("Gradient_lqwkb")
+width = 2000
+height = 1000
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_haxfc"]
 font_size = 15
@@ -204,7 +215,7 @@ hasVignette = true
 hasMapView = false
 levelAmbience = ExtResource("10_bsqva")
 levelTransition = 2
-levelBackground = ExtResource("8_1hlch")
+levelBackground = SubResource("GradientTexture2D_pt1lr")
 levelForeground = null
 worldEnvironment = ExtResource("8_cm0pj")
 
@@ -298,6 +309,7 @@ position = Vector2(0, -22.5)
 shape = SubResource("RectangleShape2D_37ck6")
 
 [node name="Graffiti1" type="Sprite2D" parent="."]
+z_index = -2
 position = Vector2(-228, 692)
 rotation = 0.141372
 texture = ExtResource("14_t378c")

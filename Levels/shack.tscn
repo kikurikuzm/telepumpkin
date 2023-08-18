@@ -41,16 +41,16 @@ position = Vector2(775, 822)
 exit = true
 
 [node name="NPC" parent="." instance=ExtResource("4_ybaqi")]
-position = Vector2(663, 800)
+position = Vector2(1129, 799)
 npcLook = "corpse"
 spriteFlip = true
 
 [node name="NPC2" parent="." instance=ExtResource("4_ybaqi")]
-position = Vector2(828, 612)
+position = Vector2(1294, 611)
 npcLook = "kin"
 
 [node name="NPC3" parent="." instance=ExtResource("4_ybaqi")]
-position = Vector2(908, 868)
+position = Vector2(1374, 867)
 npcLook = "inspect"
 
 [node name="levelVariables" parent="." instance=ExtResource("5_7b3b5")]
