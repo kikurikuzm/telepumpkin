@@ -67,15 +67,18 @@ func _ready():
 	currentLevel.visible = true
 	$uiLayer/vernumb.text = gvars.versionNum
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	if FileAccess.file_exists("user://save.dat"):
-		var fileLoad = FileAccess.open("user://save.dat", FileAccess.READ)
-		var levelLoad = load(fileLoad.get_line())
-		levNum = fileLoad.get_8()
-		player.hasTPP = bool(fileLoad.get_8())
-		print(levNum)
-		loadLevel(levelLoad)
+	if gvars.customLoad == null:
+		if FileAccess.file_exists("user://save.dat"):
+			var fileLoad = FileAccess.open("user://save.dat", FileAccess.READ)
+			var levelLoad = load(fileLoad.get_line())
+			levNum = fileLoad.get_8()
+			player.hasTPP = bool(fileLoad.get_8())
+			print(levNum)
+			loadLevel(levelLoad)
+		else:
+			loadLevel(l1)
 	else:
-		loadLevel(l1)
+		loadLevel(gvars.customLoad)
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_skip"):

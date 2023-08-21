@@ -418,6 +418,12 @@ focus_mode = 0
 theme = SubResource("Theme_2unvs")
 text = "levcopy"
 
+[node name="custom levels" type="Button" parent="settingsMenu/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Can be used to load custom levels"
+theme = ExtResource("2_kn6pq")
+text = "Load Level"
+
 [node name="title" type="Label" parent="."]
 material = SubResource("ShaderMaterial_v5r0w")
 layout_mode = 1
@@ -538,6 +544,7 @@ libraries = {
 [node name="shakeInterval" type="Timer" parent="."]
 
 [node name="controls" type="TextureRect" parent="."]
+visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -551,6 +558,15 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_5afku")
 
+[node name="levelDialogue" type="FileDialog" parent="."]
+title = "Open a Custom Level"
+initial_position = 1
+size = Vector2i(503, 503)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.tscn ; GD Scene")
+
 [connection signal="item_selected" from="settingsMenu/VBoxContainer/GridContainer/resolutionSettings" to="." method="_on_resolution_settings_item_selected"]
 [connection signal="item_selected" from="settingsMenu/VBoxContainer/GridContainer/graphicsSettings" to="." method="_on_graphics_settings_item_selected"]
 [connection signal="toggled" from="settingsMenu/VBoxContainer/GridContainer/mute" to="." method="_on_mute_toggled"]
@@ -559,6 +575,8 @@ texture = ExtResource("7_5afku")
 [connection signal="pressed" from="settingsMenu/VBoxContainer/save" to="." method="_on_apply_pressed"]
 [connection signal="pressed" from="settingsMenu/VBoxContainer/saveRemove" to="." method="_on_save_remove_pressed"]
 [connection signal="pressed" from="settingsMenu/VBoxContainer/levelRecopy" to="." method="_on_level_recopy_pressed"]
+[connection signal="pressed" from="settingsMenu/VBoxContainer/custom levels" to="." method="_on_custom_levels_pressed"]
 [connection signal="pressed" from="start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="file_selected" from="levelDialogue" to="." method="_on_level_dialogue_file_selected"]

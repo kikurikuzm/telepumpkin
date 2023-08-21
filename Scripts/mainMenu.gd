@@ -13,6 +13,7 @@ var inSettings = false
 @onready var graphicsSettings = $settingsMenu/VBoxContainer/GridContainer/graphicsSettings
 @onready var fullscreen = $settingsMenu/VBoxContainer/GridContainer/fullscreen
 @onready var mute = $settingsMenu/VBoxContainer/GridContainer/mute
+@onready var CusLevelSelect = $levelDialogue
 
 func _ready():
 	controlHelp.visible = true
@@ -172,3 +173,10 @@ func _on_mute_toggled(button_pressed):
 
 func _process(delta):
 	camera.offset = lerp(camera.offset, get_viewport().get_mouse_position() / 16 + Vector2(-70, -40), 0.1)
+
+func _on_custom_levels_pressed():
+	CusLevelSelect.popup_centered()
+
+func _on_level_dialogue_file_selected(path):
+	gvars.customLoad = load(path)
+	get_tree().change_scene_to_packed(mainscene)
