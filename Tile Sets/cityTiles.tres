@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://c0hksqeiy0e1e"]
+[gd_resource type="TileSet" load_steps=13 format=3 uid="uid://c0hksqeiy0e1e"]
 
 [ext_resource type="Texture2D" uid="uid://psf2gfo4vv38" path="res://Sprites/Ground/ground-sheet0.png" id="1_62u4d"]
 [ext_resource type="Texture2D" uid="uid://dn8wt4pn1ur0e" path="res://Sprites/tiles/buildingbase.png" id="2_uwwky"]
 [ext_resource type="Texture2D" uid="uid://b80w3ber0ns7c" path="res://Sprites/tiles/buildingsheet.png" id="3_xti4c"]
+[ext_resource type="Texture2D" uid="uid://b4ko6islxd6mn" path="res://Sprites/Ground/streettiles.png" id="4_x83vo"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_jyckg"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -57,13 +58,47 @@ texture_region_size = Vector2i(32, 32)
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2cf26"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4um6f"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vkuvr"]
+texture = ExtResource("4_x83vo")
+texture_region_size = Vector2i(32, 32)
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_4um6f")
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0/terrains_peering_bit/bottom_left_corner = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_2cf26")
+0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0/terrains_peering_bit/bottom_right_corner = 0
+0:1/0/terrains_peering_bit/bottom_left_corner = 0
+0:1/0/terrains_peering_bit/top_left_corner = 0
+0:1/0/terrains_peering_bit/top_right_corner = 0
+
 [resource]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
+terrain_set_0/mode = 1
+terrain_set_0/terrain_0/name = "Street"
+terrain_set_0/terrain_0/color = Color(0.160784, 0.431373, 0.443137, 1)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_sokv6")
 sources/1 = SubResource("TileSetAtlasSource_7i57t")
 sources/2 = SubResource("TileSetAtlasSource_5y8jh")
 sources/3 = SubResource("TileSetAtlasSource_2t3lo")
+sources/4 = SubResource("TileSetAtlasSource_vkuvr")

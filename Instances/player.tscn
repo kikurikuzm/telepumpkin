@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=57 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -30,6 +30,7 @@
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="28_exmif"]
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="29_yvakp"]
 [ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="30_e5rbn"]
+[ext_resource type="TileSet" uid="uid://d1ii0t01yom7g" path="res://Tile Sets/sewerTiles.tres" id="30_g74ta"]
 
 [sub_resource type="Curve" id="Curve_bucuf"]
 _data = [Vector2(0, 0.730769), 0.0, 0.0, 0, 0, Vector2(0.981884, 0.153846), -0.225859, 0.0, 0, 0]
@@ -736,6 +737,7 @@ polygon = PackedVector2Array(-9, 3, -9, 4, -7, 4, 7, 4, 9, 4, 9, 3)
 size = Vector2(32, 38)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(0.925, 0.925)
 collision_layer = 2
 collision_mask = 2
 slide_on_ceiling = false
@@ -902,6 +904,7 @@ wood2 = ExtResource("15_breqs")
 wood3 = ExtResource("16_1x2s6")
 farmlandTiles = ExtResource("28_exmif")
 cityTiles = ExtResource("29_yvakp")
+sewerTiles = ExtResource("30_g74ta")
 woodTiles = ExtResource("30_e5rbn")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="footstepManager" method="_on_animated_sprite_2d_frame_changed"]

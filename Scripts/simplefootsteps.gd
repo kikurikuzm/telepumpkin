@@ -14,6 +14,7 @@ extends RayCast2D
 
 @export var farmlandTiles : TileSet
 @export var cityTiles : TileSet
+@export var sewerTiles : TileSet
 @export var woodTiles : TileSet
 
 @onready var gStream = [grass1, grass2, grass3]
@@ -43,7 +44,7 @@ func spawnFootstep():
 		if currentTileMap.tile_set == farmlandTiles:
 			gStream.shuffle()
 			footStream.stream = gStream[0]
-		if currentTileMap.tile_set == cityTiles:
+		if currentTileMap.tile_set == cityTiles or currentTileMap.tile_set == sewerTiles:
 			mStream.shuffle()
 			footStream.stream = mStream[0]
 		if currentTileMap.tile_set == woodTiles:
