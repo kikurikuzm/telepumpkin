@@ -1,31 +1,38 @@
 extends Node2D
 class_name DialogueManager
+##A node that enables NPCs to provide dialogue to the player.
+##
+##This node uses a given .json file to show dialogue to the player when interacting with NPCs.
+##You must provide a valid path to a .json file containing dialogue.
+##
+##
 
-@export var dialogueJSONPath = "JSON FILEPATH HERE"
-@export var cutsceneManager : cutscenePlayer
+@export var dialogueJSONPath = "JSON FILEPATH HERE" ##The path to a .json file containing dialogue. The node will not function without one.
+@export var cutsceneManager : cutscenePlayer ##If the dialogue of a given scene contains a cutscene, then this node is required.
 
-@onready var dialogueBox = $CanvasLayer/dialogBox
+@onready var dialogueBox = $CanvasLayer/dialogBox ##The dialogue box containing the text and portraits of the dialogue.
 
-@onready var dialogueText = $CanvasLayer/dialogBox/text
-@onready var dialoguePortrait = $CanvasLayer/dialogBox/portrait
-@onready var dialogueContinue = $CanvasLayer/progress
+@onready var dialogueText = $CanvasLayer/dialogBox/text ##The text box containing dialogue.
+@onready var dialoguePortrait = $CanvasLayer/dialogBox/portrait ##The NPC image shown during dialogue.
+@onready var dialogueContinue = $CanvasLayer/progress ##The little arrow at the bottom right of the dialogue box that indicates when the dialogue can be progressed.
 
-@onready var textSpeed = $textSpeed
+@onready var textSpeed = $textSpeed ##A timer used to have the letters show every given amount of time.
 
-@onready var mainCamera = get_parent().get_parent().get_node("mainCamera")
-var oldZoom
+@onready var mainCamera = get_parent().get_parent().get_node("mainCamera") ##A reference to the main camera of the 'Main' node.
+var oldZoom ##The zoom of the main camera prior to being modified by the dialogue.
 
-var currentConversation = 0
-var currentTextIndex = 0
+var currentConversation = 0 ##The index of the current conversation.
+var currentTextIndex = 0 ##The index of the current text chunk within the .json file.
 
-var questIndex
+var questIndex ##The quest index, given by the dialogue .json and used at the end of dialogue.
 
-static var inDialogue = false
-var inCutscene = false
+static var inDialogue = false ##Whether or not the player is currently interacting with an NPC.
+var inCutscene = false ##Whether or not the player is currently in a cutscene.
 
-var conversation : Array
+var conversation : Array ##The parsed array from the .json file.
 
-func parseJSON() -> Array:
+##The function that parses through the given .json file and converts it into an array.
+func parseJSON() -> Array: 
 	var f = FileAccess.open(dialogueJSONPath, FileAccess.READ)
 	var json = f.get_as_text()
 	
@@ -35,7 +42,8 @@ func parseJSON() -> Array:
 	else:
 		return []
 
-func progressDialogue():
+##The function that progresses dialogue and does the bulk of the work. This is where events in the dialogue are performed, such as 'cameraSpeed'.
+func progressDialogue(): 
 	get_parent().get_parent().player.changeState("playerbusy")
 	
 	var quickConvoVar = conversation[currentConversation]["conversation"][currentTextIndex]
@@ -105,8 +113,8 @@ func progressDialogue():
 		$dialogueSFX.play()
 		await textSpeed.timeout
 	
-
-func endDialogue():
+	##The function that ends a given dialogue and performs the necessary cleanup.
+func endDialogue(): 
 	var rootnode = get_parent().get_parent()
 	rootnode.player.changeState("playeridle")
 	if questIndex != null:
@@ -122,15 +130,17 @@ func endDialogue():
 	mainCamera.desiredZoom = oldZoom
 	mainCamera.smoothAmount = 0.2
 	mainCamera.currentParent = mainCamera.playerRef
-	
-func convoInitialize(convoNumb=0):
+
+##The function that performs setup for dialogue.
+func convoInitialize(convoNumb=0): 
 	conversation = parseJSON()
 	currentConversation = convoNumb
 	oldZoom = mainCamera.desiredZoom
 	$textSkipDelay.start()
 	progressDialogue()
 	
-func trigger():
+## The function used to determine what happens when triggered by the 'trigger' node.
+func trigger(): 
 	convoInitialize()
 
 func _input(event):

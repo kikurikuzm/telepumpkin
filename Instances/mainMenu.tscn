@@ -559,7 +559,7 @@ grow_vertical = 2
 texture = ExtResource("7_5afku")
 
 [node name="levelDialogue" type="FileDialog" parent="."]
-title = "Open a Custom Level"
+title = "Open a File"
 initial_position = 1
 size = Vector2i(503, 503)
 ok_button_text = "Open"
