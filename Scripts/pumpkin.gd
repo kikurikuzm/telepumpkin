@@ -102,3 +102,12 @@ func spawnTracer(oldPosition:Vector2):
 	rayInst.global_position = oldPosition
 	rayInst.target_position = testpos.get_origin() - rayInst.global_position
 	rayInst.get_node("Line2D").add_point(testpos.get_origin() - rayInst.global_position)
+
+func save():
+	var saveDict = {
+		"name" : name,
+		"posX" : position.x,
+		"posY" : position.y,
+		"teleports" : unstableTeleport
+	}
+	return saveDict

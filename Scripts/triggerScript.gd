@@ -32,3 +32,12 @@ func triggerThings(cause) -> void:
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:
 		triggerThings(area)
+
+func save():
+	var saveDict = {
+		"name" : name,
+		"posX" : position.x,
+		"posY" : position.y,
+		"triggered" : hasTriggered
+	}
+	return saveDict

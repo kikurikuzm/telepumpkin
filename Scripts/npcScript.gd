@@ -45,3 +45,12 @@ func _input(event):
 func _on_npc_area_area_entered(area):
 	if area.is_in_group("player"):
 		canTalk = true
+
+func save():
+	var saveDict = {
+		"name" : name,
+		"posX" : position.x,
+		"posY" : position.y,
+		"convoID" : convoID
+	}
+	return saveDict

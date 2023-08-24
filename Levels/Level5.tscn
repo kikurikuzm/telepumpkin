@@ -21,7 +21,7 @@ gradient = SubResource("Gradient_tfnmm")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmcr"]
 size = Vector2(428, 341)
 
-[node name="base" type="TileMap"]
+[node name="level5" type="TileMap"]
 z_index = -1
 tile_set = ExtResource("1_fi8on")
 format = 2

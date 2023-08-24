@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="5_yom55"]
 
-[node name="base" type="TileMap"]
+[node name="level1" type="TileMap"]
 z_index = -1
 texture_filter = 1
 tile_set = ExtResource("1_fsv8h")

@@ -22,7 +22,7 @@ gradient = SubResource("Gradient_ysh3s")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eglk1"]
 size = Vector2(428, 341)
 
-[node name="base" type="TileMap"]
+[node name="level6" type="TileMap"]
 z_index = -1
 tile_set = ExtResource("1_502sp")
 format = 2

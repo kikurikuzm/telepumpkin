@@ -96,24 +96,29 @@ func _process(delta):
 			inMap = false
 
 func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
-	saveScene()
-	
-	#await saveComplete
+	if savedLevel != null:
+		saveScene()
+		
+		await saveComplete
 	
 	if nextTransition != null:
 		transition = nextTransition
-	if transition == 1:
-		transitionLayer.wipeStart()
-		await transitionLayer.get_node("AnimationPlayer").animation_finished
-		transitionLayer.wipeEnd()
-	elif transition == 2:
-		transitionLayer.fadeStart()
-		await transitionLayer.get_node("AnimationPlayer").animation_finished
-		transitionLayer.fadeEnd()
-	elif transition == 3:
-		transitionLayer.playTransition("intermissionStart")
-		await transitionLayer.get_node("AnimationPlayer").animation_finished
-		transitionLayer.playTransition("intermissionEnd")
+		
+	
+	match transition:
+		1:
+			transitionLayer.wipeStart()
+			await transitionLayer.get_node("AnimationPlayer").animation_finished
+			transitionLayer.wipeEnd()
+		2:
+			transitionLayer.fadeStart()
+			await transitionLayer.get_node("AnimationPlayer").animation_finished
+			transitionLayer.fadeEnd()
+		3:
+			transitionLayer.playTransition("intermissionStart")
+			await transitionLayer.get_node("AnimationPlayer").animation_finished
+			transitionLayer.playTransition("intermissionEnd")
+		
 	nextTransition = null
 	currentLevel.queue_free()
 	print(level)
@@ -233,7 +238,14 @@ func manholeVisLine():
 
 func saveScene():
 	var levelChildren = currentLevel.get_children()
+	var levelSave = FileAccess.open(str("user://levelSaves/", str(currentLevel.get_path()), ".lsav"), FileAccess.WRITE)
+	
 	for node in levelChildren:
 		if node.is_in_group("saveable"):
-			print("saved ", node)
+			var saveData = node.save()
+			var jsonString = JSON.stringify(saveData)
+			
+			levelSave.store_string(jsonString)
+			
 	emit_signal("saveComplete")
+	print("saved")

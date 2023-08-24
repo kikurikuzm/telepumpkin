@@ -25,6 +25,9 @@ func _ready():
 	mainscene = preload("res://Instances/Main.tscn")
 	animation_player.stop()
 	
+	if not DirAccess.dir_exists_absolute("user://levelSaves/"):
+		DirAccess.make_dir_absolute("user://levelSaves/")
+	
 	if FileAccess.file_exists("user://cfg.dat"):
 		var cfgfile = FileAccess.open("user://cfg.dat", FileAccess.READ)
 		

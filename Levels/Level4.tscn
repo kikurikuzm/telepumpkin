@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_8q61j"]
 
-[node name="base" type="TileMap"]
+[node name="level4" type="TileMap"]
 z_index = -1
 tile_set = ExtResource("1_risyo")
 format = 2
