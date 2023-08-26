@@ -111,3 +111,6 @@ func save():
 		"teleports" : unstableTeleport
 	}
 	return saveDict
+
+func loadJSON(nodeData):
+	unstableTeleport = nodeData["teleports"]

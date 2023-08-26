@@ -41,3 +41,6 @@ func save():
 		"triggered" : hasTriggered
 	}
 	return saveDict
+
+func loadJSON(nodeData):
+	hasTriggered = nodeData["triggered"]

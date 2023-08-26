@@ -73,7 +73,6 @@ func _ready():
 			var levelLoad = load(fileLoad.get_line())
 			levNum = fileLoad.get_8()
 			player.hasTPP = bool(fileLoad.get_8())
-			print(levNum)
 			loadLevel(levelLoad)
 		else:
 			loadLevel(l1)
@@ -96,10 +95,9 @@ func _process(delta):
 			inMap = false
 
 func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
+	print(savedLevel)
 	if savedLevel != null:
 		saveScene()
-		
-		await saveComplete
 	
 	if nextTransition != null:
 		transition = nextTransition
@@ -121,7 +119,6 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		
 	nextTransition = null
 	currentLevel.queue_free()
-	print(level)
 	var levInst = level.instantiate()
 	add_child(levInst)
 	currentLevel = get_node(levInst.get_path())
@@ -164,6 +161,9 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	gvars.pCollected = 0
 	$mainCamera.snapToParent()
 	
+	loadStoredScene(level)
+	
+
 func _on_pumpkin_collected():
 	print("pumpkin collected")
 
@@ -174,7 +174,6 @@ func _on_level_complete():
 		$levelTimer.start(0.4)
 		await $levelTimer.timeout
 		loadLevel(levArray[levNum])
-		print(levNum)
 	else:
 		get_tree().change_scene_to_file("res://Levels/3dTest.tscn")
 
@@ -237,15 +236,40 @@ func manholeVisLine():
 			hole2ID = null
 
 func saveScene():
+	if savedLevel == null:
+		emit_signal("saveComplete")
+		return
+	
 	var levelChildren = currentLevel.get_children()
-	var levelSave = FileAccess.open(str("user://levelSaves/", str(currentLevel.get_path()), ".lsav"), FileAccess.WRITE)
+	var levelSave = FileAccess.open(str("user://levelSaves/", str(savedLevel).get_file(), ".lsav"), FileAccess.WRITE)
 	
 	for node in levelChildren:
 		if node.is_in_group("saveable"):
 			var saveData = node.save()
 			var jsonString = JSON.stringify(saveData)
 			
-			levelSave.store_string(jsonString)
+			levelSave.store_line(jsonString)
 			
 	emit_signal("saveComplete")
-	print("saved")
+	levelSave.close()
+	#print("saved ", savedLevel.get_file())
+
+func loadStoredScene(level):
+	var storedLevelFiles = DirAccess.get_files_at("user://levelSaves/")
+	for i in storedLevelFiles:
+		if i.contains(level.get_path().get_file()):
+			var fileOpen = FileAccess.open(str("user://levelSaves/", i), FileAccess.READ)
+			while fileOpen.get_position() < fileOpen.get_length():
+				var jsonLine = fileOpen.get_line()
+				var json = JSON.new()
+				var levelData = json.parse(jsonLine)
+				
+				if not levelData == OK:
+					print(json.get_error_message())
+				
+				var nodeData = json.get_data()
+				for node in currentLevel.get_children():
+					if node.name == nodeData["name"]:
+#						node.position.x = nodeData["posX"]
+#						node.position.y = nodeData["posY"]
+						node.loadJSON(nodeData)

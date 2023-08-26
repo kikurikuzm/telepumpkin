@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
 size = Vector2(66, 64)
 
-[node name="trigger" type="Node2D" groups=["saveable", "trigger"]]
+[node name="trigger" type="Node2D" groups=["trigger"]]
 modulate = Color(1, 1, 1, 0.537255)
 script = ExtResource("1_hmf4k")
 

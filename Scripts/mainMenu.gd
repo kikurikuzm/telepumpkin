@@ -128,6 +128,11 @@ func _on_save_remove_pressed():
 	if FileAccess.file_exists("user://save.dat"):
 		DirAccess.remove_absolute("user://save.dat")
 		
+		var levelSaves = DirAccess.open("user://levelSaves")
+		for file in levelSaves.get_files():
+			print(file)
+			levelSaves.remove(file)
+		
 		var currentDir = OS.get_executable_path().get_base_dir()
 		var copyDir = DirAccess.open(currentDir)
 		

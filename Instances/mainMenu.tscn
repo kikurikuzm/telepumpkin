@@ -411,6 +411,7 @@ disabled = true
 text = "Delete Save"
 
 [node name="levelRecopy" type="Button" parent="settingsMenu/VBoxContainer"]
+visible = false
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Deletes your save data"

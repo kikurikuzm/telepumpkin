@@ -19,15 +19,7 @@ func questModify():
 			
 		2:
 			#changes guy to bring you to sewer intro
-			var scenePath = "res://Levels/apartments.tscn"
-			var scene = load(scenePath)
-			var root = scene.instantiate()
-			for node in root.get_children():
-				if node.name == "NPC2":
-					node.convoID = 2
-			scene.pack(root)
-			ResourceSaver.save(scene, scenePath)
-			questSFX()
+			NPCsaveConvo("NPC2", "apartments.tscn", 2)
 		3:
 			get_parent().loadLevel(load("res://Levels/sewerIntro.tscn"),2)
 		4:
@@ -49,3 +41,16 @@ func questSFX():
 	tempPlayer.play()
 	await tempPlayer.finished
 	tempPlayer.queue_free()
+
+func NPCsaveConvo(npcName:String, level:String, convoID:int):
+	var levelSave = FileAccess.open(str("user://levelSaves/", str(level), ".lsav"), FileAccess.WRITE)
+	
+	var saveData = {
+		"name" : npcName,
+		"posX" : position.x,
+		"posY" : position.y,
+		"convoID" : convoID
+	}
+	var jsonString = JSON.stringify(saveData)
+	
+	levelSave.store_line(jsonString)

@@ -321,7 +321,7 @@ color = Color(1, 0.67451, 1, 0.662745)
 color_ramp = SubResource("GradientTexture1D_vfn7y")
 turbulence_noise_strength = 0.59
 
-[node name="pumpkin" type="RigidBody2D" groups=["pumpkin", "saveable"]]
+[node name="pumpkin" type="RigidBody2D" groups=["pumpkin"]]
 collision_layer = 5
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_6h8hb")

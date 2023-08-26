@@ -49,4 +49,6 @@ func save():
 	saveData.store_line(str(level))
 	saveData.store_8(get_parent().levNum)
 	saveData.store_8(get_parent().player.hasTPP)
+	
+	get_parent().saveScene()
 	print("saved")
