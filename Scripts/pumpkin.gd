@@ -24,19 +24,14 @@ func _init():
 	scale.y = scale.x
 
 func _ready():
+	animationPlayer.play("normalIdle")
 	if unstable:
 		maxUnst = unstableTeleport
-		$pumpkin2/abberation.visible = true
-		animationPlayer.play("idle")
-	if !unstable:
-		animationPlayer.play("normalIdle")
+		sprite.animation = "rotting"
 
 func _physics_process(delta):
 	if unstable:
-		animationTree.active = true
-		animationTree.set("parameters/blend_position", float(unstableTeleport) / float(maxUnst))
-	
-	
+		sprite.frame = maxUnst/unstableTeleport
 	
 	var areaArray = $Area2D.get_overlapping_areas()
 	for area in areaArray:
@@ -50,7 +45,6 @@ func _physics_process(delta):
 
 func _process(delta):
 	if highlighted:
-		$pumpkin2/abberation.texture.noise.seed = randi()
 		sprite.self_modulate = lerp(sprite.self_modulate, Color(0.8, 0.75, 1.0), 0.25)
 		$selectParticles.emitting = true
 	else:
@@ -66,7 +60,6 @@ func teleport(hostPos: Transform2D):
 	custom_integrator = true
 	
 	if unstable:
-		$pumpkin2/abberation.visible = true
 		if unstableTeleport > 0:
 			unstableTeleport -= 1
 			animationPlayer.play("teleport")

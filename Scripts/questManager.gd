@@ -20,6 +20,8 @@ func questModify():
 		2:
 			#changes guy to bring you to sewer intro
 			NPCsaveConvo("NPC2", "apartments.tscn", 2)
+			NPCsaveConvo("NPC5", "moonCity.tscn", 2)
+			get_parent().currentLevel.get_node("NPC5").convoID = 2
 		3:
 			get_parent().loadLevel(load("res://Levels/sewerIntro.tscn"),2)
 		4:

@@ -1,11 +1,70 @@
-[gd_scene load_steps=24 format=3 uid="uid://omxwiw3x34ud"]
+[gd_scene load_steps=32 format=3 uid="uid://omxwiw3x34ud"]
 
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/pumpkin.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://dwlb056utp2x7" path="res://Sprites/Misc/rotting pumpkin.png" id="3_n0aru"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6h8hb"]
 friction = 0.25
 bounce = 0.33
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44wpi"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3xuk"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kxjy"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmik3"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i68o"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6t1t"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kg253"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44wpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3xuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kxjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmik3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i68o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6t1t")
+}],
+"loop": true,
+"name": &"rotting",
+"speed": 5.0
+}]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_myx2m"]
 
@@ -330,10 +389,11 @@ lock_rotation = true
 freeze_mode = 1
 script = ExtResource("2")
 
-[node name="pumpkin2" type="Sprite2D" parent="."]
+[node name="pumpkin2" type="AnimatedSprite2D" parent="."]
 clip_children = 2
 position = Vector2(0, 2)
-texture = ExtResource("1")
+sprite_frames = SubResource("SpriteFrames_kg253")
+animation = &"normal"
 
 [node name="abberation" type="Sprite2D" parent="pumpkin2"]
 visible = false

@@ -13,6 +13,7 @@ extends Node2D
 @onready var l11 = preload("res://Levels/TPlev4.tscn")
 @onready var l12 = preload("res://Levels/TPlev5.tscn")
 @onready var l13 = preload("res://Levels/TPlev6.tscn")
+@onready var l14 = preload("res://Levels/TPFinale.tscn")
 
 @onready var crumpleSFX = preload("res://Audio/sfx/crumpleclose1.ogg")
 
@@ -27,7 +28,7 @@ extends Node2D
 var tppInstCount = 0
 var tppCurrentInst = null
 
-@onready var levArray = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13]
+@onready var levArray = [l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14]
 #zero based levels, dont forget!
 var levNum = 0
 

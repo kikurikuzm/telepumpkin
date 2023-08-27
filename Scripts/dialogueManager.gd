@@ -19,7 +19,7 @@ class_name DialogueManager
 @onready var textSpeed = $textSpeed ##A timer used to have the letters show every given amount of time.
 
 @onready var mainCamera = get_parent().get_parent().get_node("mainCamera") ##A reference to the main camera of the 'Main' node.
-var oldZoom ##The zoom of the main camera prior to being modified by the dialogue.
+var oldZoom : Vector2 ##The zoom of the main camera prior to being modified by the dialogue.
 
 var currentConversation = 0 ##The index of the current conversation.
 var currentTextIndex = 0 ##The index of the current text chunk within the .json file.

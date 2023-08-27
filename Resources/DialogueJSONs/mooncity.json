@@ -39,7 +39,7 @@
 		},
 		{
 			"character":"NPC5",
-			"text":"[wave]So if you want this here ticket, then you'll need to cough up that five dollars [/wave][color=red]fast.[/color]",
+			"text":"[wave]So if you want this here ticket, then you'll need to cough up that five dollars [/wave]fast.",
 			"portrait":"cloak.png",
 			"speed":0.07,
 			"quest":2

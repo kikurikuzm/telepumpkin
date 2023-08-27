@@ -50,5 +50,6 @@ func trigger():
 
 func _exit_tree():
 	cinemaBoxes.play("out")
+	inCutscene = false
 	player.visible = true
 	stop()
