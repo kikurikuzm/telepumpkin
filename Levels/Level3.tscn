@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bve7wh3cybj72"]
+[gd_scene load_steps=8 format=3 uid="uid://bve7wh3cybj72"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_0u83h"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_lt5p4"]
+[ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="7_ftw81"]
 
 [node name="level3" type="TileMap"]
 z_index = -1
@@ -40,4 +41,4 @@ position = Vector2(1072, 656)
 position = Vector2(1072, 713)
 
 [node name="levelVariables" parent="." instance=ExtResource("6_lt5p4")]
-position = Vector2(784, 555)
+levelVariables = ExtResource("7_ftw81")

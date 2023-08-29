@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://y4avlj3sroj"]
+[gd_scene load_steps=14 format=3 uid="uid://y4avlj3sroj"]
 
 [ext_resource type="TileSet" uid="uid://d1ii0t01yom7g" path="res://Tile Sets/sewerTiles.tres" id="1_v6qb8"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_n1a66"]
@@ -8,8 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="6_s1a15"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="7_g1c0g"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="8_4gd4k"]
-[ext_resource type="AudioStream" uid="uid://cn2rga2b8wx3a" path="res://Audio/Quiet Basement Ambience (Background Effect) (128 kbps)(1).mp3" id="9_bvfn0"]
-[ext_resource type="Environment" uid="uid://dxo0lyghjrd56" path="res://Resources/Environments/Sewers.tres" id="10_cwo35"]
+[ext_resource type="Resource" uid="uid://cqrj2u4yhvtx3" path="res://Resources/LevelVar Sets/sewers.tres" id="9_0bq6m"]
 [ext_resource type="PackedScene" uid="uid://uvubvbwf20q5" path="res://Instances/Level Components/peater.tscn" id="11_ejtg2"]
 
 [sub_resource type="Gradient" id="Gradient_ysh3s"]
@@ -35,7 +34,8 @@ position = Vector2(902, 847)
 
 [node name="pumpkin" parent="." instance=ExtResource("3_whgpt")]
 position = Vector2(738, 814.226)
-unstableTeleport = 2
+unstable = true
+unstableTeleport = 4
 
 [node name="exit" parent="." instance=ExtResource("4_rwl2n")]
 position = Vector2(596, 783.256)
@@ -100,14 +100,7 @@ position = Vector2(596, 756.281)
 scale = Vector2(0.6, 1)
 
 [node name="levelVariables" parent="." instance=ExtResource("8_4gd4k")]
-position = Vector2(221, 418)
-playerZoom = 5.0
-hasVignette = true
-startsInMap = true
-levelAmbience = ExtResource("9_bvfn0")
-levelBackground = null
-levelForeground = null
-worldEnvironment = ExtResource("10_cwo35")
+levelVariables = ExtResource("9_0bq6m")
 
 [node name="peater" parent="." instance=ExtResource("11_ejtg2")]
 position = Vector2(630, 783.256)

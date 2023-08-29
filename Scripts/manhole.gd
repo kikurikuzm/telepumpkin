@@ -29,17 +29,21 @@ func enterManhole(velocity:Vector2):
 			if currentNode.is_in_group("manhole"):
 				if currentNode.id == id and currentNode.direction != 0:
 					var exitManhole = currentNode
-					if exitManhole.direction == 1:
-						velocity.y = (velocity.y * -1) / VELMULT
-						#facing up
-					if exitManhole.direction == 2:
-						velocity.x = (abs(velocity.y) * -1) / 2
-						velocity.y = (velocity.y * -1) / 5
-						#facing left
-					if exitManhole.direction == 3:
-						velocity.x = (abs(velocity.y)) / 2
-						velocity.y = (velocity.y * -1) / 5
-						#facing right
+					match exitManhole.direction:
+						1:
+							velocity.y = (velocity.y * -1) / VELMULT
+							#facing up
+						2:
+							velocity.x = (abs(velocity.y) * -1) / 2
+							velocity.y = (velocity.y * -1) / 5
+							#facing left
+						3:
+							velocity.x = (abs(velocity.y)) / 2
+							velocity.y = (velocity.y * -1) / 5
+							#facing right
+						4:
+							pass
+							#facing down
 					var sendPosition = exitManhole.get_node("exitPoint").global_position
 					return([sendPosition, velocity, pumpkinAmount])
 	else:

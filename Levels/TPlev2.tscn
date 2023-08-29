@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://buggu0w8dw2d5"]
+[gd_scene load_steps=12 format=3 uid="uid://buggu0w8dw2d5"]
 
 [ext_resource type="TileSet" uid="uid://d1ii0t01yom7g" path="res://Tile Sets/sewerTiles.tres" id="1_th5na"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_7qc5b"]
@@ -6,9 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4_bqofp"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="5_d8uui"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="6_6k2ws"]
+[ext_resource type="Resource" uid="uid://cqrj2u4yhvtx3" path="res://Resources/LevelVar Sets/sewers.tres" id="8_2u6tp"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="8_wj4sc"]
-[ext_resource type="AudioStream" uid="uid://cn2rga2b8wx3a" path="res://Audio/Quiet Basement Ambience (Background Effect) (128 kbps)(1).mp3" id="9_nnlcd"]
-[ext_resource type="Environment" uid="uid://dxo0lyghjrd56" path="res://Resources/Environments/Sewers.tres" id="10_qwbmh"]
 
 [sub_resource type="Gradient" id="Gradient_ysh3s"]
 interpolation_mode = 1
@@ -32,6 +31,7 @@ position = Vector2(639, 713)
 
 [node name="pumpkin" parent="." instance=ExtResource("3_5f03g")]
 position = Vector2(850, 814)
+unstable = true
 unstableTeleport = 2
 
 [node name="exit" parent="." instance=ExtResource("4_bqofp")]
@@ -92,11 +92,4 @@ position = Vector2(-18.5, 58.5)
 shape = SubResource("RectangleShape2D_eglk1")
 
 [node name="levelVariables" parent="." instance=ExtResource("8_wj4sc")]
-position = Vector2(221, 418)
-playerZoom = 4.0
-hasVignette = true
-startsInMap = true
-levelAmbience = ExtResource("9_nnlcd")
-levelBackground = null
-levelForeground = null
-worldEnvironment = ExtResource("10_qwbmh")
+levelVariables = ExtResource("8_2u6tp")

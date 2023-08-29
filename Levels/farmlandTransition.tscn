@@ -31,11 +31,6 @@ position = Vector2(640, 360)
 zoom = Vector2(2.5, 2.5)
 
 [node name="levelVariables" parent="." instance=ExtResource("6_xp4j8")]
-position = Vector2(784, 555)
-canTeleport = false
-playerZoom = 5.0
-startsInMap = true
-levelTransition = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 5

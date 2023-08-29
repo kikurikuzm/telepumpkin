@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=24 format=3 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Texture2D" uid="uid://duokp1u0wgyb8" path="res://Sprites/backgrounds/fog.png" id="2_acwq0"]
@@ -8,9 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://caj8q2uncg5ct" path="res://Levels/apartments.tscn" id="5_tji4g"]
 [ext_resource type="PackedScene" uid="uid://cpafis3j1jvn0" path="res://Levels/library.tscn" id="6_3mlwe"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_kgxg5"]
-[ext_resource type="Environment" uid="uid://bdkllmoqon3ww" path="res://Resources/Environments/moonCity.tres" id="8_cm0pj"]
 [ext_resource type="Texture2D" uid="uid://b14mb3oy84jyr" path="res://Sprites/tiles/poster.png" id="9_102g8"]
-[ext_resource type="AudioStream" uid="uid://b8wehmsmse6tt" path="res://Audio/ambience.ogg" id="10_bsqva"]
+[ext_resource type="Resource" uid="uid://cd778qcujcn0e" path="res://Resources/LevelVar Sets/mooncity.tres" id="10_aqax0"]
 [ext_resource type="PackedScene" uid="uid://mp7xv3dv0xyn" path="res://Levels/shack.tscn" id="12_r87sa"]
 [ext_resource type="PackedScene" uid="uid://xr8202de1yy1" path="res://Instances/Level Components/lamppost.tscn" id="13_0aphl"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="14_3gthw"]
@@ -93,18 +92,6 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_x6tfr"]
 gradient = SubResource("Gradient_nx7bn")
-
-[sub_resource type="Gradient" id="Gradient_lqwkb"]
-interpolation_mode = 2
-offsets = PackedFloat32Array(0, 0.365591, 0.672043, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0.0707183, 0.131765, 1, 5.41471e-08, 0.135012, 0.227279, 1, 9.62615e-08, 0.277376, 0.300149, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pt1lr"]
-gradient = SubResource("Gradient_lqwkb")
-width = 2000
-height = 1000
-fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_haxfc"]
 font_size = 15
@@ -208,16 +195,7 @@ position = Vector2(558, 758)
 scene = ExtResource("6_3mlwe")
 
 [node name="levelVariables" parent="." instance=ExtResource("6_kgxg5")]
-position = Vector2(664, 679)
-canTeleport = false
-playerZoom = 5.0
-hasVignette = true
-hasMapView = false
-levelAmbience = ExtResource("10_bsqva")
-levelTransition = 2
-levelBackground = SubResource("GradientTexture2D_pt1lr")
-levelForeground = null
-worldEnvironment = ExtResource("8_cm0pj")
+levelVariables = ExtResource("10_aqax0")
 
 [node name="Poster" type="Sprite2D" parent="."]
 z_index = -1

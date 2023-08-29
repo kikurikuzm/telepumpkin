@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name DialogueManager
 ##A node that enables NPCs to provide dialogue to the player.
 ##

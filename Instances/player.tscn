@@ -837,8 +837,9 @@ texture = ExtResource("4_ky4s4")
 
 [node name="PointLight2D" type="PointLight2D" parent="AnimatedSprite2D/tpp"]
 position = Vector2(0, -10)
+scale = Vector2(1.9882, 1.98819)
 color = Color(0.666667, 0.0784314, 0, 1)
-energy = 1.26
+energy = 1.91
 texture = ExtResource("5_qpng8")
 texture_scale = 0.02
 

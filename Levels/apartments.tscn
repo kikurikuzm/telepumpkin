@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="3_u6isp"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="4_oxmyf"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="6_s635i"]
+[ext_resource type="Resource" uid="uid://b7lh1l45lqecv" path="res://Resources/LevelVar Sets/indoors.tres" id="7_gdncy"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="7_hkftc"]
-[ext_resource type="AudioStream" uid="uid://dm3o0rstld8pl" path="res://Audio/apartment ambience.wav" id="8_83u4a"]
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="8_v8h1p"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="9_ymfao"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="10_335j6"]
@@ -53,14 +53,7 @@ position = Vector2(1542, 800)
 convoID = 1
 
 [node name="levelVariables" parent="." instance=ExtResource("7_hkftc")]
-position = Vector2(199, 693)
-canTeleport = false
-playerZoom = 5.0
-hasVignette = true
-hasMapView = false
-levelAmbience = ExtResource("8_83u4a")
-levelBackground = ExtResource("8_v8h1p")
-levelForeground = null
+levelVariables = ExtResource("7_gdncy")
 
 [node name="light" type="PointLight2D" parent="."]
 position = Vector2(904, 740)

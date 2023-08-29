@@ -123,6 +123,8 @@ func _input(event):
 		shakeCam(2.0, 0.02)
 	if event is InputEventKey:
 		controlHelp.visible = false
+	if Input.is_action_just_pressed("debug_menu"):
+		_on_custom_levels_pressed()
 
 func _on_save_remove_pressed():
 	if FileAccess.file_exists("user://save.dat"):

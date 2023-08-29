@@ -54,7 +54,7 @@ func _process(delta):
 	highlighted = false
 	
 
-func teleport(hostPos: Transform2D):
+func teleport(hostPos: Transform2D) -> void:
 	#called by the player script when the pumpkin is teleported
 	testpos = hostPos
 	custom_integrator = true
@@ -71,7 +71,7 @@ func teleport(hostPos: Transform2D):
 		animationPlayer.play("normalTeleport")
 		animationPlayer.queue("normalIdle")
 
-func _integrate_forces(state):
+func _integrate_forces(state) -> void:
 	if custom_integrator == true:
 		linear_velocity = Vector2.ZERO
 		
@@ -86,7 +86,7 @@ func _integrate_forces(state):
 		
 		custom_integrator = false
 
-func spawnTracer(oldPosition:Vector2):
+func spawnTracer(oldPosition:Vector2) -> void:
 	apply_impulse(Vector2(0, -60))
 	
 	var rayInst = raycast.instantiate()
@@ -96,7 +96,7 @@ func spawnTracer(oldPosition:Vector2):
 	rayInst.target_position = testpos.get_origin() - rayInst.global_position
 	rayInst.get_node("Line2D").add_point(testpos.get_origin() - rayInst.global_position)
 
-func save():
+func save() -> Dictionary:
 	var saveDict = {
 		"name" : name,
 		"posX" : position.x,
@@ -105,5 +105,5 @@ func save():
 	}
 	return saveDict
 
-func loadJSON(nodeData):
+func loadJSON(nodeData) -> void:
 	unstableTeleport = nodeData["teleports"]

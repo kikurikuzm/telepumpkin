@@ -92,7 +92,7 @@ func _process(delta):
 	if Input.is_action_just_released("teleport"):
 		$debugText.visible = false
 
-func tppHandler():
+func tppHandler() -> void:
 	if hasTPP and holdingTPP:
 		holdingTPP = false
 		var tpLoad = load("res://Instances/Level Components/tpp.tscn")
@@ -116,5 +116,5 @@ func tppHandler():
 		get_parent().get_node("tpp").TPteleport(global_transform)
 		return
 
-func changeState(state:String):
+func changeState(state:String) -> void:
 	$stateFactory.on_child_transition($stateFactory.current_state, state)

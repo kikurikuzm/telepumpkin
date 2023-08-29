@@ -27,7 +27,7 @@ func _on_npc_area_area_entered(area):
 	if area.is_in_group("player"):
 		canTalk = true
 
-func save():
+func save() -> Dictionary:
 	var saveDict = {
 		"name" : name,
 		"posX" : position.x,
@@ -36,5 +36,5 @@ func save():
 	}
 	return saveDict
 
-func loadJSON(nodeData):
+func loadJSON(nodeData) -> void:
 	convoID = nodeData["convoID"]

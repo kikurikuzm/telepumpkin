@@ -1,10 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cpafis3j1jvn0"]
+[gd_scene load_steps=15 format=3 uid="uid://cpafis3j1jvn0"]
 
 [ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="1_d4keh"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_ckqg2"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="3_c58ar"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="5_xhu3m"]
-[ext_resource type="AudioStream" uid="uid://dm3o0rstld8pl" path="res://Audio/apartment ambience.wav" id="6_2rk0m"]
+[ext_resource type="Resource" uid="uid://b7lh1l45lqecv" path="res://Resources/LevelVar Sets/indoors.tres" id="6_v813u"]
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="7_nr2lq"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_ebrtg"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="8_ohovq"]
@@ -12,35 +12,6 @@
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="10_dwmwe"]
 [ext_resource type="Texture2D" uid="uid://blip6bjacflhv" path="res://Sprites/Decoration/bookshelf.png" id="11_4jog3"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="12_44oyr"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cjxoy"]
-sky_top_color = Color(0.12549, 0.65098, 0.819608, 1)
-sky_horizon_color = Color(0.647059, 0.654902, 0.670588, 1)
-
-[sub_resource type="Sky" id="Sky_b44hg"]
-sky_material = SubResource("ProceduralSkyMaterial_cjxoy")
-
-[sub_resource type="Environment" id="Environment_yn5xx"]
-background_mode = 3
-background_color = Color(0.282353, 0.694118, 0.921569, 1)
-sky = SubResource("Sky_b44hg")
-sky_rotation = Vector3(-0.270526, 0, 0)
-glow_enabled = true
-glow_levels/1 = 0.48
-glow_levels/2 = 0.41
-glow_levels/4 = 0.14
-glow_normalized = true
-glow_strength = 1.09
-glow_bloom = 0.14
-glow_blend_mode = 1
-fog_light_color = Color(0.172549, 0.0666667, 0.239216, 1)
-fog_light_energy = 0.21
-volumetric_fog_density = 0.0092
-volumetric_fog_emission = Color(0.407843, 0.290196, 0.47451, 1)
-adjustment_enabled = true
-adjustment_brightness = 0.87
-adjustment_contrast = 0.95
-adjustment_saturation = 0.92
 
 [sub_resource type="Gradient" id="Gradient_qne3f"]
 interpolation_mode = 1
@@ -71,15 +42,7 @@ position = Vector2(460, 822)
 exit = true
 
 [node name="levelVariables" parent="." instance=ExtResource("5_xhu3m")]
-position = Vector2(199, 693)
-canTeleport = false
-playerZoom = 6.0
-hasVignette = true
-hasMapView = false
-levelAmbience = ExtResource("6_2rk0m")
-levelBackground = ExtResource("7_nr2lq")
-levelForeground = null
-worldEnvironment = SubResource("Environment_yn5xx")
+levelVariables = ExtResource("6_v813u")
 
 [node name="light" type="PointLight2D" parent="."]
 position = Vector2(461, 741)

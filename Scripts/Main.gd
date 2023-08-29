@@ -55,6 +55,11 @@ var tempExit2
 var storedX = 0
 var storedY = 0
 
+var largestCellX = 0
+var smallestCellX = 100
+var largestCell
+var smallestCell
+
 signal saveComplete
 
 func _init():
@@ -81,6 +86,15 @@ func _ready():
 		loadLevel(gvars.customLoad)
 
 func _process(delta):
+	if is_instance_valid(player) and inMap:
+		if levelCamera.global_position.x > smallestCellX + 350 and levelCamera.global_position.x < largestCellX - 350:
+			levelCamera.global_position.x = player.global_position.x
+			print("returned")
+			return
+			
+		if player.global_position.x > levelCamera.global_position.x:
+			levelCamera.global_position.x + 1
+	
 	if Input.is_action_just_pressed("debug_skip"):
 		gvars.emit_signal("levelFinish")
 		gvars.pCollected = 0
@@ -164,6 +178,17 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	
 	loadStoredScene(level)
 	
+	for cell in currentLevel.get_used_cells(0):
+		if cell[0] > largestCellX:
+			largestCellX = cell[0]
+			largestCell = cell
+		elif cell[0] < smallestCellX:
+			smallestCellX = cell[0]
+			smallestCell = cell
+		else:
+			pass
+	largestCellX = currentLevel.map_to_local(largestCell).x
+	smallestCellX = currentLevel.map_to_local(smallestCell).x
 
 func _on_pumpkin_collected():
 	print("pumpkin collected")
@@ -236,7 +261,7 @@ func manholeVisLine():
 			hole1ID = null
 			hole2ID = null
 
-func saveScene():
+func saveScene() -> void:
 	if savedLevel == null:
 		emit_signal("saveComplete")
 		return
@@ -255,7 +280,7 @@ func saveScene():
 	levelSave.close()
 	#print("saved ", savedLevel.get_file())
 
-func loadStoredScene(level):
+func loadStoredScene(level) -> void:
 	var storedLevelFiles = DirAccess.get_files_at("user://levelSaves/")
 	for i in storedLevelFiles:
 		if i.contains(level.get_path().get_file()):

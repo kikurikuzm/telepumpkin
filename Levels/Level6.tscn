@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://rk3w5iiygdkk"]
+[gd_scene load_steps=14 format=3 uid="uid://rk3w5iiygdkk"]
 
 [ext_resource type="TileSet" uid="uid://d1ii0t01yom7g" path="res://Tile Sets/sewerTiles.tres" id="1_502sp"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_kx1uy"]
@@ -8,9 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="8_ureig"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="9_ms3sg"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="9_qixwn"]
-[ext_resource type="AudioStream" uid="uid://cn2rga2b8wx3a" path="res://Audio/Quiet Basement Ambience (Background Effect) (128 kbps)(1).mp3" id="10_kj0p2"]
+[ext_resource type="Resource" uid="uid://cqrj2u4yhvtx3" path="res://Resources/LevelVar Sets/sewers.tres" id="10_uowgx"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="10_wvajx"]
-[ext_resource type="Environment" uid="uid://dxo0lyghjrd56" path="res://Resources/Environments/Sewers.tres" id="12_i0618"]
 
 [sub_resource type="Gradient" id="Gradient_ysh3s"]
 interpolation_mode = 1
@@ -127,11 +126,4 @@ position = Vector2(-60, 32.5)
 shape = SubResource("RectangleShape2D_eglk1")
 
 [node name="levelVariables" parent="." instance=ExtResource("9_qixwn")]
-position = Vector2(221, 418)
-playerZoom = 4.0
-hasVignette = true
-startsInMap = true
-levelAmbience = ExtResource("10_kj0p2")
-levelBackground = null
-levelForeground = null
-worldEnvironment = ExtResource("12_i0618")
+levelVariables = ExtResource("10_uowgx")

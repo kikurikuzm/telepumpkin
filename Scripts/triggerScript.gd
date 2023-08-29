@@ -1,4 +1,7 @@
+@icon("res://Resources/Editor Icons/trigger.png")
+
 extends EditorElement
+class_name Trigger
 
 @onready var area2d = $Area2D
 
