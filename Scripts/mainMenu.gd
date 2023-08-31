@@ -116,12 +116,12 @@ func _on_resolution_settings_item_selected(index):
 		2:
 			ProjectSettings.set_setting("display/window/size/viewport_width", 1280)
 			ProjectSettings.set_setting("display/window/size/viewport_height", 800)
-			gvars.zoomOutScale = 0.8
+			gvars.zoomOutScale = 1.2
 
 func _input(event):
 	if Input.is_action_just_pressed("ui_down"):
 		shakeCam(2.0, 0.02)
-	if event is InputEventKey:
+	if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
 		controlHelp.visible = false
 	if Input.is_action_just_pressed("debug_menu"):
 		_on_custom_levels_pressed()

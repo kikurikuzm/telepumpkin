@@ -59,6 +59,7 @@ var largestCellX = 0
 var smallestCellX = 100
 var largestCell
 var smallestCell
+var mapCamIsFollowing = false
 
 signal saveComplete
 
@@ -86,14 +87,13 @@ func _ready():
 		loadLevel(gvars.customLoad)
 
 func _process(delta):
-	if is_instance_valid(player) and inMap:
-		if levelCamera.global_position.x > smallestCellX + 350 and levelCamera.global_position.x < largestCellX - 350:
+	if is_instance_valid(player) and inMap and mapCamIsFollowing:
+		if player.global_position.x > smallestCellX + (350 * (levelCamera.zoom.x / 1.5))\
+		and player.global_position.x < largestCellX - (350 * (levelCamera.zoom.x / 2)):
+		
 			levelCamera.global_position.x = player.global_position.x
-			print("returned")
+			mapCamIsFollowing = true
 			return
-			
-		if player.global_position.x > levelCamera.global_position.x:
-			levelCamera.global_position.x + 1
 	
 	if Input.is_action_just_pressed("debug_skip"):
 		gvars.emit_signal("levelFinish")
@@ -161,6 +161,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		$ParallaxBackground/background/background.texture = levelVariables.levelBackground
 		$ParallaxBackground/foreground/foreground.texture = levelVariables.levelForeground
 		$uiLayer/vignette.visible = levelVariables.hasVignette
+		mapCamIsFollowing = !levelVariables.mapCameraLocked
 		if levelVariables.worldEnvironment != null: $worldEnd.environment = levelVariables.worldEnvironment
 		if !levelVariables.hasMapView: inMap = false
 		canMap = levelVariables.hasMapView
