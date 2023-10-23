@@ -1,6 +1,8 @@
 extends PlayerState
 class_name playerStretch
 
+@onready var coyoteTimer = $"../../coyoteTimer"
+
 var walkspeed = 6.0
 
 func enter():
@@ -15,6 +17,10 @@ func update(delta: float):
 	pass
 
 func physics_update(delta: float):
+	if sign(player.velocity.y) == 1:
+		coyoteTimer.start(1)
+		print("started timer")
+	
 	if Input.is_action_pressed("left"):
 		var direction = -1
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
@@ -46,7 +52,7 @@ func physics_update(delta: float):
 		teleportRange.scale.y = lerp(teleportRange.scale.y, 0.4, 0.1)
 	
 	if Input.is_action_just_released("up"):
-		if player.is_on_floor():
+		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			transitioned.emit(self, "playerjump")
 		else: transitioned.emit(self, "playerfalling")
 		

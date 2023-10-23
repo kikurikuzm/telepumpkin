@@ -872,6 +872,9 @@ one_shot = true
 [node name="turnTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="coyoteTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="debugText" type="Label" parent="."]
 visible = false
 offset_left = -22.0

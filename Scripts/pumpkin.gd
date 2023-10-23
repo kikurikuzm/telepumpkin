@@ -13,6 +13,7 @@ var maxUnst
 var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 
 @onready var sprite = $pumpkin2
+@onready var deformationSprite = $deformationSprite
 
 var testpos
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -47,10 +48,12 @@ func _process(delta):
 	if highlighted:
 		sprite.self_modulate = lerp(sprite.self_modulate, Color(0.8, 0.75, 1.0), 0.25)
 		$selectParticles.emitting = true
+		deformationSprite.visible = true
 	else:
 		sprite.self_modulate = lerp(sprite.self_modulate, Color(1.0, 1.0, 1.0), 0.15)
 		$selectParticles.emitting = false
-	
+		deformationSprite.visible = false
+		
 	highlighted = false
 	
 

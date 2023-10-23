@@ -27,7 +27,7 @@ func physics_update(delta: float):
 	
 	if player.velocity.y < 0:
 		transitioned.emit(self, "playerjump")
-	
+
 	if Input.is_action_pressed("up"):
 		transitioned.emit(self, "playerstretch")
 	if Input.is_action_pressed("down"):
