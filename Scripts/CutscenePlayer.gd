@@ -11,14 +11,15 @@ class_name cutscenePlayer
 @onready var cinemaBoxes = get_parent().get_parent().get_node("cinemaboxes") ##A reference to the 'cinemaboxes' that are shown when in a cutscene.
 
 @export var animationName : String ##The name of the animation for the cutscene. The animation must be in it's own animation library.
-@export var placeholderCamera : Marker2D ##A reference to a Marker2D used to move the main camera to. The scale of the object changes the main camera's zoom.
-@export var placeholderPlayer : AnimatedSprite2D ##A reference to the 'playerDummy' node used for animating the player. The visibility of this object becomes the actual player node's visibility but inversed.
+@export var placeholderCamera : Marker2D ##A reference to a Marker2D used to move the main camera to. The scale of the object changes the main camera's zoom. If no node is provided, the camera is able to freely move with the player or remains as the map camera.
+@export var placeholderPlayer : AnimatedSprite2D ##A reference to the 'playerDummy' node used for animating the player. The visibility of this object becomes the actual player node's visibility but inversed. If no node is provided, the player is able to freely move during the cutscene.
 
 var inCutscene = false ##Used to check if a cutscene is currently playing.
 
 func _process(delta):
 	if inCutscene:
-		mainCamera.desiredZoom = placeholderCamera.scale
+		if placeholderCamera != null:
+			mainCamera.desiredZoom = placeholderCamera.scale
 		if placeholderPlayer != null:
 			player.visible = !placeholderPlayer.visible
 			player.global_position = placeholderPlayer.global_position
@@ -27,10 +28,12 @@ func _process(delta):
 
 ##The main function of the cutscenePlayer used to initiate cutscenes.
 func startCutscene(cutscene:String, resetPlayer:bool = true): 
-	mainCamera.oldZoom = mainCamera.desiredZoom
 	var oldParent = mainCamera.currentParent
-	mainCamera.currentParent = placeholderCamera
-	player.changeState("playerbusy")
+	mainCamera.oldZoom = mainCamera.desiredZoom
+	if placeholderCamera != null:
+		mainCamera.currentParent = placeholderCamera
+	if placeholderPlayer != null:
+		player.changeState("playerbusy")
 	cinemaBoxes.play("in")
 	inCutscene = true
 	

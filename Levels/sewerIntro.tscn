@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cq2psyjn17dql"]
+[gd_scene load_steps=20 format=3 uid="uid://cq2psyjn17dql"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_5y7pe"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_l8akl"]
@@ -12,19 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="10_lfg40"]
 [ext_resource type="PackedScene" uid="uid://ba0c1ufll43t0" path="res://Instances/Level Components/levelChange.tscn" id="11_pfe6o"]
 [ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="12_a7utv"]
-
-[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_3od47"]
-
-[sub_resource type="Gradient" id="Gradient_5qcdb"]
-interpolation_mode = 2
-colors = PackedColorArray(0.0826204, 0.220482, 0.176948, 1, 0.161831, 0.375338, 0.307713, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ceel"]
-gradient = SubResource("Gradient_5qcdb")
-width = 1000
-height = 1000
-fill_from = Vector2(0.5, 1)
-fill_to = Vector2(0.5, 0)
 
 [sub_resource type="Gradient" id="Gradient_qne3f"]
 interpolation_mode = 1
@@ -300,13 +287,6 @@ position = Vector2(172, 752)
 position = Vector2(252, 740)
 
 [node name="levelVariables" parent="." instance=ExtResource("6_3dwea")]
-position = Vector2(664, 679)
-canTeleport = false
-hasVignette = true
-hasMapView = false
-levelAmbience = SubResource("AudioStreamMP3_3od47")
-levelBackground = SubResource("GradientTexture2D_8ceel")
-levelForeground = null
 
 [node name="fakeDoor" type="Sprite2D" parent="."]
 position = Vector2(136, 736)
