@@ -17,7 +17,7 @@ layer_0/tile_data = PackedInt32Array(852009, 0, 3, 852010, 65536, 3, 852011, 655
 position = Vector2(1119, 752)
 
 [node name="pumpkin" parent="." instance=ExtResource("2")]
-position = Vector2(972, 686)
+position = Vector2(979, 686)
 
 [node name="exit" parent="." instance=ExtResource("4")]
 position = Vector2(1250, 720)

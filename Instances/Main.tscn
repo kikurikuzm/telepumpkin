@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bywnukq17v208"]
+[gd_scene load_steps=41 format=3 uid="uid://bywnukq17v208"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_dpdcl"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="2_pxkbr"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://Scripts/Limitbar.gd" id="12_ir7nj"]
 [ext_resource type="PackedScene" uid="uid://ddp3f62huxqab" path="res://Instances/debugUI.tscn" id="13_7f5fb"]
 [ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="13_hh7bn"]
-[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="17_e3ucl"]
 [ext_resource type="Texture2D" uid="uid://dmjo1q6ukx12l" path="res://Sprites/backgrounds/farmlandSky.tres" id="25_5yaeg"]
 [ext_resource type="Texture2D" uid="uid://bfi80xpxhxye6" path="res://Sprites/backgrounds/farmforeground.png" id="26_a23wb"]
 
@@ -689,7 +688,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -100.0
-offset_right = 86400.0
+offset_right = 97920.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
@@ -700,7 +699,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 86400.0
+offset_right = 97920.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -752,9 +751,6 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_1ka4y")
 }
-
-[node name="pumpkin" parent="." instance=ExtResource("17_e3ucl")]
-position = Vector2(1070, 724)
 
 [connection signal="pressed" from="pauseMenu/resume" to="pauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="pauseMenu/restart" to="pauseMenu" method="_on_restart_pressed"]

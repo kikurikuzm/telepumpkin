@@ -1,11 +1,30 @@
-[gd_scene load_steps=9 format=3 uid="uid://burivqi403j3x"]
+[gd_scene load_steps=15 format=3 uid="uid://burivqi403j3x"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_ufe1h"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_pqe6e"]
 [ext_resource type="PackedScene" uid="uid://b7dv2veqbf001" path="res://Instances/Level Components/loadTrigger.tscn" id="4_k8akb"]
+[ext_resource type="AudioStream" uid="uid://dastyrfnakpam" path="res://Audio/forest ambience.ogg" id="4_sidl4"]
 [ext_resource type="PackedScene" uid="uid://bwif5kh6bhds0" path="res://Levels/moonCity.tscn" id="5_1grd4"]
+[ext_resource type="Texture2D" uid="uid://dmjo1q6ukx12l" path="res://Sprites/backgrounds/farmlandSky.tres" id="5_yo2mq"]
+[ext_resource type="Texture2D" uid="uid://bfi80xpxhxye6" path="res://Sprites/backgrounds/farmforeground.png" id="6_spvxl"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="6_tvpu3"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_xp4j8"]
+[ext_resource type="Script" path="res://Scripts/resourceScripts/levelVariables.gd" id="7_lgas8"]
+[ext_resource type="Environment" uid="uid://b8wuygwcxt70r" path="res://Resources/Environments/Farmlands.tres" id="8_dq7ev"]
+
+[sub_resource type="Resource" id="Resource_c4nje"]
+script = ExtResource("7_lgas8")
+canTeleport = true
+playerZoom = 4.5
+hasVignette = false
+hasMapView = true
+startsInMap = true
+mapCameraLocked = true
+levelAmbience = ExtResource("4_sidl4")
+levelTransition = 1
+levelBackground = ExtResource("5_yo2mq")
+levelForeground = ExtResource("6_spvxl")
+worldEnvironment = ExtResource("8_dq7ev")
 
 [sub_resource type="Gradient" id="Gradient_7dxpt"]
 offsets = PackedFloat32Array(0.260331, 0.727273)
@@ -31,6 +50,7 @@ position = Vector2(640, 360)
 zoom = Vector2(2.5, 2.5)
 
 [node name="levelVariables" parent="." instance=ExtResource("6_xp4j8")]
+levelVariables = SubResource("Resource_c4nje")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 5
@@ -42,7 +62,7 @@ texture = SubResource("GradientTexture2D_radqq")
 position = Vector2(1005, 1406)
 scale = Vector2(100, 10)
 levelLoad = ExtResource("5_1grd4")
-levelTransition = 3
+levelTransition = 2
 
 [node name="exit" parent="." instance=ExtResource("6_tvpu3")]
 position = Vector2(2001, 291)

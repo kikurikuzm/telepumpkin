@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cq2psyjn17dql"]
+[gd_scene load_steps=21 format=3 uid="uid://cq2psyjn17dql"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_5y7pe"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_l8akl"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="3_tdg5v"]
+[ext_resource type="Resource" uid="uid://cd778qcujcn0e" path="res://Resources/LevelVar Sets/mooncity.tres" id="4_g8ry0"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_3dwea"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="6_fktvw"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="8_i8vbr"]
@@ -287,6 +288,7 @@ position = Vector2(172, 752)
 position = Vector2(252, 740)
 
 [node name="levelVariables" parent="." instance=ExtResource("6_3dwea")]
+levelVariables = ExtResource("4_g8ry0")
 
 [node name="fakeDoor" type="Sprite2D" parent="."]
 position = Vector2(136, 736)

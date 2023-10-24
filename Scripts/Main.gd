@@ -151,6 +151,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	if levInst.has_node("thumb"):
 		levelCamera = currentLevel.get_node("thumb")
 		levelCamera.zoom = levelCamera.zoom / gvars.zoomOutScale
+		
 	if levInst.has_node("levelVariables"):
 		var levelVariables = levInst.get_node("levelVariables")
 		$mainCamera.desiredZoom = Vector2(levelVariables.playerZoom, levelVariables.playerZoom)

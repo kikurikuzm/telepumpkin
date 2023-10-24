@@ -6,14 +6,15 @@ extends RigidBody2D
 var highlighted = false
 var maxUnst
 
-@onready var animationPlayer = get_node("pumpkin2/abberation/AnimationPlayer")
-@onready var animationTree = get_node("pumpkin2/abberation/AnimationTree")
+@onready var animationPlayer = get_node("pumpkinSprite/abberation/AnimationPlayer")
+@onready var animationTree = get_node("pumpkinSprite/abberation/AnimationTree")
 @onready var poofs = preload("res://Instances/Particles/poofs.tscn")
 @onready var teleportLight = preload("res://Instances/Particles/teleport_light.tscn")
 var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 
-@onready var sprite = $pumpkin2
-@onready var deformationSprite = $deformationSprite
+@onready var sprite = $pumpkinSprite
+
+var highlightDistortion : float = 0.2
 
 var testpos
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -46,13 +47,14 @@ func _physics_process(delta):
 
 func _process(delta):
 	if highlighted:
-		sprite.self_modulate = lerp(sprite.self_modulate, Color(0.8, 0.75, 1.0), 0.25)
+		highlightDistortion = lerp(highlightDistortion, 0.16, 0.1)
+		sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
 		$selectParticles.emitting = true
-		deformationSprite.visible = true
+		
 	else:
-		sprite.self_modulate = lerp(sprite.self_modulate, Color(1.0, 1.0, 1.0), 0.15)
+		highlightDistortion = lerp(highlightDistortion, 0.0, 0.02)
+		sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
 		$selectParticles.emitting = false
-		deformationSprite.visible = false
 		
 	highlighted = false
 	

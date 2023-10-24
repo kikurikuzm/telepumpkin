@@ -2,21 +2,27 @@
 
 [ext_resource type="Shader" path="res://Resources/Shaders/pumpkinHighlight.gdshader" id="1_sl0in"]
 
-[sub_resource type="Gradient" id="Gradient_aiwac"]
-offsets = PackedFloat32Array(0.580311, 1)
+[sub_resource type="Gradient" id="Gradient_ljwev"]
+offsets = PackedFloat32Array(0.658031, 0.880829, 0.979275, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.139914, 0.139914, 0.139914, 1, 0.433735, 0.433735, 0.433735, 1, 1, 1, 1, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_feity"]
-noise_type = 4
-fractal_type = 3
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3ehjj"]
+noise_type = 5
+seed = 285
+fractal_type = 2
+fractal_octaves = 3
+domain_warp_type = 1
+domain_warp_amplitude = 60.0
+domain_warp_fractal_type = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o2wox"]
-invert = true
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_deg0o"]
 seamless = true
-color_ramp = SubResource("Gradient_aiwac")
-noise = SubResource("FastNoiseLite_feity")
+color_ramp = SubResource("Gradient_ljwev")
+noise = SubResource("FastNoiseLite_3ehjj")
 
 [resource]
+resource_local_to_scene = true
 shader = ExtResource("1_sl0in")
-shader_parameter/distortion_strength = 0.2
-shader_parameter/scroll = Vector2(0.05, 0.05)
-shader_parameter/noise = SubResource("NoiseTexture2D_o2wox")
+shader_parameter/distortion_strength = 0.0
+shader_parameter/scroll = Vector2(0, 0.4)
+shader_parameter/noise = SubResource("NoiseTexture2D_deg0o")

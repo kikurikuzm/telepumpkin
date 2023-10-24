@@ -48,7 +48,7 @@ layer_0/tile_data = PackedInt32Array(1048596, 0, 1, 1048597, 0, 1, 1048598, 0, 1
 position = Vector2(332, 937.11)
 
 [node name="pumpkin" parent="." instance=ExtResource("3_5px6t")]
-position = Vector2(527, 814.227)
+position = Vector2(543, 806.234)
 unstableTeleport = 2
 
 [node name="exit" parent="." instance=ExtResource("4_iealw")]
@@ -60,7 +60,6 @@ position = Vector2(654, 818.223)
 zoom = Vector2(2.15, 2.15)
 
 [node name="areaDarkness" type="PointLight2D" parent="."]
-visible = false
 position = Vector2(877, 795.245)
 scale = Vector2(28.375, 12.1135)
 energy = 0.65
