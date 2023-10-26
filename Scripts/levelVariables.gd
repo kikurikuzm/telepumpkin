@@ -11,6 +11,7 @@ var mapCameraLocked = true
 
 var levelAmbience : AudioStream
 var levelTransition = 1
+var isDark = false
 var levelBackground : Texture2D
 var levelForeground : Texture2D
 var worldEnvironment : Environment
@@ -27,3 +28,4 @@ func _ready():
 	levelBackground = levelVariables.levelBackground
 	levelForeground = levelVariables.levelForeground
 	worldEnvironment = levelVariables.worldEnvironment
+	isDark = levelVariables.isDark

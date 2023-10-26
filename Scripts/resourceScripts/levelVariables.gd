@@ -17,6 +17,7 @@ class_name LevelVariables
 @export var levelAmbience : AudioStream
 @export var levelTransition = 1
 @export_subgroup("Appearance")
+@export var isDark = false
 @export var levelBackground : Texture2D
 @export var levelForeground : Texture2D
 @export var worldEnvironment : Environment

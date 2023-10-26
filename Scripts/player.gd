@@ -8,6 +8,8 @@ extends CharacterBody2D
 @onready var tpp = get_node("AnimatedSprite2D/tpp")
 @onready var tppLine = get_node("tppLine")
 
+@onready var playerLight = $AnimatedSprite2D/playerLight
+
 @onready var collectAudio = $collectAudio
 @onready var footstepAudio = $footstepAudio
 

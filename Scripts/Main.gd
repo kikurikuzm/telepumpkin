@@ -23,6 +23,7 @@ extends Node2D
 
 @onready var player = get_node("Player")
 @onready var playerVisibility = get_node("Player/VisibleOnScreenNotifier2D")
+@onready var playerLight = load("res://Instances/playerlight.tscn")
 
 @onready var tppLoad = preload("res://Instances/Level Components/tpp.tscn")
 var tppInstCount = 0
@@ -168,6 +169,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		canMap = levelVariables.hasMapView
 		if !inMap: inMap = levelVariables.startsInMap
 		if levelVariables.levelTransition != 1: nextTransition = levelVariables.levelTransition
+		print(levelVariables.isDark)
 	if inMap: levelCamera.make_current()
 	
 	manholeVisLine()

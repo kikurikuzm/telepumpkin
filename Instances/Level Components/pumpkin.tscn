@@ -414,7 +414,6 @@ libraries = {
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
 polygon = PackedVector2Array(11, 1, 13, 4, 13, 11, 11, 14, 8, 16, -8, 16, -11, 14, -13, 11, -13, 4, -11, 1, -7, -1, 0, -1, 7, -1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

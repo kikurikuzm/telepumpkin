@@ -22,6 +22,7 @@ startsInMap = true
 mapCameraLocked = true
 levelAmbience = ExtResource("4_sidl4")
 levelTransition = 1
+isDark = false
 levelBackground = ExtResource("5_yo2mq")
 levelForeground = ExtResource("6_spvxl")
 worldEnvironment = ExtResource("8_dq7ev")
