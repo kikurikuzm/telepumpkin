@@ -53,8 +53,8 @@ texture = SubResource("GradientTexture2D_r4bnp")
 metadata/_edit_lock_ = true
 
 [node name="light2" type="PointLight2D" parent="."]
-position = Vector2(735, 679.369)
-scale = Vector2(2.63237, 1.91516)
+position = Vector2(735, 678)
+scale = Vector2(1, 0.728)
 color = Color(0.960784, 0.988235, 0.576471, 1)
 energy = 2.08
 shadow_enabled = true
@@ -62,7 +62,8 @@ shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
 shadow_filter_smooth = 0.5
 texture = ExtResource("6_2vx3n")
-offset = Vector2(0, 65)
+offset = Vector2(0, 150)
+texture_scale = 2.3
 
 [node name="light3" type="PointLight2D" parent="."]
 position = Vector2(991, 745)

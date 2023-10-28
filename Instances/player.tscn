@@ -845,6 +845,7 @@ texture = ExtResource("5_qpng8")
 texture_scale = 0.02
 
 [node name="playerLight" type="PointLight2D" parent="AnimatedSprite2D"]
+visible = false
 light_mask = 2
 visibility_layer = 2
 z_index = -1
