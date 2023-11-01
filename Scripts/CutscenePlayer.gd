@@ -32,6 +32,7 @@ func startCutscene(cutscene:String, resetPlayer:bool = true):
 	mainCamera.oldZoom = mainCamera.desiredZoom
 	if placeholderCamera != null:
 		mainCamera.currentParent = placeholderCamera
+		mainCamera.make_current()
 	if placeholderPlayer != null:
 		player.changeState("playerbusy")
 	cinemaBoxes.play("in")

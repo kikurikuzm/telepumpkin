@@ -19,18 +19,21 @@ func _input(event):
 				triggerThings(node)
 
 func triggerThings(cause) -> void:
+	print(cause)
 	if !hasTriggered:
 		if anythingTriggers:
 			for i in triggerList:
 				get_node(i).trigger()
 				print("triggered ", str(i))
+				if triggersOnce:
+					hasTriggered = true
 		if !anythingTriggers and cause.is_in_group("player"):
 			for i in triggerList:
 				get_node(i).trigger()
 				print("triggered ", str(i))
+				if triggersOnce:
+					hasTriggered = true
 	
-	if triggersOnce:
-		hasTriggered = true
 
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:

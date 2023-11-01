@@ -8,11 +8,12 @@ extends Node2D
 @onready var transition = get_parent().get_parent().get_node("transitionLayer")
 
 @export var scene : PackedScene
+@export var enabled = true
 @export var secret = false
 @export var exit = false
 
 func _ready():
-	if secret:
+	if secret or !enabled:
 		interactIcon.visible = false
 
 func _process(delta):

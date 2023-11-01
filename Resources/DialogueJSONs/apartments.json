@@ -87,7 +87,28 @@
 			"speed":0.055,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)",
-		"quest":3
+			"quest":3
+			}
+	 ]
+	},
+	{"conversation": [
+		{
+			"character":"NPC2",
+			"text":"Aw nice, glad you found it. Now if you don't mind...",
+			"portrait":"smoke.png",
+			"speed":0.055,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)",
+			"quest": 5
+		},
+		{
+			"character":"NPC2",
+			"text":"And before you go, here's your payment.",
+			"portrait":"smoke.png",
+			"speed":0.055,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+			
 			}
 	 ]
 	}

@@ -18,15 +18,21 @@ func questModify():
 			ResourceSaver.save(scene, scenePath)
 			
 		2:
-			#changes guy to bring you to sewer intro
+			#changes guy to bring you to sewer intro, triggered after talking to the cloak guy
 			NPCsaveConvo("NPC2", "apartments.tscn", 2)
 			NPCsaveConvo("NPC5", "moonCity.tscn", 2)
 			get_parent().currentLevel.get_node("NPC5").convoID = 2
 		3:
+			#changes apartments guy to take back the tpp, triggered after he finishes his sewerintro dialogue 
+			get_parent().currentLevel.get_node("NPC2").convoID = 3
+			NPCsaveConvo("NPC2", "apartments.tscn", 3)
 			get_parent().loadLevel(load("res://Levels/sewerIntro.tscn"),2)
 		4:
 			get_parent().loadLevel(load("res://Levels/Level5.tscn"),2)
 			questSFX()
+		5:
+			get_parent().player.hasTPP = false
+			get_parent().player.holdingTPP = false
 			
 func changeQuest(id):
 	if id > questID:
