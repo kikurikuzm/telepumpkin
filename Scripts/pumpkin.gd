@@ -41,9 +41,17 @@ func _physics_process(delta):
 			if area.get_parent().enterManhole(linear_velocity) != null:
 				var manhole = area.get_parent()
 				var exitVariables = manhole.enterManhole(linear_velocity)
+				manhole.enterSound(self.linear_velocity.y / 20, randf_range(0.80, 1.0))
 				position = exitVariables[0]
 				linear_velocity = exitVariables[1]
 				area.get_parent().pumpkinAmount -= 1
+
+func getVelocity():
+	return linear_velocity
+	
+func traverseManhole(exitPos: Vector2, exitVel: Vector2):
+	position = exitPos
+	linear_velocity = exitVel
 
 func _process(delta):
 	if highlighted:

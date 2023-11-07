@@ -1,26 +1,26 @@
 [
-    {"cutscene": [
-        {"event":[
-            {
-                "character":"NPC1",
-                "move":"Vector2(10, 20)"
-            }
-        ]
-        },
-        {"event":[
-            {
-                "character":"NPC1",
-                "scale":"Vector2(3,0)"
-            }
-        ]
-        },
-        {"event":[
-            {
-                "character":"NPC1",
-                "rotate":-10.0
-            }
-        ]
-        }
-     ]
-    }
+	{"cutscene": [
+		{"event":[
+			{
+				"character":"NPC1",
+				"move":"Vector2(10, 20)"
+			}
+		]
+		},
+		{"event":[
+			{
+				"character":"NPC1",
+				"scale":"Vector2(3,0)"
+			}
+		]
+		},
+		{"event":[
+			{
+				"character":"NPC1",
+				"rotate":-10.0
+			}
+		]
+		}
+	 ]
+	}
 ]

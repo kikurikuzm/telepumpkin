@@ -33,6 +33,9 @@ func questModify():
 		5:
 			get_parent().player.hasTPP = false
 			get_parent().player.holdingTPP = false
+		6:
+			NPCsaveConvo("NPC1", "sewerOutro.tscn", 1)
+			get_parent().currentLevel.get_node("NPC1").convoID = 1
 			
 func changeQuest(id):
 	if id > questID:

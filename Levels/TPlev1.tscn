@@ -41,8 +41,8 @@ position = Vector2(1265, 912)
 pNeeded = 1
 
 [node name="thumb" type="Camera2D" parent="."]
-position = Vector2(896, 800)
-zoom = Vector2(3, 3)
+position = Vector2(976, 821)
+zoom = Vector2(2.745, 2.745)
 
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(941, 748)

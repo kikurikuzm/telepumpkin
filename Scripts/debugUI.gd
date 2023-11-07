@@ -51,8 +51,8 @@ func _on_time_scale_slider_value_changed(value):
 
 func _on_lev_numb_value_changed(value):
 	mainNode.levNum = value - 1
-	$"TabContainer/Debug Settings/levNumb".max_value = mainNode.levArray.size() - 1
-	$"TabContainer/Debug Settings/levNumb/currentLevel".text = str(mainNode.levArray[value].get_path())
+	$"TabContainer/Debug Settings/primaryVbox/levNumb".max_value = mainNode.levArray.size() - 1
+	$"TabContainer/Debug Settings/secondaryVbox/currentLevelLevnum".text = str(mainNode.levArray[value].get_path())
 
 func _on_givetp_toggled(button_pressed):
 	get_parent().get_parent().player.hasTPP = button_pressed
@@ -65,3 +65,7 @@ func _on_instance_spawner_item_activated(index):
 
 	mainNode.currentLevel.add_child(newInstance)
 	newInstance.global_position = mainNode.player.global_position
+
+
+func _on_confirm_quest_pressed():
+	mainNode.questManager.changeQuest($"TabContainer/Debug Settings/primaryVbox/questChange".value)

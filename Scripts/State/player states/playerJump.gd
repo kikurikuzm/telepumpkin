@@ -20,7 +20,7 @@ func physics_update(delta: float):
 	if Input.is_action_pressed("right"):
 		player.velocity.x += aircontrol
 	
-	if player.velocity.y > 0:
+	if player.velocity.y >= 0:
 		transitioned.emit(self, "playerfalling")
 	
 	player.move_and_slide()

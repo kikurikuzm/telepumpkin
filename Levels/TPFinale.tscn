@@ -35,26 +35,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("playerDummy:position")
+tracks/1/path = NodePath("levelChange:animationChangeLevel")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1276, 613.417)]
+"update": 1,
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("levelChange:animationChangeLevel")
+tracks/2/path = NodePath("playerDummy:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Vector2(0.925, 0.925)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("playerDummy:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1277, 602.428)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vv7t8"]
@@ -79,26 +91,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("playerDummy:position")
+tracks/1/path = NodePath("levelChange:animationChangeLevel")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1276, 613.417), Vector2(1276, 558.469)]
+"update": 1,
+"values": [false, true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("levelChange:animationChangeLevel")
+tracks/2/path = NodePath("playerDummy:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
+"times": PackedFloat32Array(0.358664, 0.442562),
+"transitions": PackedFloat32Array(2.82843, 1),
+"update": 0,
+"values": [Vector2(0.925, 0.925), Vector2(1.19998, 0.712261)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("playerDummy:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.401601),
+"transitions": PackedFloat32Array(1.46409, 1),
+"update": 0,
+"values": [Vector2(1277, 602.428), Vector2(1277, 578.451)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_25fnt"]
@@ -335,7 +359,7 @@ direction = 3
 
 [node name="exitManhole" parent="." instance=ExtResource("12_s82yx")]
 modulate = Color(100, 100, 100, 1)
-position = Vector2(1276, 578.451)
+position = Vector2(1277, 577.451)
 rotation = 3.14159
 pumpkinAmount = 999999
 id = 999999
@@ -369,7 +393,7 @@ scale = Vector2(6, 6)
 [node name="playerDummy" parent="." instance=ExtResource("16_rhddn")]
 visible = false
 z_index = -1
-position = Vector2(1276, 613.417)
+position = Vector2(1277, 602.428)
 
 [node name="levelChange" parent="." instance=ExtResource("17_b6fjp")]
-level = "res://Levels/moonCity.tscn"
+level = "res://Levels/sewerOutro.tscn"

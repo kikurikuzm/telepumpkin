@@ -17,17 +17,18 @@ func update(delta: float):
 	pass
 
 func physics_update(delta: float):
+	var direction = 0
 	if sign(player.velocity.y) == 1:
 		coyoteTimer.start(1)
 		print("started timer")
 	
 	if Input.is_action_pressed("left"):
-		var direction = -1
+		direction = -1
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
 		player.velocity.x = walkspeed * accelerate(direction)
 		playerSprite.flip_h = true
 	if Input.is_action_pressed("right"):
-		var direction = 1
+		direction = 1
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
 		player.velocity.x = walkspeed * accelerate(direction)
 		playerSprite.flip_h = false
@@ -36,8 +37,7 @@ func physics_update(delta: float):
 	Input.is_action_just_released("right"):
 		curveX = 0
 	
-	if player.velocity.x <= 1 and \
-	player.velocity.x >= -1:
+	if direction == 0:
 		player.velocity.x = 0
 	
 	if Input.is_action_pressed("up"):

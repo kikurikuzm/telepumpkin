@@ -1,0 +1,63 @@
+[
+	{"conversation": [
+		{
+		"character":"NPC1",
+		"text":"Oh, hey!",
+		"portrait":"smoke.png",
+		"speed":0.09,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC1",
+			"text":"Glad to see you alive.",
+			"portrait":"smoke.png",
+			"speed":0.09
+		},
+		{
+			"character":"NPC1",
+			"text":"And glad to see you found it! You didn't damage it, right?",
+			"portrait":"smoke.png",
+			"speed":0.09
+		},
+		{
+			"character":"player",
+			"text":"",
+			"portrait":"",
+			"quest":5
+		},
+		{
+			"character":"NPC1",
+			"text":"It uhh... Well whatever, at least its back in my hands.",
+			"portrait":"smoke.png",
+			"speed":0.09
+			
+		},
+		{
+			"character":"NPC1",
+			"text":"Here's a reward for your menial efforts.",
+			"portrait":"smoke.png",
+			"speed":0.09,
+			"quest":6
+		}
+	 ],
+	"conversation":[
+		{
+			"character":"NPC1",
+			"text":"You know, this is the first time I've seen the sun...",
+			"portrait":"smoke.png",
+			"speed":0.08
+		},
+		{
+			"character":"NPC1",
+			"text":"At least since I was a kid.",
+			"portrait":"smoke.png"
+		},
+		{
+			"character":"NPC1",
+			"text":"But even back then I didn't get to see it much. I didn't have the best life as a kid.",
+			"portrait":"smoke.png"
+		}
+	]
+	}
+]

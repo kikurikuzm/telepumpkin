@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddp3f62huxqab"]
+[gd_scene load_steps=4 format=3 uid="uid://ddp3f62huxqab"]
 
 [ext_resource type="Script" path="res://Scripts/debugUI.gd" id="1"]
+[ext_resource type="Theme" uid="uid://dp05gprq6tj11" path="res://Resources/debugMenu.tres" id="2_2c7kl"]
 
 [sub_resource type="Theme" id="1"]
 ItemList/colors/font_color = Color(0.784314, 0.784314, 0.784314, 1)
@@ -30,69 +31,124 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LevelSelect" type="ItemList" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = SubResource("1")
 
 [node name="Debug Settings" type="Panel" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
-[node name="mouseFly" type="CheckButton" parent="TabContainer/Debug Settings"]
+[node name="secondaryVbox" type="VBoxContainer" parent="TabContainer/Debug Settings"]
 layout_mode = 0
-offset_right = 76.0
-offset_bottom = 40.0
-shortcut_in_tooltip = false
-text = "Noclip"
+offset_left = 294.0
+offset_top = 10.0
+offset_right = 462.0
+offset_bottom = 495.0
+theme_override_constants/separation = 15
 
-[node name="timeScaleSlider" type="HSlider" parent="TabContainer/Debug Settings"]
+[node name="mouseFly" type="CheckButton" parent="TabContainer/Debug Settings/secondaryVbox"]
+layout_mode = 2
+shortcut_in_tooltip = false
+
+[node name="timeScaleLabel" type="Label" parent="TabContainer/Debug Settings/secondaryVbox"]
+layout_mode = 2
+text = "time scale"
+horizontal_alignment = 2
+
+[node name="currentLevelLevnum" type="Label" parent="TabContainer/Debug Settings/secondaryVbox"]
+layout_mode = 2
+text = "CURRENTLEVEL"
+horizontal_alignment = 2
+
+[node name="givetp" type="CheckButton" parent="TabContainer/Debug Settings/secondaryVbox"]
+layout_mode = 2
+
+[node name="confirmQuest" type="Button" parent="TabContainer/Debug Settings/secondaryVbox"]
+layout_mode = 2
+text = "change quest"
+
+[node name="primaryVbox" type="VBoxContainer" parent="TabContainer/Debug Settings"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 40.0
-offset_right = 266.0
-offset_bottom = 64.0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = 279.0
+offset_bottom = 487.0
+theme_override_constants/separation = 15
+
+[node name="noclipText" type="Label" parent="TabContainer/Debug Settings/primaryVbox"]
+layout_mode = 2
+text = "No clip"
+
+[node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/noclipText"]
+z_index = -1
+layout_mode = 0
+offset_left = -3.0
+offset_right = 456.0
+offset_bottom = 26.0
+mouse_filter = 2
+theme = ExtResource("2_2c7kl")
+
+[node name="timeScaleSlider" type="HSlider" parent="TabContainer/Debug Settings/primaryVbox"]
+layout_mode = 2
 max_value = 1.0
 step = 0.1
 value = 1.0
 
-[node name="levNumb" type="SpinBox" parent="TabContainer/Debug Settings"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 71.0
-offset_right = 119.0
-offset_bottom = 102.0
+[node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/timeScaleSlider"]
+z_index = -1
+offset_left = -3.0
+offset_top = -5.0
+offset_right = 456.0
+offset_bottom = 21.0
+mouse_filter = 2
+theme = ExtResource("2_2c7kl")
+
+[node name="levNumb" type="SpinBox" parent="TabContainer/Debug Settings/primaryVbox"]
+layout_mode = 2
 prefix = "levnumb"
 
-[node name="currentLevel" type="Label" parent="TabContainer/Debug Settings/levNumb"]
-layout_mode = 0
-offset_left = 143.0
-offset_top = 3.0
-offset_right = 388.0
-offset_bottom = 29.0
-text = "CURRENTLEVEL"
-vertical_alignment = 1
+[node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/levNumb"]
+z_index = -1
+offset_left = -3.0
+offset_top = -2.0
+offset_right = 456.0
+offset_bottom = 34.0
+mouse_filter = 2
+theme = ExtResource("2_2c7kl")
 
-[node name="givetpLabel" type="Label" parent="TabContainer/Debug Settings"]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 119.0
-offset_right = 46.0
-offset_bottom = 142.0
+[node name="givetpLabel" type="Label" parent="TabContainer/Debug Settings/primaryVbox"]
+layout_mode = 2
 text = "Give TP"
 
-[node name="givetp" type="CheckButton" parent="TabContainer/Debug Settings/givetpLabel"]
-layout_mode = 0
-offset_left = 58.0
-offset_top = 2.0
-offset_right = 102.0
+[node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/givetpLabel"]
+z_index = -1
+offset_left = -3.0
+offset_right = 456.0
 offset_bottom = 26.0
+mouse_filter = 2
+theme = ExtResource("2_2c7kl")
+
+[node name="questChange" type="SpinBox" parent="TabContainer/Debug Settings/primaryVbox"]
+layout_mode = 2
+prefix = "quest"
+
+[node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/questChange"]
+z_index = -1
+offset_left = -3.0
+offset_top = -2.0
+offset_right = 456.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme = ExtResource("2_2c7kl")
 
 [node name="Instance Spawner" type="ItemList" parent="TabContainer"]
 visible = false
 layout_mode = 2
 
 [connection signal="item_activated" from="TabContainer/LevelSelect" to="." method="_on_Levels_item_activated"]
-[connection signal="toggled" from="TabContainer/Debug Settings/mouseFly" to="." method="_on_mouse_fly_toggled"]
-[connection signal="value_changed" from="TabContainer/Debug Settings/timeScaleSlider" to="." method="_on_time_scale_slider_value_changed"]
-[connection signal="value_changed" from="TabContainer/Debug Settings/levNumb" to="." method="_on_lev_numb_value_changed"]
-[connection signal="toggled" from="TabContainer/Debug Settings/givetpLabel/givetp" to="." method="_on_givetp_toggled"]
+[connection signal="toggled" from="TabContainer/Debug Settings/secondaryVbox/mouseFly" to="." method="_on_mouse_fly_toggled"]
+[connection signal="toggled" from="TabContainer/Debug Settings/secondaryVbox/givetp" to="." method="_on_givetp_toggled"]
+[connection signal="pressed" from="TabContainer/Debug Settings/secondaryVbox/confirmQuest" to="." method="_on_confirm_quest_pressed"]
+[connection signal="value_changed" from="TabContainer/Debug Settings/primaryVbox/timeScaleSlider" to="." method="_on_time_scale_slider_value_changed"]
+[connection signal="value_changed" from="TabContainer/Debug Settings/primaryVbox/levNumb" to="." method="_on_lev_numb_value_changed"]
 [connection signal="item_activated" from="TabContainer/Instance Spawner" to="." method="_on_instance_spawner_item_activated"]

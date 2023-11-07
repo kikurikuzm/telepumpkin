@@ -49,6 +49,7 @@ func _physics_process(delta):
 				var manhole = area.get_parent()
 				var exitVariables = manhole.enterManhole(velocity)
 				if exitVariables[2] <= 0:
+					manhole.enterSound(self.velocity.y / 55)
 					position = exitVariables[0]
 					velocity = exitVariables[1]
 	
@@ -91,8 +92,8 @@ func _process(delta):
 			teleportRange.rangeTeleport(global_transform)
 		tppHandler()
 		
-	if Input.is_action_just_released("teleport"):
-		$debugText.visible = false
+#	if Input.is_action_just_released("teleport"):
+#		$debugText.visible = false
 
 func tppHandler() -> void:
 	if hasTPP and holdingTPP:
@@ -120,3 +121,10 @@ func tppHandler() -> void:
 
 func changeState(state:String) -> void:
 	$stateFactory.on_child_transition($stateFactory.current_state, state)
+
+func getVelocity():
+	return velocity
+
+func traverseManhole(exitPos: Vector2, exitVel: Vector2):
+	position = exitPos
+	velocity = exitVel
