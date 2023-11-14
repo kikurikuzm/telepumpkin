@@ -40,8 +40,9 @@
 			"speed":0.09,
 			"quest":6
 		}
-	 ],
-	"conversation":[
+	 ]
+	},
+	{"conversation":[
 		{
 			"character":"NPC1",
 			"text":"You know, this is the first time I've seen the sun...",
@@ -52,11 +53,16 @@
 			"character":"NPC1",
 			"text":"At least since I was a kid.",
 			"portrait":"smoke.png"
-		},
+		}
+	]
+	},
+	{"conversation":[
 		{
-			"character":"NPC1",
-			"text":"But even back then I didn't get to see it much. I didn't have the best life as a kid.",
-			"portrait":"smoke.png"
+			"character":"player",
+			"text":"[outline_size=8][outline_color=yellow]You got some money!",
+			"portrait":"",
+			"speed":0.06,
+			"zoom":"Vector2(9, 9)"
 		}
 	]
 	}

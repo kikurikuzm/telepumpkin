@@ -13,6 +13,8 @@ var canTalk = true
 func _ready():
 	animSprite.flip_h = spriteFlip
 	animSprite.play(npcLook)
+	if dialogueManager != DialogueManager:
+		push_error("You must provide a dialogueManager node in the level for NPCs to function!")
 
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and !dialogueManager.inDialogue and canTalk:
@@ -32,9 +34,15 @@ func save() -> Dictionary:
 		"name" : name,
 		"posX" : position.x,
 		"posY" : position.y,
-		"convoID" : convoID
+		"convoID" : convoID,
+		"visible" : visible
 	}
 	return saveDict
 
 func loadJSON(nodeData) -> void:
 	convoID = nodeData["convoID"]
+	visible = nodeData["visible"]
+
+func trigger():
+	dialogueManager.convoInitialize(convoID)
+	canTalk = false

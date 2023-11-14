@@ -23,10 +23,11 @@ var oldZoom : Vector2 ##The zoom of the main camera prior to being modified by t
 
 var currentConversation = 0 ##The index of the current conversation.
 var currentTextIndex = 0 ##The index of the current text chunk within the .json file.
+var queuedConvo = null
 
 var questIndex ##The quest index, given by the dialogue .json and used at the end of dialogue.
 
-static var inDialogue = false ##Whether or not the player is currently interacting with an NPC.
+var inDialogue = false ##Whether or not the player is currently interacting with an NPC.
 var inCutscene = false ##Whether or not the player is currently in a cutscene.
 
 var conversation : Array ##The parsed array from the .json file.
@@ -117,19 +118,27 @@ func progressDialogue():
 func endDialogue(): 
 	var rootnode = get_parent().get_parent()
 	rootnode.player.changeState("playeridle")
-	if questIndex != null:
-		rootnode.get_node("questManager").changeQuest(questIndex)
 	
 	dialogueBox.visible = false
 	dialogueContinue.visible = false
 	inDialogue = false
 	
 	currentTextIndex = 0
+	if questIndex != null:
+		rootnode.get_node("questManager").changeQuest(questIndex)
 	questIndex = null
 	
 	mainCamera.desiredZoom = oldZoom
 	mainCamera.smoothAmount = 0.2
 	mainCamera.currentParent = mainCamera.playerRef
+	
+	if queuedConvo != null:
+		convoInitialize(queuedConvo)
+		queuedConvo = null
+	return
+
+func queueConvo(convoNumb:int):
+	queuedConvo = convoNumb
 
 ##The function that performs setup for dialogue.
 func convoInitialize(convoNumb=0): 
@@ -158,5 +167,6 @@ func _input(event):
 			dialogueText.visible_characters = len(dialogueText.get_parsed_text())
 
 func _process(delta):
+	gvars.inDialogue = inDialogue
 	if dialogueText.visible_characters == len(dialogueText.get_parsed_text()) and inDialogue:
 		dialogueContinue.visible = true

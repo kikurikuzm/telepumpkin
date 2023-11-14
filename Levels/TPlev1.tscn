@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjp3fp3nrmuhf"]
+[gd_scene load_steps=17 format=3 uid="uid://cjp3fp3nrmuhf"]
 
 [ext_resource type="TileSet" uid="uid://d1ii0t01yom7g" path="res://Tile Sets/sewerTiles.tres" id="1_x1uca"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_isw55"]
@@ -9,7 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://ctcjvamn72bwl" path="res://Instances/Level Components/tpp.tscn" id="8_nuhnx"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="9_mb50y"]
 [ext_resource type="Resource" uid="uid://cqrj2u4yhvtx3" path="res://Resources/LevelVar Sets/sewers.tres" id="9_uupee"]
+[ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="11_1w6f3"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="11_4ftg1"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="12_vcgpk"]
+[ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="13_aohpx"]
 
 [sub_resource type="Gradient" id="Gradient_ysh3s"]
 interpolation_mode = 1
@@ -115,3 +118,17 @@ levelVariables = ExtResource("9_uupee")
 [node name="platform" parent="." instance=ExtResource("11_4ftg1")]
 position = Vector2(1184, 728)
 scale = Vector2(0.8, 1)
+
+[node name="tppGet" parent="." instance=ExtResource("11_1w6f3")]
+position = Vector2(194, 1177)
+scale = Vector2(2.84, 1.655)
+
+[node name="trigger" parent="." instance=ExtResource("12_vcgpk")]
+position = Vector2(990, 814)
+scale = Vector2(1.365, 1.365)
+triggerList = [NodePath("../tppGet")]
+mustInteract = true
+
+[node name="dialogueManager" parent="." instance=ExtResource("13_aohpx")]
+position = Vector2(1099, 817)
+dialogueJSONPath = "res://Resources/DialogueJSONs/TPlev1.json"

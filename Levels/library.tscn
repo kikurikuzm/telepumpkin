@@ -39,7 +39,8 @@ zoom = Vector2(1.491, 3)
 
 [node name="entrance" parent="." instance=ExtResource("3_c58ar")]
 position = Vector2(460, 822)
-exit = true
+scene = "Levels/moonCity.tscn"
+exitLocation = Vector2(558, 758)
 
 [node name="levelVariables" parent="." instance=ExtResource("5_xhu3m")]
 levelVariables = ExtResource("6_v813u")

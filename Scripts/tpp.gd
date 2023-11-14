@@ -4,8 +4,8 @@ var movePos : Vector2
 var pointPos : Vector2
 var lineColor : Gradient
 
-var purpleGradient = preload("res://Resources/purplegradient.tres")
-var orangeGradient = preload("res://Resources/orangegradient.tres")
+const purpleGradient = preload("res://Resources/purplegradient.tres")
+const orangeGradient = preload("res://Resources/orangegradient.tres")
 
 var stretching = false
 

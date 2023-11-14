@@ -1,0 +1,13 @@
+[
+	{"conversation": [
+		{
+		"character":"tppGet",
+		"text":"[outline_size=4][outline_color=yellow]You found the device!",
+		"portrait":"",
+		"speed":0.09,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(9.5,9.5)"
+		}
+	 ]
+	}
+]

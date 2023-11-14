@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://mp7xv3dv0xyn"]
+[gd_scene load_steps=11 format=3 uid="uid://mp7xv3dv0xyn"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_e8s6j"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_0ffp0"]
@@ -8,8 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="5_7b3b5"]
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="7_ywwg8"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_278rm"]
-
-[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_h1lno"]
 
 [sub_resource type="Gradient" id="Gradient_qne3f"]
 interpolation_mode = 1
@@ -38,7 +36,8 @@ zoom = Vector2(1.491, 3)
 
 [node name="entrance" parent="." instance=ExtResource("3_aasaa")]
 position = Vector2(775, 822)
-exit = true
+scene = "Levels/moonCity.tscn"
+exitLocation = Vector2(-514, 758)
 
 [node name="NPC" parent="." instance=ExtResource("4_ybaqi")]
 position = Vector2(1129, 799)
@@ -54,14 +53,6 @@ position = Vector2(1374, 867)
 npcLook = "inspect"
 
 [node name="levelVariables" parent="." instance=ExtResource("5_7b3b5")]
-position = Vector2(199, 693)
-canTeleport = false
-playerZoom = 6.0
-hasVignette = true
-hasMapView = false
-levelAmbience = SubResource("AudioStreamMP3_h1lno")
-levelBackground = ExtResource("7_ywwg8")
-levelForeground = null
 
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(1006.5, 750)

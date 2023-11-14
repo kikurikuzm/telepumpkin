@@ -39,7 +39,7 @@
 		},
 		{
 			"character":"NPC2",
-			"text":"Stop giving me that look, I'm busy.",
+			"text":"I'm busy. Come back later.",
 			"portrait":"smoke.png",
 			"speed":0.055,
 			"cameraSpeed":0.1,

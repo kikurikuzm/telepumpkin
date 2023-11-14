@@ -35,7 +35,10 @@ func questModify():
 			get_parent().player.holdingTPP = false
 		6:
 			NPCsaveConvo("NPC1", "sewerOutro.tscn", 1)
-			get_parent().currentLevel.get_node("NPC1").convoID = 1
+			NPCsaveConvo("NPC2", "apartments.tscn", 0, false)
+			var currentLevel = get_parent().currentLevel
+			currentLevel.get_node("NPC1").convoID = 1
+			currentLevel.get_node("dialogueManager").queueConvo(2)
 			
 func changeQuest(id):
 	if id > questID:
@@ -53,15 +56,25 @@ func questSFX():
 	await tempPlayer.finished
 	tempPlayer.queue_free()
 
-func NPCsaveConvo(npcName:String, level:String, convoID:int):
+func NPCsaveConvo(npcName:String, level:String, convoID:int, visibility=true):
 	var levelSave = FileAccess.open(str("user://levelSaves/", str(level), ".lsav"), FileAccess.WRITE)
 	
 	var saveData = {
 		"name" : npcName,
 		"posX" : position.x,
 		"posY" : position.y,
-		"convoID" : convoID
+		"convoID" : convoID,
+		"visible" : visibility
 	}
 	var jsonString = JSON.stringify(saveData)
 	
 	levelSave.store_line(jsonString)
+
+func saveEntrance(newScene:String, newEnabled=true, newSecret=false, newExitLocation=Vector2.ZERO):
+	var saveData = {
+		"name" : name,
+		"scene" : newScene,
+		"enabled" : newEnabled,
+		"secret" : newSecret,
+		"exitLocation" : newExitLocation
+	}

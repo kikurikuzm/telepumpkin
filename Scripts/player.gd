@@ -16,10 +16,9 @@ extends CharacterBody2D
 @onready var questManager = get_parent().get_node("questManager")
 
 @onready var accelCurve = load("res://Resources/movement_accel.tres")
+@onready var tpLoad = load("res://Instances/Level Components/tpp.tscn")
 
 var jumpstrength: float
-
-var inDialog = false
 
 var hasTPP = false
 var holdingTPP = false
@@ -84,8 +83,9 @@ func _process(delta):
 			for node in interactArea.get_overlapping_areas():
 				if node.is_in_group("entrance"):
 					var entrance = node.get_parent()
-					emit_signal("enteringEntrance", entrance.scene)
-					entrance.enterScene()
+					if entrance.enabled == true:
+						emit_signal("enteringEntrance", entrance.scene)
+						entrance.enterScene()
 					break
 				
 		if !hasTPP:
@@ -96,9 +96,8 @@ func _process(delta):
 #		$debugText.visible = false
 
 func tppHandler() -> void:
-	if hasTPP and holdingTPP:
+	if hasTPP and holdingTPP and !gvars.inDialogue:
 		holdingTPP = false
-		var tpLoad = load("res://Instances/Level Components/tpp.tscn")
 		var tpInstance = tpLoad.instantiate()
 		tpInstance.pointPos = self.global_position
 		get_parent().add_child(tpInstance)

@@ -31,11 +31,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="LevelSelect" type="ItemList" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = SubResource("1")
 
 [node name="Debug Settings" type="Panel" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="secondaryVbox" type="VBoxContainer" parent="TabContainer/Debug Settings"]
@@ -96,6 +96,7 @@ value = 1.0
 
 [node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/timeScaleSlider"]
 z_index = -1
+layout_mode = 0
 offset_left = -3.0
 offset_top = -5.0
 offset_right = 456.0
@@ -109,6 +110,7 @@ prefix = "levnumb"
 
 [node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/levNumb"]
 z_index = -1
+layout_mode = 0
 offset_left = -3.0
 offset_top = -2.0
 offset_right = 456.0
@@ -122,6 +124,7 @@ text = "Give TP"
 
 [node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/givetpLabel"]
 z_index = -1
+layout_mode = 0
 offset_left = -3.0
 offset_right = 456.0
 offset_bottom = 26.0
@@ -134,6 +137,7 @@ prefix = "quest"
 
 [node name="background" type="Panel" parent="TabContainer/Debug Settings/primaryVbox/questChange"]
 z_index = -1
+layout_mode = 0
 offset_left = -3.0
 offset_top = -2.0
 offset_right = 456.0
