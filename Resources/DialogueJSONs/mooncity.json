@@ -56,5 +56,16 @@
 			"zoom":"Vector2(6,6)"
 		}
 	 ]
+	},
+	{"conversation":[
+			{
+				"character":"NPC5",
+				"portrait":"cloak.png",
+				"text":"[wave]Ah, you've come to me with the money. Let's get you on your way then.",
+				"speed":0.07,
+				"zoom":"Vector2(5.5,5.5)",
+				"quest":7
+			}
+		]
 	}
 ]

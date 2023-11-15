@@ -36,9 +36,12 @@ func questModify():
 		6:
 			NPCsaveConvo("NPC1", "sewerOutro.tscn", 1)
 			NPCsaveConvo("NPC2", "apartments.tscn", 0, false)
+			NPCsaveConvo("NPC5", "mooncity.tscn", 3)
 			var currentLevel = get_parent().currentLevel
 			currentLevel.get_node("NPC1").convoID = 1
 			currentLevel.get_node("dialogueManager").queueConvo(2)
+		7:
+			get_parent().loadLevel(load("res://Levels/moonBaseOuter.tscn"),2)
 			
 func changeQuest(id):
 	if id > questID:
