@@ -486,6 +486,8 @@ position = Vector2(1128, 748)
 volume_db = -0.887
 autoplay = true
 
+[node name="levelMusicPlayer" type="AudioStreamPlayer" parent="."]
+
 [node name="worldEnd" type="WorldEnvironment" parent="."]
 environment = ExtResource("5_hwca2")
 camera_attributes = SubResource("CameraAttributesPractical_xrx0c")
@@ -688,7 +690,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -100.0
-offset_right = 140160.0
+offset_right = 147840.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
@@ -700,7 +702,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 1080.0
-offset_right = 140160.0
+offset_right = 147840.0
 offset_bottom = 1180.0
 grow_horizontal = 2
 grow_vertical = 0

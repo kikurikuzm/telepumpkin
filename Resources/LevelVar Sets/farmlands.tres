@@ -16,6 +16,7 @@ startsInMap = false
 mapCameraLocked = true
 levelAmbience = ExtResource("1_tdxme")
 levelTransition = 1
+musicChance = 0.2
 isDark = false
 levelBackground = ExtResource("2_1rxyd")
 levelForeground = ExtResource("3_1wpf1")

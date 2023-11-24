@@ -39,7 +39,8 @@ func save() -> Dictionary:
 		"scene" : scene,
 		"enabled" : enabled,
 		"secret" : secret,
-		"exitLocation" : exitLocation
+		"exitLocationX" : exitLocation.x,
+		"exitLocationY" : exitLocation.y
 	}
 	return saveDict
 
@@ -47,4 +48,5 @@ func loadJSON(saveData) -> void:
 	scene = saveData["scene"]
 	enabled = saveData["enabled"]
 	secret = saveData["secret"]
-	exitLocation = saveData["exitLocation"]
+	exitLocation.x = saveData["exitLocationX"]
+	exitLocation.y = saveData["exitLocationY"]

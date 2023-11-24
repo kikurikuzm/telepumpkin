@@ -23,6 +23,7 @@ extends Node2D
 
 @onready var player = get_node("Player")
 @onready var playerVisibility = get_node("Player/VisibleOnScreenNotifier2D")
+@onready var mainCamera = get_node("mainCamera")
 
 @onready var tppLoad = preload("res://Instances/Level Components/tpp.tscn")
 var tppInstCount = 0
@@ -105,7 +106,7 @@ func _process(delta):
 			levelCamera.make_current()
 			inMap = true
 		elif inMap:
-			$mainCamera.make_current()
+			mainCamera.make_current()
 			inMap = false
 
 func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
@@ -153,20 +154,36 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		
 	if levInst.has_node("levelVariables"):
 		var levelVariables = levInst.get_node("levelVariables")
-		$mainCamera.desiredZoom = Vector2(levelVariables.playerZoom, levelVariables.playerZoom)
+		
+		if levelVariables.levelMusic != null and randf() <= levelVariables.musicChance:
+			$levelMusicPlayer.stream = levelVariables.levelMusic
+			$levelMusicPlayer.play()
+		if levelVariables.levelMusic == null:
+			$levelMusicPlayer.stop()
+			
+		mainCamera.desiredZoom = Vector2(levelVariables.playerZoom, levelVariables.playerZoom)
 		$Player/Teleport.visible = levelVariables.canTeleport
+		
 		if levelVariables.levelAmbience != null and $ambiencePlayer.stream != levelVariables.levelAmbience: 
 			$ambiencePlayer.stream = levelVariables.levelAmbience
 			$ambiencePlayer.play()
+		
 		$ParallaxBackground/background/background.texture = levelVariables.levelBackground
 		$ParallaxBackground/foreground/foreground.texture = levelVariables.levelForeground
 		$uiLayer/vignette.visible = levelVariables.hasVignette
+		
 		mapCamIsFollowing = !levelVariables.mapCameraLocked
+		
 		if levelVariables.worldEnvironment != null: $worldEnd.environment = levelVariables.worldEnvironment
+		
 		if !levelVariables.hasMapView: inMap = false
+		
 		canMap = levelVariables.hasMapView
+		
 		if !inMap: inMap = levelVariables.startsInMap
+		
 		if levelVariables.levelTransition != 1: nextTransition = levelVariables.levelTransition
+		
 		player.playerLight.visible = levelVariables.isDark
 	if inMap: levelCamera.make_current()
 	
@@ -176,7 +193,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	player.visible = true
 	$pauseMenu.unpause()
 	gvars.pCollected = 0
-	$mainCamera.snapToParent()
+	mainCamera.snapToParent()
 	
 	loadStoredScene(level)
 	

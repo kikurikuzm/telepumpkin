@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://caj8q2uncg5ct"]
+[gd_scene load_steps=15 format=3 uid="uid://caj8q2uncg5ct"]
 
 [ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="1_rxysn"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_fx8fw"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="8_v8h1p"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="9_ymfao"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="10_335j6"]
+[ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="11_tcjr8"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_8dacf"]
 size = Vector2(50, 50)
@@ -139,3 +140,7 @@ shadow_filter = 1
 shadow_filter_smooth = 0.5
 texture = ExtResource("9_ymfao")
 offset = Vector2(0, 65)
+
+[node name="cameraZone" parent="." instance=ExtResource("11_tcjr8")]
+position = Vector2(1497, 803)
+scale = Vector2(1.81, 1)

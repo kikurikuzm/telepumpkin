@@ -1,6 +1,7 @@
 extends Camera2D
 
 @onready var currentParent = $"../Player"
+var oldParent
 var playerRef
 var smoothAmount = 0.2
 var oldZoom
@@ -19,3 +20,16 @@ func _process(delta):
 func snapToParent():
 	global_position = currentParent.global_position
 	zoom = desiredZoom
+	
+func changeParent(newParent):
+	oldParent = currentParent
+	currentParent = newParent
+	return
+
+func returnToParent():
+	if oldParent != null:
+		currentParent = oldParent
+		oldParent = null
+		return
+	
+	currentParent = playerRef

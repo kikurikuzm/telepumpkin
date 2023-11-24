@@ -887,6 +887,7 @@ one_shot = true
 one_shot = true
 
 [node name="debugText" type="Label" parent="."]
+visible = false
 offset_left = -22.0
 offset_top = -30.0
 offset_right = 141.0
