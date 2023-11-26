@@ -112,7 +112,7 @@ func _on_resolution_settings_item_selected(index):
 		1:
 			ProjectSettings.set_setting("display/window/size/viewport_width", 1920)
 			ProjectSettings.set_setting("display/window/size/viewport_height", 1080)
-			#gvars.zoomOutScale = 1
+			gvars.zoomOutScale = 1
 		2:
 			ProjectSettings.set_setting("display/window/size/viewport_width", 1280)
 			ProjectSettings.set_setting("display/window/size/viewport_height", 800)
