@@ -10,7 +10,6 @@ const orangeGradient = preload("res://Resources/orangegradient.tres")
 var stretching = false
 
 func _process(delta):
-	print(global_position)
 	if !stretching:
 		$Teleport.scale.x = lerp($Teleport.scale.x, 1.594, 0.1)
 		$Teleport.scale.y = lerp($Teleport.scale.y, 1.594, 0.1)

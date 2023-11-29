@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dvodnr4utvfun"]
+[gd_scene load_steps=27 format=3 uid="uid://dvodnr4utvfun"]
 
 [ext_resource type="Script" path="res://Scripts/mainMenu.gd" id="1_s2c4v"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wiggle.gdshader" id="2_kksby"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bel1p0o5a3qog" path="res://Sprites/Misc/win moment.png" id="3_0djys"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wavy.gdshader" id="4_j7w7e"]
 [ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="4_tyi58"]
-[ext_resource type="Texture2D" uid="uid://dsfqewqchle4p" path="res://Sprites/Misc/controls.png" id="7_5afku"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_or5xf"]
 shader = ExtResource("2_kksby")
@@ -543,21 +542,6 @@ libraries = {
 }
 
 [node name="shakeInterval" type="Timer" parent="."]
-
-[node name="controls" type="TextureRect" parent="."]
-visible = false
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -343.0
-offset_top = 4.0
-offset_right = -197.0
-offset_bottom = 86.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_5afku")
 
 [node name="levelDialogue" type="FileDialog" parent="."]
 title = "Open a File"

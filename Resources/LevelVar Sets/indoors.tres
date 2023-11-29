@@ -15,5 +15,6 @@ mapCameraLocked = false
 levelAmbience = ExtResource("1_4ynpc")
 levelTransition = 1
 musicChance = 0.2
+levelGravity = 9.8
 isDark = false
 worldEnvironment = ExtResource("3_p7exs")

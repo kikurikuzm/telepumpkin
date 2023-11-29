@@ -150,10 +150,11 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		player.holdingTPP = true
 	if levInst.has_node("thumb"):
 		levelCamera = currentLevel.get_node("thumb")
-		levelCamera.zoom = levelCamera.zoom / gvars.zoomOutScale
 		
 	if levInst.has_node("levelVariables"):
 		var levelVariables = levInst.get_node("levelVariables")
+		ProjectSettings.set_setting("physics/2d/default_gravity", levelVariables.levelGravity * 20)
+		gvars.playerGravity = levelVariables.levelGravity
 		
 		if levelVariables.levelMusic != null and randf() <= levelVariables.musicChance:
 			$levelMusicPlayer.stream = levelVariables.levelMusic

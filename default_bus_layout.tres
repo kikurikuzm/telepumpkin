@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=5 format=3 uid="uid://b35tsbaehn21o"]
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://b35tsbaehn21o"]
 
 [sub_resource type="AudioEffectReverb" id="AudioEffectReverb_7ppaf"]
 resource_name = "Reverb"
@@ -24,6 +24,12 @@ damping = 0.44
 spread = 0.71
 dry = 0.5
 wet = 0.31
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_rw67l"]
+resource_name = "LowPassFilter"
+cutoff_hz = 540.0
+resonance = 0.3
+db = 1
 
 [resource]
 bus/1/name = &"footsteps"
@@ -52,3 +58,11 @@ bus/3/volume_db = 0.0
 bus/3/send = &"Master"
 bus/3/effect/0/effect = SubResource("AudioEffectReverb_kkns1")
 bus/3/effect/0/enabled = true
+bus/4/name = &"moon"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectLowPassFilter_rw67l")
+bus/4/effect/0/enabled = true

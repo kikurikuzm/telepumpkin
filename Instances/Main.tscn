@@ -479,6 +479,7 @@ script = ExtResource("3_kq2kl")
 
 [node name="Player" parent="." instance=ExtResource("2_pxkbr")]
 position = Vector2(1128, 748)
+jumpStrength = null
 
 [node name="questManager" parent="." instance=ExtResource("3_6pp5x")]
 
@@ -690,7 +691,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -100.0
-offset_right = 159360.0
+offset_right = 190080.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 color = Color(0, 0, 0, 1)
@@ -702,7 +703,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 1080.0
-offset_right = 159360.0
+offset_right = 190080.0
 offset_bottom = 1180.0
 grow_horizontal = 2
 grow_vertical = 0

@@ -7,7 +7,6 @@ var mainscene
 
 var inSettings = false
 
-@onready var controlHelp = $controls
 @onready var saveRemove = $settingsMenu/VBoxContainer/saveRemove
 @onready var resolutionSettings = $settingsMenu/VBoxContainer/GridContainer/resolutionSettings
 @onready var graphicsSettings = $settingsMenu/VBoxContainer/GridContainer/graphicsSettings
@@ -16,7 +15,6 @@ var inSettings = false
 @onready var CusLevelSelect = $levelDialogue
 
 func _ready():
-	controlHelp.visible = true
 	animation_player.play("init")
 	if FileAccess.file_exists("user://save.dat"):
 		$start.text = "Resume"
@@ -121,8 +119,7 @@ func _on_resolution_settings_item_selected(index):
 func _input(event):
 	if Input.is_action_just_pressed("ui_down"):
 		shakeCam(2.0, 0.02)
-	if event is InputEventKey or event is InputEventMouseButton or event is InputEventJoypadButton:
-		controlHelp.visible = false
+	
 	if Input.is_action_just_pressed("debug_menu"):
 		_on_custom_levels_pressed()
 

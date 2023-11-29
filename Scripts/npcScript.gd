@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 @onready var animSprite = get_node("AnimatedSprite2D")
@@ -9,6 +10,11 @@ extends Node2D
 @export var convoID : int
 
 var canTalk = true
+
+func _process(delta):
+	if Engine.is_editor_hint():
+		animSprite.flip_h = spriteFlip
+		animSprite.play(npcLook)
 
 func _ready():
 	animSprite.flip_h = spriteFlip

@@ -3,6 +3,8 @@ extends Node
 var pCollected = 0
 var pMax = 0
 
+var playerGravity = 9.8
+
 var inDialogue = false
 
 var maxTeleports = 0

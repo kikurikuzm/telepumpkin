@@ -191,7 +191,7 @@ scene = "Levels/apartments.tscn"
 [node name="library entrance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(558, 758)
 scale = Vector2(1, 1.01032)
-scene = "Levels/libary.tscn"
+scene = "Levels/library.tscn"
 
 [node name="levelVariables" parent="." instance=ExtResource("6_kgxg5")]
 levelVariables = ExtResource("10_aqax0")

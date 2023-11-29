@@ -23,6 +23,6 @@ noise = SubResource("FastNoiseLite_3ehjj")
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_sl0in")
-shader_parameter/distortion_strength = 0.0
-shader_parameter/scroll = Vector2(0, 0.4)
+shader_parameter/distortion_strength = 1.025
+shader_parameter/scroll = Vector2(0, 0.24)
 shader_parameter/noise = SubResource("NoiseTexture2D_deg0o")

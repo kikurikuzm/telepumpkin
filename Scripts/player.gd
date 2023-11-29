@@ -11,7 +11,6 @@ extends CharacterBody2D
 @onready var playerLight = $AnimatedSprite2D/playerLight
 
 @onready var collectAudio = $collectAudio
-@onready var footstepAudio = $footstepAudio
 
 @onready var questManager = get_parent().get_node("questManager")
 
@@ -25,7 +24,7 @@ var holdingTPP = false
 var tppInst
 
 @export var speed = 100
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity = gvars.playerGravity
 @export var jumpStrength = 200
 var direction
 

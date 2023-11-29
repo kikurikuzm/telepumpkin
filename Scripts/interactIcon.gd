@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 @onready var interactIcon = get_node("AnimatedSprite2D")
@@ -14,6 +15,9 @@ func _process(delta):
 		showInteract()
 	else:
 		hideInteract()
+	
+	if Engine.is_editor_hint():
+		showInteract()
 
 func showInteract():
 	interactIcon.modulate = lerp(interactIcon.modulate, Color(1.0, 1.0, 1.0, 1.0), 0.1)

@@ -14,5 +14,7 @@ startsInMap = true
 mapCameraLocked = true
 levelAmbience = ExtResource("1_cdvus")
 levelTransition = 1
+musicChance = 0.2
+levelGravity = 9.8
 isDark = true
 worldEnvironment = ExtResource("3_ytlch")

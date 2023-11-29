@@ -17,7 +17,6 @@ var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 var highlightDistortion : float = 0.2
 
 var testpos
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var customVelocity = Vector2.ZERO
 
 #random size adjustment when pumpkins are spawned
@@ -33,7 +32,7 @@ func _ready():
 
 func _physics_process(delta):
 	if unstable:
-		sprite.frame = maxUnst/unstableTeleport
+		sprite.frame = ceil(maxUnst/unstableTeleport)
 	
 	var areaArray = $Area2D.get_overlapping_areas()
 	for area in areaArray:

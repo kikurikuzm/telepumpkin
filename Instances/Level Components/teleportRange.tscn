@@ -4,16 +4,16 @@
 [ext_resource type="Script" path="res://Scripts/Teleport.gd" id="2_i76v6"]
 [ext_resource type="AudioStream" uid="uid://big37bu0irl0d" path="res://Audio/sfx/pop.ogg" id="3_i142d"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_76bij"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8xppq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tntab"]
 radius = 32.0983
 
 [node name="Teleport" type="Sprite2D"]
-modulate = Color(1, 1, 1, 0.45098)
+modulate = Color(1, 1, 1, 0.47451)
 z_index = -2
 texture_filter = 1
-material = SubResource("CanvasItemMaterial_76bij")
+material = SubResource("CanvasItemMaterial_8xppq")
 scale = Vector2(1.594, 1.594)
 texture = ExtResource("1_w6wk4")
 script = ExtResource("2_i76v6")

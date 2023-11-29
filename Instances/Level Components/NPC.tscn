@@ -5,18 +5,18 @@
 [ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_pj100"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(34, 62)
+size = Vector2(38, 62)
 
 [node name="NPC" type="Node2D" groups=["npc", "saveable"]]
 script = ExtResource("1_o0077")
 
 [node name="interactIcon" parent="." instance=ExtResource("2_pj100")]
 position = Vector2(1, 1)
-scale = Vector2(0.895, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1")
 animation = &"smoke"
+frame_progress = 0.581193
 
 [node name="npcArea" type="Area2D" parent="." groups=["npc"]]
 collision_layer = 16

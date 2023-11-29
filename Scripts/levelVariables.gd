@@ -17,6 +17,7 @@ var isDark = false
 var levelBackground : Texture2D
 var levelForeground : Texture2D
 var worldEnvironment : Environment
+var levelGravity = 9.8
 
 func _ready():
 	canTeleport = levelVariables.canTeleport
@@ -33,3 +34,4 @@ func _ready():
 	isDark = levelVariables.isDark
 	levelMusic = levelVariables.levelMusic
 	musicChance = levelVariables.musicChance
+	levelGravity = levelVariables.levelGravity
