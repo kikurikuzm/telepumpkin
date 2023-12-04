@@ -72,19 +72,6 @@ animations = [{
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tck4o"]
 noise = SubResource("FastNoiseLite_myx2m")
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ewnnw"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1b0y"]
-animation = &"insane"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_owba8"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_ewnnw")
-blend_point_0/pos = 0.9
-blend_point_1/node = SubResource("AnimationNodeAnimation_d1b0y")
-blend_point_1/pos = -1.0
-value_label = "0.1"
-
 [sub_resource type="Animation" id="Animation_vqewv"]
 length = 0.001
 tracks/0/type = "value"
@@ -341,6 +328,19 @@ _data = {
 "teleport": SubResource("Animation_r1k2p")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ewnnw"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1b0y"]
+animation = &"insane"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_owba8"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ewnnw")
+blend_point_0/pos = 0.9
+blend_point_1/node = SubResource("AnimationNodeAnimation_d1b0y")
+blend_point_1/pos = -1.0
+value_label = "0.1"
+
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(26, 4)
 
@@ -362,16 +362,14 @@ point_count = 2
 curve = SubResource("Curve_675qh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rdjmg"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(10, 6, 1)
-particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 spread = 93.39
-gravity = Vector3(0, -20, 0)
 initial_velocity_min = 5.37
 initial_velocity_max = 5.37
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, -20, 0)
 tangential_accel_min = -17.39
 tangential_accel_max = 15.8
 scale_min = 0.41
@@ -391,6 +389,7 @@ freeze_mode = 1
 script = ExtResource("2")
 
 [node name="pumpkinSprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
 material = ExtResource("2_23knt")
 position = Vector2(0, 2)
 sprite_frames = SubResource("SpriteFrames_kg253")
@@ -404,6 +403,9 @@ scale = Vector2(0.0664063, 0.0625)
 texture = SubResource("NoiseTexture2D_tck4o")
 
 [node name="AnimationTree" type="AnimationTree" parent="pumpkinSprite/abberation"]
+libraries = {
+"": SubResource("AnimationLibrary_8ej3c")
+}
 tree_root = SubResource("AnimationNodeBlendSpace1D_owba8")
 anim_player = NodePath("../AnimationPlayer")
 parameters/blend_position = 1.0
@@ -417,9 +419,8 @@ libraries = {
 polygon = PackedVector2Array(11, 1, 13, 4, 13, 11, 11, 14, 8, 16, -8, 16, -11, 14, -13, 11, -13, 4, -11, 1, -7, -1, 0, -1, 7, -1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-visible = false
-collision_layer = 2
-collision_mask = 2
+collision_layer = 32770
+collision_mask = 32770
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 1)

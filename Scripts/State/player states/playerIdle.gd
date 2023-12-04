@@ -21,7 +21,11 @@ func physics_update(delta: float):
 	player.velocity.y += 3
 	player.velocity.x = 0
 	
-	if !player.is_on_floor():
+	if pumpkinRaycast.is_colliding():
+		player.global_position.y = pumpkinRaycast.get_collision_point().y - 16
+		player.velocity.y = 0
+	
+	if !player.is_on_floor() and !pumpkinRaycast.is_colliding():
 		transitioned.emit(self, "playerfalling")
 	
 	player.move_and_slide()

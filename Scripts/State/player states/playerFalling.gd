@@ -22,6 +22,11 @@ func update(delta: float):
 		player.velocity.x += aircontrol
 
 func physics_update(delta: float):
+	if pumpkinRaycast.is_colliding():
+		player.global_position.y = pumpkinRaycast.get_collision_point().y - 16
+		player.velocity.y = 0
+		transitioned.emit(self, "playeridle")
+	
 	if player.velocity.y > 0:
 		currentVelocityY = player.velocity.y
 	

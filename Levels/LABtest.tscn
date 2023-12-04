@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://b85bf5twtxgtp"]
 
-[ext_resource type="TileSet" uid="uid://d1ii0t01yom7g" path="res://Tile Sets/sewerTiles.tres" id="1_bscw8"]
+[ext_resource type="TileSet" uid="uid://dvq0b3c4vp1n2" path="res://Tile Sets/sewer.tres" id="1_bscw8"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_e6m6l"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="3_wguo3"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4_pf8kw"]

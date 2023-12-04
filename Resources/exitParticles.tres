@@ -10,16 +10,16 @@ gradient = SubResource("Gradient_yl6e0")
 
 [resource]
 lifetime_randomness = 0.15
+particle_flag_align_y = true
 emission_shape = 1
 emission_sphere_radius = 9.32
-particle_flag_align_y = true
-direction = Vector3(0, -180, -2)
-spread = 25.98
-gravity = Vector3(0, 70, 0)
-initial_velocity_min = 129.85
-initial_velocity_max = 129.85
 angle_min = -105.4
 angle_max = 82.0
+direction = Vector3(0, -180, -2)
+spread = 25.98
+initial_velocity_min = 129.85
+initial_velocity_max = 129.85
+gravity = Vector3(0, 70, 0)
 scale_max = 1.49
 color = Color(0.870588, 0.870588, 0.870588, 1)
 color_ramp = SubResource("GradientTexture1D_ebdc3")

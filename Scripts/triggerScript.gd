@@ -9,6 +9,8 @@ class_name Trigger
 @export var triggersOnce = true ##Whether or not the trigger will only trigger once.
 @export var anythingTriggers = false ##Whether or not the trigger is triggered by any physics object (Pumpkins, TPP) or only the player.
 @export var mustInteract = false ##Whether or not the player must press the interact button to trigger this trigger.
+@export var sendLevel : PackedScene ##The scene to send the player to when this is triggered.
+@export var levelTransition = 0
 
 var hasTriggered = false ##Whether or not the trigger has already gone off.
 
@@ -33,7 +35,8 @@ func triggerThings(cause) -> void:
 				print("triggered ", str(i))
 				if triggersOnce:
 					hasTriggered = true
-	
+		if sendLevel != null:
+			get_parent().get_parent().loadLevel(sendLevel, levelTransition)
 
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:

@@ -125,12 +125,12 @@ shadow_filter_smooth = 0.5
 texture = ExtResource("9_ymfao")
 offset = Vector2(0, 65)
 
-[node name="entrance2" parent="." instance=ExtResource("4_oxmyf")]
-position = Vector2(1176, 822)
-secret = true
+[node name="fakeDoor5" type="Sprite2D" parent="."]
+position = Vector2(1155, 800)
+texture = ExtResource("10_335j6")
 
-[node name="light2" type="PointLight2D" parent="entrance2"]
-position = Vector2(1, -82.7246)
+[node name="light4" type="PointLight2D" parent="fakeDoor5"]
+position = Vector2(0, -60.7246)
 scale = Vector2(1, 0.818841)
 color = Color(0.945098, 0.968627, 0.847059, 1)
 energy = 2.08

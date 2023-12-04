@@ -6,6 +6,7 @@ var playerRef
 var smoothAmount = 0.2
 var oldZoom
 var desiredZoom = Vector2(4.5, 4.5)
+var playerZoom = 5.5
 
 func _ready():
 	playerRef = currentParent
@@ -20,16 +21,33 @@ func _process(delta):
 func snapToParent():
 	global_position = currentParent.global_position
 	zoom = desiredZoom
-	
+
 func changeParent(newParent):
 	oldParent = currentParent
 	currentParent = newParent
 	return
+
+func returnToPlayer():
+	currentParent = $"../Player"
+	desiredZoom = playerZoom
 
 func returnToParent():
 	if oldParent != null:
 		currentParent = oldParent
 		oldParent = null
 		return
+	if oldParent == null:
+		currentParent = $"../Player"
 	
 	currentParent = playerRef
+
+func changeZoom(newZoom):
+	oldZoom = desiredZoom
+	desiredZoom = newZoom
+	return
+
+func returnToOldZoom():
+	if oldZoom != null:
+		desiredZoom = oldZoom
+		oldZoom = null
+		return

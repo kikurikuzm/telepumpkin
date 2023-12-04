@@ -4,10 +4,14 @@ class_name StateFactory
 @export var debugtext : Label
 @export var initial_state : State
 
+var loaded = false
+
 var current_state : State
 var states : Dictionary = {}
 
 func _ready():
+	loaded = true
+	
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
@@ -18,12 +22,19 @@ func _ready():
 		current_state = initial_state
 
 func _process(delta):
+	if !loaded:
+		return
+	
+	
 	debugtext.text = str(current_state)
 	
 	if current_state:
 		current_state.update(delta)
 	
 func _physics_process(delta):
+	if !loaded:
+		return
+		
 	if current_state:
 		current_state.physics_update(delta)
 		

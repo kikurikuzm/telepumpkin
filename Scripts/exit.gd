@@ -20,3 +20,6 @@ func _on_pumpkin_check_timeout():
 			gvars.emit_signal("pumpkinCollected")
 			var particleInst = achieveParticles.instantiate()
 			add_child(particleInst)
+
+func trigger():
+	gvars.emit_signal("levelFinish")

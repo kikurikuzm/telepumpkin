@@ -162,7 +162,8 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		if levelVariables.levelMusic == null:
 			$levelMusicPlayer.stop()
 			
-		mainCamera.desiredZoom = Vector2(levelVariables.playerZoom, levelVariables.playerZoom)
+		mainCamera.playerZoom = Vector2(levelVariables.playerZoom, levelVariables.playerZoom)
+		mainCamera.desiredZoom = mainCamera.playerZoom
 		$Player/Teleport.visible = levelVariables.canTeleport
 		
 		if levelVariables.levelAmbience != null and $ambiencePlayer.stream != levelVariables.levelAmbience: 

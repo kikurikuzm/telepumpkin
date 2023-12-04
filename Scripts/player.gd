@@ -7,6 +7,9 @@ extends CharacterBody2D
 @onready var interactArea = get_node("interactArea")
 @onready var tpp = get_node("AnimatedSprite2D/tpp")
 @onready var tppLine = get_node("tppLine")
+@onready var flashlightHand = $AnimatedSprite2D/flashlightHand
+
+@onready var pumpkinRaycast = $pumpkinDetection
 
 @onready var playerLight = $AnimatedSprite2D/playerLight
 
