@@ -33,37 +33,38 @@ func _process(delta):
 		isOpen = false
 		doorLight.color = Color("ff170d")
 	
-	if Input.is_action_just_pressed("teleport"):
-		for i in area.get_overlapping_bodies():
-			if i.is_in_group("player"):
-				if delayTimer.is_stopped() and !locked:
-					if isOpen:
-						beepAudioStream.stream = beepOpen
-						beepAudioStream.play()
-						doorLight.color = Color("ff170d")
-						
-						beepTimer.start()
-						await(beepTimer.timeout)
-						audioStream.stream = openOGG
-						audioStream.play()
-						staticBody.process_mode = Node.PROCESS_MODE_DISABLED
-						animationPlayer.play("doorOpen")
-						lightOccluder.occluder_light_mask = 20
-						isOpen = false
-						delayTimer.start(0.1)
-						return
-					if !isOpen:
-						beepAudioStream.stream = beepClose
-						beepAudioStream.play()
-						doorLight.color = Color("66ffe3")
-						
-						beepTimer.start()
-						await(beepTimer.timeout)
-						audioStream.stream = closeOGG
-						audioStream.play()
-						staticBody.process_mode = Node.PROCESS_MODE_INHERIT
-						animationPlayer.play("doorClose")
-						lightOccluder.occluder_light_mask = 1
-						isOpen = true
-						delayTimer.start(0.1)
+	if !Engine.is_editor_hint():
+		if Input.is_action_just_pressed("teleport"):
+			for i in area.get_overlapping_bodies():
+				if i.is_in_group("player"):
+					if delayTimer.is_stopped() and !locked:
+						if isOpen:
+							beepAudioStream.stream = beepOpen
+							beepAudioStream.play()
+							doorLight.color = Color("ff170d")
+							
+							beepTimer.start()
+							await(beepTimer.timeout)
+							audioStream.stream = openOGG
+							audioStream.play()
+							staticBody.process_mode = Node.PROCESS_MODE_DISABLED
+							animationPlayer.play("doorOpen")
+							lightOccluder.occluder_light_mask = 20
+							isOpen = false
+							delayTimer.start(0.1)
+							return
+						if !isOpen:
+							beepAudioStream.stream = beepClose
+							beepAudioStream.play()
+							doorLight.color = Color("66ffe3")
+							
+							beepTimer.start()
+							await(beepTimer.timeout)
+							audioStream.stream = closeOGG
+							audioStream.play()
+							staticBody.process_mode = Node.PROCESS_MODE_INHERIT
+							animationPlayer.play("doorClose")
+							lightOccluder.occluder_light_mask = 1
+							isOpen = true
+							delayTimer.start(0.1)
 			

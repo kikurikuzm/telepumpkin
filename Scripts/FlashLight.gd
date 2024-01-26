@@ -2,11 +2,16 @@ extends Node2D
 
 @onready var flashlightSprite = $Sprite2D
 @onready var player = get_parent().get_parent().player
+@onready var area = $Area2D
 
-var inHand = true
+var inHand = false
 
-func _ready():
-	pass
+func _process(delta):
+	if area.has_overlapping_bodies() and Input.is_action_just_pressed("teleport"):
+		for i in area.get_overlapping_bodies():
+			if i.is_in_group("player"):
+				inHand = true
+				$interactIcon.visible = false
 func _physics_process(delta):
 	if inHand:
 		if player.spriteAnim.flip_h == true:

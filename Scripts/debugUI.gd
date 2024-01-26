@@ -43,8 +43,10 @@ func _on_Levels_item_activated(index):
 func _on_mouse_fly_toggled(button_pressed):
 	if button_pressed:
 		mainNode.player.changeState("playerbusy")
+		mainNode.player.inNoclip = true
 	if !button_pressed:
 		mainNode.player.changeState("playeridle")
+		mainNode.player.inNoclip = false
 
 func _on_time_scale_slider_value_changed(value):
 	Engine.time_scale = value

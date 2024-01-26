@@ -5,7 +5,7 @@ var aircontrol = 3
 
 func enter():
 	animPlayer.play("jump")
-	player.velocity.y -= player.jumpstrength
+	player.velocity.y = player.jumpstrength * -1
 	player.gravity = gvars.playerGravity / 1.2
 
 func exit():

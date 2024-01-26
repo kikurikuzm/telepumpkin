@@ -10,7 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://c32yfv6tpqqvn" path="res://Audio/sfx/doorBeepClose.ogg" id="8_8ij88"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_yc7sa"]
-polygon = PackedVector2Array(-16, -32, -16, 32, -16, 32, -16, -32)
+polygon = PackedVector2Array(-5.99988, -32, -5.99988, 32, -16, 32, -16, -32)
 
 [sub_resource type="Animation" id="Animation_4cd0o"]
 length = 0.001
@@ -127,7 +127,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pptc"]
-size = Vector2(10, 64)
+size = Vector2(5, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxatu"]
 size = Vector2(38, 52)
@@ -208,7 +208,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-11, 0)
+position = Vector2(-8.5, 0)
 shape = SubResource("RectangleShape2D_6pptc")
 
 [node name="Area2D" type="Area2D" parent="."]

@@ -3,6 +3,8 @@ class_name playerStretch
 
 @onready var coyoteTimer = $"../../coyoteTimer"
 
+const MIN_JUMPSTRENGTH = 0
+const MAX_JUMPSTRENGTH = 270
 var walkspeed = 6.0
 
 func enter():
@@ -49,10 +51,10 @@ func physics_update(delta: float):
 		teleportRange.scale.y = lerp(teleportRange.scale.y, 3.0, 0.1)
 		if pumpkinRaycast.is_colliding():
 			player.jumpstrength += 21
-			player.jumpstrength = clamp(player.jumpstrength, 0, 300)
-		if player.is_on_floor():
-			player.jumpstrength += 9
-			player.jumpstrength = clamp(player.jumpstrength, 0, 300)
+			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
+		if player.is_on_floor() or !coyoteTimer.is_stopped():
+			player.jumpstrength += 8
+			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
 	
 	if Input.is_action_pressed("down"):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 3.0, 0.1)

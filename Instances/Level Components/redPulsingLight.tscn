@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://cinlruns7k8o2"]
+
+[ext_resource type="Texture2D" uid="uid://c6c3bsf3wtp2v" path="res://Sprites/Misc/redLight.png" id="2_jm481"]
+[ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="3_bimfw"]
+
+[sub_resource type="Animation" id="Animation_qyr3v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:texture_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_ujdt3"]
+resource_name = "pulse"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:texture_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.5, 0.01, 0.5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cwgt1"]
+_data = {
+"RESET": SubResource("Animation_qyr3v"),
+"pulse": SubResource("Animation_ujdt3")
+}
+
+[node name="RedPulsingLight" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_jm481")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.635294, 0, 0.121569, 1)
+shadow_enabled = true
+texture = ExtResource("3_bimfw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cwgt1")
+}
+autoplay = "pulse"

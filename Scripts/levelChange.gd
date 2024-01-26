@@ -1,9 +1,9 @@
 extends Node
 
-@export_subgroup("Animation-Related")
+@export_subgroup("Animation-Related (THIS NODE IS DEPRECATED)")
 @export var animationChangeLevel : bool = false
 
-@export_subgroup("LevelLoad")
+@export_subgroup("LevelLoad (THIS NODE IS DEPRECATED)")
 @export var level : String
 @export var transition : int = 1
 @export var spawnLocation : Vector2 = Vector2.ZERO

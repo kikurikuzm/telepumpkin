@@ -339,6 +339,8 @@ columns = 3
 material = SubResource("ShaderMaterial_a22bf")
 layout_mode = 2
 tooltip_text = "Adjust the resolution"
+focus_neighbor_right = NodePath("../graphicsSettings")
+focus_neighbor_bottom = NodePath("../fullscreen")
 theme = ExtResource("2_kn6pq")
 item_count = 3
 selected = 1
@@ -354,6 +356,8 @@ material = SubResource("ShaderMaterial_a22bf")
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 tooltip_text = "Adjusts the Anti-Aliasing"
+focus_neighbor_left = NodePath("../resolutionSettings")
+focus_neighbor_right = NodePath("../mute")
 theme = ExtResource("2_kn6pq")
 item_count = 3
 selected = 1
@@ -368,6 +372,7 @@ popup/item_2/id = 2
 material = SubResource("ShaderMaterial_x35js")
 layout_mode = 2
 tooltip_text = "Enable or disable fullscreen"
+focus_neighbor_left = NodePath("../graphicsSettings")
 theme = ExtResource("2_kn6pq")
 text = "Mute Audio"
 
@@ -387,7 +392,8 @@ theme_override_constants/separation = 60
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Go back to the main menu"
-focus_mode = 0
+focus_neighbor_top = NodePath("../GridContainer/fullscreen")
+focus_neighbor_bottom = NodePath("../save")
 theme = ExtResource("2_kn6pq")
 text = "Back"
 
@@ -395,7 +401,8 @@ text = "Back"
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Changing the settings requires a restart"
-focus_mode = 0
+focus_neighbor_top = NodePath("../back")
+focus_neighbor_bottom = NodePath("../saveRemove")
 theme = SubResource("Theme_2unvs")
 text = "Save Config
 "
@@ -404,7 +411,8 @@ text = "Save Config
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Deletes your save data"
-focus_mode = 0
+focus_neighbor_top = NodePath("../save")
+focus_neighbor_bottom = NodePath("../custom levels")
 theme = SubResource("Theme_2unvs")
 disabled = true
 text = "Delete Save"
@@ -421,6 +429,7 @@ text = "levcopy"
 [node name="custom levels" type="Button" parent="settingsMenu/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Can be used to load custom levels"
+focus_neighbor_top = NodePath("../saveRemove")
 theme = ExtResource("2_kn6pq")
 text = "Load Level"
 
@@ -474,7 +483,7 @@ offset_right = -93.0
 offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_mode = 0
+focus_neighbor_bottom = NodePath("../settings")
 theme = ExtResource("2_kn6pq")
 text = "Start"
 
@@ -492,7 +501,7 @@ offset_right = -93.0
 offset_bottom = 140.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_mode = 0
+focus_neighbor_bottom = NodePath("../quit")
 theme = ExtResource("2_kn6pq")
 text = "Settings"
 
@@ -510,7 +519,7 @@ offset_right = -93.0
 offset_bottom = 213.0
 grow_horizontal = 2
 grow_vertical = 2
-focus_mode = 0
+focus_neighbor_top = NodePath("../settings")
 theme = ExtResource("2_kn6pq")
 text = "Quit
 "
@@ -536,10 +545,10 @@ scale = Vector2(0.854305, 0.854305)
 texture = ExtResource("3_0djys")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_2esg5")
 }
+autoplay = "idle"
 
 [node name="shakeInterval" type="Timer" parent="."]
 

@@ -18,7 +18,7 @@ func _on_resume_pressed():
 func _on_quit_pressed():
 	save()
 	get_tree().change_scene_to_file("res://Instances/mainMenu.tscn")
-	get_tree().paused = false
+#	get_tree().paused = false
 	paused = false
 	self.visible = false
 	
@@ -31,6 +31,7 @@ func unpause():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func pause():
+	$resume.grab_focus()
 	paused = true
 	get_tree().paused = true
 	self.visible = true

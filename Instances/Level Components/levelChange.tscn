@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://Scripts/levelChange.gd" id="1_bwgwh"]
 
 [node name="levelChange" type="Node"]
+editor_description = "DEPRECATED!"
 script = ExtResource("1_bwgwh")

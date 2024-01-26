@@ -143,6 +143,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		player.global_position = spawnLocation
 	else:
 		player.transform = levInst.get_node("spawn").transform
+	player.velocity = Vector2.ZERO
 	
 	if player.hasTPP:
 		if is_instance_valid(get_node("tpp")):

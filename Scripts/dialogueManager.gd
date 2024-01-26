@@ -21,6 +21,7 @@ class_name DialogueManager
 @onready var mainCamera = get_parent().get_parent().get_node("mainCamera") ##A reference to the main camera of the 'Main' node.
 var oldZoom : Vector2 ##The zoom of the main camera prior to being modified by the dialogue.
 
+var dialogueInitializer
 var currentConversation = 0 ##The index of the current conversation.
 var currentTextIndex = 0 ##The index of the current text chunk within the .json file.
 var queuedConvo = null
@@ -135,13 +136,17 @@ func endDialogue():
 	if queuedConvo != null:
 		convoInitialize(queuedConvo)
 		queuedConvo = null
+	#else:
+		#if dialogueInitializer is NPC:
+			#dialogueInitializer.canTalk = true
 	return
 
 func queueConvo(convoNumb:int):
 	queuedConvo = convoNumb
 
 ##The function that performs setup for dialogue.
-func convoInitialize(convoNumb=0): 
+func convoInitialize(convoNumb=0, npcInstance=null): 
+	dialogueInitializer = npcInstance
 	conversation = parseJSON()
 	currentConversation = convoNumb
 	oldZoom = mainCamera.desiredZoom

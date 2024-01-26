@@ -79,5 +79,8 @@ position = Vector2(2001, 291)
 [node name="trigger" parent="." instance=ExtResource("10_hblqf")]
 position = Vector2(1335, 1037)
 scale = Vector2(16.31, 12.26)
+triggerListVariables = null
 sendLevel = ExtResource("5_1grd4")
+spawnPosition = Vector2(798, -130)
 levelTransition = 2
+updateTriggerListVariables = null

@@ -29,13 +29,14 @@ offset_right = 472.0
 offset_bottom = 265.0
 grow_horizontal = 2
 grow_vertical = 2
+current_tab = 1
 
 [node name="LevelSelect" type="ItemList" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = SubResource("1")
 
 [node name="Debug Settings" type="Panel" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="secondaryVbox" type="VBoxContainer" parent="TabContainer/Debug Settings"]

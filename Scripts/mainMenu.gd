@@ -15,6 +15,8 @@ var inSettings = false
 @onready var CusLevelSelect = $levelDialogue
 
 func _ready():
+	$start.grab_focus()
+	get_tree().paused = false
 	animation_player.play("init")
 	if FileAccess.file_exists("user://save.dat"):
 		$start.text = "Resume"
@@ -55,6 +57,7 @@ func _on_start_pressed():
 
 func _on_settings_pressed():
 	if !inSettings:
+		$settingsMenu/VBoxContainer/back.grab_focus()
 		animation_player.play("gotoSettings")
 		inSettings = true
 		return
@@ -65,6 +68,7 @@ func _on_quit_pressed():
 #settings menu
 func _on_back_pressed():
 	if inSettings:
+		$start.grab_focus()
 		animation_player.play("gotoMain")
 		inSettings = false
 		return
@@ -117,9 +121,6 @@ func _on_resolution_settings_item_selected(index):
 			#gvars.zoomOutScale = 1.2
 
 func _input(event):
-	if Input.is_action_just_pressed("ui_down"):
-		shakeCam(2.0, 0.02)
-	
 	if Input.is_action_just_pressed("debug_menu"):
 		_on_custom_levels_pressed()
 
@@ -146,15 +147,15 @@ func _on_save_remove_pressed():
 		$start.text = "Start"
 
 func shakeCam(intensity: float, interval: float) -> void:
-	while abs(intensity) > 0:
-		if abs(intensity) == 0:
-			break
-		intensity = (intensity - (0.05 * sign(intensity))) * -1 
-		camera.offset.x = intensity * 50
-		
-		print(abs(intensity))
-		$shakeInterval.start(interval)
-		await $shakeInterval.timeout
+	#while abs(intensity) > 0:
+		#if abs(intensity) == 0:
+			#break
+		#intensity = (intensity - (0.05 * sign(intensity))) * -1 
+		#camera.offset.x = intensity * 50
+		#
+		#print(abs(intensity))
+		#$shakeInterval.start(interval)
+		#await $shakeInterval.timeout
 		
 	print("shook")
 

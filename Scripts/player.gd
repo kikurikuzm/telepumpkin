@@ -26,6 +26,7 @@ var hasTPP = false
 var holdingTPP = false
 var tppInst
 
+var inNoclip = false
 @export var speed = 100
 var gravity = gvars.playerGravity
 @export var jumpStrength = 200

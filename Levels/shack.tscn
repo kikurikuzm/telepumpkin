@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://mp7xv3dv0xyn"]
+[gd_scene load_steps=12 format=3 uid="uid://mp7xv3dv0xyn"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_e8s6j"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_0ffp0"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="3_aasaa"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="4_ybaqi"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="5_7b3b5"]
+[ext_resource type="Resource" uid="uid://cd778qcujcn0e" path="res://Resources/LevelVar Sets/mooncity.tres" id="7_rctah"]
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="7_ywwg8"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_278rm"]
 
@@ -28,19 +29,20 @@ position = Vector2(364.905, 815.937)
 dialogueJSONPath = "res://Resources/DialogueJSONs/shack.json"
 
 [node name="spawn" parent="." instance=ExtResource("2_bttrq")]
-position = Vector2(775, 816)
+top_level = true
+position = Vector2(697, 816)
 
 [node name="thumb" type="Camera2D" parent="."]
 position = Vector2(775, 816)
 zoom = Vector2(1.491, 3)
 
 [node name="entrance" parent="." instance=ExtResource("3_aasaa")]
-position = Vector2(775, 822)
+position = Vector2(696, 822)
 scene = "Levels/moonCity.tscn"
 exitLocation = Vector2(-514, 758)
 
 [node name="NPC" parent="." instance=ExtResource("4_ybaqi")]
-position = Vector2(1129, 799)
+position = Vector2(1240, 799)
 npcLook = "corpse"
 spriteFlip = true
 
@@ -53,6 +55,7 @@ position = Vector2(1374, 867)
 npcLook = "inspect"
 
 [node name="levelVariables" parent="." instance=ExtResource("5_7b3b5")]
+levelVariables = ExtResource("7_rctah")
 
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(1006.5, 750)
@@ -73,3 +76,7 @@ z_index = -11
 position = Vector2(776, 781)
 scale = Vector2(0.648, 0.914)
 texture = ExtResource("8_278rm")
+
+[node name="otherside" parent="." instance=ExtResource("3_aasaa")]
+position = Vector2(841, 822)
+scene = "res://Levels/MCdarkside.tscn"

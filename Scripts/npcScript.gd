@@ -1,11 +1,12 @@
 @tool
 extends Node2D
+class_name NPC
 
 @onready var animSprite = get_node("AnimatedSprite2D")
 
 @onready var dialogueManager = get_parent().get_node("dialogueManager")
 
-@export var npcLook = "smoke"
+@export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var npcLook: String
 @export var spriteFlip : bool
 @export var convoID : int
 
@@ -20,14 +21,14 @@ func _process(delta):
 func _ready():
 	animSprite.flip_h = spriteFlip
 	animSprite.play(npcLook)
-	if dialogueManager != DialogueManager:
+	if not dialogueManager is DialogueManager:
 		push_error("You must provide a dialogueManager node in the level for NPCs to function!")
 
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and !dialogueManager.inDialogue and canTalk:
 		for i in $npcArea.get_overlapping_areas():
 			if i.is_in_group("player"):
-				dialogueManager.convoInitialize(convoID)
+				dialogueManager.convoInitialize(convoID, self)
 				canTalk = false
 				break
 		
@@ -50,6 +51,11 @@ func loadJSON(nodeData) -> void:
 	convoID = nodeData["convoID"]
 	visible = nodeData["visible"]
 
-func trigger():
-	dialogueManager.convoInitialize(convoID)
-	canTalk = false
+func trigger(extraVariables = null):
+	if extraVariables == null:
+		dialogueManager.convoInitialize(convoID, self)
+		canTalk = false
+	else:
+		global_position = Vector2(extraVariables[0].posX, extraVariables[0].posY)
+		
+	

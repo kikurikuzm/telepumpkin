@@ -9,6 +9,7 @@ var maxUnst
 @onready var animationPlayer = get_node("pumpkinSprite/abberation/AnimationPlayer")
 @onready var animationTree = get_node("pumpkinSprite/abberation/AnimationTree")
 @onready var poofs = preload("res://Instances/Particles/poofs.tscn")
+@onready var rottenSplash = preload("res://Instances/Particles/RottingTeleportParticles.tscn")
 @onready var teleportLight = preload("res://Instances/Particles/teleport_light.tscn")
 var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 
@@ -72,6 +73,11 @@ func teleport(hostPos: Transform2D) -> void:
 	custom_integrator = true
 	
 	if unstable:
+		var splashInstance = rottenSplash.instantiate()
+		get_parent().add_child(splashInstance)
+		splashInstance.emitting = true
+		splashInstance.global_position = global_position
+		
 		if unstableTeleport > 0:
 			unstableTeleport -= 1
 			animationPlayer.play("teleport")
