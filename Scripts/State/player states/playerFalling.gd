@@ -28,10 +28,11 @@ func physics_update(delta: float):
 		transitioned.emit(self, "playeridle")
 	
 	if player.velocity.y > 0:
+		player.gravity = gvars.playerGravity * 2.3
 		currentVelocityY = player.velocity.y
 	
 	if player.velocity.y < 0:
-		transitioned.emit(self, "playerjump")
+		player.gravity = gvars.playerGravity
 
 	if Input.is_action_pressed("up"):
 		transitioned.emit(self, "playerstretch")

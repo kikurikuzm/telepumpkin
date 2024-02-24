@@ -48,5 +48,5 @@ func _on_area_2d_body_exited(body):
 		mainCamera.returnToOldZoom()
 
 func _on_check_if_empty_timeout():
-	if !area2D.has_overlapping_bodies():
+	if !area2D.has_overlapping_bodies() and mainCamera.currentParent == self:
 		mainCamera.returnToPlayer()

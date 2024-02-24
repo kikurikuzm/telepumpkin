@@ -51,3 +51,6 @@ func returnToOldZoom():
 		desiredZoom = oldZoom
 		oldZoom = null
 		return
+
+func isPlayerParent() -> bool:
+	return currentParent == playerRef

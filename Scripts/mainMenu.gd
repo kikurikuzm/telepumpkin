@@ -35,9 +35,9 @@ func _ready():
 		resolutionSettings.selected = tempIndex
 		_on_resolution_settings_item_selected(tempIndex)
 		
-		#tempIndex = cfgfile.get_8()
-		#graphicsSettings.selected = tempIndex
-		#_on_graphics_settings_item_selected(tempIndex)
+		tempIndex = cfgfile.get_8()
+		graphicsSettings.button_pressed = tempIndex
+		_on_graphics_settings_item_selected(tempIndex)
 		
 		tempIndex = bool(cfgfile.get_8())
 		_on_fullscreen_toggled(tempIndex)
@@ -101,7 +101,7 @@ func _on_apply_pressed():
 	DirAccess.remove_absolute("user://cfg.dat")
 	var file = FileAccess.open("user://cfg.dat", FileAccess.WRITE)
 	file.store_8(resolutionSettings.get_selected_id())
-	file.store_8(graphicsSettings.get_selected_id())
+	file.store_8(graphicsSettings.button_pressed)
 	file.store_8(fullscreen.button_pressed)
 	file.store_8(mute.button_pressed)
 	
