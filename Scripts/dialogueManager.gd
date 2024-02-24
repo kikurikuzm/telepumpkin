@@ -117,6 +117,7 @@ func progressDialogue():
 	
 	##The function that ends a given dialogue and performs the necessary cleanup.
 func endDialogue(): 
+	print("ended dialogue from DialogueManager")
 	var rootnode = get_parent().get_parent()
 	rootnode.player.changeState("playeridle")
 	
@@ -141,11 +142,13 @@ func endDialogue():
 			#dialogueInitializer.canTalk = true
 	return
 
-func queueConvo(convoNumb:int):
+func queueConvo(convoNumb:int) -> void:
 	queuedConvo = convoNumb
 
 ##The function that performs setup for dialogue.
 func convoInitialize(convoNumb=0, npcInstance=null): 
+	print("started dialogue from DialogueManager")
+	inDialogue = true
 	dialogueInitializer = npcInstance
 	conversation = parseJSON()
 	currentConversation = convoNumb

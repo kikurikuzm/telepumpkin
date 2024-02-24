@@ -25,9 +25,10 @@ func _ready():
 		push_error("You must provide a dialogueManager node in the level for NPCs to function!")
 
 func _input(event):
-	if Input.is_action_just_pressed("teleport") and !dialogueManager.inDialogue and canTalk:
+	if Input.is_action_just_pressed("teleport") and !dialogueManager.inDialogue:
 		for i in $npcArea.get_overlapping_areas():
 			if i.is_in_group("player"):
+				print("started dialogue from NPC")
 				dialogueManager.convoInitialize(convoID, self)
 				canTalk = false
 				break

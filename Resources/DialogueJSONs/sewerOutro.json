@@ -1,12 +1,12 @@
 [
 	{"conversation": [
 		{
-		"character":"NPC1",
-		"text":"Oh, hey!",
-		"portrait":"smoke.png",
-		"speed":0.09,
-		"cameraSpeed":0.1,
-		"zoom":"Vector2(5.5,5.5)"
+			"character":"NPC1",
+			"text":"Oh, hey!",
+			"portrait":"smoke.png",
+			"speed":0.09,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
 		},
 		{
 			"character":"NPC1",

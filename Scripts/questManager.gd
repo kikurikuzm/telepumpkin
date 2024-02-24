@@ -4,7 +4,7 @@ extends Node2D
 
 var questID : int
 
-func questModify():
+func questModify() -> void:
 	match questID:
 		1:
 			#bovi dissapear
@@ -43,13 +43,13 @@ func questModify():
 		7:
 			get_parent().loadLevel(load("res://Levels/moonBaseOuter.tscn"),2)
 			
-func changeQuest(id):
+func changeQuest(id) -> void:
 	if id > questID:
 		questID = id
 		print("changed quest to ", id)
 		questModify()
 
-func questSFX():
+func questSFX() -> void:
 	var tempPlayer = AudioStreamPlayer.new()
 	get_parent().add_child(tempPlayer)
 	tempPlayer.stream = writingSFX
@@ -59,7 +59,7 @@ func questSFX():
 	await tempPlayer.finished
 	tempPlayer.queue_free()
 
-func NPCsaveConvo(npcName:String, level:String, convoID:int, visibility=true):
+func NPCsaveConvo(npcName:String, level:String, convoID:int, visibility=true) -> void:
 	var levelSave = FileAccess.open(str("user://levelSaves/", str(level), ".lsav"), FileAccess.WRITE)
 	
 	var saveData = {
@@ -73,7 +73,7 @@ func NPCsaveConvo(npcName:String, level:String, convoID:int, visibility=true):
 	
 	levelSave.store_line(jsonString)
 
-func saveEntrance(newScene:String, newEnabled=true, newSecret=false, newExitLocation=Vector2.ZERO):
+func saveEntrance(newScene:String, newEnabled=true, newSecret=false, newExitLocation=Vector2.ZERO) -> void:
 	var saveData = {
 		"name" : name,
 		"scene" : newScene,

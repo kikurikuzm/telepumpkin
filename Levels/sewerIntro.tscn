@@ -294,10 +294,6 @@ levelVariables = ExtResource("4_g8ry0")
 position = Vector2(136, 736)
 texture = ExtResource("6_fktvw")
 
-[node name="NPC1" parent="." instance=ExtResource("3_tdg5v")]
-position = Vector2(284, 736)
-spriteFlip = true
-
 [node name="manhole" parent="." instance=ExtResource("8_i8vbr")]
 position = Vector2(411, 766)
 
@@ -319,6 +315,11 @@ metadata/_edit_lock_ = true
 [node name="dialogueManager" parent="." node_paths=PackedStringArray("cutsceneManager") instance=ExtResource("9_2yq15")]
 dialogueJSONPath = "res://Resources/DialogueJSONs/sewerIntro.json"
 cutsceneManager = NodePath("../cutscenePlayer")
+
+[node name="NPC1" parent="." instance=ExtResource("3_tdg5v")]
+position = Vector2(284, 736)
+npcLook = "smoke"
+spriteFlip = true
 
 [node name="cutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera", "placeholderPlayer")]
 libraries = {

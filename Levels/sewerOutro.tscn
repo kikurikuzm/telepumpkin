@@ -50,10 +50,6 @@ position = Vector2(252, 740)
 [node name="levelVariables" parent="." instance=ExtResource("3_74pm5")]
 levelVariables = SubResource("Resource_nejxd")
 
-[node name="NPC1" parent="." instance=ExtResource("6_85i5t")]
-position = Vector2(354, 736)
-spriteFlip = true
-
 [node name="manhole" parent="." instance=ExtResource("7_f62n0")]
 position = Vector2(411, 766)
 
@@ -81,3 +77,8 @@ shadow_filter = 2
 position = Vector2(135, 758)
 scene = "Levels/apartments.tscn"
 exitLocation = Vector2(1403, 800)
+
+[node name="NPC1" parent="." instance=ExtResource("6_85i5t")]
+position = Vector2(360, 735)
+npcLook = "smoke"
+spriteFlip = true
