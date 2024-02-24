@@ -56,8 +56,9 @@ func triggerThings(cause) -> void:
 		if !anythingTriggers and cause.is_in_group("player"):
 			var currentIndex = 0
 			for i in triggerList:
-				if triggerListVariables[currentIndex] != null:
-					get_node(i).trigger(triggerListVariables)
+				if triggerListVariables:
+					if triggerListVariables[currentIndex] != null:
+						get_node(i).trigger(triggerListVariables)
 				else:
 					get_node(i).trigger()
 				print("triggered ", str(i))

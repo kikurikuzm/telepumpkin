@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=23 format=3 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Texture2D" uid="uid://duokp1u0wgyb8" path="res://Sprites/backgrounds/fog.png" id="2_acwq0"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_kgxg5"]
 [ext_resource type="Texture2D" uid="uid://b14mb3oy84jyr" path="res://Sprites/tiles/poster.png" id="9_102g8"]
 [ext_resource type="Resource" uid="uid://cd778qcujcn0e" path="res://Resources/LevelVar Sets/mooncity.tres" id="10_aqax0"]
+[ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="12_y4nsy"]
 [ext_resource type="PackedScene" uid="uid://xr8202de1yy1" path="res://Instances/Level Components/lamppost.tscn" id="13_0aphl"]
+[ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="13_2rtaq"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="14_3gthw"]
 [ext_resource type="Texture2D" uid="uid://b0tr7dgyjv7pp" path="res://Sprites/Misc/graffiti1.png" id="14_t378c"]
 
@@ -264,6 +266,7 @@ horizontal_alignment = 1
 [node name="shackEnterance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(-514, 758)
 scene = "Levels/shack.tscn"
+enabled = false
 
 [node name="lamppost" parent="." instance=ExtResource("13_0aphl")]
 position = Vector2(719, 704)
@@ -293,3 +296,22 @@ z_index = -2
 position = Vector2(-228, 692)
 rotation = 0.141372
 texture = ExtResource("14_t378c")
+
+[node name="bottomReach" parent="." instance=ExtResource("12_y4nsy")]
+position = Vector2(-231, 746)
+collisionShapeTransform = Vector4(0, 0, 0.94, 0.415)
+usesCustomTransform = true
+cameraZoom = 5.465
+
+[node name="platform" parent="." instance=ExtResource("13_2rtaq")]
+position = Vector2(-231, 599)
+scale = Vector2(0.61, 1)
+
+[node name="entrance" parent="." instance=ExtResource("4_1ugjb")]
+position = Vector2(-232, 584)
+enabled = false
+
+[node name="shackLocked" parent="." instance=ExtResource("3_3vfoy")]
+position = Vector2(-514, 736)
+npcLook = "inspect"
+convoID = 4

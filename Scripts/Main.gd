@@ -142,7 +142,8 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	if spawnLocation != Vector2.ZERO:
 		player.global_position = spawnLocation
 	else:
-		player.transform = levInst.get_node("spawn").transform
+		if levInst.get_node("spawn"):
+			player.transform = levInst.get_node("spawn").transform
 	player.velocity = Vector2.ZERO
 	
 	if player.hasTPP:
@@ -200,17 +201,18 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 	
 	loadStoredScene(level)
 	
-	for cell in currentLevel.get_used_cells(0):
-		if cell[0] > largestCellX:
-			largestCellX = cell[0]
-			largestCell = cell
-		elif cell[0] < smallestCellX:
-			smallestCellX = cell[0]
-			smallestCell = cell
-		else:
-			pass
-	largestCellX = currentLevel.map_to_local(largestCell).x
-	smallestCellX = currentLevel.map_to_local(smallestCell).x
+	if currentLevel is TileMap:
+		for cell in currentLevel.get_used_cells(0):
+			if cell[0] > largestCellX:
+				largestCellX = cell[0]
+				largestCell = cell
+			elif cell[0] < smallestCellX:
+				smallestCellX = cell[0]
+				smallestCell = cell
+			else:
+				pass
+		largestCellX = currentLevel.map_to_local(largestCell).x
+		smallestCellX = currentLevel.map_to_local(smallestCell).x
 
 func _on_pumpkin_collected():
 	print("pumpkin collected")

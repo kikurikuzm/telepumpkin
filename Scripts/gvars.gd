@@ -26,3 +26,5 @@ var prevScene
 var prevLoc = Vector2.ZERO
 
 var customLoad = null
+
+var simpleGraphics = false

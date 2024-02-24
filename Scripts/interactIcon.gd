@@ -21,7 +21,7 @@ func _process(delta):
 
 func showInteract():
 	interactIcon.modulate = lerp(interactIcon.modulate, Color(1.0, 1.0, 1.0, 1.0), 0.1)
-	interactIcon.position.y = lerp(interactIcon.position.y, -50.0, 0.2)
+	interactIcon.position.y = lerp(interactIcon.position.y, -40.0, 0.2)
 	
 func hideInteract():
 	interactIcon.modulate = lerp(interactIcon.modulate, Color(1.0, 1.0, 1.0, 0.0), 0.2)

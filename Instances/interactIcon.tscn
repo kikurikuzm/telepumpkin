@@ -3,22 +3,22 @@
 [ext_resource type="Script" path="res://Scripts/interactIcon.gd" id="1_a5j2p"]
 [ext_resource type="Texture2D" uid="uid://wt3k8w4av4gt" path="res://Sprites/Misc/interact.png" id="2_n6542"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1btng"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_331gd"]
 atlas = ExtResource("2_n6542")
-region = Rect2(0, 0, 32, 21)
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a5k4j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8qwk"]
 atlas = ExtResource("2_n6542")
-region = Rect2(32, 0, 32, 21)
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lfsyg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1btng")
+"texture": SubResource("AtlasTexture_331gd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a5k4j")
+"texture": SubResource("AtlasTexture_v8qwk")
 }],
 "loop": true,
 "name": &"default",
@@ -37,11 +37,13 @@ size = Vector2(38, 52)
 script = ExtResource("1_a5j2p")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.0748986)
 z_index = -1
 texture_filter = 1
+position = Vector2(0, -26.8328)
 sprite_frames = SubResource("SpriteFrames_lfsyg")
 autoplay = "default"
-frame_progress = 0.694957
+frame_progress = 0.65462
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

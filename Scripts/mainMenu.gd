@@ -35,9 +35,9 @@ func _ready():
 		resolutionSettings.selected = tempIndex
 		_on_resolution_settings_item_selected(tempIndex)
 		
-		tempIndex = cfgfile.get_8()
-		graphicsSettings.selected = tempIndex
-		_on_graphics_settings_item_selected(tempIndex)
+		#tempIndex = cfgfile.get_8()
+		#graphicsSettings.selected = tempIndex
+		#_on_graphics_settings_item_selected(tempIndex)
 		
 		tempIndex = bool(cfgfile.get_8())
 		_on_fullscreen_toggled(tempIndex)
@@ -72,6 +72,8 @@ func _on_back_pressed():
 		animation_player.play("gotoMain")
 		inSettings = false
 		return
+
+
 
 func _on_graphics_settings_item_selected(index):
 	match index:
@@ -188,3 +190,11 @@ func _on_custom_levels_pressed():
 func _on_level_dialogue_file_selected(path):
 	gvars.customLoad = load(path)
 	get_tree().change_scene_to_packed(mainscene)
+
+func _on_graphics_settings_toggled(toggled_on):
+	if toggled_on:
+		#simple graphics enabled
+		return
+	elif !toggled_on:
+		#simple graphics disabled
+		return

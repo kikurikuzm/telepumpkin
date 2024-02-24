@@ -67,5 +67,15 @@
 				"quest":7
 			}
 		]
+	},
+	{"conversation":[
+			{
+				"character":"shackLocked",
+				"portrait":"",
+				"text":"There seems to be a lock on this door.",
+				"speed":0.07,
+				"zoom":"Vector2(5.5,5.5)"
+			}
+		]
 	}
 ]

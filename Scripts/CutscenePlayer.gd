@@ -50,6 +50,7 @@ func startCutscene(cutscene:String, resetPlayer:bool = true):
 
 ##The function used to determine what happens when triggered by the 'trigger' object.
 func trigger(): 
+	print("triggered cutscene")
 	startCutscene(animationName)
 
 func _exit_tree():

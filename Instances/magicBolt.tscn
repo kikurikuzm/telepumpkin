@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://b4naq6t16an6i"]
+
+[ext_resource type="Script" path="res://Scripts/Roguelike/magicBolt.gd" id="1_a74cx"]
+[ext_resource type="Texture2D" uid="uid://bcjb5yyiqefrl" path="res://Sprites/Kin/magicbolt.png" id="2_3yfrf"]
+
+[sub_resource type="Curve" id="Curve_w72pb"]
+_data = [Vector2(0, 0.373626), 0.0, 5.35008, 0, 0, Vector2(0.793427, 0.406593), 1.25702, 1.25702, 0, 0, Vector2(1, 0), -4.87637, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_m3r2c"]
+curve = SubResource("Curve_w72pb")
+
+[sub_resource type="Curve" id="Curve_wy5tg"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.492958, 0.67033), 1.80051, 1.80051, 0, 0, Vector2(1, 0.978022), 0.372378, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4imxe"]
+curve = SubResource("Curve_wy5tg")
+
+[sub_resource type="Curve" id="Curve_wbm5c"]
+max_value = 2.0
+_data = [Vector2(0, 0.791209), 0.0, 0.224703, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_uuvty"]
+max_value = 3.0
+_data = [Vector2(0, 2.43956), 0.0, 0.0, 0, 0, Vector2(1, 1.64835), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_kt81n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_scqnh"]
+curve_x = SubResource("Curve_wbm5c")
+curve_y = SubResource("Curve_uuvty")
+curve_z = SubResource("Curve_kt81n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_85lc5"]
+particle_flag_align_y = true
+emission_shape_scale = Vector3(1, 1, 2)
+emission_shape = 3
+emission_box_extents = Vector3(2.5, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 12.0
+initial_velocity_min = 62.29
+initial_velocity_max = 62.44
+gravity = Vector3(0, 0, 0)
+scale_min = 1.9
+scale_max = 1.9
+scale_curve = SubResource("CurveXYZTexture_scqnh")
+scale_over_velocity_min = 0.75
+scale_over_velocity_max = 0.85
+color = Color(0.639216, 0.294118, 0.541176, 0.788235)
+alpha_curve = SubResource("CurveTexture_m3r2c")
+emission_curve = SubResource("CurveTexture_4imxe")
+turbulence_enabled = true
+turbulence_noise_strength = 6.87
+turbulence_noise_speed = Vector3(0, 5, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dklf5"]
+radius = 4.47214
+
+[node name="magicBolt" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 8
+motion_mode = 1
+script = ExtResource("1_a74cx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.0941176, 1, 1)
+position = Vector2(0, 8)
+texture = ExtResource("2_3yfrf")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, 4)
+amount = 43
+process_material = SubResource("ParticleProcessMaterial_85lc5")
+trail_lifetime = 0.05
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_dklf5")

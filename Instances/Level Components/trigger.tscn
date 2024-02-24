@@ -21,6 +21,7 @@ shape = SubResource("RectangleShape2D_nxb7d")
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="editorSprite" type="Sprite2D" parent="."]
+visible = false
 light_mask = 524288
 visibility_layer = 524288
 z_index = 100
