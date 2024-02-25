@@ -1,8 +1,9 @@
-[gd_scene load_steps=53 format=3 uid="uid://bywnukq17v208"]
+[gd_scene load_steps=41 format=3 uid="uid://bywnukq17v208"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_dpdcl"]
-[ext_resource type="PackedScene" uid="uid://dgkkgvrt7qcat" path="res://Instances/player.tscn" id="2_pxkbr"]
+[ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="2_pxkbr"]
 [ext_resource type="PackedScene" uid="uid://biwxpg0o4st6v" path="res://Instances/Helpers/questManager.tscn" id="3_6pp5x"]
+[ext_resource type="Script" path="res://Scripts/mainCamera.gd" id="3_kq2kl"]
 [ext_resource type="Environment" uid="uid://b8wuygwcxt70r" path="res://Resources/Environments/Farmlands.tres" id="5_hwca2"]
 [ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="6_3rkpl"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wavy.gdshader" id="7_s4ple"]
@@ -12,20 +13,9 @@
 [ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="11_ur5wi"]
 [ext_resource type="Script" path="res://Scripts/Limitbar.gd" id="12_ir7nj"]
 [ext_resource type="PackedScene" uid="uid://ddp3f62huxqab" path="res://Instances/debugUI.tscn" id="13_7f5fb"]
-[ext_resource type="Shader" path="res://Resources/Shaders/wigglewavy.gdshader" id="14_5tfwf"]
-[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="15_tdnbe"]
-[ext_resource type="Texture2D" uid="uid://b04t6sqntivuo" path="res://Sprites/NPCs/Portraits/old.png" id="16_jddlc"]
-[ext_resource type="Texture2D" uid="uid://c3x4vjtt6g37j" path="res://Sprites/NPCs/Portraits/bovi.png" id="17_cp6lb"]
-[ext_resource type="Texture2D" uid="uid://bobh42kleuhmh" path="res://Sprites/NPCs/Portraits/keeper.png" id="18_p8u4w"]
-[ext_resource type="Texture2D" uid="uid://p82qwfpglcr" path="res://Sprites/NPCs/Portraits/cool.png" id="19_dun1g"]
-[ext_resource type="Texture2D" uid="uid://c30f5ip1wkft8" path="res://Sprites/NPCs/Portraits/hat.png" id="20_1tpri"]
-[ext_resource type="Texture2D" uid="uid://ds5mnp3oxr7bh" path="res://Sprites/NPCs/Portraits/kin.png" id="21_nxwoq"]
-[ext_resource type="Texture2D" uid="uid://cdeq8ydlmp5e5" path="res://Sprites/NPCs/Portraits/portrait.png" id="22_21o0q"]
-[ext_resource type="AudioStream" uid="uid://bwmmara6fxk1j" path="res://Audio/sfx/Tick.wav" id="23_j40ph"]
-[ext_resource type="Texture2D" uid="uid://b8qxi8stcmydv" path="res://Sprites/Misc/dialogArrow.png" id="24_wxd66"]
+[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="13_hh7bn"]
 [ext_resource type="Texture2D" uid="uid://dmjo1q6ukx12l" path="res://Sprites/backgrounds/farmlandSky.tres" id="25_5yaeg"]
 [ext_resource type="Texture2D" uid="uid://bfi80xpxhxye6" path="res://Sprites/backgrounds/farmforeground.png" id="26_a23wb"]
-[ext_resource type="PackedScene" uid="uid://cg7daib18pq0c" path="res://Levels/debugroom.tscn" id="27_702vk"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_xrx0c"]
 dof_blur_far_distance = 13.05
@@ -89,7 +79,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1934, -209)]
+"values": [Vector2(0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -141,7 +131,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-368, -209)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_8ough"]
@@ -169,7 +159,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-368, -209)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ndrl4"]
@@ -277,7 +267,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.366, 1),
 "update": 0,
-"values": [Vector2(-368, -209), Vector2(-2670, -209)]
+"values": [Vector2(0, 0), Vector2(-2670, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_fmo76"]
@@ -305,7 +295,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(3.03143, 0.366021, 1),
 "update": 0,
-"values": [Vector2(1934, -209), Vector2(-368, -209), Vector2(-2670, -209)]
+"values": [Vector2(1934, 0), Vector2(-368, 0), Vector2(-2670, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -334,131 +324,15 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4rtp"]
 shader = ExtResource("10_ujvdg")
 shader_parameter/color = null
-shader_parameter/multiplier = -0.177
-shader_parameter/softness = 1.406
+shader_parameter/multiplier = 0.013
+shader_parameter/softness = 0.691
 
-[sub_resource type="ShaderMaterial" id="11"]
-shader = ExtResource("14_5tfwf")
-shader_parameter/height = 10.0
-shader_parameter/frequency = 3.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="ShaderMaterial" id="12"]
-shader = ExtResource("7_s4ple")
-shader_parameter/height = 3.0
-shader_parameter/frequency = 2.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="Theme" id="14"]
-Label/colors/font_color = Color(0, 0, 0, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 0
-Label/font_sizes/font_size = 28
-Label/fonts/font = ExtResource("15_tdnbe")
-
-[sub_resource type="ShaderMaterial" id="16"]
-shader = ExtResource("7_s4ple")
-shader_parameter/height = 1.2
-shader_parameter/frequency = 0.4
-shader_parameter/speed = 1.5
-
-[sub_resource type="SpriteFrames" id="15"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("16_jddlc")
-}],
-"loop": true,
-"name": &"bald",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("17_cp6lb")
-}],
-"loop": true,
-"name": &"bovi",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("18_p8u4w")
-}],
-"loop": true,
-"name": &"cloak",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("19_dun1g")
-}],
-"loop": true,
-"name": &"cool",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": null
-}],
-"loop": true,
-"name": &"inspect",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("20_1tpri")
-}],
-"loop": true,
-"name": &"kid",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("21_nxwoq")
-}],
-"loop": true,
-"name": &"kin",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("22_21o0q")
-}],
-"loop": true,
-"name": &"smoke",
-"speed": 5.0
-}]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cvkk1"]
-shader = ExtResource("7_s4ple")
-shader_parameter/height = 0.5
-shader_parameter/frequency = 3.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ee30a"]
-atlas = ExtResource("24_wxd66")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ucsnm"]
-atlas = ExtResource("24_wxd66")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_s34qy"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ee30a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ucsnm")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_tx2l4"]
-viewport_path = NodePath("3DView")
+[sub_resource type="LabelSettings" id="LabelSettings_mnnfc"]
+font = ExtResource("13_hh7bn")
+font_size = 30
+font_color = Color(1, 1, 1, 0.596078)
+outline_size = 5
+outline_color = Color(0, 0, 0, 0.462745)
 
 [sub_resource type="Gradient" id="Gradient_lq8tc"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -466,18 +340,153 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_r2ii1"]
 gradient = SubResource("Gradient_lq8tc")
 
+[sub_resource type="Animation" id="Animation_jwip2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/vignette:material:shader_parameter/multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.013]
+}
+
+[sub_resource type="Animation" id="Animation_jp8t5"]
+resource_name = "vignette"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/vignette:material:shader_parameter/multiplier")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.273, 0.168]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6paru"]
+_data = {
+"RESET": SubResource("Animation_jwip2"),
+"vignette": SubResource("Animation_jp8t5")
+}
+
+[sub_resource type="Animation" id="Animation_xpddm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1080)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("uiLayer/cinemaBoxes/top:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+
+[sub_resource type="Animation" id="Animation_ha8df"]
+resource_name = "in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 1080), Vector2(0, 980)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("uiLayer/cinemaBoxes/top:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -100), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rh5sk"]
+resource_name = "out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("uiLayer/cinemaBoxes/top:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("uiLayer/cinemaBoxes/bottom:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 980), Vector2(0, 1080)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1ka4y"]
+_data = {
+"RESET": SubResource("Animation_xpddm"),
+"in": SubResource("Animation_ha8df"),
+"out": SubResource("Animation_rh5sk")
+}
+
 [node name="Root" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_dpdcl")
 
+[node name="mainCamera" type="Camera2D" parent="."]
+position = Vector2(1120, 728)
+zoom = Vector2(4.5, 4.5)
+script = ExtResource("3_kq2kl")
+
 [node name="Player" parent="." instance=ExtResource("2_pxkbr")]
-position = Vector2(1120, 748)
+position = Vector2(1128, 748)
 
 [node name="questManager" parent="." instance=ExtResource("3_6pp5x")]
 
 [node name="ambiencePlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -0.887
 autoplay = true
+
+[node name="levelMusicPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="worldEnd" type="WorldEnvironment" parent="."]
 environment = ExtResource("5_hwca2")
@@ -540,6 +549,7 @@ offset_right = 114.0
 offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_bottom = NodePath("../restart")
 theme = ExtResource("8_t6qqg")
 text = "Resume"
 
@@ -556,6 +566,8 @@ offset_right = 114.0
 offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("../resume")
+focus_neighbor_bottom = NodePath("../quit")
 theme = ExtResource("8_t6qqg")
 text = "Restart
 "
@@ -573,6 +585,7 @@ offset_right = 128.5
 offset_bottom = 99.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_neighbor_top = NodePath("../restart")
 theme = ExtResource("8_t6qqg")
 text = "Save & Quit
 "
@@ -583,25 +596,23 @@ one_shot = true
 
 [node name="transitionLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 2
+layer = 4
+visible = false
 script = ExtResource("9_psqbl")
 
 [node name="ColorRect" type="ColorRect" parent="transitionLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 974.0
-offset_top = -749.0
-offset_right = 3637.0
-offset_bottom = 749.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 743.0
+offset_bottom = 418.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="transitionLayer"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
@@ -629,15 +640,9 @@ libraries = {
 [node name="vignette" type="ColorRect" parent="uiLayer"]
 visible = false
 material = SubResource("ShaderMaterial_i4rtp")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1018.5
-offset_top = -573.0
-offset_right = 1018.5
-offset_bottom = 573.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -645,18 +650,20 @@ grow_vertical = 2
 visible = false
 
 [node name="vernumb" type="Label" parent="uiLayer"]
+top_level = true
 texture_filter = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = -132.0
-offset_right = 220.001
-offset_bottom = -106.0
+offset_left = 3.0
+offset_top = -42.0
+offset_right = 228.0
+offset_bottom = 3.0
 grow_vertical = 0
-scale = Vector2(5, 5)
 theme = ExtResource("11_ur5wi")
 text = "Alpha"
+label_settings = SubResource("LabelSettings_mnnfc")
+vertical_alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="uiLayer"]
 visible = false
@@ -672,70 +679,38 @@ offset_bottom = -163.0
 scale = Vector2(4, 4)
 script = ExtResource("12_ir7nj")
 
-[node name="dialogBox" type="ColorRect" parent="uiLayer"]
-visible = false
-top_level = true
-texture_filter = 1
-material = SubResource("11")
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -537.0
-offset_top = 154.0
-offset_right = 537.0
-offset_bottom = 330.0
-grow_horizontal = 2
-color = Color(0.372549, 0.372549, 0.372549, 0.490196)
-
-[node name="text" type="Label" parent="uiLayer/dialogBox"]
-material = SubResource("12")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -387.0
-offset_top = -60.0
-offset_right = 507.0
-offset_bottom = 47.0
+[node name="cinemaBoxes" type="Control" parent="uiLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("14")
-text = "Hey, you aren't from around here, are you?"
-vertical_alignment = 1
-autowrap_mode = 3
+size_flags_horizontal = 4
+mouse_filter = 2
 
-[node name="portrait" type="AnimatedSprite2D" parent="uiLayer/dialogBox"]
-material = SubResource("16")
-position = Vector2(74, 70)
-scale = Vector2(7.84375, 7.84375)
-sprite_frames = SubResource("15")
-animation = &"kin"
-speed_scale = 0.0
+[node name="top" type="ColorRect" parent="uiLayer/cinemaBoxes"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -100.0
+offset_right = 251520.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
 
-[node name="textSpeed" type="Timer" parent="uiLayer/dialogBox"]
-one_shot = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="uiLayer/dialogBox"]
-stream = ExtResource("23_j40ph")
-volume_db = -4.831
-max_polyphony = 8
-
-[node name="progress" type="AnimatedSprite2D" parent="uiLayer/dialogBox"]
-modulate = Color(0, 0, 0, 0.2)
-material = SubResource("ShaderMaterial_cvkk1")
-position = Vector2(999, 124)
-scale = Vector2(2.4, 2.4)
-sprite_frames = SubResource("SpriteFrames_s34qy")
-autoplay = "default"
-frame_progress = 0.10839
-
-[node name="3DViewSprite" type="Sprite2D" parent="uiLayer"]
-visible = false
-position = Vector2(969, 546.5)
-scale = Vector2(3.02813, 2.27708)
-texture = SubResource("ViewportTexture_tx2l4")
+[node name="bottom" type="ColorRect" parent="uiLayer/cinemaBoxes"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 251520.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -744,7 +719,7 @@ motion_scale = Vector2(0.4, 0.6)
 motion_offset = Vector2(-240, -240)
 
 [node name="background" type="Sprite2D" parent="ParallaxBackground/background"]
-position = Vector2(1028, 750)
+position = Vector2(1173, 719)
 scale = Vector2(2, 2)
 texture = ExtResource("25_5yaeg")
 
@@ -758,7 +733,7 @@ position = Vector2(984, 712)
 scale = Vector2(0.404192, 0.404192)
 texture = ExtResource("26_a23wb")
 
-[node name="TileMap" parent="." instance=ExtResource("27_702vk")]
+[node name="TileMap" parent="." instance_placeholder="res://Levels/debugroom.tscn"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMap"]
@@ -771,6 +746,17 @@ texture = SubResource("GradientTexture1D_r2ii1")
 color = Color(0.937255, 0.909804, 0.901961, 1)
 
 [node name="levelTimer" type="Timer" parent="."]
+
+[node name="vignette" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6paru")
+}
+autoplay = "vignette"
+
+[node name="cinemaboxes" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1ka4y")
+}
 
 [connection signal="pressed" from="pauseMenu/resume" to="pauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="pauseMenu/restart" to="pauseMenu" method="_on_restart_pressed"]

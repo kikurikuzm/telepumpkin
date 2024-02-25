@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://cncyv3jjo2j71"]
+
+[ext_resource type="Texture2D" uid="uid://ddjuhp4hs6cu0" path="res://Sprites/Ground/flashlight.png" id="1_4vja0"]
+[ext_resource type="Script" path="res://Scripts/FlashLight.gd" id="1_qmylv"]
+[ext_resource type="Texture2D" uid="uid://d2t64xpew2hln" path="res://Sprites/Ground/flashlightNormals.png" id="2_ksy83"]
+[ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="3_ntane"]
+[ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="5_4jb1i"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_a3eb4"]
+diffuse_texture = ExtResource("1_4vja0")
+normal_texture = ExtResource("2_ksy83")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6h4v8"]
+size = Vector2(32, 20)
+
+[node name="flashLight" type="Node2D"]
+script = ExtResource("1_qmylv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CanvasTexture_a3eb4")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(11, 0)
+rotation = -1.5708
+color = Color(0.905882, 0.933333, 0.772549, 1)
+shadow_enabled = true
+texture = ExtResource("3_ntane")
+offset = Vector2(0, 65)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_6h4v8")
+
+[node name="interactIcon" parent="." instance=ExtResource("5_4jb1i")]
+position = Vector2(0, -7)

@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="LevelVariables" load_steps=5 format=3 uid="uid://cd778qcujcn0e"]
+
+[ext_resource type="AudioStream" uid="uid://b8wehmsmse6tt" path="res://Audio/ambience.ogg" id="1_sps1n"]
+[ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="2_iccil"]
+[ext_resource type="Script" path="res://Scripts/resourceScripts/levelVariables.gd" id="2_ispy0"]
+[ext_resource type="Environment" uid="uid://bdkllmoqon3ww" path="res://Resources/Environments/moonCity.tres" id="3_n8xbw"]
+
+[resource]
+script = ExtResource("2_ispy0")
+canTeleport = false
+playerZoom = 5.5
+hasVignette = true
+hasMapView = false
+startsInMap = false
+mapCameraLocked = true
+levelAmbience = ExtResource("1_sps1n")
+levelTransition = 1
+musicChance = 0.2
+levelGravity = 9.8
+isDark = false
+levelBackground = ExtResource("2_iccil")
+worldEnvironment = ExtResource("3_n8xbw")

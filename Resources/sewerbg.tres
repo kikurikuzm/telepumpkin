@@ -1,11 +1,13 @@
 [gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://b31xlhqs4yt5c"]
 
 [sub_resource type="Gradient" id="Gradient_lqwkb"]
-colors = PackedColorArray(5.41471e-08, 0.135012, 0.227279, 1, 9.62615e-08, 0.277376, 0.300149, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0809524, 0.219048, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.0707183, 0.131765, 1, 5.41471e-08, 0.135012, 0.227279, 1, 9.62615e-08, 0.277376, 0.300149, 1)
 
 [resource]
 gradient = SubResource("Gradient_lqwkb")
 width = 2000
 height = 1000
 fill_from = Vector2(0, 1)
-fill_to = Vector2(0, 0)
+fill_to = Vector2(0, 0.827839)

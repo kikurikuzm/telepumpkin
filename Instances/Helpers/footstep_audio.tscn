@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://r0yqy7ri8d52"]
+
+[ext_resource type="AudioStream" uid="uid://c1666rseg7wjt" path="res://Audio/sfx/grassStep-01.ogg" id="1_5e8j0"]
+[ext_resource type="Script" path="res://Scripts/playerFootstep.gd" id="2_m26rw"]
+
+[node name="footstepAudio" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_5e8j0")
+script = ExtResource("2_m26rw")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

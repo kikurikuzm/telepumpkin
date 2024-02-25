@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://bfhgm00rlpnpc"]
+
+[ext_resource type="Texture2D" uid="uid://dp7xlc5xiyhjh" path="res://Sprites/Misc/rottingPumpkinSplash.png" id="1_iepvb"]
+
+[sub_resource type="Curve" id="Curve_rk6cm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.76569, 0.725275), -1.18187, -1.18187, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_1myth"]
+curve = SubResource("Curve_rk6cm")
+
+[sub_resource type="Curve" id="Curve_8xusc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.774059, 0.923077), -0.61797, -0.61797, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8jqyo"]
+curve = SubResource("Curve_8xusc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cwt5s"]
+particle_flag_align_y = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 5, 0)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 32.9
+initial_velocity_max = 47.65
+gravity = Vector3(0, 98, 0)
+scale_min = 0.75
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_8jqyo")
+scale_over_velocity_min = 30.0
+scale_over_velocity_max = 30.0
+alpha_curve = SubResource("CurveTexture_1myth")
+hue_variation_min = -0.05
+hue_variation_max = 0.06
+
+[node name="rottingTeleportParticles" type="GPUParticles2D"]
+position = Vector2(0, 9)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_cwt5s")
+texture = ExtResource("1_iepvb")
+one_shot = true
+explosiveness = 1.0
+randomness = 0.08

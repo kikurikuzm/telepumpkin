@@ -1,0 +1,44 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bdqix4on6h0c0"]
+
+[sub_resource type="Shader" id="Shader_fu0em"]
+code = "shader_type canvas_item;
+
+const float MULT_FACTOR = 7.0;
+
+uniform sampler2D noise : repeat_enable;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform float distortion_strength = 0.006;
+uniform vec2 scroll = vec2(0.05, 0.05);
+
+void fragment() {
+	vec4 noise_col = texture(noise, UV + scroll * TIME);
+	vec4 pumpkin = texture(TEXTURE, UV + distortion_strength * noise_col.rr);
+	
+	COLOR = pumpkin + (vec4(0.0, 0.0, 0.0, pumpkin.a) * distortion_strength * vec4(MULT_FACTOR, MULT_FACTOR, MULT_FACTOR, MULT_FACTOR));
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_ljwev"]
+offsets = PackedFloat32Array(0.658031, 0.880829, 0.979275, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.139914, 0.139914, 0.139914, 1, 0.433735, 0.433735, 0.433735, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3ehjj"]
+noise_type = 5
+seed = 285
+fractal_type = 2
+fractal_octaves = 3
+domain_warp_type = 1
+domain_warp_amplitude = 60.0
+domain_warp_fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_deg0o"]
+seamless = true
+color_ramp = SubResource("Gradient_ljwev")
+noise = SubResource("FastNoiseLite_3ehjj")
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource("Shader_fu0em")
+shader_parameter/distortion_strength = 0.18
+shader_parameter/scroll = Vector2(0, 0.24)
+shader_parameter/noise = SubResource("NoiseTexture2D_deg0o")

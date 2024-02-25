@@ -1,0 +1,13 @@
+[
+	{"conversation": [
+		{
+		"character":"Warningsign",
+		"text":"\"Warning! Elevator may be out of commission. Please look before you step.\" ",
+		"portrait":"",
+		"speed":0.09,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(9.5,9.5)"
+		}
+	 ]
+	}
+]

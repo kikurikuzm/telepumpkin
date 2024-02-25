@@ -20,4 +20,10 @@ collision_mask = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("1")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="acceptPumpkin" type="Timer" parent="."]
+
+[node name="pumpkinCheck" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="pumpkinCheck" to="." method="_on_pumpkin_check_timeout"]

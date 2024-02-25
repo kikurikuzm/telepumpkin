@@ -1,0 +1,68 @@
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://b35tsbaehn21o"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_7ppaf"]
+resource_name = "Reverb"
+room_size = 0.19
+dry = 0.66
+wet = 0.26
+
+[sub_resource type="AudioEffectHighPassFilter" id="AudioEffectHighPassFilter_lxkcc"]
+resource_name = "HighPassFilter"
+resonance = 0.53
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_sfwk5"]
+resource_name = "Reverb"
+room_size = 0.18
+spread = 0.87
+dry = 0.22
+wet = 0.31
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_kkns1"]
+resource_name = "Reverb"
+room_size = 0.38
+damping = 0.44
+spread = 0.71
+dry = 0.5
+wet = 0.31
+
+[sub_resource type="AudioEffectLowPassFilter" id="AudioEffectLowPassFilter_rw67l"]
+resource_name = "LowPassFilter"
+cutoff_hz = 540.0
+resonance = 0.3
+db = 1
+
+[resource]
+bus/1/name = &"footsteps"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"footsteps 2"
+bus/1/effect/0/effect = SubResource("AudioEffectReverb_7ppaf")
+bus/1/effect/0/enabled = false
+bus/2/name = &"radio"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"radio 2"
+bus/2/effect/0/effect = SubResource("AudioEffectHighPassFilter_lxkcc")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectReverb_sfwk5")
+bus/2/effect/1/enabled = true
+bus/3/name = &"reverb"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"Master"
+bus/3/effect/0/effect = SubResource("AudioEffectReverb_kkns1")
+bus/3/effect/0/enabled = true
+bus/4/name = &"moon"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = &"Master"
+bus/4/effect/0/effect = SubResource("AudioEffectLowPassFilter_rw67l")
+bus/4/effect/0/enabled = true

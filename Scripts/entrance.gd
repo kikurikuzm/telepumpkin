@@ -7,12 +7,16 @@ extends Node2D
 @onready var enterTimer = $enterTimer
 @onready var transition = get_parent().get_parent().get_node("transitionLayer")
 
-@export var scene : PackedScene
+@export var scene : String
+@export var enabled = true
 @export var secret = false
-@export var exit = false
+@export var exitLocation = Vector2.ZERO
+
+var loadedScene
 
 func _ready():
-	if secret:
+	loadedScene = load(scene)
+	if secret or !enabled:
 		interactIcon.visible = false
 
 func _process(delta):
@@ -20,29 +24,29 @@ func _process(delta):
 		get_tree().paused = true
 	
 func enterScene():
-	print(gvars.prevScene)
-	if exit and gvars.prevScene != null:
+	if scene != null and enterTimer.is_stopped() and enabled:
 		var rootnode = get_parent().get_parent()
-		scene = gvars.prevScene
-		
 		get_tree().paused = true
 		doorSFX.play()
 		await(doorSFX.finished)
-		get_parent().get_parent().loadLevel(scene,2,gvars.prevLoc)
-		
-		gvars.prevLoc = Vector2.ZERO
-		gvars.prevScene = null
-		return
-	
-	if scene != null and enterTimer.is_stopped():
-		var rootnode = get_parent().get_parent()
-		
-		if !exit:
-			gvars.prevScene = rootnode.currentLevelPath
-			gvars.prevLoc = rootnode.player.global_position
-		get_tree().paused = true
-		doorSFX.play()
-		await(doorSFX.finished)
-		get_parent().get_parent().loadLevel(scene,2)
+		get_parent().get_parent().loadLevel(loadedScene,2,exitLocation)
 	else:
 		print("scene not found")
+
+func save() -> Dictionary:
+	var saveDict = {
+		"name" : name,
+		"scene" : scene,
+		"enabled" : enabled,
+		"secret" : secret,
+		"exitLocationX" : exitLocation.x,
+		"exitLocationY" : exitLocation.y
+	}
+	return saveDict
+
+func loadJSON(saveData) -> void: 
+	scene = saveData["scene"]
+	enabled = saveData["enabled"]
+	secret = saveData["secret"]
+	exitLocation.x = saveData["exitLocationX"]
+	exitLocation.y = saveData["exitLocationY"]

@@ -1,0 +1,37 @@
+[
+	{"conversation": [
+		{
+		"character":"NPC1",
+		"text":"You see that?",
+		"portrait":"smoke.png",
+		"speed":0.09,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"cam",
+			"text":"",
+			"portrait":"smoke.png",
+			"speed":0.09
+		},
+		{
+			"character":"cam",
+			"text":"That's where I lost my thing...",
+			"portrait":"smoke.png",
+			"speed":0.09
+		},
+		{
+			"character":"cam",
+			"text":"So uhhh.....",
+			"portrait":"smoke.png",
+			"speed":0.09
+		},
+		{
+			"character":"NPC1",
+			"text":"Get going.",
+			"portrait":"smoke.png",
+			"speed":0.09
+		}
+	 ]
+	}
+]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://vraxmh7uh1f2"]
+
+[ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="1_d0o6p"]
+
+[node name="playerlight" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.75
+texture = ExtResource("1_d0o6p")
+texture_scale = 0.07

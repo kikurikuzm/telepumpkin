@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://chbbs287xrcbf"]
 
 [ext_resource type="Script" path="res://Scripts/footstepManager.gd" id="1"]
-[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Resources/Tile Sets/farmlandTiles.tres" id="2_ovc2c"]
-[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Resources/Tile Sets/cityTiles.tres" id="3_h0a6l"]
-[ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Resources/Tile Sets/apartments.tres" id="4_4jasy"]
+[ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="2_ovc2c"]
+[ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="3_h0a6l"]
+[ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="4_4jasy"]
 
 [node name="footstepManager" type="Node2D"]
 script = ExtResource("1")

@@ -1,117 +1,138 @@
-[gd_scene load_steps=24 format=3 uid="uid://omxwiw3x34ud"]
+[gd_scene load_steps=33 format=3 uid="uid://omxwiw3x34ud"]
 
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/pumpkin.gd" id="2"]
-[ext_resource type="Shader" path="res://Resources/Shaders/chromaticabberation.gdshader" id="2_s7kpt"]
+[ext_resource type="Material" uid="uid://cs4pjrqbas4d8" path="res://Resources/Shaders/pumpkinHighlight.tres" id="2_23knt"]
+[ext_resource type="Texture2D" uid="uid://dwlb056utp2x7" path="res://Sprites/Misc/rotting pumpkin.png" id="3_n0aru"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6h8hb"]
-friction = 0.8
+friction = 0.25
 bounce = 0.33
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fxkg7"]
-shader = ExtResource("2_s7kpt")
-shader_parameter/r_displacement = Vector2(5.976, 4.444)
-shader_parameter/g_displacement = Vector2(1.446, 0)
-shader_parameter/b_displacement = Vector2(-3.403, -3.861)
+[sub_resource type="AtlasTexture" id="AtlasTexture_44wpi"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ewnnw"]
-animation = &"idle"
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3xuk"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1b0y"]
-animation = &"insane"
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kxjy"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_owba8"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_ewnnw")
-blend_point_0/pos = 0.9
-blend_point_1/node = SubResource("AnimationNodeAnimation_d1b0y")
-blend_point_1/pos = -1.0
-value_label = "0.1"
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmik3"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2i68o"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6t1t"]
+atlas = ExtResource("3_n0aru")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kg253"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44wpi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3xuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kxjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmik3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2i68o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6t1t")
+}],
+"loop": true,
+"name": &"rotting",
+"speed": 5.0
+}]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_myx2m"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tck4o"]
+noise = SubResource("FastNoiseLite_myx2m")
 
 [sub_resource type="Animation" id="Animation_vqewv"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(5.976, 4.444)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/1/path = NodePath("..:skew")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1.446, 0)]
+"values": [0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/b_displacement")
+tracks/2/path = NodePath(".:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-3.403, -3.861)]
+"values": [Color(1, 0.443137, 1, 0.396078)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../pumpkin2:scale")
+tracks/3/path = NodePath("..:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, 2)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../pumpkin2:skew")
+tracks/4/path = NodePath(".:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../pumpkin2:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 2)]
+"values": [Vector2(0, 6)]
 }
 
 [sub_resource type="Animation" id="Animation_nm6hs"]
@@ -119,7 +140,7 @@ resource_name = "explode"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../pumpkin2:scale")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -131,7 +152,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../pumpkin2:skew")
+tracks/1/path = NodePath("..:skew")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -143,7 +164,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = false
-tracks/2/path = NodePath(".:modulate")
+tracks/2/path = NodePath("..:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -154,56 +175,44 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/imported = false
-tracks/3/enabled = false
-tracks/3/path = NodePath("../pumpkin2:modulate")
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 0.443137, 1, 0.396078)]
 }
 
 [sub_resource type="Animation" id="Animation_gw7h8"]
 resource_name = "idle"
-length = 2.0
-loop_mode = 1
+length = 5.0
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/r_displacement")
-tracks/0/interp = 1
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 0.258816, 1),
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.6, 0.8, 0.9, 1.4, 1.8, 1.9, 2.4, 3, 3.5, 3.7, 4, 4.2, 4.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(5.976, 4.444), Vector2(8, 5), Vector2(5.976, 4.444)]
+"values": [Vector2(0, 6), Vector2(2.99776, 10.0036), Vector2(-3.99702, 7.00255), Vector2(0, 10.0036), Vector2(1.9985, 4.00146), Vector2(2.99776, 5.00183), Vector2(-2.99777, 7.00255), Vector2(0.999252, 10.0036), Vector2(0.999252, 9.00328), Vector2(3.99701, 13.0047), Vector2(0, 10.0036), Vector2(3.99701, 11.004), Vector2(-0.999268, 5.00183), Vector2(0, 0), Vector2(-2.99777, 9.00328), Vector2(0, 7.00255), Vector2(1.9985, 7.00255)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/g_displacement")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 0.258816, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1.446, 0), Vector2(1.446, -1), Vector2(1.446, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/b_displacement")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 0.258816, 1),
-"update": 0,
-"values": [Vector2(-3.403, -3.861), Vector2(-6, -5), Vector2(-3.403, -3.861)]
+"values": [Color(1, 0.443137, 1, 0.396078)]
 }
 
 [sub_resource type="Animation" id="Animation_jtubt"]
@@ -213,7 +222,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../pumpkin2:position")
+tracks/0/path = NodePath("..:position")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -230,7 +239,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../pumpkin2:scale")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -242,7 +251,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../pumpkin2:position")
+tracks/1/path = NodePath("..:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -258,7 +267,7 @@ length = 0.33
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../pumpkin2:scale")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -270,7 +279,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../pumpkin2:position")
+tracks/1/path = NodePath("..:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -286,50 +295,26 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:material:shader_parameter/r_displacement")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(9.84915, 1),
-"update": 0,
-"values": [Vector2(7, 7), Vector2(5.976, 4.444)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:material:shader_parameter/g_displacement")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(9.84915, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.446, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:material:shader_parameter/b_displacement")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(9.84915, 1),
-"update": 0,
-"values": [Vector2(-7, -7), Vector2(-3.403, -3.861)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../pumpkin2:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(4.75683, 0.225313),
 "update": 0,
 "values": [Vector2(2.564, 0.4), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.443137, 1, 0.396078)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ej3c"]
@@ -342,6 +327,19 @@ _data = {
 "normalTeleport": SubResource("Animation_js5y7"),
 "teleport": SubResource("Animation_r1k2p")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ewnnw"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1b0y"]
+animation = &"insane"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_owba8"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ewnnw")
+blend_point_0/pos = 0.9
+blend_point_1/node = SubResource("AnimationNodeAnimation_d1b0y")
+blend_point_1/pos = -1.0
+value_label = "0.1"
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(26, 4)
@@ -364,16 +362,14 @@ point_count = 2
 curve = SubResource("Curve_675qh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rdjmg"]
+particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(10, 6, 1)
-particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 spread = 93.39
-gravity = Vector3(0, -20, 0)
 initial_velocity_min = 5.37
 initial_velocity_max = 5.37
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, -20, 0)
 tangential_accel_min = -17.39
 tangential_accel_max = 15.8
 scale_min = 0.41
@@ -383,7 +379,7 @@ color = Color(1, 0.67451, 1, 0.662745)
 color_ramp = SubResource("GradientTexture1D_vfn7y")
 turbulence_noise_strength = 0.59
 
-[node name="pumpkin" type="RigidBody2D" groups=["pumpkin"]]
+[node name="pumpkin" type="RigidBody2D" groups=["pumpkin", "useManholes"]]
 collision_layer = 5
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_6h8hb")
@@ -392,35 +388,39 @@ lock_rotation = true
 freeze_mode = 1
 script = ExtResource("2")
 
-[node name="pumpkin2" type="Sprite2D" parent="."]
-modulate = Color(0.682353, 0.67451, 1, 1)
+[node name="pumpkinSprite" type="AnimatedSprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+material = ExtResource("2_23knt")
 position = Vector2(0, 2)
-texture = ExtResource("1")
+sprite_frames = SubResource("SpriteFrames_kg253")
+animation = &"normal"
 
-[node name="abberation" type="Sprite2D" parent="."]
+[node name="abberation" type="Sprite2D" parent="pumpkinSprite"]
 visible = false
-material = SubResource("ShaderMaterial_fxkg7")
-position = Vector2(0, 4)
-texture = ExtResource("1")
+modulate = Color(1, 0.443137, 1, 0.396078)
+position = Vector2(0, 6)
+scale = Vector2(0.0664063, 0.0625)
+texture = SubResource("NoiseTexture2D_tck4o")
 
-[node name="AnimationTree" type="AnimationTree" parent="abberation"]
+[node name="AnimationTree" type="AnimationTree" parent="pumpkinSprite/abberation"]
+libraries = {
+"": SubResource("AnimationLibrary_8ej3c")
+}
 tree_root = SubResource("AnimationNodeBlendSpace1D_owba8")
 anim_player = NodePath("../AnimationPlayer")
 parameters/blend_position = 1.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="abberation"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="pumpkinSprite/abberation"]
 libraries = {
 "": SubResource("AnimationLibrary_8ej3c")
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
 polygon = PackedVector2Array(11, 1, 13, 4, 13, 11, 11, 14, 8, 16, -8, 16, -11, 14, -13, 11, -13, 4, -11, 1, -7, -1, 0, -1, 7, -1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-visible = false
-collision_layer = 2
-collision_mask = 2
+collision_layer = 32770
+collision_mask = 32770
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 1)
@@ -443,6 +443,7 @@ one_shot = true
 [node name="selectParticles" type="GPUParticles2D" parent="."]
 z_index = -1
 position = Vector2(0, 10)
+emitting = false
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_rdjmg")
 lifetime = 1.79

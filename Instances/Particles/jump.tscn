@@ -1,33 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://c47s7bcptcs5v"]
+[gd_scene load_steps=3 format=3 uid="uid://c47s7bcptcs5v"]
 
-[sub_resource type="Curve" id="Curve_fpph1"]
-_data = [Vector2(0.65, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -9.42148, 0.0, 0, 0]
-point_count = 2
+[ext_resource type="Script" path="res://Scripts/genericParticleClean.gd" id="1_wqpwh"]
 
-[sub_resource type="CurveTexture" id="CurveTexture_itlxa"]
-curve = SubResource("Curve_fpph1")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n6pu4"]
-lifetime_randomness = 0.07
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lhyrf"]
+emission_shape = 3
+emission_box_extents = Vector3(5, 0, 0)
 particle_flag_align_y = true
 particle_flag_disable_z = true
-direction = Vector3(0, 180, 0)
-spread = 69.44
+direction = Vector3(0, -1, 0)
 gravity = Vector3(0, 98, 0)
-initial_velocity_min = 82.02
-initial_velocity_max = 82.02
-orbit_velocity_min = -0.6
-orbit_velocity_max = 0.6
-scale_min = 0.83
-scale_max = 1.3
-scale_curve = SubResource("CurveTexture_itlxa")
+initial_velocity_min = 16.45
+initial_velocity_max = 43.4
+angular_velocity_min = 1.65
+angular_velocity_max = 1.65
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.75
+scale_max = 1.85
+color = Color(0.686275, 1, 0.701961, 1)
 collision_mode = 1
-collision_friction = 0.36
-collision_bounce = 0.19
+collision_friction = 0.55
+collision_bounce = 0.3
 
-[node name="jump" type="Node2D"]
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-process_material = SubResource("ParticleProcessMaterial_n6pu4")
+[node name="landParticles" type="GPUParticles2D"]
+position = Vector2(0, -1)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_lhyrf")
+lifetime = 1.6
 explosiveness = 1.0
-fixed_fps = 60
+script = ExtResource("1_wqpwh")
+
+[node name="Timer" type="Timer" parent="."]

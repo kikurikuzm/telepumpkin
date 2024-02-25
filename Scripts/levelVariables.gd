@@ -1,20 +1,37 @@
-extends Node2D
+extends Node
 
-@export_category("Level Variables")
+@export var levelVariables: LevelVariables
 
-@export_group("Player-Related")
-@export var canTeleport = true
-@export_subgroup("View")
-@export var playerZoom = 4.5
-@export var hasVignette = false
-@export var hasMapView = true
-@export var startsInMap = false
+var canTeleport = true
+var playerZoom = 4.5
+var hasVignette = false
+var hasMapView = true
+var startsInMap = false
+var mapCameraLocked = true
 
+var levelAmbience : AudioStream
+var levelTransition = 1
+var levelMusic : AudioStream
+var musicChance = 0.2
+var isDark = false
+var levelBackground : Texture2D
+var levelForeground : Texture2D
+var worldEnvironment : Environment
+var levelGravity = 9.8
 
-@export_group("Level-Related")
-@export var levelAmbience : AudioStream
-@export var levelTransition = 1
-@export_subgroup("Appearance")
-@export var levelBackground : Texture2D
-@export var levelForeground : Texture2D
-@export var worldEnvironment : Environment
+func _ready():
+	canTeleport = levelVariables.canTeleport
+	playerZoom = levelVariables.playerZoom
+	hasVignette = levelVariables.hasVignette
+	hasMapView = levelVariables.hasMapView
+	startsInMap = levelVariables.startsInMap
+	mapCameraLocked = levelVariables.mapCameraLocked
+	levelAmbience = levelVariables.levelAmbience
+	levelTransition = levelVariables.levelTransition
+	levelBackground = levelVariables.levelBackground
+	levelForeground = levelVariables.levelForeground
+	worldEnvironment = levelVariables.worldEnvironment
+	isDark = levelVariables.isDark
+	levelMusic = levelVariables.levelMusic
+	musicChance = levelVariables.musicChance
+	levelGravity = levelVariables.levelGravity

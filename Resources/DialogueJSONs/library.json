@@ -1,0 +1,61 @@
+[
+	{"conversation": [
+		{
+		"character":"NPC",
+		"text":"Welcome to the library.",
+		"portrait":"old.png",
+		"speed":0.08,
+		"cameraSpeed":0.08,
+		"zoom":"Vector2(7,7)"
+		},
+		{
+			"character":"NPC",
+			"text":"Our selection of books is sparse at the moment.",
+			"portrait":"old.png",
+			"speed":0.08
+		},
+		{
+			"character":"NPC",
+			"text":"But if you find something you like, feel free to take it.",
+			"portrait":"old.png",
+			"speed":0.08
+		},
+		{
+			"character":"NPC",
+			"text":"Currency doesn't really matter to me at this point. Any money from down here is worthless elsewhere nowadays.",
+			"portrait":"old.png",
+			"speed":0.08
+		}
+	 ]
+	},
+	{"conversation": [
+		{
+		"character":"NPC4",
+		"text":"I hope people come along and get us out of here...",
+		"portrait":"kid.png",
+		"speed":0.06,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		},
+		{
+		"character":"NPC4",
+		"text":"This town has been sinking more and more into the ground. We can't even leave at this point.",
+		"portrait":"kid.png",
+		"speed":0.06,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		}
+	 ]
+	},
+	{"conversation": [
+		{
+		"character":"NPC3",
+		"text":"None of these are legible.",
+		"portrait":"",
+		"speed":0.07,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		}
+	 ]
+	}
+]

@@ -6,16 +6,18 @@ extends RigidBody2D
 var highlighted = false
 var maxUnst
 
-@onready var animationPlayer = get_node("abberation/AnimationPlayer")
-@onready var animationTree = get_node("abberation/AnimationTree")
+@onready var animationPlayer = get_node("pumpkinSprite/abberation/AnimationPlayer")
+@onready var animationTree = get_node("pumpkinSprite/abberation/AnimationTree")
 @onready var poofs = preload("res://Instances/Particles/poofs.tscn")
+@onready var rottenSplash = preload("res://Instances/Particles/RottingTeleportParticles.tscn")
 @onready var teleportLight = preload("res://Instances/Particles/teleport_light.tscn")
 var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 
-@onready var sprite = $pumpkin2
+@onready var sprite = $pumpkinSprite
+
+var highlightDistortion : float = 0.2
 
 var testpos
-var gravity = 3
 var customVelocity = Vector2.ZERO
 
 #random size adjustment when pumpkins are spawned
@@ -24,20 +26,14 @@ func _init():
 	scale.y = scale.x
 
 func _ready():
+	animationPlayer.play("normalIdle")
 	if unstable:
 		maxUnst = unstableTeleport
-		$abberation.visible = true
-		animationPlayer.play("idle")
-	if !unstable:
-		animationPlayer.play("normalIdle")
+		sprite.animation = "rotting"
 
 func _physics_process(delta):
-	#basic physics for the pumpkins
 	if unstable:
-		animationTree.active = true
-		animationTree.set("parameters/blend_position", float(unstableTeleport) / float(maxUnst))
-	
-	highlighted = false
+		sprite.frame = ceil(maxUnst/unstableTeleport)
 	
 	var areaArray = $Area2D.get_overlapping_areas()
 	for area in areaArray:
@@ -45,25 +41,43 @@ func _physics_process(delta):
 			if area.get_parent().enterManhole(linear_velocity) != null:
 				var manhole = area.get_parent()
 				var exitVariables = manhole.enterManhole(linear_velocity)
+				manhole.enterSound(self.linear_velocity.y / 20, randf_range(0.80, 1.0))
 				position = exitVariables[0]
 				linear_velocity = exitVariables[1]
 				area.get_parent().pumpkinAmount -= 1
 
+func getVelocity():
+	return linear_velocity
+	
+func traverseManhole(exitPos: Vector2, exitVel: Vector2):
+	position = exitPos
+	linear_velocity = exitVel
+
 func _process(delta):
 	if highlighted:
-		sprite.modulate = lerp(sprite.modulate, Color(0.8, 0.75, 1.0), 0.25)
+		highlightDistortion = lerp(highlightDistortion, 0.16, 0.1)
+		sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
 		$selectParticles.emitting = true
+		
 	else:
-		sprite.modulate = lerp(sprite.modulate, Color(1.0, 1.0, 1.0), 0.15)
+		highlightDistortion = lerp(highlightDistortion, 0.0, 0.02)
+		sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
 		$selectParticles.emitting = false
+		
+	highlighted = false
+	
 
-func teleport(hostPos: Transform2D):
+func teleport(hostPos: Transform2D) -> void:
 	#called by the player script when the pumpkin is teleported
 	testpos = hostPos
 	custom_integrator = true
 	
 	if unstable:
-		$abberation.visible = true
+		var splashInstance = rottenSplash.instantiate()
+		get_parent().add_child(splashInstance)
+		splashInstance.emitting = true
+		splashInstance.global_position = global_position
+		
 		if unstableTeleport > 0:
 			unstableTeleport -= 1
 			animationPlayer.play("teleport")
@@ -75,7 +89,7 @@ func teleport(hostPos: Transform2D):
 		animationPlayer.play("normalTeleport")
 		animationPlayer.queue("normalIdle")
 
-func _integrate_forces(state):
+func _integrate_forces(state) -> void:
 	if custom_integrator == true:
 		linear_velocity = Vector2.ZERO
 		
@@ -90,10 +104,24 @@ func _integrate_forces(state):
 		
 		custom_integrator = false
 
-func spawnTracer(oldPosition:Vector2):
+func spawnTracer(oldPosition:Vector2) -> void:
+	apply_impulse(Vector2(0, -60))
+	
 	var rayInst = raycast.instantiate()
 	get_parent().add_child(rayInst)
 	rayInst.sender = self
 	rayInst.global_position = oldPosition
 	rayInst.target_position = testpos.get_origin() - rayInst.global_position
 	rayInst.get_node("Line2D").add_point(testpos.get_origin() - rayInst.global_position)
+
+func save() -> Dictionary:
+	var saveDict = {
+		"name" : name,
+		"posX" : position.x,
+		"posY" : position.y,
+		"teleports" : unstableTeleport
+	}
+	return saveDict
+
+func loadJSON(nodeData) -> void:
+	unstableTeleport = nodeData["teleports"]
