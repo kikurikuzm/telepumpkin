@@ -1,6 +1,5 @@
 extends RigidBody2D
 
-#unstable is a basic teleport limit per-pumpkin. work in progress
 @export var unstable = false
 @export var unstableTeleport : int
 var highlighted = false
@@ -84,6 +83,7 @@ func teleport(hostPos: Transform2D) -> void:
 			animationPlayer.queue("idle")
 		if unstableTeleport <= 0:
 			#deletes the pumpkin when unstableTeleport reaches 0
+			get_parent().get_parent().restartLevel()
 			self.queue_free()
 	if !unstable:
 		animationPlayer.play("normalTeleport")

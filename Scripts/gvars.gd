@@ -20,7 +20,7 @@ signal pumpkinCollected()
 signal levelFinish()
 signal debugLChange(level)
 
-var versionNum = "Beta 0.6.0/testing"
+var versionNum = "0.7.0"
 
 var prevScene
 var prevLoc = Vector2.ZERO

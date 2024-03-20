@@ -1,18 +1,19 @@
 [gd_resource type="Resource" script_class="LevelVariables" load_steps=4 format=3 uid="uid://cqrj2u4yhvtx3"]
 
-[ext_resource type="AudioStream" uid="uid://cn2rga2b8wx3a" path="res://Audio/Quiet Basement Ambience (Background Effect) (128 kbps)(1).mp3" id="1_cdvus"]
 [ext_resource type="Script" path="res://Scripts/resourceScripts/levelVariables.gd" id="2_nq6xc"]
 [ext_resource type="Environment" uid="uid://dxo0lyghjrd56" path="res://Resources/Environments/Sewers.tres" id="3_ytlch"]
+
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_v23iy"]
 
 [resource]
 script = ExtResource("2_nq6xc")
 canTeleport = true
-playerZoom = 5.0
+playerZoom = 4.0
 hasVignette = true
 hasMapView = true
 startsInMap = true
 mapCameraLocked = true
-levelAmbience = ExtResource("1_cdvus")
+levelAmbience = SubResource("AudioStreamMP3_v23iy")
 levelTransition = 1
 musicChance = 0.2
 levelGravity = 9.8

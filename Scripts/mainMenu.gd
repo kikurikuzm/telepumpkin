@@ -91,7 +91,7 @@ func _on_graphics_settings_item_selected(index):
 
 func _on_fullscreen_toggled(button_pressed):
 	if button_pressed == true:
-		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_FULLSCREEN)
+		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	if button_pressed == false:
 		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_MAXIMIZED)
 

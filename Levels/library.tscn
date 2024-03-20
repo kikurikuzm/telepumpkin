@@ -88,11 +88,6 @@ position = Vector2(451, 416)
 npcLook = "cool"
 spriteFlip = true
 
-[node name="NPC3" parent="." instance=ExtResource("9_g63xh")]
-position = Vector2(341, 802)
-npcLook = "inspect"
-convoID = 2
-
 [node name="NPC4" parent="." instance=ExtResource("9_g63xh")]
 position = Vector2(379, 800)
 npcLook = "kid"

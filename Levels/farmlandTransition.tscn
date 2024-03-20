@@ -70,17 +70,18 @@ rotation = -1.5708
 texture = SubResource("GradientTexture2D_radqq")
 
 [node name="darkness" type="Sprite2D" parent="."]
-position = Vector2(1076, 1547)
+z_index = 15
+position = Vector2(1076, 5274)
+scale = Vector2(3.72, 8.32098)
 texture = SubResource("GradientTexture2D_ip128")
 
 [node name="exit" parent="." instance=ExtResource("6_tvpu3")]
 position = Vector2(2001, 291)
 
 [node name="trigger" parent="." instance=ExtResource("10_hblqf")]
-position = Vector2(1335, 1037)
+position = Vector2(1335, 3824)
 scale = Vector2(16.31, 12.26)
-triggerListVariables = null
+updateTriggerListVariables = null
 sendLevel = ExtResource("5_1grd4")
 spawnPosition = Vector2(798, -130)
 levelTransition = 2
-updateTriggerListVariables = null

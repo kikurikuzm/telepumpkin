@@ -110,7 +110,7 @@ func _process(delta):
 			inMap = false
 
 func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
-	print(savedLevel)
+	print_debug(savedLevel)
 	if savedLevel != null:
 		saveScene()
 	
@@ -133,6 +133,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 			transitionLayer.playTransition("intermissionEnd")
 		
 	nextTransition = null
+	mainCamera.make_current()
 	currentLevel.queue_free()
 	var levInst = level.instantiate()
 	add_child(levInst)
@@ -190,7 +191,6 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		
 		player.playerLight.visible = levelVariables.isDark
 	if inMap: levelCamera.make_current()
-	
 	manholeVisLine()
 	
 	player.changeState("playeridle")
@@ -215,7 +215,7 @@ func loadLevel(level,transition=1,spawnLocation=Vector2.ZERO):
 		smallestCellX = currentLevel.map_to_local(smallestCell).x
 
 func _on_pumpkin_collected():
-	print("pumpkin collected")
+	print_debug("pumpkin collected")
 
 func _on_level_complete():
 	if levNum < levArray.size():
@@ -285,6 +285,11 @@ func manholeVisLine():
 			hole1ID = null
 			hole2ID = null
 
+func restartLevel() -> void:
+	var currentLevel = load(savedLevel)
+	loadLevel(currentLevel)
+	gvars.pCollected = 0
+
 func saveScene() -> void:
 	if savedLevel == null:
 		emit_signal("saveComplete")
@@ -302,7 +307,7 @@ func saveScene() -> void:
 			
 	emit_signal("saveComplete")
 	levelSave.close()
-	#print("saved ", savedLevel.get_file())
+	#print_debug_debug("saved ", savedLevel.get_file())
 
 func loadStoredScene(level) -> void:
 	var storedLevelFiles = DirAccess.get_files_at("user://levelSaves/")
@@ -315,7 +320,7 @@ func loadStoredScene(level) -> void:
 				var levelData = json.parse(jsonLine)
 				
 				if not levelData == OK:
-					print(json.get_error_message())
+					print_debug(json.get_error_message())
 				
 				var nodeData = json.get_data()
 				for node in currentLevel.get_children():

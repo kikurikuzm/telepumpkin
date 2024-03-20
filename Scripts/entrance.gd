@@ -1,3 +1,4 @@
+@icon("res://Resources/Editor Icons/entrance.png")
 extends Node2D
 
 @onready var area2d = $Area2D

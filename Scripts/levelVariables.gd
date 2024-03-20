@@ -1,3 +1,4 @@
+@icon("res://Resources/Editor Icons/levelvariables.png")
 extends Node
 
 @export var levelVariables: LevelVariables

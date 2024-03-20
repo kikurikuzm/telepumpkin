@@ -40,9 +40,7 @@ func pause():
 
 func _on_restart_pressed():
 	var rootNode = get_parent()
-	var currentLevel = load(rootNode.savedLevel)
-	rootNode.loadLevel(currentLevel)
-	gvars.pCollected = 0
+	rootNode.restartLevel()
 
 func save():
 	var saveData = FileAccess.open("user://save.dat", FileAccess.WRITE)

@@ -3,22 +3,23 @@
 
 extends EditorElement
 class_name Trigger
+##A level element that can activate other elements.
 
-@onready var area2d = $Area2D
+@onready var area2d : Area2D = $Area2D 
 
 @export_category("Trigger Properties")
 @export_group("Trigger Nodes")
 @export var triggerList : Array ##A list of the nodes to trigger when this trigger is triggered.
-@export var triggerListVariables : Array
-@export var updateTriggerListVariables = false
+@export var triggerListVariables : Array ##A way to trigger nodes and provide them with a variable upon triggering.
+@export var updateTriggerListVariables = false ##An editor button that updates the trigger list variables.
 @export_group("Trigger Settings")
 @export var triggersOnce = true ##Whether or not the trigger will only trigger once.
 @export var anythingTriggers = false ##Whether or not the trigger is triggered by any physics object (Pumpkins, TPP) or only the player.
 @export var mustInteract = false ##Whether or not the player must press the interact button to trigger this trigger.
 @export_group("Level Changing")
 @export var sendLevel : PackedScene ##The scene to send the player to when this is triggered.
-@export var spawnPosition = Vector2.ZERO 
-@export var levelTransition = 0
+@export var spawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
+@export var levelTransition = 0 ##What level transition to use upon changing level.
 
 
 var lastTriggerList
@@ -39,6 +40,7 @@ func _input(event):
 			if node.is_in_group("player"):
 				triggerThings(node)
 
+## The main trigger function. Handles the triggering of its given objects and changing the level if applicable.
 func triggerThings(cause) -> void:
 	print(cause)
 	if !hasTriggered:
@@ -46,7 +48,7 @@ func triggerThings(cause) -> void:
 			var currentIndex = 0
 			for i in triggerList:
 				if triggerListVariables[currentIndex] != null:
-					get_node(i).trigger(triggerListVariables)
+					get_node(i).trigger(triggerListVariables[currentIndex])
 				else:
 					get_node(i).trigger()
 				print("triggered ", str(i))
@@ -91,7 +93,8 @@ func checkTriggerList():
 		if node is NodePath:
 			if get_node(node) is NPC:
 				triggerListVariables.resize(triggerList.size())
-				triggerListVariables[currentIndex] = {"posX" : 0, "posY" : 0}
+				if triggerListVariables[currentIndex] == null:
+					triggerListVariables[currentIndex] = {"posX" : 0, "posY" : 0}
 		
 		currentIndex += 1
 	print("updated trigger variables")

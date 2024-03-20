@@ -98,7 +98,7 @@ levelVariables = ExtResource("9_kxrwp")
 position = Vector2(656, 684.35)
 
 [node name="peater2" parent="." instance=ExtResource("11_j80at")]
-position = Vector2(625, 721.317)
+position = Vector2(625, 763.275)
 rotation = 1.5708
 
 [node name="peater3" parent="." instance=ExtResource("11_j80at")]

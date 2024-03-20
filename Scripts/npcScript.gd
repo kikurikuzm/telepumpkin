@@ -1,6 +1,10 @@
 @tool
+@icon("res://Resources/Editor Icons/npc.png")
 extends Node2D
 class_name NPC
+##An interactable level element that displays dialogue. Can be triggered.
+##
+##Its trigger variable changes its position rather than initiating dialogue.
 
 @onready var animSprite = get_node("AnimatedSprite2D")
 
@@ -52,11 +56,11 @@ func loadJSON(nodeData) -> void:
 	convoID = nodeData["convoID"]
 	visible = nodeData["visible"]
 
-func trigger(extraVariables = null):
-	if extraVariables == null:
+func trigger(triggerChangePosition = null):
+	if triggerChangePosition == null:
 		dialogueManager.convoInitialize(convoID, self)
 		canTalk = false
 	else:
-		global_position = Vector2(extraVariables[0].posX, extraVariables[0].posY)
+		global_position = Vector2(triggerChangePosition.posX, triggerChangePosition.posY)
 		
 	

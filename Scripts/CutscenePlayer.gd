@@ -1,13 +1,12 @@
 extends AnimationPlayer
 class_name cutscenePlayer
-## This enables cutscenes to be played on a scene-by-scene basis.
+## A level element that provides a way to show the player a cutscene.
 ##
-## This class takes in the name of an animation alongside placeholder camera and player objects.
-## When activated via a trigger, it plays the given animation alongside setting the player to the 'busy' state.
-##
+## This element takes in the name of an animation alongside placeholder camera and player objects.[br]
+## When activated via a [Trigger], it plays the given animation alongside setting the player to the 'busy' state.
 
-@onready var mainCamera = get_parent().get_parent().get_node("mainCamera") ##A reference to the main camera of the 'Main' node.
-@onready var player = get_parent().get_parent().get_node("Player") ##A reference to the player node.
+@onready var mainCamera : Camera2D = get_parent().get_parent().get_node("mainCamera")##A reference to the main camera of the 'Main' node.
+@onready var player : Player = get_parent().get_parent().get_node("Player") ##A reference to the player node.
 @onready var cinemaBoxes = get_parent().get_parent().get_node("cinemaboxes") ##A reference to the 'cinemaboxes' that are shown when in a cutscene.
 
 @export var animationName : String ##The name of the animation for the cutscene. The animation must be in it's own animation library.
