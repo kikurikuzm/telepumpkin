@@ -147,3 +147,11 @@ texture = SubResource("GradientTexture2D_qvp4l")
 [node name="sacrificelight" type="PointLight2D" parent="."]
 position = Vector2(-929, 894)
 texture = ExtResource("12_kj7qs")
+
+[node name="sacrificelight2" type="PointLight2D" parent="."]
+position = Vector2(-929, 894)
+texture = ExtResource("12_kj7qs")
+
+[node name="sacrificelight3" type="PointLight2D" parent="."]
+position = Vector2(-929, 894)
+texture = ExtResource("12_kj7qs")

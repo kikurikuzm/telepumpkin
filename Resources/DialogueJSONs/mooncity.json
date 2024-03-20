@@ -10,7 +10,13 @@
 		},
 		{
 			"character":"NPC",
-			"text":"You know, the only organic things we get down here are rejects from above.",
+			"text":"The allure of a giant, mysterious pit got the better of you, I imagine.",
+			"portrait":"smoke.png",
+			"speed":0.07
+		},
+		{
+			"character":"NPC",
+			"text":"...I sure wish I had the choice that you did.",
 			"portrait":"smoke.png",
 			"speed":0.07
 		}
@@ -33,13 +39,13 @@
 		},
 		{
 			"character":"NPC5",
-			"text":"[wave]Five dollars is the measly cost for a trip to the moon. A once-in-a-lifetime experience...",
+			"text":"[wave]Five Fullmoons is the measly cost for a trip to the moon. A once-in-a-lifetime experience...",
 			"portrait":"cloak.png",
 			"speed":0.07
 		},
 		{
 			"character":"NPC5",
-			"text":"[wave]So if you want this here ticket, then you'll need to cough up that five dollars [/wave]fast.",
+			"text":"[wave]So if you want this here ticket, then you'll need to cough up those five Fullmoons [/wave]fast.",
 			"portrait":"cloak.png",
 			"speed":0.07,
 			"quest":2
@@ -61,7 +67,7 @@
 			{
 				"character":"NPC5",
 				"portrait":"cloak.png",
-				"text":"[wave]Ah, you've come to me with the money. Let's get you on your way then.",
+				"text":"[wave]Ah, you've come to me with the coins. Let's get you on your way then.",
 				"speed":0.07,
 				"zoom":"Vector2(5.5,5.5)",
 				"quest":7

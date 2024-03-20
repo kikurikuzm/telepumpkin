@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="LevelVariables" load_steps=4 format=3 uid="uid://b7lh1l45lqecv"]
+[gd_resource type="Resource" script_class="LevelVariables" load_steps=3 format=3 uid="uid://b7lh1l45lqecv"]
 
-[ext_resource type="AudioStream" uid="uid://dm3o0rstld8pl" path="res://Audio/apartment ambience.wav" id="1_4ynpc"]
+[ext_resource type="Environment" uid="uid://bdkllmoqon3ww" path="res://Resources/Environments/moonCity.tres" id="2_4qxdj"]
 [ext_resource type="Script" path="res://Scripts/resourceScripts/levelVariables.gd" id="2_hpl7i"]
-[ext_resource type="Environment" uid="uid://b8wuygwcxt70r" path="res://Resources/Environments/Farmlands.tres" id="3_p7exs"]
 
 [resource]
 script = ExtResource("2_hpl7i")
@@ -12,9 +11,8 @@ hasVignette = true
 hasMapView = false
 startsInMap = false
 mapCameraLocked = false
-levelAmbience = ExtResource("1_4ynpc")
 levelTransition = 1
 musicChance = 0.2
 levelGravity = 9.8
 isDark = false
-worldEnvironment = ExtResource("3_p7exs")
+worldEnvironment = ExtResource("2_4qxdj")

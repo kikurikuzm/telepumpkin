@@ -147,31 +147,73 @@ shadow_filter = 2
 texture = ExtResource("10_r2bpm")
 texture_scale = 0.4
 
-[node name="RedPulsingLight" parent="." instance=ExtResource("11_otnri")]
-z_index = -5
-position = Vector2(1872.02, -175.813)
-
 [node name="MoonDoor" parent="." instance=ExtResource("9_w3jp4")]
 position = Vector2(163, -32)
 locked = true
 
 [node name="MoonDoor2" parent="." instance=ExtResource("9_w3jp4")]
 position = Vector2(446, -32)
-scale = Vector2(-1, 1)
+rotation = 3.14159
+scale = Vector2(-1, -1)
 flipped = true
 
 [node name="MoonDoor3" parent="." instance=ExtResource("9_w3jp4")]
 position = Vector2(1026, -32)
-scale = Vector2(-1, 1)
+rotation = 3.14159
+scale = Vector2(-1, -1)
 flipped = true
 
+[node name="RedPulsingLight" parent="." instance=ExtResource("11_otnri")]
+z_index = -5
+position = Vector2(1872.02, -175.813)
+
 [node name="sacrifice1" type="PointLight2D" parent="."]
-position = Vector2(3327, 224.358)
+position = Vector2(472.407, -56.5511)
 color = Color(0, 1, 1, 1)
 energy = 0.6
 shadow_filter = 2
 texture = ExtResource("10_r2bpm")
-texture_scale = 0.6
+texture_scale = 0.04
+
+[node name="sacrifice2" type="PointLight2D" parent="."]
+position = Vector2(499.004, -39.9502)
+color = Color(0, 1, 1, 1)
+energy = 0.6
+shadow_filter = 2
+texture = ExtResource("10_r2bpm")
+texture_scale = 0.04
+
+[node name="sacrifice3" type="PointLight2D" parent="."]
+position = Vector2(529.002, -21.9472)
+color = Color(0, 1, 1, 1)
+energy = 0.6
+shadow_filter = 2
+texture = ExtResource("10_r2bpm")
+texture_scale = 0.04
+
+[node name="sacrifice4" type="PointLight2D" parent="."]
+position = Vector2(544.005, -50.9457)
+color = Color(0, 1, 1, 1)
+energy = 0.6
+shadow_filter = 2
+texture = ExtResource("10_r2bpm")
+texture_scale = 0.04
+
+[node name="sacrifice5" type="PointLight2D" parent="."]
+position = Vector2(571.003, -32.943)
+color = Color(0, 1, 1, 1)
+energy = 0.6
+shadow_filter = 2
+texture = ExtResource("10_r2bpm")
+texture_scale = 0.04
+
+[node name="sacrifice6" type="PointLight2D" parent="."]
+position = Vector2(600.001, -13.9401)
+color = Color(0, 1, 1, 1)
+energy = 0.6
+shadow_filter = 2
+texture = ExtResource("10_r2bpm")
+texture_scale = 0.04
 
 [node name="spawn" parent="." instance=ExtResource("3_v3y71")]
 position = Vector2(181, -16)

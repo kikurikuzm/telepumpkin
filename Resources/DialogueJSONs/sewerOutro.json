@@ -59,7 +59,14 @@
 	{"conversation":[
 		{
 			"character":"player",
-			"text":"[outline_size=8][outline_color=yellow]You got some money!",
+			"text":"[outline_size=8][outline_color=yellow]You got a handful of some coins!",
+			"portrait":"",
+			"speed":0.06,
+			"zoom":"Vector2(9, 9)"
+		},
+		{
+			"character":"player",
+			"text":"[outline_size=8][outline_color=yellow]They seem to have a picture of a full moon on one side, and what looks to be a face on the other.",
 			"portrait":"",
 			"speed":0.06,
 			"zoom":"Vector2(9, 9)"

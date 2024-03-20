@@ -16,15 +16,15 @@
 		},
 		{
 			"character":"NPC",
-			"text":"[shake rate=10.0 level=2]A room costs ten dollars.",
+			"text":"[shake rate=10.0 level=2]A room costs five Fullmoons.",
 			"portrait":"old.png",
 			"speed":0.08
 		},
 		{
 			"character":"NPC",
-			"text":"[shake rate=10.0 level=2]...I'm certainly considering lowering it though. I haven't sold a single room ever since the town went bankrupt.",
+			"text":"[shake rate=10.0 level=2]...",
 			"portrait":"old.png",
-			"speed":0.08
+			"speed":0.9
 		}
 	 ]
 	},

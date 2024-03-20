@@ -10,19 +10,7 @@
 		},
 		{
 			"character":"NPC",
-			"text":"Our selection of books is sparse at the moment.",
-			"portrait":"old.png",
-			"speed":0.08
-		},
-		{
-			"character":"NPC",
-			"text":"But if you find something you like, feel free to take it.",
-			"portrait":"old.png",
-			"speed":0.08
-		},
-		{
-			"character":"NPC",
-			"text":"Currency doesn't really matter to me at this point. Any money from down here is worthless elsewhere nowadays.",
+			"text":"Our selection of books is sparse at the moment, but if you find something you like, feel free to take it.",
 			"portrait":"old.png",
 			"speed":0.08
 		}

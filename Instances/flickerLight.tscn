@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://vf7h7cq8vyr1"]
+
+[ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="1_u02th"]
+[ext_resource type="Script" path="res://Scripts/flicker.gd" id="2_w28h6"]
+[ext_resource type="AudioStream" uid="uid://k3r7bt8es4ix" path="res://Audio/sfx/lightFlicker.ogg" id="3_1mpnj"]
+
+[node name="flickerLight" type="PointLight2D"]
+color = Color(1, 0.894118, 0.470588, 1)
+shadow_enabled = true
+shadow_filter = 1
+texture = ExtResource("1_u02th")
+offset = Vector2(0, 68)
+script = ExtResource("2_w28h6")
+
+[node name="flickerTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="lightFlicker" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_1mpnj")
+volume_db = -7.73
+attenuation = 11.3137
+max_polyphony = 5
