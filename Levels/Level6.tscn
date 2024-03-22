@@ -54,8 +54,8 @@ scale = Vector2(0.71999, 1)
 
 [node name="platform5" parent="." instance=ExtResource("9_ms3sg")]
 z_index = -1
-position = Vector2(869, 615)
-scale = Vector2(0.263, 1)
+position = Vector2(835, 615)
+scale = Vector2(0.383, 1)
 
 [node name="manhole" parent="." instance=ExtResource("8_ureig")]
 position = Vector2(832, 862)
@@ -67,13 +67,13 @@ direction = 1
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(941, 748)
 scale = Vector2(25.2656, 11.3125)
-energy = 0.65
+energy = 0.5
 blend_mode = 1
 texture = SubResource("GradientTexture2D_r4bnp")
 metadata/_edit_lock_ = true
 
 [node name="light2" type="PointLight2D" parent="."]
-position = Vector2(925, 555.739)
+position = Vector2(947, 549)
 scale = Vector2(1.62319, 2.93478)
 color = Color(0.960784, 0.988235, 0.576471, 1)
 energy = 1.48
@@ -97,8 +97,8 @@ texture = ExtResource("10_wvajx")
 offset = Vector2(0, 65)
 
 [node name="light4" type="PointLight2D" parent="."]
-position = Vector2(832, 757)
-scale = Vector2(0.688406, 0.929045)
+position = Vector2(848, 547)
+scale = Vector2(1.07246, 2.4907)
 color = Color(0.960784, 0.988235, 0.576471, 1)
 energy = 1.48
 shadow_enabled = true

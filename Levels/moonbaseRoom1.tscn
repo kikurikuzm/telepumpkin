@@ -168,7 +168,7 @@ z_index = -5
 position = Vector2(1872.02, -175.813)
 
 [node name="sacrifice1" type="PointLight2D" parent="."]
-position = Vector2(472.407, -56.5511)
+position = Vector2(485.433, -312.55)
 color = Color(0, 1, 1, 1)
 energy = 0.6
 shadow_filter = 2
@@ -176,7 +176,7 @@ texture = ExtResource("10_r2bpm")
 texture_scale = 0.04
 
 [node name="sacrifice2" type="PointLight2D" parent="."]
-position = Vector2(499.004, -39.9502)
+position = Vector2(512.03, -295.949)
 color = Color(0, 1, 1, 1)
 energy = 0.6
 shadow_filter = 2
@@ -184,7 +184,7 @@ texture = ExtResource("10_r2bpm")
 texture_scale = 0.04
 
 [node name="sacrifice3" type="PointLight2D" parent="."]
-position = Vector2(529.002, -21.9472)
+position = Vector2(542.028, -277.946)
 color = Color(0, 1, 1, 1)
 energy = 0.6
 shadow_filter = 2
@@ -192,7 +192,7 @@ texture = ExtResource("10_r2bpm")
 texture_scale = 0.04
 
 [node name="sacrifice4" type="PointLight2D" parent="."]
-position = Vector2(544.005, -50.9457)
+position = Vector2(557.031, -306.944)
 color = Color(0, 1, 1, 1)
 energy = 0.6
 shadow_filter = 2
@@ -200,7 +200,7 @@ texture = ExtResource("10_r2bpm")
 texture_scale = 0.04
 
 [node name="sacrifice5" type="PointLight2D" parent="."]
-position = Vector2(571.003, -32.943)
+position = Vector2(584.029, -288.942)
 color = Color(0, 1, 1, 1)
 energy = 0.6
 shadow_filter = 2
@@ -208,7 +208,7 @@ texture = ExtResource("10_r2bpm")
 texture_scale = 0.04
 
 [node name="sacrifice6" type="PointLight2D" parent="."]
-position = Vector2(600.001, -13.9401)
+position = Vector2(613.027, -269.939)
 color = Color(0, 1, 1, 1)
 energy = 0.6
 shadow_filter = 2

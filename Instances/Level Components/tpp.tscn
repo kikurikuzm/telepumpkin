@@ -82,10 +82,10 @@ stream = ExtResource("5_e133v")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -10)
-color = Color(0.666667, 0.0784314, 0, 1)
-energy = 1.26
+color = Color(0.741176, 0, 0.00784314, 1)
+energy = 2.0
 texture = ExtResource("4_037hj")
-texture_scale = 0.02
+texture_scale = 0.06
 
 [node name="clangAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_2v4sm")

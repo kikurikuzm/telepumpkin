@@ -5,9 +5,12 @@ var pointPos : Vector2
 var lineColor : Gradient
 
 const purpleGradient = preload("res://Resources/purplegradient.tres")
+const fadedGradient = preload("res://Resources/fadedGradient.tres")
 const orangeGradient = preload("res://Resources/orangegradient.tres")
 
 var stretching = false
+
+@onready var playerLight = $PointLight2D
 
 func _process(delta):
 	if !stretching:
@@ -19,8 +22,19 @@ func _process(delta):
 		lineColor = orangeGradient
 	elif global_position != Vector2.ZERO:
 		pointPos = lerp(pointPos, global_position + Vector2(0, 6), 0.36)
-		lineColor = purpleGradient
+		lineColor = fadedGradient
 	
+	if $Teleport/Area2D.has_overlapping_areas():
+		var bodyIndex = 0
+		for area in $Teleport/Area2D.get_overlapping_areas():
+			if area.is_in_group("player"):
+				playerLight.color = Color(0.21,0.41,0.00,1.00)
+				lineColor = purpleGradient
+				break
+			else:
+				if bodyIndex + 1 == len($Teleport/Area2D.get_overlapping_bodies()):
+					playerLight.color = Color(0.74,0.00,0.00,1.00)
+				bodyIndex += 1
 	
 	if Input.is_action_pressed("up"):
 		stretchUp()

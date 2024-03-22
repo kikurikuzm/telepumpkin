@@ -31,17 +31,41 @@
 	{"conversation": [
 		{
 		"character":"NPC2",
-		"text":"...What?",
+		"text":"Hmmm...",
 		"portrait":"smoke.png",
-		"speed":0.07,
+		"speed":0.3,
 		"cameraSpeed":0.1,
 		"zoom":"Vector2(5.5,5.5)"
 		},
 		{
 			"character":"NPC2",
-			"text":"I'm busy. Come back later.",
+			"text":"Hmmmmmm...",
 			"portrait":"smoke.png",
-			"speed":0.055,
+			"speed":0.3,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC2",
+			"text":"Hmmmmmm?",
+			"portrait":"smoke.png",
+			"speed":0.3,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC2",
+			"text":"Oh, sorry. I'm just trying to think here.",
+			"portrait":"smoke.png",
+			"speed":0.06,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC2",
+			"text":"You know what, come back later. You could well be the solution to my problem.",
+			"portrait":"smoke.png",
+			"speed":0.06,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)"
 			}
@@ -50,45 +74,45 @@
 	{"conversation": [
 		{
 		"character":"NPC2",
-		"text":"Ah, perfect timing.",
+		"text":"Ah, there you are.",
 		"portrait":"smoke.png",
-		"speed":0.07,
+		"speed":0.055,
 		"cameraSpeed":0.1,
 		"zoom":"Vector2(5.5,5.5)"
 		},
 		{
 			"character":"NPC2",
-			"text":"I lost a cool bit of tech down in the sewers...",
+			"text":"I seem to have lost my one-of-a-kind prototype Teleportation Pumpkin down in the sewers...",
 			"portrait":"smoke.png",
 			"speed":0.055,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)"
-			},
- 	{
-			"character":"NPC2",
-			"text":"And I'm too afraid to get it myself.",
-			"portrait":"smoke.png",
-			"speed":0.055,
-			"cameraSpeed":0.1,
-			"zoom":"Vector2(5.5,5.5)"
-			},
-	 {
+		},
+	 	{
 			"character":"NPC2",
 			"text":"You seem small enough, so could you go down and get it?",
 			"portrait":"smoke.png",
 			"speed":0.055,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)"
-			},
-	 {
+		},
+		{
+			"character":"player",
+			"text":"",
+			"portrait":"",
+			"speed":0.055,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(6,6)"
+		},
+	 	{
 			"character":"NPC2",
-			"text":"I'll take your unwaivering silence as a yes. Let's go.",
+			"text":"...I'll take your unwaivering silence as a yes. Let's go.",
 			"portrait":"smoke.png",
 			"speed":0.055,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)",
 			"quest":3
-			}
+		}
 	 ]
 	},
 	{"conversation": [
@@ -103,7 +127,7 @@
 		},
 		{
 			"character":"NPC2",
-			"text":"And before you go, here's your payment.",
+			"text":"And before you go, here's your reward.",
 			"portrait":"smoke.png",
 			"speed":0.055,
 			"cameraSpeed":0.1,

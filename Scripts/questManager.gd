@@ -43,11 +43,12 @@ func questModify() -> void:
 		7:
 			get_parent().loadLevel(load("res://Levels/moonBaseOuter.tscn"),2)
 			
+		8:
+			get_parent().currentLevel.get_node("NPC").convoID = 5
 func changeQuest(id) -> void:
-	if id > questID:
-		questID = id
-		print("changed quest to ", id)
-		questModify()
+	questID = id
+	print("changed quest to ", id)
+	questModify()
 
 func questSFX() -> void:
 	var tempPlayer = AudioStreamPlayer.new()

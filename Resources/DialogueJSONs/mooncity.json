@@ -83,5 +83,15 @@
 				"zoom":"Vector2(5.5,5.5)"
 			}
 		]
+	},
+	{"conversation":[
+			{
+				"character":"NPC",
+				"portrait":"smoke",
+				"text":"If you're as lucky as me, then you won't be leaving this place any time soon. And it seems like you are.",
+				"speed":0.07,
+				"zoom":"Vector2(5.5,5.5)"
+			}
+		]
 	}
 ]
