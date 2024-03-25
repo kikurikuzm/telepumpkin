@@ -3,10 +3,18 @@ extends Node2D
 
 @onready var interactIcon = get_node("AnimatedSprite2D")
 @onready var area2d = get_node("Area2D")
+@onready var collisionShape : CollisionShape2D = get_node("Area2D/CollisionShape2D")
+
+@export var customSize = Vector2.ZERO
 
 var showing = false
 
 func _ready():
+	print(collisionShape.shape.size)
+	print(customSize)
+	if customSize != Vector2.ZERO:
+		collisionShape.shape.size.x = customSize.x
+		collisionShape.shape.size.y = customSize.y
 	showing = false
 	hideInteract()
 
@@ -18,6 +26,9 @@ func _process(delta):
 	
 	if Engine.is_editor_hint():
 		showInteract()
+		if customSize != Vector2.ZERO:
+			collisionShape.shape.size.x = customSize.x
+			collisionShape.shape.size.y = customSize.y
 
 func showInteract():
 	interactIcon.modulate = lerp(interactIcon.modulate, Color(1.0, 1.0, 1.0, 1.0), 0.1)

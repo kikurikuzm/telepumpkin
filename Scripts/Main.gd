@@ -3,7 +3,7 @@ extends Node2D
 @onready var l1 = preload("res://Levels/Level1.tscn")
 @onready var l2 = preload("res://Levels/Level2.tscn")
 @onready var l3 = preload("res://Levels/Level3.tscn")
-@onready var l4 = preload("res://Levels/Level4.tscn")
+@onready var l4 = preload("res://Levels/TEMP4.tscn")
 @onready var l5 = preload("res://Levels/farmlandTransition.tscn")
 @onready var l6 = preload("res://Levels/Level6.tscn")
 @onready var l7 = preload("res://Levels/Level7.tscn")

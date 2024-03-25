@@ -1,6 +1,8 @@
-[gd_resource type="TileSet" load_steps=26 format=3 uid="uid://lgbtsst4op3c"]
+[gd_resource type="TileSet" load_steps=30 format=3 uid="uid://lgbtsst4op3c"]
 
 [ext_resource type="Texture2D" uid="uid://bwear5qercn3r" path="res://Sprites/Ground/grasstilemap.png" id="1_kvu3i"]
+[ext_resource type="Texture2D" uid="uid://dskhnuoiiewe" path="res://Sprites/tiles/fence.png" id="2_bcora"]
+[ext_resource type="Texture2D" uid="uid://coek3087flnhr" path="res://Sprites/tiles/grassdeco1.png" id="3_lpjr4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jarbv"]
 resource_name = "GRASS"
@@ -253,10 +255,6 @@ texture_region_size = Vector2i(32, 32)
 4:3/5/terrains_peering_bit/left_side = 0
 4:3/5/terrains_peering_bit/top_left_corner = 0
 4:3/5/terrains_peering_bit/top_side = 0
-5:1/0 = 0
-5:1/0/terrain_set = 0
-5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-5:1/0/physics_layer_0/angular_velocity = 0.0
 0:5/0 = 0
 0:5/0/terrain_set = 0
 0:5/0/terrain = 0
@@ -561,6 +559,23 @@ texture_region_size = Vector2i(32, 32)
 4:0/5/physics_layer_0/angular_velocity = 0.0
 4:0/5/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d0oo7"]
+resource_name = "fence"
+texture = ExtResource("2_bcora")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-13, -4, 13, -4, 13, 16, -13, 16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mrty"]
+resource_name = "grassDecoration"
+texture = ExtResource("3_lpjr4")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+
 [resource]
 tile_size = Vector2i(32, 32)
 occlusion_layer_0/light_mask = 1
@@ -574,3 +589,5 @@ sources/1 = SubResource("TileSetAtlasSource_7x34n")
 sources/2 = SubResource("TileSetAtlasSource_jxa16")
 sources/3 = SubResource("TileSetAtlasSource_33k4e")
 sources/4 = SubResource("TileSetAtlasSource_nfycf")
+sources/5 = SubResource("TileSetAtlasSource_d0oo7")
+sources/6 = SubResource("TileSetAtlasSource_7mrty")

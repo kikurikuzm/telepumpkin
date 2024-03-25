@@ -5,7 +5,8 @@ extends EditorElement
 class_name Trigger
 ##A level element that can activate other elements.
 
-@onready var area2d : Area2D = $Area2D 
+@onready var area2d : Area2D = $Area2D
+@onready var interactIcon = $interactIcon
 
 @export_category("Trigger Properties")
 @export_group("Trigger Nodes")
@@ -27,8 +28,9 @@ var lastTriggerList
 
 var hasTriggered = false ##Whether or not the trigger has already gone off.
 
-#func _ready():
-	#checkTriggerList()
+func _ready():
+	if mustInteract:
+		interactIcon.visible = true
 
 func _process(delta):
 	if updateTriggerListVariables == true:
@@ -38,6 +40,7 @@ func _input(event):
 	if Input.is_action_just_pressed("teleport") and mustInteract:
 		for node in area2d.get_overlapping_areas():
 			if node.is_in_group("player"):
+				interactIcon.visible = false
 				triggerThings(node)
 
 ## The main trigger function. Handles the triggering of its given objects and changing the level if applicable.

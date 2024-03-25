@@ -1,0 +1,72 @@
+[
+	{"conversation": [
+		{
+		"character":"hood",
+		"text":"...",
+		"portrait":"cloak.png",
+		"speed":0.6,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		},
+		{
+		"character":"hood",
+		"text":"Hello there, my little creature.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		},
+		{
+		"character":"hood",
+		"text":"I suppose I should teach you how to use your cool magical powers that I have bestowed upon you.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		},
+		{
+		"character":"hood",
+		"text":"It would seem you have already figured out how to utilize your legs, so we are off to a good start.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		}
+		]
+	},
+	{"conversation": [
+		{
+		"character":"hood",
+		"text":"In order to elevate yourself to new heights, you must hold the 'W' key, or UP on the Dpad. ",
+		"portrait":"cloak.png",
+		"speed":0.6,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		},
+		{
+		"character":"hood",
+		"text":"Hello there, my little creature.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		},
+		{
+		"character":"hood",
+		"text":"I suppose I should teach you how to use your cool magical powers that I have bestowed upon you.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		},
+		{
+		"character":"hood",
+		"text":"It would seem you have already figured out how to utilize your legs, so we are off to a good start.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(6.5,6.5)"
+		}
+		]
+	}
+]

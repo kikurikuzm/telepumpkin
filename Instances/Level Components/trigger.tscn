@@ -1,14 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://og6amlgywg1r"]
+[gd_scene load_steps=5 format=3 uid="uid://og6amlgywg1r"]
 
 [ext_resource type="Script" path="res://Scripts/triggerScript.gd" id="1_hmf4k"]
+[ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_lgav0"]
 [ext_resource type="Texture2D" uid="uid://caqsjy8qx0b7v" path="res://Resources/Editor Icons/trigger.png" id="2_nj6ps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
 size = Vector2(66, 64)
 
 [node name="trigger" type="Node2D" groups=["trigger"]]
-modulate = Color(1, 1, 1, 0.537255)
 script = ExtResource("1_hmf4k")
+
+[node name="interactIcon" parent="." instance=ExtResource("2_lgav0")]
+visible = false
+position = Vector2(0, -1)
+customSize = Vector2(66, 64)
 
 [node name="Area2D" type="Area2D" parent="."]
 light_mask = 0
@@ -18,7 +23,7 @@ collision_mask = 16
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_nxb7d")
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.278431)
 
 [node name="editorSprite" type="Sprite2D" parent="."]
 visible = false
