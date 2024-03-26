@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cidi3o4bpysic"]
+[gd_scene load_steps=25 format=3 uid="uid://cidi3o4bpysic"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_fsv8h"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="5_yom55"]
 [ext_resource type="Script" path="res://Scripts/CutscenePlayer.gd" id="6_2p6ya"]
+[ext_resource type="Texture2D" uid="uid://xfx0bxxbk2om" path="res://Sprites/NPCs/npc5.png" id="7_1qqts"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="7_p5kdo"]
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="8_457oh"]
 [ext_resource type="Texture2D" uid="uid://bvj047u5divdh" path="res://Sprites/NPCs/cloakBroom.png" id="10_gpdfg"]
@@ -226,13 +227,160 @@ tracks/17/keys = {
 "update": 0,
 "values": [Vector2(1089, 641)]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("broomCloak:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("cloak:texture")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_e3jpk")]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("cloak:region_enabled")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("cloak:flip_h")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("cloak:scale")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/23/type = "bezier"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("cam:position:x")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(933, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/24/type = "bezier"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("cam:position:y")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(679, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/25/type = "value"
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/path = NodePath("cam:scale")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5)]
+}
+tracks/26/type = "value"
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/path = NodePath("cloak:z_index")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-1]
+}
+tracks/27/type = "value"
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/path = NodePath("cutscenePlayer:placeholderPlayer")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/28/type = "value"
+tracks/28/imported = false
+tracks/28/enabled = true
+tracks/28/path = NodePath("cloak:modulate")
+tracks/28/interp = 1
+tracks/28/loop_wrap = true
+tracks/28/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vjwsx"]
 _data = {
 "RESET": SubResource("Animation_xpqrl")
 }
 
+[sub_resource type="Animation" id="Animation_tfmvn"]
+resource_name = "level1cloakfade"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cloak:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_6bisy"]
+resource_name = "level1intro"
 length = 29.0
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -301,7 +449,7 @@ tracks/5/path = NodePath("playerDummy:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 29.5),
+"times": PackedFloat32Array(0, 29),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -348,7 +496,7 @@ tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-"points": PackedFloat32Array(1455, -0.25, 0, 0.25, 0, 1455, -0.25, 0, 1.9, -18, 1089, -0.87, -95, 0.2, 16, 1090, -0.127797, 6, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -1.78409, -13, 2.41591, 5, 666, -0.16, 1, 0.25, 0),
+"points": PackedFloat32Array(1455, -0.25, 0, 0.25, 0, 1455, -0.25, 0, 1.9, -18, 1089, -0.87, -95, 0.2, 16, 1090, -0.127797, 6, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -0.25, 0, 0.25, 0, 1090, -1.78409, -13, 2.41591, 5, 700, -0.16, 1, 0.25, 0),
 "times": PackedFloat32Array(0, 2.8, 5.9, 6.2, 12.5, 12.8, 13.2, 13.5, 18.5, 20.7)
 }
 tracks/10/type = "bezier"
@@ -404,10 +552,10 @@ tracks/14/path = NodePath("cloak:visible")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(0, 20.3, 20.325, 21.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 20.3, 20.325, 21.3, 23.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [false, true, true, false]
+"values": [false, true, true, false, true]
 }
 tracks/15/type = "bezier"
 tracks/15/imported = false
@@ -416,9 +564,9 @@ tracks/15/path = NodePath("cloak:position:x")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 20.325, 21.3)
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 20.325, 21.3, 23.6, 23.8, 25)
 }
 tracks/16/type = "bezier"
 tracks/16/imported = false
@@ -427,9 +575,9 @@ tracks/16/path = NodePath("cloak:position:y")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(547, -0.25, 0, 0.25, 0, 547, -0.25, 0, 0.460527, -62, 677, -0.241793, -112, 0.25, 0),
-"times": PackedFloat32Array(0, 20.325, 21.3)
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(547, -0.25, 0, 0.25, 0, 547, -0.25, 0, 0.460527, -62, 677, -0.241793, -112, 0.25, 0, 677, -0.25, 0, 0.25, 0, 698, -0.25, 0, 0.25, 0, 684, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 20.325, 21.3, 23.6, 23.8, 25)
 }
 tracks/17/type = "value"
 tracks/17/imported = false
@@ -443,10 +591,204 @@ tracks/17/keys = {
 "update": 0,
 "values": [Vector2(1089, 641), Vector2(1089, 641), Vector2(1096, 641), Vector2(1086, 641), Vector2(1092, 641), Vector2(1088, 641)]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("broomCloak:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0, 21.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("cloak:texture")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0, 22.2171),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("14_e3jpk"), ExtResource("7_1qqts")]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("cloak:region_enabled")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0, 22.2171),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("cloak:flip_h")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0, 23.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("cloak:scale")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(23.4, 23.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.68)]
+}
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("cam:scale")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_ttfw1"]
+resource_name = "level1tutorialstart"
+length = 3.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cloak:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0, 933, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cloak:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(684, -0.25, 0, 0.25, 0, 684, -0.25, 0, 0.0963044, -34.5, 635.5, -0.194207, -26.7115, 0.196305, 27, 673, -0.0865889, -3, 0.0963044, -34.5),
+"times": PackedFloat32Array(0, 0.7, 1.3, 1.475)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cloak:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_1qqts")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cloak:flip_h")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("cam:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(933, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("cam:position:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(679, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("cam:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("cloak:z_index")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.95),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [-1, -1, 0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("cloak:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.8, 0.975),
+"transitions": PackedFloat32Array(1, 0.466516, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0.68), Vector2(1, 0.68), Vector2(1, 1.3), Vector2(1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("cutscenePlayer:placeholderPlayer")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_anf63"]
 _data = {
-"level1tutorial": SubResource("Animation_6bisy")
+"level1cloakfade": SubResource("Animation_tfmvn"),
+"level1intro": SubResource("Animation_6bisy"),
+"level1tutorialstart": SubResource("Animation_ttfw1")
 }
 
 [sub_resource type="Curve" id="Curve_m8go4"]
@@ -497,15 +839,14 @@ zoom = Vector2(3, 3)
 
 [node name="levelVariables" parent="." instance=ExtResource("5_yom55")]
 
-[node name="cutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera", "placeholderPlayer")]
+[node name="cutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera")]
 libraries = {
 "": SubResource("AnimationLibrary_vjwsx"),
 "tutorial": SubResource("AnimationLibrary_anf63")
 }
 script = ExtResource("6_2p6ya")
-animationName = "tutorial/level1tutorial"
+animationName = "tutorial/level1intro"
 placeholderCamera = NodePath("../cam")
-placeholderPlayer = NodePath("../playerDummy")
 
 [node name="startCutscene" parent="." instance=ExtResource("7_p5kdo")]
 visible = false
@@ -515,6 +856,7 @@ triggerList = [NodePath("../cutscenePlayer")]
 [node name="findHood" parent="." instance=ExtResource("7_p5kdo")]
 position = Vector2(933, 694)
 triggerList = [NodePath("../NPC")]
+triggersOnce = false
 mustInteract = true
 
 [node name="NPC" parent="." instance=ExtResource("12_3b8gg")]
@@ -527,10 +869,11 @@ z_index = -1
 position = Vector2(1391, 656)
 
 [node name="cam" type="Marker2D" parent="."]
-position = Vector2(1089, 641)
-scale = Vector2(3, 3)
+position = Vector2(933, 679)
+scale = Vector2(5, 5)
 
 [node name="broomCloak" type="Sprite2D" parent="."]
+visible = false
 z_index = -1
 position = Vector2(1455, 517)
 texture = ExtResource("10_gpdfg")
@@ -541,6 +884,8 @@ region_rect = Rect2(0, 0, 64, 64)
 z_index = -1
 position = Vector2(933, 547)
 texture = ExtResource("14_e3jpk")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 64)
 
 [node name="fakepumkin" type="Sprite2D" parent="."]
 z_index = -1
@@ -552,9 +897,10 @@ z_index = -1
 position = Vector2(932, 689)
 texture = ExtResource("11_ve376")
 
-[node name="dialogueManager" parent="." instance=ExtResource("13_7nl4p")]
+[node name="dialogueManager" parent="." node_paths=PackedStringArray("cutsceneManager") instance=ExtResource("13_7nl4p")]
 position = Vector2(580, 729)
 dialogueJSONPath = "res://Resources/DialogueJSONs/Level1.json"
+cutsceneManager = NodePath("../cutscenePlayer")
 
 [node name="magicDust" type="GPUParticles2D" parent="."]
 z_index = -1

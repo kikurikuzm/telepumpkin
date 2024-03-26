@@ -79,8 +79,8 @@ texture = SubResource("GradientTexture2D_ip128")
 position = Vector2(2001, 291)
 
 [node name="trigger" parent="." instance=ExtResource("10_hblqf")]
-position = Vector2(1335, 3824)
-scale = Vector2(16.31, 12.26)
+position = Vector2(1344, 2635)
+scale = Vector2(15.86, 15.86)
 updateTriggerListVariables = null
 sendLevel = ExtResource("5_1grd4")
 spawnPosition = Vector2(798, -130)

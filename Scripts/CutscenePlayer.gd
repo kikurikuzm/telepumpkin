@@ -48,8 +48,7 @@ func startCutscene(cutscene:String, resetPlayer:bool = true):
 	mainCamera.desiredZoom = mainCamera.oldZoom
 
 ##The function used to determine what happens when triggered by the 'trigger' object.
-func trigger(): 
-	print("triggered cutscene")
+func trigger():
 	startCutscene(animationName)
 
 func _exit_tree():

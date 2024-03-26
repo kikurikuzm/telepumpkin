@@ -1,7 +1,7 @@
 [
 	{"conversation": [
 		{
-		"character":"hood",
+		"character":"cloak",
 		"text":"...",
 		"portrait":"cloak.png",
 		"speed":0.6,
@@ -9,7 +9,7 @@
 		"zoom":"Vector2(6.5,6.5)"
 		},
 		{
-		"character":"hood",
+		"character":"cloak",
 		"text":"Hello there, my little creature.",
 		"portrait":"cloak.png",
 		"speed":0.05,
@@ -17,7 +17,7 @@
 		"zoom":"Vector2(6.5,6.5)"
 		},
 		{
-		"character":"hood",
+		"character":"cloak",
 		"text":"I suppose I should teach you how to use your cool magical powers that I have bestowed upon you.",
 		"portrait":"cloak.png",
 		"speed":0.05,
@@ -25,47 +25,120 @@
 		"zoom":"Vector2(6.5,6.5)"
 		},
 		{
-		"character":"hood",
+		"character":"cloak",
 		"text":"It would seem you have already figured out how to utilize your legs, so we are off to a good start.",
 		"portrait":"cloak.png",
 		"speed":0.05,
 		"cameraSpeed":0.1,
-		"zoom":"Vector2(6.5,6.5)"
+		"zoom":"Vector2(6.5,6.5)",
+		"nextConvo":1
 		}
 		]
 	},
 	{"conversation": [
 		{
-		"character":"hood",
-		"text":"In order to elevate yourself to new heights, you must hold the 'W' key, or UP on the Dpad. ",
-		"portrait":"cloak.png",
-		"speed":0.6,
-		"cameraSpeed":0.1,
-		"zoom":"Vector2(6.5,6.5)"
-		},
-		{
-		"character":"hood",
-		"text":"Hello there, my little creature.",
+		"character":"player",
+		"text":"In order to elevate yourself to new heights, you must hold the 'W' key, or 'A' on the Gamepad. Give it a shot. Hold and then release.",
 		"portrait":"cloak.png",
 		"speed":0.05,
 		"cameraSpeed":0.1,
-		"zoom":"Vector2(6.5,6.5)"
+		"zoom":"Vector2(5.5,5.5)",
+		"cutscene":["tutorial/level1tutorialstart",0],
+		"canMove":1
 		},
 		{
-		"character":"hood",
-		"text":"I suppose I should teach you how to use your cool magical powers that I have bestowed upon you.",
+		"character":"player",
+		"text":"This will be a vital skill in your journey. But we are not done yet.",
 		"portrait":"cloak.png",
 		"speed":0.05,
 		"cameraSpeed":0.1,
-		"zoom":"Vector2(6.5,6.5)"
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1
 		},
+		
 		{
-		"character":"hood",
-		"text":"It would seem you have already figured out how to utilize your legs, so we are off to a good start.",
+		"character":"player",
+		"text":"Performing this action increases the vertical reach of your teleportation abilities. You can tell what your reach is by the gray circle surrounding you.",
 		"portrait":"cloak.png",
 		"speed":0.05,
 		"cameraSpeed":0.1,
-		"zoom":"Vector2(6.5,6.5)"
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1
+		},
+		
+		{
+		"character":"player",
+		"text":"Now, try pressing 'S', or DOWN on the Dpad.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1
+		},
+		{
+		"character":"player",
+		"text":"Lastly, pressing the 'E' key or 'X' on the Gamepad will teleport the farmost pumpkin within your range to your position.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1
+		},
+		{
+		"character":"player",
+		"text":"I have far more knowledge to provide you, but I will leave you be for now. Come talk to me if you're hungry for more knowledge.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1,
+		"changeMyConvo":2
+		}
+		]},
+		{"conversation":[
+		{
+		"character":"player",
+		"text":"Your teleportation abilities are not impeded by any structures or any physical matter.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1,
+		"changeMyConvo":3
+		}
+		]},
+		{"conversation":[
+		{
+		"character":"player",
+		"text":"You can press the 'Tab' key or the 'Select' Button on the Gamepad to swap between camera modes.",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1,
+		"changeMyConvo":4
+		}
+		]},
+		{"conversation":[
+		{
+		"character":"player",
+		"text":"Now, you must round up all of your pumpkin bretheren! Some dastardly heathens have ruined this season's pumpkins by scattering them across the lands!",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)",
+		"canMove":1
+		},
+		
+		{
+		"character":"player",
+		"text":"Go, and save all that is [color=orange][outline_color=black][outline_size=3]orange[/outline_size][/outline_color][/color].",
+		"portrait":"cloak.png",
+		"speed":0.05,
+		"cameraSpeed":0.1,
+		"zoom":"Vector2(5.5,5.5)",
+		"cutscene":["tutorial/level1cloakfade",1],
+		"canMove":1
 		}
 		]
 	}

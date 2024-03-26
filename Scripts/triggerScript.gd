@@ -22,6 +22,7 @@ class_name Trigger
 @export var spawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
 @export var levelTransition = 0 ##What level transition to use upon changing level.
 
+var sceneCutscenePlayer : cutscenePlayer
 
 var lastTriggerList
 
@@ -31,6 +32,8 @@ var hasTriggered = false ##Whether or not the trigger has already gone off.
 func _ready():
 	if mustInteract:
 		interactIcon.visible = true
+	if get_parent().has_node("cutscenePlayer"):
+		sceneCutscenePlayer = get_parent().get_node("cutscenePlayer")
 
 func _process(delta):
 	if updateTriggerListVariables == true:
@@ -40,8 +43,14 @@ func _input(event):
 	if Input.is_action_just_pressed("teleport") and mustInteract:
 		for node in area2d.get_overlapping_areas():
 			if node.is_in_group("player"):
-				interactIcon.visible = false
-				triggerThings(node)
+				if node.get_parent().get_node("stateFactory").current_state != node.get_parent().get_node("stateFactory").states["playerbusy"]:
+					if sceneCutscenePlayer:
+						if !sceneCutscenePlayer.inCutscene:
+							interactIcon.visible = false
+							triggerThings(node)
+					else:
+						interactIcon.visible = false
+						triggerThings(node)
 
 ## The main trigger function. Handles the triggering of its given objects and changing the level if applicable.
 func triggerThings(cause) -> void:
@@ -58,6 +67,8 @@ func triggerThings(cause) -> void:
 				if triggersOnce:
 					hasTriggered = true
 				currentIndex += 1
+			if sendLevel != null:
+				get_parent().get_parent().loadLevel(sendLevel, levelTransition, spawnPosition)
 		if !anythingTriggers and cause.is_in_group("player"):
 			var currentIndex = 0
 			for i in triggerList:
@@ -69,8 +80,8 @@ func triggerThings(cause) -> void:
 				print("triggered ", str(i))
 				if triggersOnce:
 					hasTriggered = true
-		if sendLevel != null:
-			get_parent().get_parent().loadLevel(sendLevel, levelTransition, spawnPosition)
+			if sendLevel != null:
+				get_parent().get_parent().loadLevel(sendLevel, levelTransition, spawnPosition)
 
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:

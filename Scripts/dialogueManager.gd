@@ -46,8 +46,6 @@ func parseJSON() -> Array:
 
 ##The function that progresses dialogue and does the bulk of the work. This is where events in the dialogue are performed, such as 'cameraSpeed'.
 func progressDialogue(): 
-	get_parent().get_parent().player.changeState("playerbusy")
-	
 	var quickConvoVar = conversation[currentConversation]["conversation"][currentTextIndex]
 	
 	dialogueContinue.visible = false
@@ -89,7 +87,7 @@ func progressDialogue():
 		
 		if playDuringDialogue:
 			cutsceneManager.startCutscene(cutscene, false)
-		if !playDuringDialogue:
+		elif !playDuringDialogue:
 			inCutscene = true
 			dialogueBox.visible = false
 			dialogueText.visible = false
@@ -99,7 +97,14 @@ func progressDialogue():
 			dialogueBox.visible = true
 			dialogueText.visible = true
 		
-		
+	if quickConvoVar.has("nextConvo"):
+		queueConvo(quickConvoVar["nextConvo"])
+	if quickConvoVar.has("canMove"):
+		pass
+	else:
+		get_parent().get_parent().player.changeState("playerbusy")
+	if quickConvoVar.has("changeMyConvo"):
+		dialogueInitializer.convoID = quickConvoVar["changeMyConvo"]
 	if quickConvoVar["text"] == "":
 		dialogueBox.visible = false
 		dialogueText.visible_ratio = 1

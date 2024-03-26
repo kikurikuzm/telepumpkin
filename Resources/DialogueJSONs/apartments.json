@@ -24,7 +24,8 @@
 			"character":"NPC",
 			"text":"[shake rate=10.0 level=2]...",
 			"portrait":"old.png",
-			"speed":0.9
+			"speed":0.9,
+			"changeMyConvo":4
 		}
 	 ]
 	},
@@ -33,7 +34,7 @@
 		"character":"NPC2",
 		"text":"Hmmm...",
 		"portrait":"smoke.png",
-		"speed":0.3,
+		"speed":0.2,
 		"cameraSpeed":0.1,
 		"zoom":"Vector2(5.5,5.5)"
 		},
@@ -41,7 +42,7 @@
 			"character":"NPC2",
 			"text":"Hmmmmmm...",
 			"portrait":"smoke.png",
-			"speed":0.3,
+			"speed":0.2,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)"
 		},
@@ -49,7 +50,7 @@
 			"character":"NPC2",
 			"text":"Hmmmmmm?",
 			"portrait":"smoke.png",
-			"speed":0.3,
+			"speed":0.2,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)"
 		},
@@ -132,8 +133,62 @@
 			"speed":0.055,
 			"cameraSpeed":0.1,
 			"zoom":"Vector2(5.5,5.5)"
-			
-			}
+		}
+	 ]
+	},
+	{"conversation": [
+		{
+			"character":"NPC",
+			"text":"...",
+			"portrait":"old.png",
+			"speed":0.9,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC",
+			"text":"You know, things didn't used to be this way.",
+			"portrait":"old.png",
+			"speed":0.09,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC",
+			"text":"...There was a time where it was damn near impossible to book a room. Tourists were always clammering for a stay here.",
+			"portrait":"old.png",
+			"speed":0.09,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC",
+			"text":"I'm not sure why I kid myself. Those days are clearly long gone. Ever since 'The Waning Moon', things have been on the decline.",
+			"portrait":"old.png",
+			"speed":0.09,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		},
+		{
+			"character":"NPC",
+			"text":"The man lets out a long, heavy sigh. His gaze falters from yours, and he seems to lose interest in the one-sided conversation.",
+			"portrait":"",
+			"speed":0.05,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)",
+			"changeMyConvo":5
+		}
+	 ]
+	},
+	{"conversation": [
+		{
+			"character":"NPC",
+			"text":"...",
+			"portrait":"old.png",
+			"speed":0.9,
+			"cameraSpeed":0.1,
+			"zoom":"Vector2(5.5,5.5)"
+		}
 	 ]
 	}
 ]
