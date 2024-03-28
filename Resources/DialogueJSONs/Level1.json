@@ -91,8 +91,7 @@
 		"speed":0.05,
 		"cameraSpeed":0.1,
 		"zoom":"Vector2(5.5,5.5)",
-		"canMove":1,
-		"changeMyConvo":2
+		"canMove":1
 		}
 		]},
 		{"conversation":[
