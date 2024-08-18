@@ -7,7 +7,7 @@
 [ext_resource type="Environment" uid="uid://b8wuygwcxt70r" path="res://Resources/Environments/Farmlands.tres" id="5_hwca2"]
 [ext_resource type="Script" path="res://Scripts/pauseMenu.gd" id="6_3rkpl"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wavy.gdshader" id="7_s4ple"]
-[ext_resource type="Theme" uid="uid://c3t3dtsco6rf6" path="res://Resources/mainMenuTheme.tres" id="8_t6qqg"]
+[ext_resource type="Theme" uid="uid://c3t3dtsco6rf6" path="res://Resources/Themes/MainMenuTheme.tres" id="8_t6qqg"]
 [ext_resource type="Script" path="res://Scripts/transitions.gd" id="9_psqbl"]
 [ext_resource type="Shader" path="res://Resources/Shaders/vignette.gdshader" id="10_ujvdg"]
 [ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="11_ur5wi"]

@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c3t3dtsco6rf6"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://c3t3dtsco6rf6"]
 
-[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="1_o5vyn"]
+[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="1_2bmme"]
+[ext_resource type="Texture2D" uid="uid://bel1p0o5a3qog" path="res://Sprites/Misc/win moment.png" id="2_6e60e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ve0re"]
 bg_color = Color(0.129412, 0.0313726, 0, 0.278431)
@@ -50,16 +51,52 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y3v62"]
+texture = ExtResource("2_6e60e")
+modulate_color = Color(0.615686, 0.615686, 0.615686, 0.607843)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kaa7i"]
+bg_color = Color(0.890196, 0.32549, 0.0666667, 0.313726)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.946547, 0.362658, 0.109543, 0.756863)
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n17wm"]
+content_margin_left = 9.0
+content_margin_right = 9.0
+bg_color = Color(0.890196, 0.32549, 0.0666667, 0.313726)
+border_width_top = 3
+border_color = Color(0.977097, 0.387266, 0.141912, 0.756863)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_detail = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1sg5"]
+bg_color = Color(0.304847, 0.0880004, 0.00380132, 0.541176)
+border_width_left = 9
+border_width_top = 2
+border_width_right = 9
+border_color = Color(0.305882, 0.0862745, 0.00392157, 0.541176)
+border_blend = true
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_detail = 4
+
 [resource]
 Button/colors/font_outline_color = Color(0, 0, 0, 0.380392)
 Button/constants/outline_size = 7
-Button/font_sizes/font_size = 40
-Button/fonts/font = ExtResource("1_o5vyn")
+Button/font_sizes/font_size = 50
+Button/fonts/font = ExtResource("1_2bmme")
 Button/styles/disabled = SubResource("StyleBoxFlat_ve0re")
 Button/styles/hover = SubResource("StyleBoxFlat_5m781")
 Button/styles/normal = SubResource("StyleBoxFlat_dunvp")
 Button/styles/pressed = SubResource("StyleBoxFlat_fyphc")
-CheckBox/font_sizes/font_size = 38
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0.482353, 0.172549, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.364706)
@@ -68,5 +105,9 @@ Label/constants/shadow_offset_x = 4
 Label/constants/shadow_offset_y = 8
 Label/constants/shadow_outline_size = 13
 Label/font_sizes/font_size = 20
-Label/fonts/font = ExtResource("1_o5vyn")
+Label/fonts/font = ExtResource("1_2bmme")
 Panel/styles/panel = null
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_y3v62")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_kaa7i")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_n17wm")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_n1sg5")

@@ -73,4 +73,3 @@ func teleportMove(teleportPos:Transform2D, pumpkin):
 	$teleportAudio.play()
 	teleTimer.start()
 	return
-
