@@ -31,9 +31,9 @@ gvars="*res://Scripts/gvars.gd"
 
 [display]
 
-window/size/mode=3
-window/size/resizable=false
-window/stretch/mode="canvas_items"
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="viewport"
 window/use_physical_light_units=false
 
 [editor]
@@ -199,6 +199,7 @@ moveUp={
 
 2d/physics_engine="GodotPhysics2D"
 2d/default_gravity=200.0
+common/physics_interpolation=true
 2d/stretch/mode="canvas_items"
 2d/stretch/scale=1.0
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dvodnr4utvfun"]
+[gd_scene load_steps=22 format=3 uid="uid://dvodnr4utvfun"]
 
 [ext_resource type="Script" path="res://Scripts/mainMenu.gd" id="1_s2c4v"]
 [ext_resource type="Shader" path="res://Resources/Shaders/wiggle.gdshader" id="2_kksby"]
@@ -7,7 +7,6 @@
 [ext_resource type="Shader" path="res://Resources/Shaders/wavy.gdshader" id="4_j7w7e"]
 [ext_resource type="Script" path="res://Scripts/UI/Main menu/MainScreenManager.gd" id="4_meqqy"]
 [ext_resource type="Script" path="res://Scripts/UI/Main menu/SettingsManager.gd" id="4_mw7i6"]
-[ext_resource type="Script" path="res://Scripts/UI/Main menu/startTutorialDialogue.gd" id="8_iynu2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v5r0w"]
 shader = ExtResource("4_j7w7e")
@@ -79,8 +78,8 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0)
 }
 
-[sub_resource type="Animation" id="Animation_a42c3"]
-resource_name = "moveCameraToSettings"
+[sub_resource type="Animation" id="Animation_58br0"]
+resource_name = "moveCameraToMain"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -89,7 +88,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1920, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1920, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
@@ -104,8 +103,8 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5)
 }
 
-[sub_resource type="Animation" id="Animation_58br0"]
-resource_name = "moveCameraToMain"
+[sub_resource type="Animation" id="Animation_a42c3"]
+resource_name = "moveCameraToSettings"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -114,7 +113,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1920, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1920, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.5)
 }
 tracks/1/type = "bezier"
@@ -205,7 +204,7 @@ vertical_alignment = 1
 material = SubResource("ShaderMaterial_y2dy2")
 layout_mode = 2
 theme = ExtResource("2_kn6pq")
-text = "VERSIONNUM"
+text = "Version 0.7.0"
 label_settings = SubResource("LabelSettings_cnm72")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -245,7 +244,7 @@ anchor_right = 2.0
 anchor_bottom = 1.0
 offset_right = -1920.0
 offset_bottom = -1080.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SettingsBackgroundContainer" type="PanelContainer" parent="SettingsControlNode"]
@@ -299,6 +298,7 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="ResolutionDropdown" type="OptionButton" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox"]
+visible = false
 layout_mode = 2
 tooltip_text = "Adjust the resolution"
 focus_neighbor_right = NodePath("../SimpleGraphicsToggle")
@@ -429,7 +429,6 @@ popup_window = true
 theme = SubResource("Theme_m535n")
 ok_button_text = "Yes"
 cancel_button_text = "No, just start"
-script = ExtResource("8_iynu2")
 
 [node name="tutorialLabel" type="Label" parent="startTutorial"]
 offset_left = 7.0
@@ -441,12 +440,15 @@ Would you like to play the tutorial?"
 label_settings = SubResource("LabelSettings_68wlk")
 horizontal_alignment = 1
 
+[connection signal="playerSaveWasDeleted" from="." to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_user_save_removed"]
 [connection signal="settingsButtonPressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" to="." method="_on_settings_button_pressed"]
+[connection signal="startButtonPressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox/StartButton" to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_on_start_pressed"]
 [connection signal="pressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox/SettingsButton" to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_on_settings_pressed"]
 [connection signal="pressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox/QuitButton" to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_on_quit_pressed"]
 [connection signal="backButtonPressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" to="." method="_on_back_button_pressed"]
 [connection signal="loadLevelButtonPressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" to="." method="_open_level_select_window"]
+[connection signal="playerSaveDeleted" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" to="." method="_on_player_save_deleted"]
 [connection signal="item_selected" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox/ResolutionDropdown" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer" method="_on_resolution_settings_item_selected"]
 [connection signal="toggled" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox/SimpleGraphicsToggle" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer" method="_on_graphics_settings_toggled"]
 [connection signal="toggled" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox/FullscreenToggle" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer" method="_on_fullscreen_toggled"]
@@ -456,3 +458,5 @@ horizontal_alignment = 1
 [connection signal="pressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer/LoadLevelButton" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" method="_on_load_level_button_pressed"]
 [connection signal="pressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer/SaveRemoveButton" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" method="_on_save_remove_pressed"]
 [connection signal="file_selected" from="levelDialogue" to="." method="_on_level_dialogue_file_selected"]
+[connection signal="canceled" from="startTutorial" to="." method="_on_start_tutorial_canceled"]
+[connection signal="confirmed" from="startTutorial" to="." method="_on_start_tutorial_confirmed"]

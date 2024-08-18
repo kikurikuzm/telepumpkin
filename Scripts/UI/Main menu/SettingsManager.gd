@@ -4,14 +4,18 @@ extends Control
 
 signal backButtonPressed
 signal loadLevelButtonPressed
+signal playerSaveDeleted
 
 func _ready() -> void:
 	if FileAccess.file_exists("user://cfg.dat"):
-			var cfgFile = FileAccess.open("user://cfg.dat", FileAccess.READ)
-			OptionsContainer.loadSettingsFromSave(cfgFile)
+		var cfgFile = FileAccess.open("user://cfg.dat", FileAccess.READ)
+		OptionsContainer.loadSettingsFromSave(cfgFile)
+	if FileAccess.file_exists("user://save.dat"):
+		$SettingsButtonsContainer/SaveRemoveButton.disabled = false
 
 
 func _on_apply_pressed():
+	ProjectSettings.save_custom("override.cfg")
 	DirAccess.remove_absolute("user://cfg.dat")
 	
 	var file = FileAccess.open("user://cfg.dat", FileAccess.WRITE)
@@ -42,6 +46,7 @@ func _on_save_remove_pressed():
 				copyDir.copy(str(levelDir.get_current_dir(), "/", file), str(currentDir, "/Levels/", file))
 
 		$SettingsButtonsContainer/SaveRemoveButton.disabled = true
+		playerSaveDeleted.emit()
 
 
 func _on_back_button_pressed() -> void:
