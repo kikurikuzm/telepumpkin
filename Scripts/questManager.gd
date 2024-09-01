@@ -45,6 +45,7 @@ func questModify() -> void:
 			
 		8:
 			get_parent().currentLevel.get_node("NPC").convoID = 5
+
 func changeQuest(id) -> void:
 	questID = id
 	print("changed quest to ", id)

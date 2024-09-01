@@ -604,8 +604,8 @@ script = ExtResource("9_psqbl")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 2663.0
-offset_bottom = 1498.0
+offset_right = 743.0
+offset_bottom = 418.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -619,10 +619,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 560.0
-offset_top = 489.0
-offset_right = 1347.0
-offset_bottom = 648.0
+offset_left = -400.0
+offset_top = -51.0
+offset_right = 387.0
+offset_bottom = 108.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Intermission..."
@@ -705,9 +705,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1080.0
 offset_right = 266880.0
-offset_bottom = 1180.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 3
@@ -744,7 +743,6 @@ scale = Vector2(10.51, 2000)
 texture = SubResource("GradientTexture1D_r2ii1")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.937255, 0.909804, 0.901961, 1)
 
 [node name="levelTimer" type="Timer" parent="."]
 

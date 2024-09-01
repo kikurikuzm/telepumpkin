@@ -9,6 +9,7 @@ size = Vector2(66, 64)
 
 [node name="trigger" type="Node2D" groups=["trigger"]]
 script = ExtResource("1_hmf4k")
+triggerList = [null]
 
 [node name="interactIcon" parent="." instance=ExtResource("2_lgav0")]
 visible = false
@@ -26,7 +27,6 @@ shape = SubResource("RectangleShape2D_nxb7d")
 debug_color = Color(1, 0, 0, 0.278431)
 
 [node name="editorSprite" type="Sprite2D" parent="."]
-visible = false
 light_mask = 524288
 visibility_layer = 524288
 z_index = 100
