@@ -53,6 +53,10 @@ folder_colors={
 "res://Sprites/": "pink"
 }
 
+[global_group]
+
+level_spawnpoint=""
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

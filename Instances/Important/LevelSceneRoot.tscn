@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://vpejoshxxafi"]
+
+[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_o8i2g"]
+[ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_s8p5w"]
+
+[node name="LevelSceneRoot" type="Node2D" node_paths=PackedStringArray("levelSpawnPointReference")]
+script = ExtResource("1_o8i2g")
+levelSpawnPointReference = NodePath("spawn")
+
+[node name="spawn" parent="." instance=ExtResource("2_s8p5w")]
+position = Vector2(387, 265)

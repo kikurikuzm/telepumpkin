@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_7i2qp"]
 script = ExtResource("3_w5c4r")
-levelList = Array[String](["res://Levels/Level3.tscn"])
+levelList = Array[String](["res://Levels/Level3.tscn", "res://Levels/Level8.tscn"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_sqsrj")
