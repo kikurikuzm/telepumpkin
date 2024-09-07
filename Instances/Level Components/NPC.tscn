@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(38, 62)
 
-[node name="NPC" type="Node2D" groups=["npc", "saveable"]]
+[node name="NPC" type="Node2D" groups=["level_npc", "saveable"]]
 script = ExtResource("1_o0077")
 
 [node name="interactIcon" parent="." instance=ExtResource("2_pj100")]
@@ -16,7 +16,7 @@ position = Vector2(1, 1)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1")
 animation = &"smoke"
-frame_progress = 0.724607
+frame_progress = 0.926392
 
 [node name="npcArea" type="Area2D" parent="." groups=["npc"]]
 z_index = -1

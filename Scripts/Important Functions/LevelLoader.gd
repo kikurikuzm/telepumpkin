@@ -5,12 +5,12 @@ var levelSet : Array
 var currentLevelSetIndex : int = 0
 
 var loadedLevel
-var instancedLevel
+var instancedLevel:LevelSceneRoot
 
 func _ready() -> void:
 	levelSet = levelSetResource.levelList
 
-func loadLevel() -> void:
+func loadLevel(player:Node2D) -> void:
 	if loadedLevel != null:
 		loadedLevel.queue_free()
 	
@@ -19,3 +19,5 @@ func loadLevel() -> void:
 	
 	instancedLevel = loadedLevel.instantiate()
 	add_child(instancedLevel)
+	
+	player.global_position = instancedLevel.levelSpawnPointReference.global_position

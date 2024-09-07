@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(40, 40)
 
-[node name="exit" type="Node2D"]
+[node name="exit" type="Node2D" groups=["level_exit"]]
 editor_description = "The exit for any given level. Place this where you want to player to exit to, and set the amount of pumpkins needed to unlock the exit."
 script = ExtResource("2")
 

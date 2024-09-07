@@ -56,6 +56,11 @@ folder_colors={
 [global_group]
 
 level_spawnpoint=""
+level_tilemaplayer=""
+level_mapcamera=""
+level_cutsceneplayer=""
+level_exit=""
+level_npc=""
 
 [gui]
 

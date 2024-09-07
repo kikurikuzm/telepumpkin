@@ -1,15 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://ciuswkeg660ew"]
+[gd_scene load_steps=6 format=3 uid="uid://ciuswkeg660ew"]
 
 [ext_resource type="PackedScene" uid="uid://bedp1kcel7xwt" path="res://Instances/Important/LevelLoader.tscn" id="1_i68tn"]
 [ext_resource type="Script" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_sqsrj"]
 [ext_resource type="Script" path="res://Scripts/Important Functions/LevelSet.gd" id="3_w5c4r"]
+[ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="4_1jw7k"]
 
 [sub_resource type="Resource" id="Resource_7i2qp"]
 script = ExtResource("3_w5c4r")
-levelList = Array[String](["res://Levels/Level3.tscn", "res://Levels/Level8.tscn"])
+levelList = Array[String](["res://Levels/Level3UPDATE.tscn", "res://Levels/Level8.tscn"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_sqsrj")
 
 [node name="LevelLoader" parent="." instance=ExtResource("1_i68tn")]
 levelSetResource = SubResource("Resource_7i2qp")
+
+[node name="Player" parent="." instance=ExtResource("4_1jw7k")]

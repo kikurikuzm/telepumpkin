@@ -15,6 +15,8 @@ class_name cutscenePlayer
 
 var inCutscene = false ##Used to check if a cutscene is currently playing.
 
+signal initiateCutscene
+
 func _process(delta):
 	if inCutscene:
 		if placeholderCamera != null:
@@ -22,8 +24,8 @@ func _process(delta):
 		if placeholderPlayer != null:
 			player.visible = !placeholderPlayer.visible
 			player.global_position = placeholderPlayer.global_position
-	else:
-		player.visible = true
+	#else:
+		#player.visible = true
 
 ##The main function of the cutscenePlayer used to initiate cutscenes.
 func startCutscene(cutscene:String, resetPlayer:bool = true): 

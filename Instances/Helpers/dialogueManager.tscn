@@ -61,7 +61,7 @@ shader_parameter/height = 1.2
 shader_parameter/frequency = 0.4
 shader_parameter/speed = 1.5
 
-[node name="dialogueManager" type="Node2D"]
+[node name="dialogueManager" type="Node"]
 script = ExtResource("1_b43uq")
 
 [node name="textSpeed" type="Timer" parent="."]
