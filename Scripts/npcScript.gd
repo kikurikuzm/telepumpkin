@@ -1,7 +1,7 @@
 @tool
 @icon("res://Resources/Editor Icons/npc.png")
-extends Node2D
-class_name NPC
+class_name NPC extends Node2D
+
 ##An interactable level element that displays dialogue. Can be triggered.
 ##
 ##Its trigger variable changes its position rather than initiating dialogue.

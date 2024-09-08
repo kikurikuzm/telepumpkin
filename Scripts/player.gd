@@ -1,12 +1,11 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var spriteAnim = get_node("AnimatedSprite2D")
-@onready var teleportRange = get_node("Teleport")
-@onready var mouseStretch = get_node("mouseStretch")
-@onready var interactArea = get_node("interactArea")
-@onready var tpp = get_node("AnimatedSprite2D/tpp")
-@onready var tppLine = get_node("tppLine")
+@onready var spriteAnim = $AnimatedSprite2D
+@onready var teleportRange = $Teleport
+@onready var interactArea = $interactArea
+@onready var tpp = $AnimatedSprite2D/tpp
+@onready var tppLine = $tppLine
 @onready var flashlightHand = $AnimatedSprite2D/flashlightHand
 
 @onready var pumpkinRaycast = $pumpkinDetection
@@ -14,8 +13,6 @@ extends CharacterBody2D
 @onready var playerLight = $AnimatedSprite2D/playerLight
 
 @onready var collectAudio = $collectAudio
-
-@onready var questManager = get_parent().get_node("questManager")
 
 @onready var accelCurve = load("res://Resources/movement_accel.tres")
 @onready var tpLoad = load("res://Instances/Level Components/tpp.tscn")

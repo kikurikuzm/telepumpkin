@@ -8,7 +8,7 @@ class_name DialogueManager
 ##
 
 @export_file("*.json") var dialogueJSONPath: String ##The path to a .json file containing dialogue. The node will not function without one.
-@export var cutsceneManager : cutscenePlayer ##If the dialogue of a given scene contains a cutscene, then this node is required.
+@export var cutsceneManager : CutscenePlayer ##If the dialogue of a given scene contains a cutscene, then this node is required.
 
 @onready var dialogueBox = $CanvasLayer/dialogBox ##The dialogue box containing the text and portraits of the dialogue.
 

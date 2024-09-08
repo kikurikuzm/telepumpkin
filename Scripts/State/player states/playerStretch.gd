@@ -7,6 +7,9 @@ const MIN_JUMPSTRENGTH = 0
 const MAX_JUMPSTRENGTH = 270
 var walkspeed = 6.0
 
+var stretchAnimationUpPlayed = false
+var stretchAnimationDownPlayed = false
+
 func enter():
 	MAXSPEED = 45
 	ACCELERATE = 0.012
@@ -14,6 +17,8 @@ func enter():
 
 func exit():
 	teleportRange.scale = Vector2(1.594, 1.594)
+	stretchAnimationDownPlayed = false
+	stretchAnimationUpPlayed = false
 
 func update(delta: float):
 	pass
@@ -55,12 +60,19 @@ func physics_update(delta: float):
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			player.jumpstrength += 8
 			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
-	
+		if !stretchAnimationUpPlayed:
+			animPlayer.play("stretchUp")
+			stretchAnimationUpPlayed = true
+		
 	if Input.is_action_pressed("down"):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 3.0, 0.1)
 		teleportRange.scale.y = lerp(teleportRange.scale.y, 0.4, 0.1)
+		if !stretchAnimationDownPlayed:
+			animPlayer.play("stretchDown")
+			stretchAnimationDownPlayed = true
 	
 	if Input.is_action_just_released("up"):
+		animPlayer.play("snapBack")
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			transitioned.emit(self, "playerjump")
 		else: transitioned.emit(self, "playerfalling")

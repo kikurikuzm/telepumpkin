@@ -4,7 +4,7 @@ class_name LevelSceneRoot extends Node
 var levelSpawnPointReference : Node2D
 var levelExitReference : Node2D
 var levelTileLayerReference : TileMapLayer
-var levelCutscenePlayerReference : cutscenePlayer
+var levelCutscenePlayerReference : CutscenePlayer
 var levelNPCsReferenceArray : Array[Node2D]
 var levelMapCameraReference : Camera2D
 
@@ -15,7 +15,6 @@ signal levelCompletedSignal
 func _ready():
 	allRootChildren = self.get_children()
 	initializeLevel()
-	connectToChildren()
 
 func initializeLevel():
 	if levelVariablesResource == null:
@@ -43,9 +42,37 @@ func initializeLevel():
 			levelNPCsReferenceArray.append(child)
 			print("Found an NPC")
 
-func connectToChildren():
-	if levelExitReference != null:
-		levelExitReference.levelFinished.connect(_levelCompleted)
+func getLevelSpawnPointReference():
+	if levelSpawnPointReference != null:
+		return levelSpawnPointReference
+	else:
+		printerr("Did not find level spawn point!")
+		return null
 
-func _levelCompleted():
-	levelCompletedSignal.emit()
+func getLevelSpawnPointPosition() -> Vector2:
+	if levelSpawnPointReference != null:
+		return levelSpawnPointReference.global_position
+	else:
+		printerr("Did not find level spawn point!")
+		return Vector2.ZERO
+
+func getLevelExitReference():
+	if levelExitReference != null:
+		return levelExitReference
+	else:
+		printerr("Did not find level exit!")
+		return null
+
+func getLevelCutsceneReference():
+	if levelCutscenePlayerReference != null:
+		return levelCutscenePlayerReference
+	else:
+		printerr("Did not find level cutscene player!")
+		return null
+
+func getLevelMapCameraReference():
+	if levelMapCameraReference != null:
+		return levelMapCameraReference
+	else:
+		printerr("Did not find level map camera!")
+		return null

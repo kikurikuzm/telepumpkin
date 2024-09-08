@@ -22,7 +22,7 @@ class_name Trigger
 @export var spawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
 @export var levelTransition = 0 ##What level transition to use upon changing level.
 
-var sceneCutscenePlayer : cutscenePlayer
+var sceneCutscenePlayer : CutscenePlayer
 
 var lastTriggerList
 

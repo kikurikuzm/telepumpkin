@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://rg0tohegkhwu"]
-
-[ext_resource type="Script" path="res://Scripts/cutsceneManager.gd" id="1_5wags"]
-
-[node name="cutsceneManager" type="Node"]
-script = ExtResource("1_5wags")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
