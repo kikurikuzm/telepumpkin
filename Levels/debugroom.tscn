@@ -1,58 +1,20 @@
-[gd_scene load_steps=16 format=3 uid="uid://cg7daib18pq0c"]
+[gd_scene load_steps=12 format=4 uid="uid://cg7daib18pq0c"]
 
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_pa8cx"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="2"]
-[ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_84yoq"]
+[ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_lnutd"]
 [ext_resource type="PackedScene" uid="uid://ce55buakgjg5x" path="res://Instances/Level Components/radio.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="4"]
-[ext_resource type="AnimationLibrary" uid="uid://dk8lrwlg4fa8d" path="res://Resources/debugtest.res" id="4_lk6nl"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="5_eesqr"]
 [ext_resource type="AudioStream" uid="uid://cq7edrbcnpmme" path="res://Audio/Kings and Queens of Wasteland.mp3" id="5_rsidw"]
-[ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="6_28gtu"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="7_6nr3k"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_rqx7x"]
-[ext_resource type="Script" path="res://Scripts/CutscenePlayer.gd" id="12_hpse0"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="13_bel1o"]
 
-[sub_resource type="Animation" id="Animation_eb6fa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("placeholderCam:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(918, 905)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("placeholderCam:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3, 3)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vmxry"]
-_data = {
-"RESET": SubResource("Animation_eb6fa")
-}
-
-[node name="TileMap" type="TileMap"]
-tile_set = ExtResource("2")
-format = 2
-layer_0/tile_data = PackedInt32Array(1900564, 0, 3, 1900565, 65536, 3, 1900566, 65536, 3, 1900567, 65536, 3, 1900568, 65536, 3, 1900569, 65536, 3, 1900570, 65536, 3, 1900571, 65536, 3, 1900572, 196608, 3, 1900573, 65536, 3, 1900574, 65536, 3, 1900575, 65536, 3, 1900576, 65536, 3, 1900577, 65536, 3, 1900578, 65536, 3, 1900579, 65536, 3, 1966115, 65536, 5, 1966116, 65536, 5, 1966117, 131072, 5, 1900581, 131072, 3, 1900580, 65536, 3, 1966114, 65536, 5, 1966113, 65536, 5, 1966112, 65536, 5, 1966111, 65536, 5, 1966110, 65536, 5, 1966109, 65536, 5, 1966108, 65536, 5, 1966107, 65536, 5, 1966106, 65536, 5, 1966105, 65536, 5, 2031640, 131072, 5, 2031639, 65536, 5, 2031638, 65536, 5, 2031637, 0, 5, 1966101, 262144, 4, 1966100, 0, 5, 1966102, 65536, 4, 1966103, 65536, 4, 1966104, 196608, 4, 1703961, 0, 1, 1703962, 262144, 131075, 1703963, 65536, 5, 1703964, 131072, 5, 1638426, 0, 3, 1638427, 262144, 5, 1638428, 131072, 4, 1572891, 0, 3, 1572892, 131072, 3)
-
-[node name="dialogueManager" parent="." instance=ExtResource("2_84yoq")]
-dialogueJSONPath = "res://Resources/DialogueJSONs/shack.json"
+[node name="LevelSceneRoot" type="Node"]
+script = ExtResource("1_pa8cx")
+levelVariablesResource = ExtResource("2_lnutd")
 
 [node name="spawn" parent="." instance=ExtResource("1")]
 position = Vector2(726, 891)
@@ -67,13 +29,29 @@ volume_db = -0.017
 autoplay = false
 
 [node name="manhole" parent="." instance=ExtResource("5_eesqr")]
-position = Vector2(911, 764)
+position = Vector2(1229, 764)
 
 [node name="manhole2" parent="." instance=ExtResource("5_eesqr")]
-position = Vector2(832, 926)
+position = Vector2(1150, 926)
 direction = 1
 
-[node name="levelVariables" parent="." instance=ExtResource("6_28gtu")]
+[node name="manhole3" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(1260, 926)
+id = 1
+
+[node name="manhole4" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(991, 794)
+id = 1
+direction = 1
+
+[node name="manhole6" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(1477, 803)
+id = 2
+
+[node name="manhole5" parent="." instance=ExtResource("5_eesqr")]
+position = Vector2(1093, 708)
+id = 2
+direction = 1
 
 [node name="NPC" parent="." instance=ExtResource("7_6nr3k")]
 position = Vector2(1035, 896)
@@ -81,43 +59,21 @@ npcLook = "kin"
 
 [node name="trigger" parent="." instance=ExtResource("9_rqx7x")]
 position = Vector2(645, 902)
-triggerList = [NodePath("../CutscenePlayer")]
-
-[node name="manhole3" parent="." instance=ExtResource("5_eesqr")]
-position = Vector2(942, 926)
-id = 1
-
-[node name="manhole4" parent="." instance=ExtResource("5_eesqr")]
-position = Vector2(673, 794)
-id = 1
-direction = 1
-
-[node name="manhole6" parent="." instance=ExtResource("5_eesqr")]
-position = Vector2(1159, 803)
-id = 2
-
-[node name="manhole5" parent="." instance=ExtResource("5_eesqr")]
-position = Vector2(775, 708)
-id = 2
-direction = 1
+triggerList = [NodePath("")]
 
 [node name="thumb" type="Camera2D" parent="."]
 position = Vector2(899, 780)
 zoom = Vector2(1.589, 1.589)
-
-[node name="CutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera")]
-libraries = {
-"": SubResource("AnimationLibrary_vmxry"),
-"debugtest": ExtResource("4_lk6nl")
-}
-script = ExtResource("12_hpse0")
-animationName = "debugtest/cutsceneTest"
-placeholderCamera = NodePath("../placeholderCam")
 
 [node name="placeholderCam" type="Marker2D" parent="."]
 position = Vector2(918, 905)
 scale = Vector2(3, 3)
 
 [node name="cameraZone" parent="." instance=ExtResource("13_bel1o")]
-position = Vector2(1211, 890)
+position = Vector2(1271, 890)
 scale = Vector2(12.5401, 2.31643)
+
+[node name="Layer0" type="TileMapLayer" parent="." groups=["level_tilemaplayer"]]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAUAB0AAAABAAMAAAAVAB0AAAABAAMAAAAWAB0AAAABAAMAAAAXAB0AAAABAAMAAAAYAB0AAAABAAMAAAAZAB0AAAABAAMAAAAaAB0AAAABAAMAAAAbAB0AAAABAAMAAAAcAB0AAAADAAMAAAAdAB0AAAABAAMAAAAeAB0AAAABAAMAAAAfAB0AAAABAAMAAAAgAB0AAAABAAMAAAAhAB0AAAABAAMAAAAiAB0AAAABAAMAAAAjAB0AAAABAAMAAAAjAB4AAAABAAQAAAAkAB4AAAABAAQAAAAlAB4AAAABAAQAAAAlAB0AAAABAAMAAAAkAB0AAAABAAMAAAAiAB4AAAABAAQAAAAhAB4AAAABAAQAAAAgAB4AAAABAAQAAAAfAB4AAAABAAQAAAAeAB4AAAABAAQAAAAdAB4AAAABAAQAAAAcAB4AAAABAAQAAAAbAB4AAAABAAQAAAAaAB4AAAABAAQAAAAZAB4AAAABAAQAAAAYAB8AAAABAAQAAAAXAB8AAAABAAQAAAAWAB8AAAABAAQAAAAVAB8AAAABAAQAAAAVAB4AAAABAAQAAAAUAB4AAAABAAQAAAAWAB4AAAABAAQAAAAXAB4AAAABAAQAAAAYAB4AAAABAAQAAAAZABoAAAAAAAEAAAAaABoAAAAEAAMAAgAbABoAAAABAAUAAAAcABoAAAACAAUAAAAaABkAAAAAAAMAAAAbABkAAAAEAAUAAAAcABkAAAACAAQAAAAbABgAAAAAAAMAAAAcABgAAAACAAMAAAAIAB0AAAAAAAQAAAAJAB0AAAABAAQAAAAKAB0AAAABAAQAAAALAB0AAAABAAQAAAAMAB0AAAABAAQAAAANAB0AAAABAAQAAAAOAB0AAAABAAQAAAAPAB0AAAABAAQAAAAQAB0AAAABAAQAAAARAB0AAAADAAUAAAASAB0AAAABAAMAAAATAB0AAAABAAMAAAATAB4AAAABAAQAAAASAB4AAAABAAQAAAARAB4AAAABAAQAAAAQAB4AAAABAAQAAAAPAB4AAAABAAQAAAAOAB4AAAABAAQAAAANAB4AAAABAAQAAAAMAB4AAAABAAQAAAALAB4AAAABAAQAAAAKAB4AAAABAAQAAAAJAB4AAAABAAQAAAAIAB4AAAAAAAQAAAARAB8AAAABAAQAAAAQAB8AAAABAAQAAAAPAB8AAAABAAQAAAAOAB8AAAABAAQAAAANAB8AAAABAAQAAAAMAB8AAAABAAQAAAALAB8AAAABAAQAAAAKAB8AAAABAAQAAAAJAB8AAAABAAQAAAAIAB8AAAADAAMAAgAHAB8AAAAAAAEAAAAKACAAAAABAAQAAAALACAAAAABAAQAAAAMACAAAAABAAQAAAASAB8AAAABAAQAAAAUAB8AAAABAAQAAAATAB8AAAABAAQAAAAZAB8AAAABAAQAAAAaAB8AAAABAAQAAAAbAB8AAAABAAQAAAAcAB8AAAABAAQAAAAdAB8AAAABAAQAAAAeAB8AAAABAAQAAAAgAB8AAAABAAQAAAAfAB8AAAABAAQAAAAhAB8AAAABAAQAAAAiAB8AAAABAAQAAAAjAB8AAAABAAQAAAAkAB8AAAABAAQAAAAlAB8AAAABAAQAAAAnAB8AAAABAAQAAAAmAB8AAAABAAQAAAAoAB8AAAABAAQAAAApAB8AAAABAAQAAAAqAB8AAAABAAQAAAApAB4AAAABAAQAAAAoAB4AAAABAAQAAAAnAB4AAAABAAQAAAAmAB4AAAABAAQAAAAmAB0AAAABAAMAAAAnAB0AAAABAAMAAAAoAB0AAAABAAMAAAApAB0AAAABAAMAAAAqAB0AAAABAAMAAAArAB0AAAABAAMAAAAsAB0AAAABAAMAAAAtAB0AAAABAAMAAAAuAB0AAAABAAMAAAAvAB0AAAABAAMAAAAwAB0AAAAEAAMABAAwAB4AAAACAAQAAAAvAB4AAAABAAQAAAAuAB4AAAABAAQAAAAtAB4AAAABAAQAAAAsAB4AAAABAAQAAAArAB4AAAABAAQAAAAqAB4AAAABAAQAAAArAB8AAAABAAQAAAAsAB8AAAABAAQAAAAtAB8AAAABAAQAAAAuAB8AAAABAAQAAAAvAB8AAAABAAQAAAAwAB8AAAADAAUAAAAxAB8AAAABAAEAAAAyAB8AAAACAAEAAAAqACAAAAABAAQAAAAoACAAAAABAAQAAAAnACAAAAABAAQAAAAlACAAAAABAAQAAAAmACAAAAABAAQAAAAkACAAAAABAAQAAAAjACAAAAABAAQAAAAiACEAAAABAAUAAAAgACEAAAABAAUAAAAhACEAAAABAAUAAAAfACEAAAABAAUAAAAeACEAAAABAAUAAAAcACEAAAABAAUAAAAdACEAAAABAAUAAAAbACEAAAABAAUAAAAaACEAAAABAAUAAAAZACEAAAABAAUAAAAXACEAAAABAAUAAAAYACEAAAABAAUAAAAWACEAAAABAAUAAAAWACAAAAABAAQAAAAVACAAAAABAAQAAAATACAAAAABAAQAAAAUACAAAAABAAQAAAASACAAAAABAAQAAAARACAAAAABAAQAAAAQACAAAAABAAQAAAAPACAAAAABAAQAAAAOACEAAAABAAUAAAANACEAAAABAAUAAAAMACEAAAABAAUAAAALACEAAAABAAUAAAAKACEAAAABAAUAAAAJACEAAAABAAUAAAAIACEAAAAAAAUAAAAJACAAAAABAAQAAAAXACAAAAABAAQAAAAYACAAAAABAAQAAAAZACAAAAABAAQAAAAbACAAAAABAAQAAAAaACAAAAABAAQAAAAcACAAAAABAAQAAAAeACAAAAABAAQAAAAdACAAAAABAAQAAAANACAAAAABAAQAAAAOACAAAAABAAQAAAAPACEAAAABAAUAAAAQACEAAAABAAUAAAARACEAAAABAAUAAAASACEAAAABAAUAAAATACEAAAABAAUAAAAUACEAAAABAAUAAAAVACEAAAABAAUAAAAjACEAAAABAAUAAAAlACEAAAABAAUAAAAkACEAAAABAAUAAAAmACEAAAABAAUAAAAnACEAAAABAAUAAAAoACEAAAABAAUAAAApACEAAAABAAUAAAAqACEAAAABAAUAAAArACEAAAABAAUAAAAsACEAAAABAAUAAAAtACEAAAABAAUAAAAuACEAAAABAAUAAAAvACEAAAABAAUAAAAwACEAAAABAAUAAAAxACEAAAACAAQAAAAxACAAAAACAAQAAAAiACAAAAABAAQAAAAhACAAAAABAAQAAAAgACAAAAABAAQAAAAsACAAAAABAAQAAAArACAAAAABAAQAAAAtACAAAAABAAQAAAAuACAAAAABAAQAAAAvACAAAAABAAQAAAAwACAAAAABAAQAAAAfACAAAAABAAQAAAAIACAAAAAAAAQAAAARABwAAAACAAMAAAAQABwAAAABAAMAAAAPABsAAAACAAMAAAAPABwAAAADAAUAAAAOABwAAAABAAQAAAAOABsAAAABAAMAAAANABoAAAACAAMAAAANABsAAAADAAUAAAANABwAAAABAAQAAAAMABwAAAABAAQAAAAMABsAAAABAAQAAAAMABoAAAABAAMAAAALABkAAAACAAMAAAALABoAAAADAAUAAAALABsAAAABAAQAAAALABwAAAABAAQAAAAKABwAAAABAAQAAAAKABsAAAABAAQAAAAKABoAAAABAAQAAAAKABkAAAABAAMAAAAIABwAAAAAAAQAAAAIABsAAAAAAAQAAAAJABoAAAABAAQAAAAJABkAAAADAAUAAAAJABsAAAABAAQAAAAJABwAAAABAAQAAAAIABoAAAAAAAQAAAAIABkAAAAAAAQAAAAIABgAAAAAAAMAAAAJABgAAAACAAMAAAAqABwABQAAAAAAAAAtABwABQAAAAAAAAAsABwABQAAAAAAAAArABwABQAAAAAAAAArABsABQAAAAAAAAAqABsABQAAAAAAAAAsABsABQAAAAAAAAAtABsABQAAAAAAAAApACAABQAAAAAAAAA=")
+tile_set = ExtResource("2")

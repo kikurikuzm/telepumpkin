@@ -5,13 +5,15 @@ class_name cameraZone
 @export var collisionShapeTransform = Vector4.ZERO ##X position, Y position, X scale, Y scale
 @export var usesCustomTransform = false
 @export var overrideCameraZoom = false
-@export var cameraZoom : float
+@export var cameraZoom : float = 3.0
 
 @onready var area2D = $Area2D
 @onready var collisionShape2D = $Area2D/CollisionShape2D
 @onready var exampleCamera = $exampleBounds
 
-@onready var mainCamera = get_parent().get_parent().mainCamera
+signal requestCameraFocus(emittingCameraZoneReference)
+signal returnCameraFocus(emittingCameraZoneReference)
+signal requestCameraZoomChange(requestedZoom:Vector2)
 
 func _process(delta):
 	if usesCustomTransform:
@@ -30,23 +32,24 @@ func _process(delta):
 func _physics_process(delta):
 	for i in area2D.get_overlapping_bodies():
 		if i.is_in_group("player"):
-			mainCamera.changeParent(self)
-			if overrideCameraZoom:
-				mainCamera.changeZoom(Vector2(cameraZoom, cameraZoom))
-				return
-
+			cameraZoneGetCamera()
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
-		mainCamera.changeParent(self)
-		if overrideCameraZoom:
-			mainCamera.changeZoom(Vector2(cameraZoom, cameraZoom))
+		cameraZoneGetCamera()
 
 func _on_area_2d_body_exited(body):
-	mainCamera.returnToPlayer()
-	if overrideCameraZoom:
-		mainCamera.returnToOldZoom()
+	cameraZoneReturnCamera()
 
 func _on_check_if_empty_timeout():
-	if !area2D.has_overlapping_bodies() and mainCamera.currentParent == self:
-		mainCamera.returnToPlayer()
+	if !area2D.has_overlapping_bodies():
+		cameraZoneReturnCamera()
+
+func cameraZoneGetCamera():
+	requestCameraFocus.emit(self)
+	if overrideCameraZoom:
+		requestCameraZoomChange.emit(Vector2(cameraZoom, cameraZoom))
+		return
+
+func cameraZoneReturnCamera():
+	returnCameraFocus.emit(self)

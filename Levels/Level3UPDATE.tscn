@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://c7idfduc7w02q"]
+[gd_scene load_steps=12 format=4 uid="uid://c7idfduc7w02q"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_eh7yi"]
 [ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_o2grw"]
@@ -8,6 +8,42 @@
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="4_3hbkj"]
 [ext_resource type="Script" path="res://Scripts/CutscenePlayer.gd" id="5_a20hc"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="5_m7mxe"]
+
+[sub_resource type="Animation" id="Animation_870au"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("platform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(992, 720)]
+}
+
+[sub_resource type="Animation" id="Animation_juqcx"]
+resource_name = "fart"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("platform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(992, 720)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dw8vd"]
+_data = {
+"RESET": SubResource("Animation_870au"),
+"fart": SubResource("Animation_juqcx")
+}
 
 [node name="LevelSceneRoot" type="Node"]
 script = ExtResource("1_o2grw")
@@ -19,6 +55,9 @@ tile_map_data = PackedByteArray("AAASABIAAAACAAQAAAARABIAAAABAAQAAAAQABIAAAABAAQ
 tile_set = ExtResource("1_eh7yi")
 
 [node name="cutscenePlayer" type="AnimationPlayer" parent="." groups=["level_cutsceneplayer"]]
+libraries = {
+"": SubResource("AnimationLibrary_dw8vd")
+}
 script = ExtResource("5_a20hc")
 
 [node name="platform" parent="." instance=ExtResource("2_map3d")]

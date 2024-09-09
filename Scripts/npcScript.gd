@@ -4,7 +4,6 @@ class_name NPC extends Node2D
 
 ##An interactable level element that displays dialogue. Can be triggered.
 ##
-##Its trigger variable changes its position rather than initiating dialogue.
 
 @onready var animSprite = get_node("AnimatedSprite2D")
 
@@ -16,6 +15,8 @@ class_name NPC extends Node2D
 
 var canTalk = true
 
+signal initiateDialogue(conversationID)
+
 func _process(delta):
 	if Engine.is_editor_hint():
 		animSprite.flip_h = spriteFlip
@@ -25,8 +26,6 @@ func _process(delta):
 func _ready():
 	animSprite.flip_h = spriteFlip
 	animSprite.play(npcLook)
-	if not dialogueManager is DialogueManager:
-		push_error("You must provide a dialogueManager node in the level for NPCs to function!")
 
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and !dialogueManager.inDialogue:

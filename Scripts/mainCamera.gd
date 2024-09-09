@@ -23,6 +23,10 @@ func snapToParent():
 	zoom = desiredZoom
 
 func changeParent(newParent):
+	if newParent == null:
+		push_error("Invalid desired parent!")
+		return
+	
 	oldParent = currentParent
 	currentParent = newParent
 	return

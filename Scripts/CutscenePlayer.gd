@@ -39,7 +39,7 @@ func startCutscene(cutscene:String, resetPlayer:bool = true):
 		#player.changeState("playerbusy")
 	#cinemaBoxes.play("in")
 	#inCutscene = true
-	initiateCutscene.emit()
+	initiateCutscene.emit(placeholderPlayer, placeholderCamera)
 	play(cutscene)
 	
 	await self.animation_finished

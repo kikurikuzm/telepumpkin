@@ -218,7 +218,6 @@ libraries = {
 "lev2": SubResource("AnimationLibrary_hqow0")
 }
 script = ExtResource("7_hu880")
-animationName = "lev2/secret1"
 placeholderCamera = NodePath("../cam")
 placeholderPlayer = NodePath("../playerDummy")
 

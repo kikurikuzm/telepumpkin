@@ -5,8 +5,10 @@ var levelSpawnPointReference : Node2D
 var levelExitReference : Node2D
 var levelTileLayerReference : TileMapLayer
 var levelCutscenePlayerReference : CutscenePlayer
-var levelNPCsReferenceArray : Array[Node2D]
 var levelMapCameraReference : Camera2D
+var levelNPCsReferenceArray : Array[Node2D]
+var levelCameraZonesReferenceArray : Array[Node2D]
+
 
 var allRootChildren
 
@@ -18,7 +20,7 @@ func _ready():
 
 func initializeLevel():
 	if levelVariablesResource == null:
-		printerr("No LevelVariables resource was provided!")
+		push_error("No LevelVariables resource was provided!")
 	else:
 		print("Found LevelVariables")
 	
@@ -41,38 +43,55 @@ func initializeLevel():
 		elif child.is_in_group("level_npc"):
 			levelNPCsReferenceArray.append(child)
 			print("Found an NPC")
+		elif child.is_in_group("level_camerazone"):
+			levelCameraZonesReferenceArray.append(child)
+			print("Found a CameraZone")
 
 func getLevelSpawnPointReference():
 	if levelSpawnPointReference != null:
 		return levelSpawnPointReference
 	else:
-		printerr("Did not find level spawn point!")
+		push_error("Did not find level spawn point!")
 		return null
 
 func getLevelSpawnPointPosition() -> Vector2:
 	if levelSpawnPointReference != null:
 		return levelSpawnPointReference.global_position
 	else:
-		printerr("Did not find level spawn point!")
+		push_error("Did not find level spawn point!")
 		return Vector2.ZERO
 
 func getLevelExitReference():
 	if levelExitReference != null:
 		return levelExitReference
 	else:
-		printerr("Did not find level exit!")
+		push_error("Did not find level exit!")
 		return null
 
 func getLevelCutsceneReference():
 	if levelCutscenePlayerReference != null:
 		return levelCutscenePlayerReference
 	else:
-		printerr("Did not find level cutscene player!")
+		push_warning("Did not find level cutscene player!")
 		return null
 
 func getLevelMapCameraReference():
 	if levelMapCameraReference != null:
 		return levelMapCameraReference
 	else:
-		printerr("Did not find level map camera!")
+		push_error("Did not find level map camera!")
+		return null
+
+func getLevelNPCsReferenceArray():
+	if !levelNPCsReferenceArray.is_empty():
+		return levelNPCsReferenceArray
+	else:
+		push_error("No NPCs found in the level!")
+		return null
+
+func getLevelCameraZonesReferenceArray():
+	if !levelCameraZonesReferenceArray.is_empty():
+		return levelCameraZonesReferenceArray
+	else:
+		push_error("No camera zones found in the level!")
 		return null

@@ -33,8 +33,11 @@ func passRootNodeSignalsToConnect() -> Array:
 	var levelExitReference = instancedLevel.getLevelExitReference()
 	var levelCutscenePlayerReference = instancedLevel.getLevelCutsceneReference()
 	var levelMapCameraReference = instancedLevel.getLevelMapCameraReference()
+	var levelNPCsReferenceArray = instancedLevel.getLevelNPCsReferenceArray()
+	var levelCameraZonesReferenceArray = instancedLevel.getLevelCameraZonesReferenceArray()
 	
-	var levelNodeSignalsArray : Array[Signal] = []
+	var levelNodeSignalsArray : Array = []
+	var levelCameraZoneInstancesArray : Array
 	
 	if levelExitReference != null:
 		levelNodeSignalsArray.append(levelExitReference.levelFinished)
@@ -48,6 +51,17 @@ func passRootNodeSignalsToConnect() -> Array:
 		levelNodeSignalsArray.append(Signal())
 		levelNodeSignalsArray.append(Signal())
 	
+	if levelCameraZonesReferenceArray != null:
+		for cameraZoneInstance in levelCameraZonesReferenceArray:
+			var cameraZoneInstanceSignalsArray : Array
+			cameraZoneInstanceSignalsArray.append(cameraZoneInstance.requestCameraFocus)
+			cameraZoneInstanceSignalsArray.append(cameraZoneInstance.returnCameraFocus)
+			cameraZoneInstanceSignalsArray.append(cameraZoneInstance.requestCameraZoomChange)
+			levelCameraZoneInstancesArray.append(cameraZoneInstanceSignalsArray)
+		levelNodeSignalsArray.append(levelCameraZoneInstancesArray)
+	else:
+		levelNodeSignalsArray.append([[]])
+			
 	return levelNodeSignalsArray
 
 func isLevelCurrentlyLoaded() -> bool:

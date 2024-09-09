@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ocxun"]
 size = Vector2(75, 75)
 
-[node name="cameraZone" type="Node2D"]
+[node name="cameraZone" type="Node2D" groups=["level_camerazone"]]
 modulate = Color(1, 1, 1, 0.537255)
 script = ExtResource("1_addt7")
 
@@ -31,6 +31,7 @@ wait_time = 0.2
 autostart = true
 
 [node name="exampleBounds" type="Camera2D" parent="."]
+visible = false
 enabled = false
 zoom = Vector2(5.5, 5.5)
 
