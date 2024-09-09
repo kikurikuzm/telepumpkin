@@ -38,6 +38,7 @@ func passRootNodeSignalsToConnect() -> Array:
 	
 	var levelNodeSignalsArray : Array = []
 	var levelCameraZoneInstancesArray : Array
+	var levelNPCInstancesArray : Array
 	
 	if levelExitReference != null:
 		levelNodeSignalsArray.append(levelExitReference.levelFinished)
@@ -50,6 +51,14 @@ func passRootNodeSignalsToConnect() -> Array:
 	else:
 		levelNodeSignalsArray.append(Signal())
 		levelNodeSignalsArray.append(Signal())
+	
+	if levelNPCInstancesArray != null:
+		var levelNPCInstanceSignalsArray : Array
+		for NPCInstance in levelNPCInstancesArray:
+			levelNPCInstanceSignalsArray.append(NPCInstance.initiateDialogue)
+		levelNodeSignalsArray.append(levelNPCInstanceSignalsArray)
+	else:
+		levelNodeSignalsArray.append([])
 	
 	if levelCameraZonesReferenceArray != null:
 		for cameraZoneInstance in levelCameraZonesReferenceArray:

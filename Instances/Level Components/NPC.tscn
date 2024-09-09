@@ -16,7 +16,7 @@ position = Vector2(1, 1)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = ExtResource("1")
 animation = &"smoke"
-frame_progress = 0.926392
+frame_progress = 0.75257
 
 [node name="npcArea" type="Area2D" parent="." groups=["npc"]]
 z_index = -1

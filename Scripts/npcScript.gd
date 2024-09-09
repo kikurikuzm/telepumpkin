@@ -7,7 +7,7 @@ class_name NPC extends Node2D
 
 @onready var animSprite = get_node("AnimatedSprite2D")
 
-@onready var dialogueManager = get_parent().get_node("dialogueManager")
+#@onready var dialogueManager = get_parent().get_node("dialogueManager")
 
 @export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var npcLook: String
 @export var spriteFlip : bool
@@ -15,7 +15,7 @@ class_name NPC extends Node2D
 
 var canTalk = true
 
-signal initiateDialogue(conversationID)
+signal initiateDialogue(conversationID, emittingNPCReference)
 
 func _process(delta):
 	if Engine.is_editor_hint():
@@ -28,18 +28,18 @@ func _ready():
 	animSprite.play(npcLook)
 
 func _input(event):
-	if Input.is_action_just_pressed("teleport") and !dialogueManager.inDialogue:
+	if Input.is_action_just_pressed("teleport") and canTalk:
 		for i in $npcArea.get_overlapping_areas():
 			if i.is_in_group("player"):
-				print("started dialogue from NPC")
-				dialogueManager.convoInitialize(convoID, self)
-				canTalk = false
+				NPCBeginConversation()
 				break
-		
 
-func _on_npc_area_area_entered(area):
-	if area.is_in_group("player"):
-		canTalk = true
+func NPCBeginConversation():
+	initiateDialogue.emit(convoID, self)
+	canTalk = false
+
+func NPCFinishConversation():
+	pass
 
 func save() -> Dictionary:
 	var saveDict = {
@@ -57,9 +57,10 @@ func loadJSON(nodeData) -> void:
 
 func trigger(triggerChangePosition = null):
 	if triggerChangePosition == null:
-		dialogueManager.convoInitialize(convoID, self)
-		canTalk = false
+		NPCBeginConversation()
 	else:
 		global_position = Vector2(triggerChangePosition.posX, triggerChangePosition.posY)
-		
-	
+
+func _on_npc_area_area_entered(area):
+	if area.is_in_group("player"):
+		canTalk = true

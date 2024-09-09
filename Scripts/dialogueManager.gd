@@ -33,16 +33,22 @@ var inCutscene = false ##Whether or not the player is currently in a cutscene.
 
 var conversation : Array ##The parsed array from the .json file.
 
-##The function that parses through the given .json file and converts it into an array.
-func parseJSON() -> Array: 
-	var f = FileAccess.open(dialogueJSONPath, FileAccess.READ)
-	var json = f.get_as_text()
-	
-	var output = JSON.parse_string(json)
-	if typeof(output) == TYPE_ARRAY:
-		return output
-	else:
-		return []
+signal changeCameraFocus(desiredCameraFocusNode)
+signal changeCameraFocusToPlayer()
+signal changeCameraSmoothingAmount(desiredCameraSmoothingAmount)
+signal changeCameraZoom(desiredCameraZoom)
+signal beginDialogueCutscene(desiredCutscene)
+
+##The function that performs setup for dialogue.
+func conversationInitiate(convoNumb:int=0, npcInstance:Node2D=null): 
+	print("started dialogue from DialogueManager")
+	inDialogue = true
+	dialogueInitializer = npcInstance
+	conversation = parseJSON()
+	currentConversation = convoNumb
+	#oldZoom = mainCamera.desiredZoom
+	$textSkipDelay.start()
+	progressDialogue()
 
 ##The function that progresses dialogue and does the bulk of the work. This is where events in the dialogue are performed, such as 'cameraSpeed'.
 func progressDialogue(): 
@@ -66,19 +72,20 @@ func progressDialogue():
 	
 	if currentCharacter is String:
 		if currentCharacter == "player":
-			mainCamera.currentParent = mainCamera.playerRef
+			changeCameraFocusToPlayer.emit()
+			#mainCamera.currentParent = mainCamera.playerRef
 	else:
-		mainCamera.currentParent = currentCharacter
+		changeCameraFocus.emit(currentCharacter)
 	
 	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + quickConvoVar["portrait"])
 	dialogueText.text = quickConvoVar["text"]
 	
 	if quickConvoVar.has("cameraSpeed"):
-		mainCamera.smoothAmount = quickConvoVar["cameraSpeed"]
+		changeCameraSmoothingAmount.emit(quickConvoVar["cameraSpeed"])
 	if quickConvoVar.has("speed"):
 		textSpeed.wait_time = quickConvoVar["speed"]
 	if quickConvoVar.has("zoom"):
-		mainCamera.desiredZoom = str_to_var(quickConvoVar["zoom"])
+		changeCameraZoom.emit(str_to_var(quickConvoVar["zoom"]))
 	if quickConvoVar.has("quest"):
 		questIndex = quickConvoVar["quest"]
 	if quickConvoVar.has("cutscene"):
@@ -123,24 +130,24 @@ func progressDialogue():
 	##The function that ends a given dialogue and performs the necessary cleanup.
 func endDialogue(): 
 	print("ended dialogue from DialogueManager")
-	var rootnode = get_parent().get_parent()
-	rootnode.player.changeState("playeridle")
+	#var rootnode = get_parent().get_parent()
+	#rootnode.player.changeState("playeridle")
 	
 	dialogueBox.visible = false
 	dialogueContinue.visible = false
 	inDialogue = false
 	
 	currentTextIndex = 0
-	if questIndex != null:
-		rootnode.get_node("questManager").changeQuest(questIndex)
-	questIndex = null
+	#if questIndex != null:
+		#rootnode.get_node("questManager").changeQuest(questIndex)
+	#questIndex = null
 	
 	mainCamera.desiredZoom = oldZoom
 	mainCamera.smoothAmount = 0.2
 	mainCamera.currentParent = mainCamera.playerRef
 	
 	if queuedConvo != null:
-		convoInitialize(queuedConvo)
+		conversationInitiate(queuedConvo)
 		queuedConvo = null
 	#else:
 		#if dialogueInitializer is NPC:
@@ -150,20 +157,20 @@ func endDialogue():
 func queueConvo(convoNumb:int) -> void:
 	queuedConvo = convoNumb
 
-##The function that performs setup for dialogue.
-func convoInitialize(convoNumb=0, npcInstance=null): 
-	print("started dialogue from DialogueManager")
-	inDialogue = true
-	dialogueInitializer = npcInstance
-	conversation = parseJSON()
-	currentConversation = convoNumb
-	oldZoom = mainCamera.desiredZoom
-	$textSkipDelay.start()
-	progressDialogue()
+##The function that parses through the given .json file and converts it into an array.
+func parseJSON() -> Array: 
+	var f = FileAccess.open(dialogueJSONPath, FileAccess.READ)
+	var json = f.get_as_text()
 	
+	var output = JSON.parse_string(json)
+	if typeof(output) == TYPE_ARRAY:
+		return output
+	else:
+		return []
+
 ## The function used to determine what happens when triggered by the 'trigger' node.
 func trigger(): 
-	convoInitialize()
+	conversationInitiate()
 
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped() and !inCutscene:

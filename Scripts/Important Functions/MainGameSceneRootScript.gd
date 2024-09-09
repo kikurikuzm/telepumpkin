@@ -5,6 +5,7 @@ extends Node
 @onready var levelLoader = $LevelLoader
 @onready var cutsceneManager = $CutsceneManager
 @onready var dialogueManager = $DialogueManager
+@onready var cameraManager = $CameraManager
 
 @onready var playerReference = $Player
 @onready var mainCameraReference = $MainCamera
@@ -14,6 +15,7 @@ var currentLevelSetIndex : int = 0
 func _ready() -> void:
 	initiateLevelChange()
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)
+	cameraManager.setMainCameraReference(mainCameraReference)
 
 func connectToLevelNodeSignals():
 	var nodeSignalsArray = levelLoader.passRootNodeSignalsToConnect()
@@ -22,7 +24,11 @@ func connectToLevelNodeSignals():
 	nodeSignalsArray[1].connect(_levelCutsceneBegin)
 	nodeSignalsArray[2].connect(_levelCutsceneEnd)
 	
-	var cameraZoneSignalCollectionArray = nodeSignalsArray[3]
+	var NPCSignalsArray = nodeSignalsArray[3]
+	for NPCSignal in NPCSignalsArray:
+		NPCSignal.connect(_levelNPCInstanceBeginConversation)
+	
+	var cameraZoneSignalCollectionArray = nodeSignalsArray[4]
 	for cameraZoneSignalColletion in cameraZoneSignalCollectionArray:
 		cameraZoneSignalColletion[0].connect(_levelCameraZoneGiveMainCameraFocus)
 		cameraZoneSignalColletion[1].connect(_levelCameraZoneTakeMainCameraFocus)
@@ -38,7 +44,11 @@ func disconnnectCallablesFromSignals():
 	nodeSignalsArray[1].disconnect(_levelCutsceneBegin)
 	nodeSignalsArray[2].disconnect(_levelCutsceneEnd)
 	
-	var cameraZoneSignalCollectionArray = nodeSignalsArray[3]
+	var NPCSignalsArray = nodeSignalsArray[3]
+	for NPCSignal in NPCSignalsArray:
+		NPCSignal.disconnect(_levelNPCInstanceBeginConversation)
+	
+	var cameraZoneSignalCollectionArray = nodeSignalsArray[4]
 	for cameraZoneSignalColletion in cameraZoneSignalCollectionArray:
 		cameraZoneSignalColletion[0].disconnect(_levelCameraZoneGiveMainCameraFocus)
 		cameraZoneSignalColletion[1].disconnect(_levelCameraZoneTakeMainCameraFocus)
@@ -50,6 +60,11 @@ func initiateLevelChange():
 	levelLoader.setupExternalLevelNodes(playerReference)
 	connectToLevelNodeSignals()
 
+#Signal functions begin here
+
+func _dialogueManagerBeginDialogue(emittingNPCConversationID, emittingNPCInstanceReference):
+	dialogueManager.conversationInitiate(emittingNPCConversationID, emittingNPCInstanceReference)
+
 func _levelCompleted():
 	currentLevelSetIndex += 1
 	initiateLevelChange()
@@ -60,11 +75,14 @@ func _levelCutsceneBegin(passedCutscenePlayerCharacter, passedCutsceneCamera):
 func _levelCutsceneEnd():
 	cutsceneManager.cleanupCutscene()
 
+func _levelNPCInstanceBeginConversation(emittingNPCConversationID, emittingNPCInstanceReference):
+	dialogueManager.conversationInitiate(emittingNPCConversationID, emittingNPCInstanceReference)
+
 func _levelCameraZoneGiveMainCameraFocus(cameraZoneReference):
-	print("give camera zone camera")
+	cameraManager.mainCameraChangeParent(cameraZoneReference)
 	
 func _levelCameraZoneTakeMainCameraFocus(cameraZoneReference):
-	print("take camera zone camera")
+	cameraManager.mainCameraReturnToOriginalParent()
 
 func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:Vector2):
-	print("change camera zone camera zoom")
+	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
