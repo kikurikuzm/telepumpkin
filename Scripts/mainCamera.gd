@@ -45,7 +45,11 @@ func returnToParent():
 	
 	currentParent = playerRef
 
-func changeZoom(newZoom):
+func changeZoom(newZoom:Vector2):
+	print("changed camera zoom")
+	if newZoom is not Vector2:
+		push_error("Invalid zoom variable type!")
+		return
 	oldZoom = desiredZoom
 	desiredZoom = newZoom
 	return
@@ -58,3 +62,6 @@ func returnToOldZoom():
 
 func isPlayerParent() -> bool:
 	return currentParent == playerRef
+
+func getCurrentCameraParent():
+	return currentParent

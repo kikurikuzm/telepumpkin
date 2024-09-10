@@ -26,6 +26,18 @@ func instanceLevel(levelSetIndex:int) -> void:
 	instancedLevel = loadedLevel.instantiate()
 	add_child(instancedLevel)
 
+func instanceLevelFromPath(levelPath:String):
+	if loadedLevel != null:
+		loadedLevel = null
+	if instancedLevel != null:
+		instancedLevel.queue_free()
+	
+	var currentLevelToLoad = levelPath
+	loadedLevel = load(currentLevelToLoad)
+	
+	instancedLevel = loadedLevel.instantiate()
+	add_child(instancedLevel)
+
 func setupExternalLevelNodes(playerReference:CharacterBody2D) -> void:
 	playerReference.global_position = instancedLevel.getLevelSpawnPointPosition()
 
@@ -51,10 +63,10 @@ func passRootNodeSignalsToConnect() -> Array:
 	else:
 		levelNodeSignalsArray.append(Signal())
 		levelNodeSignalsArray.append(Signal())
-	
-	if levelNPCInstancesArray != null:
+
+	if levelNPCsReferenceArray != null:
 		var levelNPCInstanceSignalsArray : Array
-		for NPCInstance in levelNPCInstancesArray:
+		for NPCInstance in levelNPCsReferenceArray:
 			levelNPCInstanceSignalsArray.append(NPCInstance.initiateDialogue)
 		levelNodeSignalsArray.append(levelNPCInstanceSignalsArray)
 	else:
@@ -69,7 +81,7 @@ func passRootNodeSignalsToConnect() -> Array:
 			levelCameraZoneInstancesArray.append(cameraZoneInstanceSignalsArray)
 		levelNodeSignalsArray.append(levelCameraZoneInstancesArray)
 	else:
-		levelNodeSignalsArray.append([[]])
+		levelNodeSignalsArray.append([])
 			
 	return levelNodeSignalsArray
 
@@ -79,3 +91,6 @@ func isLevelCurrentlyLoaded() -> bool:
 	elif instancedLevel == null:
 		return false
 	return false
+
+func getCurrentLevelChildren():
+	return instancedLevel.getAllRootChildren()

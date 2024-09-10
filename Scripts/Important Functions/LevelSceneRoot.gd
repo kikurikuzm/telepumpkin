@@ -15,10 +15,19 @@ var allRootChildren
 signal levelCompletedSignal
 
 func _ready():
+	if get_parent() is Window:
+		push_warning("Not running in MainScene")
+		gvars.levelToLoadInMainScene = self.scene_file_path
+		print(gvars.levelToLoadInMainScene)
+		get_tree().change_scene_to_file("res://Instances/Important/MainGameScene.tscn")
+	
 	allRootChildren = self.get_children()
 	initializeLevel()
 
 func initializeLevel():
+	levelNPCsReferenceArray = []
+	levelCameraZonesReferenceArray = []
+	
 	if levelVariablesResource == null:
 		push_error("No LevelVariables resource was provided!")
 	else:
@@ -46,6 +55,9 @@ func initializeLevel():
 		elif child.is_in_group("level_camerazone"):
 			levelCameraZonesReferenceArray.append(child)
 			print("Found a CameraZone")
+
+func getAllRootChildren():
+	return allRootChildren
 
 func getLevelSpawnPointReference():
 	if levelSpawnPointReference != null:
@@ -93,5 +105,5 @@ func getLevelCameraZonesReferenceArray():
 	if !levelCameraZonesReferenceArray.is_empty():
 		return levelCameraZonesReferenceArray
 	else:
-		push_error("No camera zones found in the level!")
+		push_warning("No camera zones found in the level!")
 		return null

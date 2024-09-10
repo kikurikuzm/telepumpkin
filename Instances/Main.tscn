@@ -735,7 +735,6 @@ scale = Vector2(0.404192, 0.404192)
 texture = ExtResource("26_a23wb")
 
 [node name="TileMap" parent="." instance_placeholder="res://Levels/debugroom.tscn"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMap"]
 z_index = 999

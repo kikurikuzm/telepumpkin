@@ -18,9 +18,6 @@ class_name DialogueManager
 
 @onready var textSpeed = $textSpeed ##A timer used to have the letters show every given amount of time.
 
-@onready var mainCamera = get_parent().get_parent().get_node("mainCamera") ##A reference to the main camera of the 'Main' node.
-var oldZoom : Vector2 ##The zoom of the main camera prior to being modified by the dialogue.
-
 var dialogueInitializer
 var currentConversation = 0 ##The index of the current conversation.
 var currentTextIndex = 0 ##The index of the current text chunk within the .json file.
@@ -33,11 +30,14 @@ var inCutscene = false ##Whether or not the player is currently in a cutscene.
 
 var conversation : Array ##The parsed array from the .json file.
 
-signal changeCameraFocus(desiredCameraFocusNode)
+var currentLevelChildren : Array
+
+signal changeCameraFocus(desiredCameraFocusNode:Node2D)
 signal changeCameraFocusToPlayer()
-signal changeCameraSmoothingAmount(desiredCameraSmoothingAmount)
-signal changeCameraZoom(desiredCameraZoom)
-signal beginDialogueCutscene(desiredCutscene)
+signal changeCameraSmoothingAmount(desiredCameraSmoothingAmount:float)
+signal changeCameraZoom(desiredCameraZoom:Vector2)
+signal beginDialogueCutscene(desiredCutscene:String)
+signal changePlayerCharacterState(desiredState:String)
 
 ##The function that performs setup for dialogue.
 func conversationInitiate(convoNumb:int=0, npcInstance:Node2D=null): 
@@ -62,7 +62,7 @@ func progressDialogue():
 	var currentCharacter = quickConvoVar["character"]
 	
 	#comparing every npc name to current character
-	for node in get_parent().get_children():
+	for node in currentLevelChildren:
 		if node.name == str(currentCharacter):
 			currentCharacter = node
 			break
@@ -92,24 +92,22 @@ func progressDialogue():
 		var cutscene = quickConvoVar["cutscene"][0]
 		var playDuringDialogue = bool(quickConvoVar["cutscene"][1])
 		
-		if playDuringDialogue:
-			cutsceneManager.startCutscene(cutscene, false)
-		elif !playDuringDialogue:
-			inCutscene = true
-			dialogueBox.visible = false
-			dialogueText.visible = false
-			cutsceneManager.startCutscene(cutscene)
-			await cutsceneManager.animation_finished
-			inCutscene = false
-			dialogueBox.visible = true
-			dialogueText.visible = true
+		#if playDuringDialogue:
+			#beginDialogueCutscene.emit(cutscene)
+		#elif !playDuringDialogue:
+			#beginDialogueCutscene.emit(cutscene)
+			##cutsceneManager.startCutscene(cutscene)
+			#await cutsceneManager.animation_finished
+			#dialogueBox.visible = true
+			#dialogueText.visible = true
 		
 	if quickConvoVar.has("nextConvo"):
 		queueConvo(quickConvoVar["nextConvo"])
 	if quickConvoVar.has("canMove"):
 		pass
 	else:
-		get_parent().get_parent().player.changeState("playerbusy")
+		changePlayerCharacterState.emit("playerBusy")
+		#get_parent().get_parent().player.changeState("playerbusy")
 	if quickConvoVar.has("changeMyConvo"):
 		dialogueInitializer.convoID = quickConvoVar["changeMyConvo"]
 	if quickConvoVar["text"] == "":
@@ -142,9 +140,13 @@ func endDialogue():
 		#rootnode.get_node("questManager").changeQuest(questIndex)
 	#questIndex = null
 	
-	mainCamera.desiredZoom = oldZoom
-	mainCamera.smoothAmount = 0.2
-	mainCamera.currentParent = mainCamera.playerRef
+	#changeCameraFocusToPlayer.emit()
+	#changeCameraSmoothingAmount.emit(0.2)
+	changePlayerCharacterState.emit("playerIdle")
+	
+	#mainCamera.desiredZoom = oldZoom
+	#mainCamera.smoothAmount = 0.2
+	#mainCamera.currentParent = mainCamera.playerRef
 	
 	if queuedConvo != null:
 		conversationInitiate(queuedConvo)
@@ -156,6 +158,9 @@ func endDialogue():
 
 func queueConvo(convoNumb:int) -> void:
 	queuedConvo = convoNumb
+
+func setCurrentLevelChildrenArray(childArray:Array):
+	currentLevelChildren = childArray
 
 ##The function that parses through the given .json file and converts it into an array.
 func parseJSON() -> Array: 

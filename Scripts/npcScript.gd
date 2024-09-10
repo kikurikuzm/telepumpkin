@@ -31,10 +31,12 @@ func _input(event):
 	if Input.is_action_just_pressed("teleport") and canTalk:
 		for i in $npcArea.get_overlapping_areas():
 			if i.is_in_group("player"):
+				print("found player and began dialogue")
 				NPCBeginConversation()
 				break
 
 func NPCBeginConversation():
+	print("begin conversation")
 	initiateDialogue.emit(convoID, self)
 	canTalk = false
 
@@ -59,7 +61,8 @@ func trigger(triggerChangePosition = null):
 	if triggerChangePosition == null:
 		NPCBeginConversation()
 	else:
-		global_position = Vector2(triggerChangePosition.posX, triggerChangePosition.posY)
+		print(triggerChangePosition)
+		#global_position = Vector2(triggerChangePosition[0], triggerChangePosition[1])
 
 func _on_npc_area_area_entered(area):
 	if area.is_in_group("player"):

@@ -29,10 +29,10 @@ func _process(delta):
 		exampleCamera.visible = overrideCameraZoom
 		exampleCamera.zoom = Vector2(cameraZoom, cameraZoom)
 
-func _physics_process(delta):
-	for i in area2D.get_overlapping_bodies():
-		if i.is_in_group("player"):
-			cameraZoneGetCamera()
+#func _physics_process(delta):
+	#for i in area2D.get_overlapping_bodies():
+		#if i.is_in_group("player"):
+			#cameraZoneGetCamera()
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):

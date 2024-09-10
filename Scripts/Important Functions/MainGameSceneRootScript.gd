@@ -56,11 +56,37 @@ func disconnnectCallablesFromSignals():
 
 func initiateLevelChange():
 	disconnnectCallablesFromSignals()
-	levelLoader.instanceLevel(currentLevelSetIndex)
+	
+	var levelLoadedFromEditor = gvars.levelToLoadInMainScene
+	
+	if levelLoadedFromEditor != null:
+		levelLoader.instanceLevelFromPath(levelLoadedFromEditor)
+		var levelLoaderLevelSet = levelLoader.levelSet
+		if levelLoadedFromEditor in levelLoaderLevelSet:
+			currentLevelSetIndex = levelLoaderLevelSet.find(levelLoadedFromEditor)
+		
+		gvars.levelToLoadInMainScene = null
+	else:
+		levelLoader.instanceLevel(currentLevelSetIndex)
+		
 	levelLoader.setupExternalLevelNodes(playerReference)
+	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
 	connectToLevelNodeSignals()
 
 #Signal functions begin here
+
+func _playerCharacterChangeState(desiredState:String):
+	playerReference.changeState(desiredState)
+	
+func _mainCameraChangeZoom(desiredZoom:Vector2):
+	cameraManager.mainCameraChangeZoom(desiredZoom)
+
+func _mainCameraChangeFocus(desiredTarget:Node2D):
+	cameraManager.mainCameraChangeParent(desiredTarget)
+
+func _mainCameraFocusPlayer():
+	cameraManager.mainCameraReturnToPlayer()
+
 
 func _dialogueManagerBeginDialogue(emittingNPCConversationID, emittingNPCInstanceReference):
 	dialogueManager.conversationInitiate(emittingNPCConversationID, emittingNPCInstanceReference)
