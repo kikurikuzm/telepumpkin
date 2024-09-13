@@ -75,6 +75,16 @@ func initiateLevelChange():
 
 #Signal functions begin here
 
+func _skipCurrentCutscene():
+	cutsceneManager.skipCutscene()
+
+func _createNewInstance(desiredInstancePath:String):
+	pass
+
+func _goToSpecifiedLevel(desiredLevelPath:String):
+	gvars.levelToLoadInMainScene = desiredLevelPath
+	initiateLevelChange()
+	
 func _playerCharacterChangeState(desiredState:String):
 	playerReference.changeState(desiredState)
 	
@@ -95,8 +105,8 @@ func _levelCompleted():
 	currentLevelSetIndex += 1
 	initiateLevelChange()
 
-func _levelCutsceneBegin(passedCutscenePlayerCharacter, passedCutsceneCamera):
-	cutsceneManager.setupCutscene(passedCutscenePlayerCharacter, passedCutsceneCamera)
+func _levelCutsceneBegin(passedCutscenePlayerCharacter, passedCutsceneCamera, passedCutscenePlayerInstance):
+	cutsceneManager.setupCutscene(passedCutscenePlayerCharacter, passedCutsceneCamera, passedCutscenePlayerInstance)
 
 func _levelCutsceneEnd():
 	cutsceneManager.cleanupCutscene()
@@ -112,3 +122,7 @@ func _levelCameraZoneTakeMainCameraFocus(cameraZoneReference):
 
 func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:Vector2):
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
+
+
+func _on_debugger_menu_command_skip_current_cutscene() -> void:
+	pass # Replace with function body.

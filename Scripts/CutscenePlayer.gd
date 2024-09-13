@@ -15,7 +15,7 @@ class_name CutscenePlayer
 
 var inCutscene = false ##Used to check if a cutscene is currently playing.
 
-signal initiateCutscene(cutscenePlayerCharacter, cutsceneCamera)
+signal initiateCutscene(cutscenePlayerCharacter, cutsceneCamera, emittingCutscenePlayer)
 signal endCutscene
 
 #func _process(delta):
@@ -39,7 +39,7 @@ func startCutscene(cutscene:String, resetPlayer:bool = true):
 		#player.changeState("playerbusy")
 	#cinemaBoxes.play("in")
 	#inCutscene = true
-	initiateCutscene.emit(placeholderPlayer, placeholderCamera)
+	initiateCutscene.emit(placeholderPlayer, placeholderCamera, self)
 	play(cutscene)
 	
 	await self.animation_finished

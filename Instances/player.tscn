@@ -828,6 +828,16 @@ impactAudio = NodePath("../../fallThump")
 pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
+[node name="playerFly" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+script = ExtResource("9_8rj2v")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+playerSprite = NodePath("../../AnimatedSprite2D")
+teleportRange = NodePath("../../Teleport")
+impactAudio = NodePath("../../fallThump")
+pumpkinRaycast = NodePath("../../pumpkinDetection")
+turnTimer = NodePath("../../turnTimer")
+
 [node name="tppLine" type="Line2D" parent="."]
 z_index = -1
 points = PackedVector2Array(0, 0, 0, 1)

@@ -18,16 +18,16 @@ class_name Trigger
 @export var anythingTriggers = false ##Whether or not the trigger is triggered by any physics object (Pumpkins, TPP) or only the player.
 @export var mustInteract = false ##Whether or not the player must press the interact button to trigger this trigger.
 @export_group("Level Changing")
-@export var sendLevel : PackedScene ##The scene to send the player to when this is triggered.
-@export var spawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
+@export var desiredGotoLevel : PackedScene ##The scene to send the player to when this is triggered.
+@export var desiredLevelSpawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
 @export var levelTransition = 0 ##What level transition to use upon changing level.
 
 var sceneCutscenePlayer : CutscenePlayer
 
 var lastTriggerList
-
-
 var hasTriggered = false ##Whether or not the trigger has already gone off.
+
+signal triggerRequestLevelLoad(desiredLevelPath:String, desiredLevelPosition:Vector2)
 
 func _ready():
 	if mustInteract:
@@ -67,8 +67,8 @@ func triggerThings(cause) -> void:
 				if triggersOnce:
 					hasTriggered = true
 				currentIndex += 1
-			if sendLevel != null:
-				get_parent().get_parent().loadLevel(sendLevel, levelTransition, spawnPosition)
+			if desiredGotoLevel != null:
+				triggerRequestLevelLoad.emit(desiredGotoLevel, desiredLevelSpawnPosition)
 		if !anythingTriggers and cause.is_in_group("player"):
 			var currentIndex = 0
 			for i in triggerList:
@@ -80,8 +80,8 @@ func triggerThings(cause) -> void:
 				print("triggered ", str(i))
 				if triggersOnce:
 					hasTriggered = true
-			if sendLevel != null:
-				get_parent().get_parent().loadLevel(sendLevel, levelTransition, spawnPosition)
+			if desiredGotoLevel != null:
+				triggerRequestLevelLoad.emit(desiredGotoLevel, desiredLevelSpawnPosition)
 
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:

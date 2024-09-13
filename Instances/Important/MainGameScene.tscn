@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ciuswkeg660ew"]
+[gd_scene load_steps=11 format=3 uid="uid://ciuswkeg660ew"]
 
 [ext_resource type="PackedScene" uid="uid://bedp1kcel7xwt" path="res://Instances/Important/LevelLoader.tscn" id="1_i68tn"]
 [ext_resource type="Script" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_sqsrj"]
 [ext_resource type="Script" path="res://Scripts/Important Functions/MainSceneCameraManager.gd" id="2_3s1mj"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_mfwcf"]
+[ext_resource type="Script" path="res://Scripts/Important Functions/DebuggerMenu.gd" id="2_qrl6x"]
 [ext_resource type="Script" path="res://Scripts/Important Functions/MainSceneCutsceneManager.gd" id="2_w3bxq"]
 [ext_resource type="Script" path="res://Scripts/Important Functions/LevelSet.gd" id="3_w5c4r"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="4_1jw7k"]
@@ -15,6 +16,29 @@ levelList = Array[String](["res://Levels/Level1.tscn", "res://Levels/Level2.tscn
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_sqsrj")
+
+[node name="DebuggerMenu" type="CanvasLayer" parent="."]
+script = ExtResource("2_qrl6x")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="DebuggerMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebuggerMenu/PanelContainer"]
+layout_mode = 2
+
+[node name="DebugConsoleOutput" type="RichTextLabel" parent="DebuggerMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(950, 950)
+layout_mode = 2
+bbcode_enabled = true
+
+[node name="DebugCommandInput" type="LineEdit" parent="DebuggerMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Enter a command..."
 
 [node name="CameraManager" type="Node" parent="."]
 script = ExtResource("2_3s1mj")
@@ -33,6 +57,10 @@ levelSetResource = SubResource("Resource_7i2qp")
 [node name="MainCamera" type="Camera2D" parent="."]
 script = ExtResource("5_5c3qt")
 
+[connection signal="commandChangeToLevelSignal" from="DebuggerMenu" to="." method="_goToSpecifiedLevel"]
+[connection signal="commandModifyPlayerState" from="DebuggerMenu" to="." method="_playerCharacterChangeState"]
+[connection signal="commandSkipCurrentCutscene" from="DebuggerMenu" to="." method="_skipCurrentCutscene"]
+[connection signal="text_submitted" from="DebuggerMenu/PanelContainer/VBoxContainer/DebugCommandInput" to="DebuggerMenu" method="_debugInputCommandSubmitted"]
 [connection signal="changeCameraFocus" from="DialogueManager" to="." method="_mainCameraChangeFocus"]
 [connection signal="changeCameraFocusToPlayer" from="DialogueManager" to="." method="_mainCameraFocusPlayer"]
 [connection signal="changeCameraZoom" from="DialogueManager" to="." method="_mainCameraChangeZoom"]
