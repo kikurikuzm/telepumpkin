@@ -122,7 +122,3 @@ func _levelCameraZoneTakeMainCameraFocus(cameraZoneReference):
 
 func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:Vector2):
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
-
-
-func _on_debugger_menu_command_skip_current_cutscene() -> void:
-	pass # Replace with function body.

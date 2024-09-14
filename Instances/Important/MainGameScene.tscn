@@ -18,6 +18,7 @@ levelList = Array[String](["res://Levels/Level1.tscn", "res://Levels/Level2.tscn
 script = ExtResource("1_sqsrj")
 
 [node name="DebuggerMenu" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("2_qrl6x")
 metadata/_edit_use_anchors_ = true
 

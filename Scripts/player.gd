@@ -8,8 +8,6 @@ extends CharacterBody2D
 @onready var tppLine = $tppLine
 @onready var flashlightHand = $AnimatedSprite2D/flashlightHand
 
-@onready var pumpkinRaycast = $pumpkinDetection
-
 @onready var playerLight = $AnimatedSprite2D/playerLight
 
 @onready var collectAudio = $collectAudio
@@ -120,6 +118,9 @@ func tppHandler() -> void:
 
 func changeState(state:String) -> void:
 	$stateFactory.on_child_transition($stateFactory.current_state, state)
+
+func getCurrentState() -> State:
+	return $stateFactory.current_state
 
 func getVelocity():
 	return velocity

@@ -7,14 +7,12 @@ var debugPlayerFlyToggle = false
 
 signal commandModifyPlayerState(desiredState:String)
 signal commandChangeToLevelSignal(desiredLevelPath:String)
-signal commandCreateNewInstanceSignal(desiredInstance:String)
 signal commandSkipCurrentCutscene
 
-func _input(event: InputEvent) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_menu"):
 		if self.visible == false:
 			self.visible = true
-			debugConsoleTextInputReference.clear()
 			debugConsoleTextInputReference.grab_focus()
 		elif self.visible == true:
 			self.visible = false
@@ -39,10 +37,8 @@ func interpretNewInput(newLine:String):
 	match commandInputCommand:
 		"fly":
 			commandTogglePlayerFly()
-		"lev":
+		"level":
 			commandChangeToLevel(commandInputArgument)
-		"spawn":
-			commandCreateNewInstance(commandInputArgument)
 		"skip":
 			commandSkipCurrentlyPlayingCutscene()
 
@@ -62,10 +58,6 @@ func commandTogglePlayerFly():
 func commandChangeToLevel(desiredLevelPath:String):
 	commandChangeToLevelSignal.emit(desiredLevelPath)
 	writeToDebugConsole("Changing to level " + desiredLevelPath)
-
-func commandCreateNewInstance(desiredInstance:String):
-	commandCreateNewInstanceSignal.emit(desiredInstance)
-	writeToDebugConsole("Creating a new instance of " + desiredInstance)
 
 func commandSkipCurrentlyPlayingCutscene():
 	commandSkipCurrentCutscene.emit()

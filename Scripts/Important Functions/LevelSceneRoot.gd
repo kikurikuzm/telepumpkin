@@ -9,10 +9,7 @@ var levelMapCameraReference : Camera2D
 var levelNPCsReferenceArray : Array[Node2D]
 var levelCameraZonesReferenceArray : Array[Node2D]
 
-
 var allRootChildren
-
-signal levelCompletedSignal
 
 func _ready():
 	if get_parent() is Window:

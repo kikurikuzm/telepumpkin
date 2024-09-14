@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=62 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://c1666rseg7wjt" path="res://Audio/sfx/grassStep-01.ogg" id="8_vg4jm"]
 [ext_resource type="AudioStream" uid="uid://buope0rqbdyn8" path="res://Audio/sfx/grassStep-02.ogg" id="9_7ukhu"]
 [ext_resource type="Script" path="res://Scripts/State/player states/playerBusy.gd" id="9_8rj2v"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerFly.gd" id="10_rtfj4"]
 [ext_resource type="AudioStream" uid="uid://dlvp15rgvkl2g" path="res://Audio/sfx/grassStep-03.ogg" id="10_yc71b"]
 [ext_resource type="Gradient" uid="uid://blengyjxsisxd" path="res://Resources/purplegradient.tres" id="11_6kb3m"]
 [ext_resource type="AudioStream" uid="uid://rjkd5e5f8lks" path="res://Audio/sfx/concretestep1.ogg" id="11_u8ed2"]
@@ -758,84 +759,76 @@ script = ExtResource("2_7igkb")
 debugtext = NodePath("../debugText")
 initial_state = NodePath("playerIdle")
 
-[node name="playerIdle" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+[node name="playerIdle" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("3_k086q")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerWalking" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+[node name="playerWalking" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("4_v361r")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerStop" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+[node name="playerStop" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("5_c0d7w")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerJump" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+[node name="playerJump" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("6_40u7v")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerFalling" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+[node name="playerFalling" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("7_u8qku")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerStretch" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+[node name="playerStretch" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("8_sjiu6")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerBusy" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
+[node name="playerBusy" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("9_8rj2v")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerFly" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "pumpkinRaycast", "turnTimer")]
-script = ExtResource("9_8rj2v")
+[node name="playerFly" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
+script = ExtResource("10_rtfj4")
 player = NodePath("../..")
 animPlayer = NodePath("../../AnimationPlayer")
 playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
-pumpkinRaycast = NodePath("../../pumpkinDetection")
 turnTimer = NodePath("../../turnTimer")
 
 [node name="tppLine" type="Line2D" parent="."]
@@ -946,10 +939,5 @@ sewerTiles = ExtResource("33_3g0tg")
 woodTiles = ExtResource("30_e5rbn")
 moonOuterTiles = ExtResource("35_ucock")
 moonIndoorsTiles = ExtResource("36_kkynl")
-
-[node name="pumpkinDetection" type="RayCast2D" parent="."]
-position = Vector2(0, 16.2162)
-target_position = Vector2(0, 5.40541)
-collision_mask = 32768
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="footstepManager" method="_on_animated_sprite_2d_frame_changed"]

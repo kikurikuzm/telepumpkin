@@ -30,6 +30,8 @@ var hasTriggered = false ##Whether or not the trigger has already gone off.
 signal triggerRequestLevelLoad(desiredLevelPath:String, desiredLevelPosition:Vector2)
 
 func _ready():
+	if !Engine.is_editor_hint():
+		super._ready()
 	if mustInteract:
 		interactIcon.visible = true
 	if get_parent().has_node("cutscenePlayer"):

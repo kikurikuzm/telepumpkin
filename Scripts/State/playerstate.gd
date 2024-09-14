@@ -6,7 +6,6 @@ class_name PlayerState
 @export var playerSprite : AnimatedSprite2D
 @export var teleportRange : Sprite2D
 @export var impactAudio : AudioStreamPlayer2D
-@export var pumpkinRaycast : RayCast2D
 
 @export var turnTimer : Timer
 @export var friction = 6

@@ -57,8 +57,9 @@ func loadJSON(nodeData) -> void:
 	convoID = nodeData["convoID"]
 	visible = nodeData["visible"]
 
-func trigger(triggerChangePosition = null):
-	if triggerChangePosition == null:
+func trigger(triggerChangePosition = Vector2.ZERO):
+	var triggerConvertedPosition = Vector2(triggerChangePosition[0].posX, triggerChangePosition[0].posY)
+	if triggerConvertedPosition == Vector2.ZERO:
 		NPCBeginConversation()
 	else:
 		print(triggerChangePosition)

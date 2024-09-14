@@ -24,10 +24,6 @@ func update(delta: float):
 	pass
 
 func physics_update(delta: float):
-	if pumpkinRaycast.is_colliding():
-		player.global_position.y = pumpkinRaycast.get_collision_point().y - 16
-		player.velocity.y = 0
-	
 	var direction = 0
 	if sign(player.velocity.y) == 1:
 		coyoteTimer.start(1)
@@ -54,9 +50,6 @@ func physics_update(delta: float):
 	if Input.is_action_pressed("up"):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 0.4, 0.1)
 		teleportRange.scale.y = lerp(teleportRange.scale.y, 3.0, 0.1)
-		if pumpkinRaycast.is_colliding():
-			player.jumpstrength += 21
-			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			player.jumpstrength += 8
 			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
