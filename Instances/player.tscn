@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=65 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -20,6 +20,7 @@
 [ext_resource type="Gradient" uid="uid://blengyjxsisxd" path="res://Resources/purplegradient.tres" id="11_6kb3m"]
 [ext_resource type="AudioStream" uid="uid://rjkd5e5f8lks" path="res://Audio/sfx/concretestep1.ogg" id="11_u8ed2"]
 [ext_resource type="AudioStream" uid="uid://svt0a04xus22" path="res://Audio/sfx/concretestep2.ogg" id="12_2jc7n"]
+[ext_resource type="Texture2D" uid="uid://v7u0ipl2axjg" path="res://Sprites/Misc/basket.png" id="13_x8wns"]
 [ext_resource type="AudioStream" uid="uid://junj2m4vfse4" path="res://Audio/sfx/concretestep3.ogg" id="13_yi6rr"]
 [ext_resource type="AudioStream" uid="uid://d4aw3nbwb6ct" path="res://Audio/sfx/wood_step-01.ogg" id="14_mbwwd"]
 [ext_resource type="AudioStream" uid="uid://osbuu3ys72w0" path="res://Audio/sfx/wood_step-02.ogg" id="15_breqs"]
@@ -40,6 +41,25 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qna8a"]
 radius = 12.973
 height = 30.2703
+
+[sub_resource type="GDScript" id="GDScript_1gwht"]
+script/source = "extends PlayerState
+
+func enter():
+	player.velocity = Vector2.ZERO
+	playerSprite.rotation_degrees = 0
+	animPlayer.play(\"levelExit\")
+
+func exit():
+	pass
+
+func update(delta: float):
+	if !animPlayer.is_playing():
+		transitioned.emit(self, \"playerIdle\")
+
+func physics_update(delta: float):
+	pass
+"
 
 [sub_resource type="Curve" id="Curve_bucuf"]
 _data = [Vector2(0, 0.730769), 0.0, 0.0, 0, 0, Vector2(0.981884, 0.153846), -0.225859, 0.0, 0, 0]
@@ -106,6 +126,106 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../exitBasket:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../exitBasket:position:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../exitBasket:position:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2.16216, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../exitBasket:scale:x")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../exitBasket:scale:y")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:position:x")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath(".:position:y")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath(".:scale:x")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath(".:scale:y")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="Animation" id="Animation_gpbgi"]
@@ -624,12 +744,118 @@ tracks/4/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_yn6jr"]
+resource_name = "levelExit"
+length = 4.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../exitBasket:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../exitBasket:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -5.40541, -0.2, -0.594595, 0.25, 0, -5.40541, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.05, 0.35, 0.75)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../exitBasket:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(2.16216, -0.25, 0, 0.25, 0, -14.0541, -0.25, -0.945946, 0.0273237, 22.5541, -2, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.05, 0.35, 0.75)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../exitBasket:scale:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1.05, -0.25, 0, 0.25, 0, 0.8, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.05, 0.35, 0.45, 0.75)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../exitBasket:scale:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.845, -0.25, 0, 0.25, 0, 0.8, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.05, 0.35, 0.45, 0.75)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:position:x")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35, 0.45)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:position:y")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1.75, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35, 0.45, 0.7)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:scale:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1.1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35, 0.5, 0.7)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:scale:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.9, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35, 0.5, 0.7)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cxkr1"]
 _data = {
 "RESET": SubResource("Animation_ur6mr"),
 "fall": SubResource("Animation_gpbgi"),
 "idle": SubResource("Animation_dvtsf"),
 "jump": SubResource("Animation_d1l3n"),
+"levelExit": SubResource("Animation_yn6jr"),
 "snapBack": SubResource("Animation_pg4dh"),
 "stop": SubResource("Animation_wln1a"),
 "stretch": SubResource("Animation_v0gao"),
@@ -822,6 +1048,9 @@ teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
 turnTimer = NodePath("../../turnTimer")
 
+[node name="playerFinishLevel" type="Node" parent="stateFactory"]
+script = SubResource("GDScript_1gwht")
+
 [node name="playerFly" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("10_rtfj4")
 player = NodePath("../..")
@@ -877,6 +1106,12 @@ z_index = -1
 range_layer_max = 1
 texture = ExtResource("5_qpng8")
 texture_scale = 0.05
+
+[node name="exitBasket" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(0, 2.16216)
+scale = Vector2(1, 1)
+texture = ExtResource("13_x8wns")
 
 [node name="Teleport" parent="." instance=ExtResource("6_6y066")]
 modulate = Color(1, 1, 1, 0.454902)
@@ -939,5 +1174,8 @@ sewerTiles = ExtResource("33_3g0tg")
 woodTiles = ExtResource("30_e5rbn")
 moonOuterTiles = ExtResource("35_ucock")
 moonIndoorsTiles = ExtResource("36_kkynl")
+
+[node name="pumpkinMagnet" type="RayCast2D" parent="."]
+target_position = Vector2(0, 33.5135)
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="footstepManager" method="_on_animated_sprite_2d_frame_changed"]

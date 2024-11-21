@@ -1,6 +1,8 @@
 extends PlayerState
 class_name playerIdle
 
+@onready var pumpkinRaycast = $"../../pumpkinMagnet"
+
 func enter():
 	playerSprite.rotation_degrees = 0
 	animPlayer.play("idle")
@@ -21,6 +23,8 @@ func physics_update(delta: float):
 	player.velocity.y += 3
 	player.velocity.x = 0
 	
+	#if pumpkinRaycast.get_collider().is_in_group("pumpkin"):
+		#player.velocity.y = 0
 	if !player.is_on_floor():
 		transitioned.emit(self, "playerfalling")
 	
