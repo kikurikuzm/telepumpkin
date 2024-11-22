@@ -27,7 +27,7 @@ func _open_level_select_window():
 
 func _on_level_dialogue_file_selected(path):
 	gvars.customLoad = load(path)
-	get_tree().change_scene_to_packed(load("res://Instances/Main.tscn"))
+	get_tree().change_scene_to_packed(load(path))
 
 
 func _on_settings_button_pressed() -> void:
@@ -42,15 +42,16 @@ func _on_start_button_pressed(requestTutorial:bool) -> void:
 	if requestTutorial == true:
 		$startTutorial.popup_centered()
 	else:
-		get_tree().change_scene_to_packed(load("res://Instances/Main.tscn"))
+		get_tree().change_scene_to_packed(load("res://Instances/Important/MainGameScene.tscn"))
 
 
 func _on_start_tutorial_confirmed() -> void:
-	get_tree().change_scene_to_packed(load("res://Instances/Main.tscn"))
+	get_tree().change_scene_to_packed(load("res://Instances/Important/MainGameScene.tscn"))
 
 
 func _on_start_tutorial_canceled() -> void:
-	_on_level_dialogue_file_selected("res://Levels/Level2.tscn")
+	gvars.levelToLoadInMainScene = "res://Levels/Level2.tscn"
+	get_tree().change_scene_to_packed(load("res://Instances/Important/MainGameScene.tscn"))
 
 
 func _on_player_save_deleted() -> void:

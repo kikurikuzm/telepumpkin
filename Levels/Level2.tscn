@@ -226,6 +226,7 @@ position = Vector2(385, 319)
 scale = Vector2(2.665, 2.665)
 triggerList = [NodePath("../cutscenePlayer")]
 triggersOnce = false
+isVisibleInGame = null
 
 [node name="playerDummy" parent="." instance=ExtResource("9_jkuh3")]
 visible = false

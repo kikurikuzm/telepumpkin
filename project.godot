@@ -62,6 +62,7 @@ level_cutsceneplayer=""
 level_exit=""
 level_npc=""
 level_camerazone=""
+level_levelChangeRequester=""
 
 [gui]
 

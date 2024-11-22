@@ -1,6 +1,7 @@
 class_name LevelSceneRoot extends Node
 
 @export var levelVariablesResource : LevelVariables
+var levelChangingNodeReferenceArray : Array[Node2D]
 var levelSpawnPointReference : Node2D
 var levelExitReference : Node2D
 var levelTileLayerReference : TileMapLayer
@@ -22,6 +23,7 @@ func _ready():
 	initializeLevel()
 
 func initializeLevel():
+	levelChangingNodeReferenceArray = []
 	levelNPCsReferenceArray = []
 	levelCameraZonesReferenceArray = []
 	
@@ -29,8 +31,30 @@ func initializeLevel():
 		push_error("No LevelVariables resource was provided!")
 	else:
 		print("Found LevelVariables")
-	
+		if levelVariablesResource.worldEnvironment != null:
+			var newWorldEnv : WorldEnvironment = WorldEnvironment.new()
+			add_child(newWorldEnv)
+			newWorldEnv.environment = levelVariablesResource.worldEnvironment
+		if levelVariablesResource.levelBackground != null:
+			var newParallax2D = Parallax2D.new()
+			var newBackgroundSprite = Sprite2D.new()
+			newBackgroundSprite.texture = levelVariablesResource.levelBackground
+			add_child(newParallax2D)
+			newParallax2D.scroll_offset = Vector2(990, 660)
+			newParallax2D.scroll_scale = Vector2(0.7, 0.7)
+			newParallax2D.scale = Vector2(0.75, 0.75)
+			newParallax2D.z_index = -2
+			newParallax2D.add_child(newBackgroundSprite)
+			
+			if levelVariablesResource.levelForeground != null:
+				var newForegroundSprite = Sprite2D.new()
+				newForegroundSprite.texture = levelVariablesResource.levelForeground
+				newParallax2D.add_child(newForegroundSprite)
+		
 	for child in allRootChildren:
+		if child.is_in_group("level_levelChangeRequester"):
+			levelChangingNodeReferenceArray.append(child)
+			print("Found level change requester")
 		if child.is_in_group("level_spawnpoint"):
 			levelSpawnPointReference = child
 			print("Found spawnpoint")
@@ -103,4 +127,11 @@ func getLevelCameraZonesReferenceArray():
 		return levelCameraZonesReferenceArray
 	else:
 		push_warning("No camera zones found in the level!")
+		return null
+
+func getLevelChangingNodeReferences():
+	if !levelChangingNodeReferenceArray.is_empty():
+		return levelChangingNodeReferenceArray
+	else:
+		push_error("No level-changing nodes found in the level!")
 		return null

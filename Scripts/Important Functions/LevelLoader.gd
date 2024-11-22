@@ -8,6 +8,8 @@ var levelSet : Array
 var loadedLevel
 var instancedLevel:LevelSceneRoot
 
+signal emitError(String)
+
 func _ready() -> void:
 	levelSet = levelSetResource.levelList
 
@@ -26,7 +28,7 @@ func instanceLevel(levelSetIndex:int) -> void:
 	instancedLevel = loadedLevel.instantiate()
 	add_child(instancedLevel)
 
-func instanceLevelFromPath(levelPath:String):
+func instanceLevelFromPath(levelPath:String) -> bool:
 	if loadedLevel != null:
 		loadedLevel = null
 	if instancedLevel != null:
@@ -37,11 +39,14 @@ func instanceLevelFromPath(levelPath:String):
 	
 	instancedLevel = loadedLevel.instantiate()
 	add_child(instancedLevel)
+	
+	return true
 
 func setupExternalLevelNodes(playerReference:CharacterBody2D) -> void:
 	playerReference.global_position = instancedLevel.getLevelSpawnPointPosition()
 
 func passRootNodeSignalsToConnect() -> Array:
+	var levelChangingNodeReferenceArray = instancedLevel.getLevelChangingNodeReferences()
 	var levelExitReference = instancedLevel.getLevelExitReference()
 	var levelCutscenePlayerReference = instancedLevel.getLevelCutsceneReference()
 	var levelMapCameraReference = instancedLevel.getLevelMapCameraReference()
@@ -51,6 +56,7 @@ func passRootNodeSignalsToConnect() -> Array:
 	var levelNodeSignalsArray : Array = []
 	var levelCameraZoneInstancesArray : Array
 	var levelNPCInstancesArray : Array
+	var levelChangingInstancesArray : Array
 	
 	if levelExitReference != null:
 		levelNodeSignalsArray.append(levelExitReference.levelFinished)
@@ -69,6 +75,16 @@ func passRootNodeSignalsToConnect() -> Array:
 		for NPCInstance in levelNPCsReferenceArray:
 			levelNPCInstanceSignalsArray.append(NPCInstance.initiateDialogue)
 		levelNodeSignalsArray.append(levelNPCInstanceSignalsArray)
+	else:
+		levelNodeSignalsArray.append([])
+		
+	if levelChangingNodeReferenceArray != null:
+		print_debug("lchange instances not null")
+		var levelChangingInstanceSignalsArray : Array
+		for levelChangingNode in levelChangingNodeReferenceArray:
+			levelChangingInstanceSignalsArray.append(levelChangingNode.requestLevelChange)
+			print_debug("appended node signal")
+		levelNodeSignalsArray.append(levelChangingInstanceSignalsArray)
 	else:
 		levelNodeSignalsArray.append([])
 	
@@ -94,3 +110,19 @@ func isLevelCurrentlyLoaded() -> bool:
 
 func getCurrentLevelChildren():
 	return instancedLevel.getAllRootChildren()
+	
+func getCurrentLevelSetArray() -> Array[String]:
+	return levelSet
+
+func validateLevel(levelPath:String) -> bool:
+	var isValidLevel = false
+	for level in levelSet:
+		if levelPath == level:
+			isValidLevel = true
+			break
+			
+	if not isValidLevel:
+		emitError.emit("Invalid level requested!")
+		return false
+		
+	return true

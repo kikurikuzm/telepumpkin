@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="LevelSet" load_steps=2 format=3 uid="uid://nq2qfln847"]
+
+[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSet.gd" id="1_evbyl"]
+
+[resource]
+script = ExtResource("1_evbyl")
+levelList = Array[String](["res://Levels/Tutorial/movement1.tscn", "res://Levels/Tutorial/movement2.tscn", "res://Levels/Tutorial/movement3.tscn", "res://Levels/Tutorial/movement4.tscn", "res://Levels/Tutorial/teleport1.tscn", "res://Levels/Tutorial/teleport2.tscn", "res://Levels/Tutorial/teleport3.tscn"])

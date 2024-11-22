@@ -515,6 +515,7 @@ placeholderPlayer = NodePath("../playerDummy")
 [node name="startCutscene" parent="." instance=ExtResource("7_p5kdo")]
 position = Vector2(1092, 714)
 triggerList = [NodePath("../cutscenePlayer")]
+isVisibleInGame = false
 
 [node name="findHood" parent="." instance=ExtResource("7_p5kdo")]
 position = Vector2(933, 694)
@@ -524,6 +525,7 @@ triggerListVariables = [{
 "posY": 0
 }]
 mustInteract = true
+isVisibleInGame = false
 
 [node name="NPC" parent="." instance=ExtResource("12_3b8gg")]
 position = Vector2(462, 1077)

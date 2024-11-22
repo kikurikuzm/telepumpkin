@@ -6,6 +6,7 @@ extends Node
 @onready var cutsceneManager = $CutsceneManager
 @onready var dialogueManager = $DialogueManager
 @onready var cameraManager = $CameraManager
+@onready var debuggerMenu = $DebuggerMenu
 
 @onready var playerReference = $Player
 @onready var mainCameraReference = $MainCamera
@@ -16,6 +17,7 @@ func _ready() -> void:
 	initiateLevelChange()
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)
 	cameraManager.setMainCameraReference(mainCameraReference)
+	debuggerMenu.debugLevelList = levelLoader.levelSet
 
 func connectToLevelNodeSignals():
 	var nodeSignalsArray = levelLoader.passRootNodeSignalsToConnect()
@@ -33,6 +35,11 @@ func connectToLevelNodeSignals():
 		cameraZoneSignalColletion[0].connect(_levelCameraZoneGiveMainCameraFocus)
 		cameraZoneSignalColletion[1].connect(_levelCameraZoneTakeMainCameraFocus)
 		cameraZoneSignalColletion[2].connect(_levelCameraZoneChangeMainCameraZoom)
+	
+	var levelChangingNodeSignalsArray = nodeSignalsArray[5]
+	for levelChangingNodeSignal in levelChangingNodeSignalsArray:
+		print("connected lchange")
+		levelChangingNodeSignal.connect(_levelChangeRequested)
 
 func disconnnectCallablesFromSignals():
 	if !levelLoader.isLevelCurrentlyLoaded():
@@ -54,16 +61,21 @@ func disconnnectCallablesFromSignals():
 		cameraZoneSignalColletion[1].disconnect(_levelCameraZoneTakeMainCameraFocus)
 		cameraZoneSignalColletion[2].disconnect(_levelCameraZoneChangeMainCameraZoom)
 
-func initiateLevelChange():
+func initiateLevelChange(levelPath:String = ""):
 	disconnnectCallablesFromSignals()
 	
-	var levelLoadedFromEditor = gvars.levelToLoadInMainScene
+	var levelLoadedExternally : String
 	
-	if levelLoadedFromEditor != null:
-		levelLoader.instanceLevelFromPath(levelLoadedFromEditor)
+	if !levelPath.is_empty():
+		levelLoadedExternally = levelPath
+	else:
+		levelLoadedExternally = gvars.levelToLoadInMainScene
+	
+	if levelLoadedExternally != null:
+		levelLoader.instanceLevelFromPath(levelLoadedExternally)
 		var levelLoaderLevelSet = levelLoader.levelSet
-		if levelLoadedFromEditor in levelLoaderLevelSet:
-			currentLevelSetIndex = levelLoaderLevelSet.find(levelLoadedFromEditor)
+		if levelLoadedExternally in levelLoaderLevelSet:
+			currentLevelSetIndex = levelLoaderLevelSet.find(levelLoadedExternally)
 		
 		gvars.levelToLoadInMainScene = null
 	else:
@@ -87,7 +99,10 @@ func _goToSpecifiedLevel(desiredLevelPath:String):
 	
 func _playerCharacterChangeState(desiredState:String):
 	playerReference.changeState(desiredState)
-	
+
+func _playerCharacterChangePosition(desiredPosition:Vector2):
+	playerReference.position = desiredPosition
+
 func _mainCameraChangeZoom(desiredZoom:Vector2):
 	cameraManager.mainCameraChangeZoom(desiredZoom)
 
@@ -96,7 +111,6 @@ func _mainCameraChangeFocus(desiredTarget:Node2D):
 
 func _mainCameraFocusPlayer():
 	cameraManager.mainCameraReturnToPlayer()
-
 
 func _dialogueManagerBeginDialogue(emittingNPCConversationID, emittingNPCInstanceReference):
 	dialogueManager.conversationInitiate(emittingNPCConversationID, emittingNPCInstanceReference)
@@ -122,3 +136,10 @@ func _levelCameraZoneTakeMainCameraFocus(cameraZoneReference):
 
 func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:Vector2):
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
+
+func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):
+	_playerCharacterChangePosition(spawnCoordinates)
+	print(levelPath, spawnCoordinates)
+	if levelLoader.validateLevel(levelPath):
+		print("valid level")
+		initiateLevelChange(levelPath)

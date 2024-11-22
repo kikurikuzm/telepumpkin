@@ -1,20 +1,20 @@
 extends Node2D
 
-@onready var l1 = preload("res://Levels/Level1.tscn")
-@onready var l2 = preload("res://Levels/Level2.tscn")
-@onready var l3 = preload("res://Levels/Level3.tscn")
-@onready var l4 = preload("res://Levels/Level4.tscn")
-@onready var l1_5 = preload("res://Levels/Level5.tscn")
-@onready var l5 = preload("res://Levels/farmlandTransition.tscn")
-@onready var l6 = preload("res://Levels/Level9.tscn")
-@onready var l7 = preload("res://Levels/Level10.tscn")
-@onready var l8 = preload("res://Levels/TPlev1.tscn")
-@onready var l9 = preload("res://Levels/TPlev2.tscn")
-@onready var l10 = preload("res://Levels/TPlev3.tscn")
-@onready var l11 = preload("res://Levels/TPlev4.tscn")
-@onready var l12 = preload("res://Levels/TPlev5.tscn")
-@onready var l13 = preload("res://Levels/TPlev6.tscn")
-@onready var l14 = preload("res://Levels/TPFinale.tscn")
+#@onready var l1 = preload("res://Levels/Level1.tscn")
+#@onready var l2 = preload("res://Levels/Level2.tscn")
+#@onready var l3 = preload("res://Levels/Level3.tscn")
+#@onready var l4 = preload("res://Levels/Level4.tscn")
+#@onready var l1_5 = preload("res://Levels/Level5.tscn")
+#@onready var l5 = preload("res://Levels/farmlandTransition.tscn")
+#@onready var l6 = preload("res://Levels/Level9.tscn")
+#@onready var l7 = preload("res://Levels/Level10.tscn")
+#@onready var l8 = preload("res://Levels/TPlev1.tscn")
+#@onready var l9 = preload("res://Levels/TPlev2.tscn")
+#@onready var l10 = preload("res://Levels/TPlev3.tscn")
+#@onready var l11 = preload("res://Levels/TPlev4.tscn")
+#@onready var l12 = preload("res://Levels/TPlev5.tscn")
+#@onready var l13 = preload("res://Levels/TPlev6.tscn")
+#@onready var l14 = preload("res://Levels/TPFinale.tscn")
 
 @onready var crumpleSFX = preload("res://Audio/sfx/crumpleclose1.ogg")
 
@@ -30,7 +30,7 @@ extends Node2D
 var tppInstCount = 0
 var tppCurrentInst = null
 
-@onready var levArray = [l1,l2,l3,l4,l1_5,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14]
+#@onready var levArray = [l1,l2,l3,l4,l1_5,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14]
 #zero based levels, dont forget!
 var levNum = 0
 
@@ -83,8 +83,8 @@ func _ready():
 			levNum = fileLoad.get_8()
 			player.hasTPP = bool(fileLoad.get_8())
 			loadLevel(levelLoad)
-		else:
-			loadLevel(l1)
+		#else:
+			#loadLevel(l1)
 	else:
 		loadLevel(gvars.customLoad)
 

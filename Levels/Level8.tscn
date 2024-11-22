@@ -41,7 +41,6 @@ position = Vector2(784, 750)
 
 [node name="exit" parent="." instance=ExtResource("4_vcy84")]
 position = Vector2(753, 624)
-pNeeded = 3
 
 [node name="thumb" type="Camera2D" parent="."]
 position = Vector2(809, 712)

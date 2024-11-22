@@ -4,10 +4,12 @@ extends Node
 @onready var debugOutputReference = $PanelContainer/VBoxContainer/DebugConsoleOutput
 
 var debugPlayerFlyToggle = false
+var debugLevelList : Array[String]
 
 signal commandModifyPlayerState(desiredState:String)
 signal commandChangeToLevelSignal(desiredLevelPath:String)
 signal commandSkipCurrentCutscene
+signal commandGetLevelList
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_menu"):
@@ -38,7 +40,12 @@ func interpretNewInput(newLine:String):
 		"fly":
 			commandTogglePlayerFly()
 		"level":
-			commandChangeToLevel(commandInputArgument)
+			if !commandInputArgument.is_empty():
+				if commandInputArgument == "list":
+					for level in debugLevelList:
+						writeToDebugConsole(level)
+				else:
+					commandChangeToLevel(commandInputArgument)
 		"skip":
 			commandSkipCurrentlyPlayingCutscene()
 
@@ -56,7 +63,7 @@ func commandTogglePlayerFly():
 		debugPlayerFlyToggle = true
 
 func commandChangeToLevel(desiredLevelPath:String):
-	commandChangeToLevelSignal.emit(desiredLevelPath)
+	commandChangeToLevelSignal.emit("res://Levels/" + desiredLevelPath)
 	writeToDebugConsole("Changing to level " + desiredLevelPath)
 
 func commandSkipCurrentlyPlayingCutscene():
@@ -65,3 +72,6 @@ func commandSkipCurrentlyPlayingCutscene():
 
 func _debugInputCommandSubmitted(new_text: String) -> void:
 	interpretNewInput(new_text)
+
+func _parseErrorMessage(errorMessage: String) -> void:
+	writeToDebugConsole(errorMessage)

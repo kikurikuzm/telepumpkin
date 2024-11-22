@@ -27,7 +27,7 @@ var sceneCutscenePlayer : CutscenePlayer
 var lastTriggerList
 var hasTriggered = false ##Whether or not the trigger has already gone off.
 
-signal triggerRequestLevelLoad(desiredLevelPath:String, desiredLevelPosition:Vector2)
+signal requestLevelChange(desiredLevelPath:String, desiredLevelPosition:Vector2)
 
 func _ready():
 	if !Engine.is_editor_hint():
@@ -70,7 +70,7 @@ func triggerThings(cause) -> void:
 					hasTriggered = true
 				currentIndex += 1
 			if desiredGotoLevel != null:
-				triggerRequestLevelLoad.emit(desiredGotoLevel, desiredLevelSpawnPosition)
+				requestLevelChange.emit(desiredGotoLevel, desiredLevelSpawnPosition)
 		if !anythingTriggers and cause.is_in_group("player"):
 			var currentIndex = 0
 			for i in triggerList:
@@ -83,7 +83,8 @@ func triggerThings(cause) -> void:
 				if triggersOnce:
 					hasTriggered = true
 			if desiredGotoLevel != null:
-				triggerRequestLevelLoad.emit(desiredGotoLevel, desiredLevelSpawnPosition)
+				requestLevelChange.emit(desiredGotoLevel.resource_path, desiredLevelSpawnPosition)
+				print_debug("emitted level change request with " + str(desiredGotoLevel.resource_path))
 
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:
