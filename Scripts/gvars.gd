@@ -29,4 +29,4 @@ var customLoad = null
 
 var simpleGraphics = false
 
-var levelToLoadInMainScene = null
+var levelToLoadInMainScene = ""

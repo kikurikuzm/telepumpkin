@@ -48,6 +48,8 @@ func interpretNewInput(newLine:String):
 					commandChangeToLevel(commandInputArgument)
 		"skip":
 			commandSkipCurrentlyPlayingCutscene()
+	
+	debugConsoleTextInputReference.grab_focus()
 
 func writeToDebugConsole(stringToWrite:String):
 	debugOutputReference.append_text("\n[color=lightgrey]" + stringToWrite)

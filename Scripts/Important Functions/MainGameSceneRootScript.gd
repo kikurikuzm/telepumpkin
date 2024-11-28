@@ -8,6 +8,8 @@ extends Node
 @onready var cameraManager = $CameraManager
 @onready var debuggerMenu = $DebuggerMenu
 
+@onready var levelAmbience = $LevelAmbience
+
 @onready var playerReference = $Player
 @onready var mainCameraReference = $MainCamera
 
@@ -66,24 +68,30 @@ func initiateLevelChange(levelPath:String = ""):
 	
 	var levelLoadedExternally : String
 	
-	if !levelPath.is_empty():
+	print_debug(levelPath)
+	
+	if !levelPath.is_empty() || levelPath != "":
 		levelLoadedExternally = levelPath
 	else:
 		levelLoadedExternally = gvars.levelToLoadInMainScene
 	
-	if levelLoadedExternally != null:
+	if !levelLoadedExternally.is_empty():
 		levelLoader.instanceLevelFromPath(levelLoadedExternally)
 		var levelLoaderLevelSet = levelLoader.levelSet
 		if levelLoadedExternally in levelLoaderLevelSet:
 			currentLevelSetIndex = levelLoaderLevelSet.find(levelLoadedExternally)
 		
-		gvars.levelToLoadInMainScene = null
+		gvars.levelToLoadInMainScene = ""
 	else:
 		levelLoader.instanceLevel(currentLevelSetIndex)
 		
 	levelLoader.setupExternalLevelNodes(playerReference)
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
 	connectToLevelNodeSignals()
+	
+	var currentLevelVariables = levelLoader.getCurrentLevelVariables()
+	levelAmbience.stream = currentLevelVariables.levelAmbience
+	levelAmbience.play()
 
 #Signal functions begin here
 

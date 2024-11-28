@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelVariables" load_steps=4 format=3 uid="uid://cd778qcujcn0e"]
 
 [ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="2_iccil"]
-[ext_resource type="Script" path="res://Scripts/resourceScripts/levelVariables.gd" id="2_ispy0"]
+[ext_resource type="Script" uid="uid://dsd3252fkhyt0" path="res://Scripts/resourceScripts/levelVariables.gd" id="2_ispy0"]
 [ext_resource type="Environment" uid="uid://bdkllmoqon3ww" path="res://Resources/Environments/moonCity.tres" id="3_n8xbw"]
 
 [resource]

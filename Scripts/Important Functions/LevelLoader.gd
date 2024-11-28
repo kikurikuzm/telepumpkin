@@ -5,6 +5,8 @@ extends Node
 @export var levelSetResource : LevelSet = load("res://Resources/LevelSets/testLevelSet.res")
 var levelSet : Array
 
+var currentLevelVariables : LevelVariables
+
 var loadedLevel
 var instancedLevel:LevelSceneRoot
 
@@ -26,6 +28,7 @@ func instanceLevel(levelSetIndex:int) -> void:
 	loadedLevel = load(currentLevelToLoad)
 	
 	instancedLevel = loadedLevel.instantiate()
+	currentLevelVariables = instancedLevel.levelVariablesResource
 	add_child(instancedLevel)
 
 func instanceLevelFromPath(levelPath:String) -> bool:
@@ -38,6 +41,7 @@ func instanceLevelFromPath(levelPath:String) -> bool:
 	loadedLevel = load(currentLevelToLoad)
 	
 	instancedLevel = loadedLevel.instantiate()
+	currentLevelVariables = instancedLevel.levelVariablesResource
 	add_child(instancedLevel)
 	
 	return true
@@ -113,6 +117,9 @@ func getCurrentLevelChildren():
 	
 func getCurrentLevelSetArray() -> Array[String]:
 	return levelSet
+
+func getCurrentLevelVariables() -> LevelVariables:
+	return currentLevelVariables
 
 func validateLevel(levelPath:String) -> bool:
 	var isValidLevel = false

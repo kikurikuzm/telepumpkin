@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://l65jyprpbqpg"]
 
-[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_34asb"]
+[ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_34asb"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_r8qul"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_2tl6y"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_14nbl"]
@@ -33,6 +33,7 @@ unstableTeleport = 2
 
 [node name="exit" parent="." instance=ExtResource("4_vcy84")]
 position = Vector2(736, 816)
+pumpkinsNeeded = 3
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(959, 701)

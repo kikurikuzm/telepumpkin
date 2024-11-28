@@ -1,12 +1,12 @@
 [gd_scene load_steps=25 format=4 uid="uid://cidi3o4bpysic"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_fsv8h"]
-[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ksfga"]
+[ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ksfga"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="2"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_a2ot6"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4"]
-[ext_resource type="Script" path="res://Scripts/CutscenePlayer.gd" id="6_2p6ya"]
+[ext_resource type="Script" uid="uid://cquqdpkj8ecfv" path="res://Scripts/CutscenePlayer.gd" id="6_2p6ya"]
 [ext_resource type="Texture2D" uid="uid://xfx0bxxbk2om" path="res://Sprites/NPCs/npc5.png" id="7_1qqts"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="7_p5kdo"]
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="8_457oh"]
@@ -21,7 +21,7 @@ length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vjwsx"]
 _data = {
-"RESET": SubResource("Animation_4j8qi")
+&"RESET": SubResource("Animation_4j8qi")
 }
 
 [sub_resource type="Animation" id="Animation_tfmvn"]
@@ -447,9 +447,9 @@ tracks/9/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_anf63"]
 _data = {
-"level1cloakfade": SubResource("Animation_tfmvn"),
-"level1intro": SubResource("Animation_6bisy"),
-"level1tutorialstart": SubResource("Animation_ttfw1")
+&"level1cloakfade": SubResource("Animation_tfmvn"),
+&"level1intro": SubResource("Animation_6bisy"),
+&"level1tutorialstart": SubResource("Animation_ttfw1")
 }
 
 [sub_resource type="Curve" id="Curve_m8go4"]
@@ -504,8 +504,8 @@ zoom = Vector2(3, 3)
 
 [node name="cutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera", "placeholderPlayer") groups=["level_cutsceneplayer"]]
 libraries = {
-"": SubResource("AnimationLibrary_vjwsx"),
-"tutorial": SubResource("AnimationLibrary_anf63")
+&"": SubResource("AnimationLibrary_vjwsx"),
+&"tutorial": SubResource("AnimationLibrary_anf63")
 }
 script = ExtResource("6_2p6ya")
 animationName = "tutorial/level1intro"
@@ -568,7 +568,6 @@ z_index = -1
 position = Vector2(1089, 635)
 emitting = false
 amount = 20
-process_material = SubResource("ParticleProcessMaterial_obb6j")
 lifetime = 4.5
 one_shot = true
 explosiveness = 1.0
@@ -576,3 +575,4 @@ randomness = 0.19
 draw_order = 0
 trail_lifetime = 0.01
 trail_section_subdivisions = 8
+process_material = SubResource("ParticleProcessMaterial_obb6j")

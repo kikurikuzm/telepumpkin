@@ -1,18 +1,33 @@
-[gd_scene load_steps=11 format=3 uid="uid://ciuswkeg660ew"]
+[gd_scene load_steps=16 format=3 uid="uid://ciuswkeg660ew"]
 
 [ext_resource type="PackedScene" uid="uid://bedp1kcel7xwt" path="res://Instances/Important/LevelLoader.tscn" id="1_i68tn"]
-[ext_resource type="Script" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_sqsrj"]
-[ext_resource type="Script" path="res://Scripts/Important Functions/MainSceneCameraManager.gd" id="2_3s1mj"]
+[ext_resource type="Script" uid="uid://bissop614ltbh" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_sqsrj"]
+[ext_resource type="Script" uid="uid://do026n4evefw2" path="res://Scripts/Important Functions/MainSceneCameraManager.gd" id="2_3s1mj"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_mfwcf"]
-[ext_resource type="Script" path="res://Scripts/Important Functions/DebuggerMenu.gd" id="2_qrl6x"]
-[ext_resource type="Script" path="res://Scripts/Important Functions/MainSceneCutsceneManager.gd" id="2_w3bxq"]
-[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSet.gd" id="3_w5c4r"]
+[ext_resource type="Script" uid="uid://dfig6n2n2qwqj" path="res://Scripts/Important Functions/DebuggerMenu.gd" id="2_qrl6x"]
+[ext_resource type="Script" uid="uid://dk3irp6kew6s6" path="res://Scripts/Important Functions/MainSceneCutsceneManager.gd" id="2_w3bxq"]
+[ext_resource type="Shader" uid="uid://clqktdglysmby" path="res://Resources/Shaders/blur.gdshader" id="3_fps76"]
+[ext_resource type="Script" uid="uid://bsrjffypfv164" path="res://Scripts/Important Functions/LevelSet.gd" id="3_w5c4r"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="4_1jw7k"]
-[ext_resource type="Script" path="res://Scripts/mainCamera.gd" id="5_5c3qt"]
+[ext_resource type="Theme" uid="uid://canh65nrg7pr8" path="res://Resources/pauseMenuTheme.tres" id="4_ygts8"]
+[ext_resource type="Script" uid="uid://xy2n4l8sst72" path="res://Scripts/mainCamera.gd" id="5_5c3qt"]
+[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="5_ygts8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l41h4"]
+shader = ExtResource("3_fps76")
+shader_parameter/lod = 1.25
+shader_parameter/tint = -0.09
+
+[sub_resource type="LabelSettings" id="LabelSettings_ygts8"]
+font = ExtResource("5_ygts8")
+font_size = 80
+font_color = Color(0.97595, 0.726067, 0.632655, 1)
+outline_size = 15
+outline_color = Color(0.850477, 0.295411, 0.302585, 1)
 
 [sub_resource type="Resource" id="Resource_aiegr"]
 script = ExtResource("3_w5c4r")
-levelList = Array[String](["res://Levels/Level1.tscn", "res://Levels/Level2.tscn", "res://Levels/Level3.tscn", "res://Levels/Level4.tscn", "res://Levels/Level5.tscn", ""])
+levelList = Array[String](["res://Levels/Level1.tscn", "res://Levels/Level2.tscn", "res://Levels/Level3.tscn", "res://Levels/Level4.tscn", "res://Levels/Level5.tscn", "uid://burivqi403j3x", "uid://bwif5kh6bhds0"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_sqsrj")
@@ -39,7 +54,73 @@ bbcode_enabled = true
 
 [node name="DebugCommandInput" type="LineEdit" parent="DebuggerMenu/PanelContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 1
 placeholder_text = "Enter a command..."
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="backgroundBlur" type="ColorRect" parent="PauseMenu"]
+z_index = -1
+material = SubResource("ShaderMaterial_l41h4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_ygts8")
+alignment = 1
+
+[node name="titleLabel" type="Label" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "You have paused Telepumpkin."
+label_settings = SubResource("LabelSettings_ygts8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(1900, 5)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="resumeButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Resume?"
+
+[node name="settingsButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Settings?"
+
+[node name="exitToMenuButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Exit to Menu..?"
+
+[node name="exitGameButton" type="Button" parent="PauseMenu/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Quit??"
 
 [node name="CameraManager" type="Node" parent="."]
 script = ExtResource("2_3s1mj")
@@ -53,12 +134,15 @@ script = ExtResource("2_w3bxq")
 [node name="LevelLoader" parent="." instance=ExtResource("1_i68tn")]
 levelSetResource = SubResource("Resource_aiegr")
 
+[node name="LevelAmbience" type="AudioStreamPlayer" parent="."]
+
 [node name="Player" parent="." instance=ExtResource("4_1jw7k")]
 
 [node name="MainCamera" type="Camera2D" parent="."]
 script = ExtResource("5_5c3qt")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
+visible = false
 
 [connection signal="commandChangeToLevelSignal" from="DebuggerMenu" to="." method="_goToSpecifiedLevel"]
 [connection signal="commandModifyPlayerState" from="DebuggerMenu" to="." method="_playerCharacterChangeState"]

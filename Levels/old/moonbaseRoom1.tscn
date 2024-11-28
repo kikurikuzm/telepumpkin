@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://bffawxnah4r6u" path="res://Tile Sets/indoorMoontiles.tres" id="1_3g4yq"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="3_v3y71"]
 [ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="4_ujwmm"]
-[ext_resource type="Script" path="res://Scripts/resourceScripts/levelVariables.gd" id="5_p7vea"]
+[ext_resource type="Script" uid="uid://dsd3252fkhyt0" path="res://Scripts/resourceScripts/levelVariables.gd" id="5_p7vea"]
 [ext_resource type="AudioStream" uid="uid://rjkd5e5f8lks" path="res://Audio/sfx/concretestep1.ogg" id="7_3ud3u"]
 [ext_resource type="PackedScene" uid="uid://fxa88qdkbgw7" path="res://Instances/Level Components/moonDoor.tscn" id="9_w3jp4"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="10_enbjd"]
@@ -13,7 +13,7 @@
 [ext_resource type="Environment" uid="uid://dxo0lyghjrd56" path="res://Resources/Environments/Sewers.tres" id="12_y4xuy"]
 [ext_resource type="Texture2D" uid="uid://ddgvsnpnyrl1s" path="res://Sprites/Misc/warningsign.png" id="13_4o6pc"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="14_3qb3r"]
-[ext_resource type="PackedScene" uid="uid://cfe2e0wu1437u" path="res://Levels/moonbaseRoom2.tscn" id="15_suest"]
+[ext_resource type="PackedScene" uid="uid://cfe2e0wu1437u" path="res://Levels/old/moonbaseRoom2.tscn" id="15_suest"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="15_xuox2"]
 
 [sub_resource type="Gradient" id="Gradient_nx7bn"]

@@ -10,9 +10,10 @@ class_name Trigger
 
 @export_category("Trigger Properties")
 @export_group("Trigger Nodes")
-@export var triggerList : Array ##A list of the nodes to trigger when this trigger is triggered.
+@export var triggerList : Array[NodePath] ##A list of the nodes to trigger when this trigger is triggered.
 @export var triggerListVariables : Array ##A way to trigger nodes and provide them with a variable upon triggering.
-@export var updateTriggerListVariables = false ##An editor button that updates the trigger list variables.
+@export_tool_button("Update Trigger List Variables") 
+var updateTriggerButton_action = checkTriggerList
 @export_group("Trigger Settings")
 @export var triggersOnce = true ##Whether or not the trigger will only trigger once.
 @export var anythingTriggers = false ##Whether or not the trigger is triggered by any physics object (Pumpkins, TPP) or only the player.
@@ -37,9 +38,9 @@ func _ready():
 	if get_parent().has_node("cutscenePlayer"):
 		sceneCutscenePlayer = get_parent().get_node("cutscenePlayer")
 
-func _process(delta):
-	if updateTriggerListVariables == true:
-		checkTriggerList()
+#func _process(delta):
+	#if updateTriggerListVariables == true:
+		#checkTriggerList()
 
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and mustInteract:
@@ -115,4 +116,4 @@ func checkTriggerList():
 		
 		currentIndex += 1
 	print("updated trigger variables")
-	updateTriggerListVariables = false
+	#updateTriggerListVariables = false

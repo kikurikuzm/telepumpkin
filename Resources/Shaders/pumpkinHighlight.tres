@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cs4pjrqbas4d8"]
 
-[ext_resource type="Shader" path="res://Resources/Shaders/pumpkinHighlight.gdshader" id="1_sl0in"]
+[ext_resource type="Shader" uid="uid://7rs006r172ky" path="res://Resources/Shaders/pumpkinHighlight.gdshader" id="1_sl0in"]
 
 [sub_resource type="Gradient" id="Gradient_ljwev"]
 offsets = PackedFloat32Array(0.658031, 0.880829, 0.979275, 1)
@@ -23,6 +23,6 @@ noise = SubResource("FastNoiseLite_3ehjj")
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_sl0in")
+shader_parameter/noise = SubResource("NoiseTexture2D_deg0o")
 shader_parameter/distortion_strength = 1.025
 shader_parameter/scroll = Vector2(0, 0.24)
-shader_parameter/noise = SubResource("NoiseTexture2D_deg0o")

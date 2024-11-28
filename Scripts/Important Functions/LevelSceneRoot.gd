@@ -119,7 +119,7 @@ func getLevelNPCsReferenceArray():
 	if !levelNPCsReferenceArray.is_empty():
 		return levelNPCsReferenceArray
 	else:
-		push_error("No NPCs found in the level!")
+		push_warning("No NPCs found in the level!")
 		return null
 
 func getLevelCameraZonesReferenceArray():
@@ -133,5 +133,5 @@ func getLevelChangingNodeReferences():
 	if !levelChangingNodeReferenceArray.is_empty():
 		return levelChangingNodeReferenceArray
 	else:
-		push_error("No level-changing nodes found in the level!")
+		push_warning("No level-changing nodes found in the level!")
 		return null

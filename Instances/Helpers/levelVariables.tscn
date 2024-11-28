@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://3trsvvlmhqul"]
-
-[ext_resource type="Script" path="res://Scripts/levelVariables.gd" id="1_p7h53"]
-[ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_ea6qx"]
-
-[node name="levelVariables" type="Node"]
-script = ExtResource("1_p7h53")
-levelVariables = ExtResource("2_ea6qx")
