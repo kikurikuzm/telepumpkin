@@ -151,3 +151,9 @@ func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):
 	if levelLoader.validateLevel(levelPath):
 		print("valid level")
 		initiateLevelChange(levelPath)
+
+func _pauseGame():
+	get_tree().paused = true
+
+func _unpauseGame():
+	get_tree().paused = false

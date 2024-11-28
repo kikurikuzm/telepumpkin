@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ciuswkeg660ew"]
+[gd_scene load_steps=21 format=3 uid="uid://ciuswkeg660ew"]
 
 [ext_resource type="PackedScene" uid="uid://bedp1kcel7xwt" path="res://Instances/Important/LevelLoader.tscn" id="1_i68tn"]
 [ext_resource type="Script" uid="uid://bissop614ltbh" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_sqsrj"]
@@ -7,16 +7,233 @@
 [ext_resource type="Script" uid="uid://dfig6n2n2qwqj" path="res://Scripts/Important Functions/DebuggerMenu.gd" id="2_qrl6x"]
 [ext_resource type="Script" uid="uid://dk3irp6kew6s6" path="res://Scripts/Important Functions/MainSceneCutsceneManager.gd" id="2_w3bxq"]
 [ext_resource type="Shader" uid="uid://clqktdglysmby" path="res://Resources/Shaders/blur.gdshader" id="3_fps76"]
+[ext_resource type="Script" uid="uid://vy10whq5fqge" path="res://Scripts/Important Functions/PauseMenu.gd" id="3_n0a70"]
 [ext_resource type="Script" uid="uid://bsrjffypfv164" path="res://Scripts/Important Functions/LevelSet.gd" id="3_w5c4r"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="4_1jw7k"]
 [ext_resource type="Theme" uid="uid://canh65nrg7pr8" path="res://Resources/pauseMenuTheme.tres" id="4_ygts8"]
 [ext_resource type="Script" uid="uid://xy2n4l8sst72" path="res://Scripts/mainCamera.gd" id="5_5c3qt"]
 [ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="5_ygts8"]
 
+[sub_resource type="Animation" id="Animation_ml867"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("backgroundBlur:material:shader_parameter/tint")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("backgroundBlur:material:shader_parameter/lod")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VBoxContainer:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VBoxContainer:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_n0a70"]
+resource_name = "pauseGame"
+length = 0.6
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("backgroundBlur:material:shader_parameter/tint")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.233333, -0.000888889, -0.0830067, -0.0997262, 0.0293502, 0.0528165, -0.0155443),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("backgroundBlur:material:shader_parameter/lod")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1.17963, -0.0666667, -0.119305, 0.107191, 0.191827, 1.00067, -0.0159567, 0.00745654, 0.199926, -0.0934253),
+"times": PackedFloat32Array(0, 0.233333, 0.4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer:modulate:r")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.331994)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer:modulate:g")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.331994)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VBoxContainer:modulate:b")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.331994)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("VBoxContainer:modulate:a")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.331994)
+}
+
+[sub_resource type="Animation" id="Animation_ybplw"]
+resource_name = "unpauseGame"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("backgroundBlur:material:shader_parameter/lod")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1.00067, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("backgroundBlur:material:shader_parameter/tint")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-0.0830067, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ybplw"]
+_data = {
+&"RESET": SubResource("Animation_ml867"),
+&"pauseGame": SubResource("Animation_n0a70"),
+&"unpauseGame": SubResource("Animation_ybplw")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l41h4"]
 shader = ExtResource("3_fps76")
-shader_parameter/lod = 1.25
-shader_parameter/tint = -0.09
+shader_parameter/lod = 0.0
+shader_parameter/tint = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_ygts8"]
 font = ExtResource("5_ygts8")
@@ -58,7 +275,14 @@ focus_mode = 1
 placeholder_text = "Enter a command..."
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 5
+script = ExtResource("3_n0a70")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu"]
+libraries = {
+&"": SubResource("AnimationLibrary_ybplw")
+}
 
 [node name="backgroundBlur" type="ColorRect" parent="PauseMenu"]
 z_index = -1
@@ -70,6 +294,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -148,6 +373,8 @@ visible = false
 [connection signal="commandModifyPlayerState" from="DebuggerMenu" to="." method="_playerCharacterChangeState"]
 [connection signal="commandSkipCurrentCutscene" from="DebuggerMenu" to="." method="_skipCurrentCutscene"]
 [connection signal="text_submitted" from="DebuggerMenu/PanelContainer/VBoxContainer/DebugCommandInput" to="DebuggerMenu" method="_debugInputCommandSubmitted"]
+[connection signal="pauseGame" from="PauseMenu" to="." method="_pauseGame"]
+[connection signal="unpauseGame" from="PauseMenu" to="." method="_unpauseGame"]
 [connection signal="changeCameraFocus" from="DialogueManager" to="." method="_mainCameraChangeFocus"]
 [connection signal="changeCameraFocusToPlayer" from="DialogueManager" to="." method="_mainCameraFocusPlayer"]
 [connection signal="changeCameraZoom" from="DialogueManager" to="." method="_mainCameraChangeZoom"]

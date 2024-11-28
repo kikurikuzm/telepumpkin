@@ -26,7 +26,7 @@ func _process(delta):
 		return
 	
 	
-	debugtext.text = str(current_state)
+	#debugtext.text = str(current_state)
 	
 	if current_state:
 		current_state.update(delta)

@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://dygdvbw8bkdya"]
 
 [ext_resource type="Texture2D" uid="uid://v7u0ipl2axjg" path="res://Sprites/Misc/basket.png" id="1"]
-[ext_resource type="Script" path="res://Scripts/exit.gd" id="2"]
+[ext_resource type="Script" uid="uid://ck6qhwrdn3efb" path="res://Scripts/exit.gd" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(40, 40)
+size = Vector2(32, 32)
 
 [node name="exit" type="Node2D" groups=["level_exit"]]
 editor_description = "The exit for any given level. Place this where you want to player to exit to, and set the amount of pumpkins needed to unlock the exit."

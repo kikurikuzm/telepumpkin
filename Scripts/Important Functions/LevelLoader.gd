@@ -81,16 +81,6 @@ func passRootNodeSignalsToConnect() -> Array:
 		levelNodeSignalsArray.append(levelNPCInstanceSignalsArray)
 	else:
 		levelNodeSignalsArray.append([])
-		
-	if levelChangingNodeReferenceArray != null:
-		print_debug("lchange instances not null")
-		var levelChangingInstanceSignalsArray : Array
-		for levelChangingNode in levelChangingNodeReferenceArray:
-			levelChangingInstanceSignalsArray.append(levelChangingNode.requestLevelChange)
-			print_debug("appended node signal")
-		levelNodeSignalsArray.append(levelChangingInstanceSignalsArray)
-	else:
-		levelNodeSignalsArray.append([])
 	
 	if levelCameraZonesReferenceArray != null:
 		for cameraZoneInstance in levelCameraZonesReferenceArray:
@@ -103,6 +93,17 @@ func passRootNodeSignalsToConnect() -> Array:
 	else:
 		levelNodeSignalsArray.append([])
 			
+		
+	if levelChangingNodeReferenceArray != null:
+		print_debug("lchange instances not null")
+		var levelChangingInstanceSignalsArray : Array
+		for levelChangingNode in levelChangingNodeReferenceArray:
+			levelChangingInstanceSignalsArray.append(levelChangingNode.requestLevelChange)
+			print_debug("appended node signal")
+		levelNodeSignalsArray.append(levelChangingInstanceSignalsArray)
+	else:
+		levelNodeSignalsArray.append([])
+	
 	return levelNodeSignalsArray
 
 func isLevelCurrentlyLoaded() -> bool:

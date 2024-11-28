@@ -2,6 +2,7 @@ extends PlayerState
 class_name playerStretch
 
 @onready var coyoteTimer = $"../../coyoteTimer"
+@onready var debugLabel = $"../../debugText"
 
 const MIN_JUMPSTRENGTH = 0
 const MAX_JUMPSTRENGTH = 270
@@ -16,7 +17,7 @@ func enter():
 	animPlayer.play("stretch")
 
 func exit():
-	teleportRange.scale = Vector2(1.594, 1.594)
+	teleportRange.scale = Vector2(1.5, 1.5)
 	stretchAnimationDownPlayed = false
 	stretchAnimationUpPlayed = false
 
@@ -25,6 +26,7 @@ func update(delta: float):
 
 func physics_update(delta: float):
 	var direction = 0
+	debugLabel.text = str(player.jumpstrength)
 	if sign(player.velocity.y) == 1:
 		coyoteTimer.start(1)
 		print("started timer")
@@ -48,18 +50,18 @@ func physics_update(delta: float):
 		player.velocity.x = 0
 	
 	if Input.is_action_pressed("up"):
-		teleportRange.scale.x = lerp(teleportRange.scale.x, 0.4, 0.1)
-		teleportRange.scale.y = lerp(teleportRange.scale.y, 3.0, 0.1)
+		teleportRange.scale.x = lerp(teleportRange.scale.x, 0.9, 0.07)
+		teleportRange.scale.y = lerp(teleportRange.scale.y, 3.0, 0.085)
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			player.jumpstrength += 8
 			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
-		if !stretchAnimationUpPlayed:
-			animPlayer.play("stretchUp")
-			stretchAnimationUpPlayed = true
+		#if !stretchAnimationUpPlayed:
+			#animPlayer.play("stretchUp")
+			#stretchAnimationUpPlayed = true
 		
 	if Input.is_action_pressed("down"):
-		teleportRange.scale.x = lerp(teleportRange.scale.x, 3.0, 0.1)
-		teleportRange.scale.y = lerp(teleportRange.scale.y, 0.4, 0.1)
+		teleportRange.scale.x = lerp(teleportRange.scale.x, 3.0, 0.085)
+		teleportRange.scale.y = lerp(teleportRange.scale.y, 0.9, 0.07)
 		if !stretchAnimationDownPlayed:
 			animPlayer.play("stretchDown")
 			stretchAnimationDownPlayed = true

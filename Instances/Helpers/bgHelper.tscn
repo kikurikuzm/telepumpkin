@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmci06cq85t3s"]
-
-[ext_resource type="Script" path="res://Scripts/levelScripts/environmentChange.gd" id="1"]
-
-[node name="bgHelper" type="Node2D"]
-script = ExtResource("1")
