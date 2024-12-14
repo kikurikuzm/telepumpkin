@@ -83,7 +83,7 @@ func teleport(hostPos: Transform2D) -> void:
 			animationPlayer.queue("idle")
 		if unstableTeleport <= 0:
 			#deletes the pumpkin when unstableTeleport reaches 0
-			get_parent().get_parent().restartLevel()
+#			get_parent().get_parent().restartLevel()
 			self.queue_free()
 	if !unstable:
 		animationPlayer.play("normalTeleport")
