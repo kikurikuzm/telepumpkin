@@ -25,15 +25,13 @@ func _init():
 	scale.y = scale.x
 
 func _ready():
-	animationPlayer.play("normalIdle")
 	if unstable:
 		maxUnst = unstableTeleport
 		sprite.animation = "rotting"
+	else:
+		animationPlayer.play("normalIdle")
 
 func _physics_process(delta):
-	if unstable:
-		sprite.frame = ceil(maxUnst/unstableTeleport)
-	
 	var areaArray = $Area2D.get_overlapping_areas()
 	for area in areaArray:
 		if area.get_parent().is_in_group("manhole"):
@@ -53,6 +51,24 @@ func traverseManhole(exitPos: Vector2, exitVel: Vector2):
 	linear_velocity = exitVel
 
 func _process(delta):
+	if unstable:
+		if unstableTeleport > 6:
+			sprite.frame = 0
+		else:
+			match unstableTeleport:
+				1:
+					sprite.frame = 5
+				2:
+					sprite.frame = 4
+				3:
+					sprite.frame = 3
+				4:
+					sprite.frame = 2
+				5:
+					sprite.frame = 1
+				6:
+					sprite.frame = 0
+	
 	if highlighted:
 		highlightDistortion = lerp(highlightDistortion, 0.16, 0.1)
 		sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
@@ -64,7 +80,6 @@ func _process(delta):
 		$selectParticles.emitting = false
 		
 	highlighted = false
-	
 
 func teleport(hostPos: Transform2D) -> void:
 	#called by the player script when the pumpkin is teleported

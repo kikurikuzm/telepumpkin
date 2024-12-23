@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=3 uid="uid://omxwiw3x34ud"]
 
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="1"]
-[ext_resource type="Script" path="res://Scripts/pumpkin.gd" id="2"]
+[ext_resource type="Script" uid="uid://ccrrayh3a5ihb" path="res://Scripts/pumpkin.gd" id="2"]
 [ext_resource type="Material" uid="uid://cs4pjrqbas4d8" path="res://Resources/Shaders/pumpkinHighlight.tres" id="2_23knt"]
 [ext_resource type="Texture2D" uid="uid://dwlb056utp2x7" path="res://Sprites/Misc/rotting pumpkin.png" id="3_n0aru"]
 
@@ -71,6 +71,19 @@ animations = [{
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tck4o"]
 noise = SubResource("FastNoiseLite_myx2m")
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ewnnw"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1b0y"]
+animation = &"insane"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_owba8"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ewnnw")
+blend_point_0/pos = 0.9
+blend_point_1/node = SubResource("AnimationNodeAnimation_d1b0y")
+blend_point_1/pos = -1.0
+value_label = "0.1"
 
 [sub_resource type="Animation" id="Animation_vqewv"]
 length = 0.001
@@ -319,27 +332,14 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ej3c"]
 _data = {
-"RESET": SubResource("Animation_vqewv"),
-"explode": SubResource("Animation_nm6hs"),
-"idle": SubResource("Animation_gw7h8"),
-"insane": SubResource("Animation_jtubt"),
-"normalIdle": SubResource("Animation_uvvfm"),
-"normalTeleport": SubResource("Animation_js5y7"),
-"teleport": SubResource("Animation_r1k2p")
+&"RESET": SubResource("Animation_vqewv"),
+&"explode": SubResource("Animation_nm6hs"),
+&"idle": SubResource("Animation_gw7h8"),
+&"insane": SubResource("Animation_jtubt"),
+&"normalIdle": SubResource("Animation_uvvfm"),
+&"normalTeleport": SubResource("Animation_js5y7"),
+&"teleport": SubResource("Animation_r1k2p")
 }
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ewnnw"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1b0y"]
-animation = &"insane"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_owba8"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_ewnnw")
-blend_point_0/pos = 0.9
-blend_point_1/node = SubResource("AnimationNodeAnimation_d1b0y")
-blend_point_1/pos = -1.0
-value_label = "0.1"
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(26, 4)
@@ -403,16 +403,13 @@ scale = Vector2(0.0664063, 0.0625)
 texture = SubResource("NoiseTexture2D_tck4o")
 
 [node name="AnimationTree" type="AnimationTree" parent="pumpkinSprite/abberation"]
-libraries = {
-"": SubResource("AnimationLibrary_8ej3c")
-}
 tree_root = SubResource("AnimationNodeBlendSpace1D_owba8")
 anim_player = NodePath("../AnimationPlayer")
 parameters/blend_position = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="pumpkinSprite/abberation"]
 libraries = {
-"": SubResource("AnimationLibrary_8ej3c")
+&"": SubResource("AnimationLibrary_8ej3c")
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -445,10 +442,10 @@ z_index = -1
 position = Vector2(0, 10)
 emitting = false
 amount = 20
-process_material = SubResource("ParticleProcessMaterial_rdjmg")
 lifetime = 1.79
 speed_scale = 1.27
 randomness = 0.18
 visibility_rect = Rect2(-25.9103, -56.0214, 50.2084, 61.9579)
 draw_order = 2
 trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_rdjmg")

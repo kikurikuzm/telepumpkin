@@ -7,6 +7,7 @@ extends Node
 @onready var dialogueManager = $DialogueManager
 @onready var cameraManager = $CameraManager
 @onready var debuggerMenu = $DebuggerMenu
+@onready var pauseMenu = $PauseMenu
 
 @onready var levelAmbience = $LevelAmbience
 
@@ -84,7 +85,7 @@ func initiateLevelChange(levelPath:String = ""):
 		gvars.levelToLoadInMainScene = ""
 	else:
 		levelLoader.instanceLevel(currentLevelSetIndex)
-		
+	
 	levelLoader.setupExternalLevelNodes(playerReference)
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
 	connectToLevelNodeSignals()
@@ -92,6 +93,12 @@ func initiateLevelChange(levelPath:String = ""):
 	var currentLevelVariables = levelLoader.getCurrentLevelVariables()
 	levelAmbience.stream = currentLevelVariables.levelAmbience
 	levelAmbience.play()
+
+func restartLevel():
+	initiateLevelChange()
+
+func exitToMenu():
+	pass
 
 #Signal functions begin here
 
@@ -125,6 +132,10 @@ func _dialogueManagerBeginDialogue(emittingNPCConversationID, emittingNPCInstanc
 
 func _levelCompleted():
 	currentLevelSetIndex += 1
+	playerReference.changeState("playerFinishLevel")
+	#initiateLevelChange()
+
+func _onPlayerExitAnimationFinished():
 	initiateLevelChange()
 
 func _levelCutsceneBegin(passedCutscenePlayerCharacter, passedCutsceneCamera, passedCutscenePlayerInstance):
@@ -157,3 +168,9 @@ func _pauseGame():
 
 func _unpauseGame():
 	get_tree().paused = false
+
+func _playerRestartLevel():
+	restartLevel()
+
+func _playerExitToMenu():
+	exitToMenu()

@@ -32,6 +32,8 @@ func instanceLevel(levelSetIndex:int) -> void:
 	add_child(instancedLevel)
 
 func instanceLevelFromPath(levelPath:String) -> bool:
+	if !validateLevel(levelPath):
+		return false
 	if loadedLevel != null:
 		loadedLevel = null
 	if instancedLevel != null:
@@ -48,6 +50,7 @@ func instanceLevelFromPath(levelPath:String) -> bool:
 
 func setupExternalLevelNodes(playerReference:CharacterBody2D) -> void:
 	playerReference.global_position = instancedLevel.getLevelSpawnPointPosition()
+	playerReference.velocity = Vector2.ZERO
 
 func passRootNodeSignalsToConnect() -> Array:
 	var levelChangingNodeReferenceArray = instancedLevel.getLevelChangingNodeReferences()

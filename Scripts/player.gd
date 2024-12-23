@@ -34,6 +34,7 @@ var oldZoom : Vector2
 var mousefly = false
 
 signal enteringEntrance(scene)
+signal finishedExitAnimation
 
 func _physics_process(delta):
 	if !is_on_floor():

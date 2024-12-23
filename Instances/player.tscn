@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" uid="uid://b2rcdd2cjidp7" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
-[ext_resource type="Script" uid="uid://cijpwtkshve6r" path="res://Scripts/State/player states/playerIdle.gd" id="3_k086q"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerIdle.gd" id="3_k086q"]
 [ext_resource type="Texture2D" uid="uid://bg5c6q3i5107" path="res://Sprites/Kin/new kin.png" id="3_qlsd8"]
 [ext_resource type="Texture2D" uid="uid://dr1cy8d7cna7w" path="res://Sprites/TPP/tppfull.png" id="4_ky4s4"]
-[ext_resource type="Script" uid="uid://snc45ssthd1c" path="res://Scripts/State/player states/playerWalking.gd" id="4_v361r"]
-[ext_resource type="Script" uid="uid://ht4xn4vl2pnq" path="res://Scripts/State/player states/playerStop.gd" id="5_c0d7w"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerWalking.gd" id="4_v361r"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerStop.gd" id="5_c0d7w"]
 [ext_resource type="Texture2D" uid="uid://b8qu16q0dlmwd" path="res://Sprites/lights/light-sheet0.png" id="5_qpng8"]
 [ext_resource type="PackedScene" uid="uid://b75y4tjamjhxd" path="res://Instances/Level Components/teleportRange.tscn" id="6_6y066"]
-[ext_resource type="Script" uid="uid://t38m2vysnik1" path="res://Scripts/State/player states/playerJump.gd" id="6_40u7v"]
-[ext_resource type="Script" uid="uid://65oj43pjdt4r" path="res://Scripts/State/player states/playerFalling.gd" id="7_u8qku"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerJump.gd" id="6_40u7v"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerFalling.gd" id="7_u8qku"]
 [ext_resource type="Script" uid="uid://disc5578jrdwp" path="res://Scripts/State/player states/playerStretch.gd" id="8_sjiu6"]
 [ext_resource type="AudioStream" uid="uid://c1666rseg7wjt" path="res://Audio/sfx/grassStep-01.ogg" id="8_vg4jm"]
 [ext_resource type="AudioStream" uid="uid://buope0rqbdyn8" path="res://Audio/sfx/grassStep-02.ogg" id="9_7ukhu"]
-[ext_resource type="Script" uid="uid://dkp4srk5xg53k" path="res://Scripts/State/player states/playerBusy.gd" id="9_8rj2v"]
-[ext_resource type="Script" uid="uid://do2yteqg7se8w" path="res://Scripts/State/player states/playerFly.gd" id="10_rtfj4"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerBusy.gd" id="9_8rj2v"]
+[ext_resource type="Script" path="res://Scripts/State/player states/playerFly.gd" id="10_rtfj4"]
 [ext_resource type="AudioStream" uid="uid://dlvp15rgvkl2g" path="res://Audio/sfx/grassStep-03.ogg" id="10_yc71b"]
 [ext_resource type="Gradient" uid="uid://blengyjxsisxd" path="res://Resources/purplegradient.tres" id="11_6kb3m"]
 [ext_resource type="AudioStream" uid="uid://rjkd5e5f8lks" path="res://Audio/sfx/concretestep1.ogg" id="11_u8ed2"]
@@ -27,7 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://dnvw53ep1vrqw" path="res://Audio/sfx/wood_step-03.ogg" id="16_1x2s6"]
 [ext_resource type="AudioStream" uid="uid://cd7bmqexlqs4e" path="res://Audio/sfx/pickuptoo.ogg" id="23_hnh6d"]
 [ext_resource type="AudioStream" uid="uid://bhay6ynm00fpy" path="res://Audio/sfx/fall thump.ogg" id="24_x075c"]
-[ext_resource type="Script" uid="uid://bmpahr0mgw8pl" path="res://Scripts/simplefootsteps.gd" id="25_v543r"]
+[ext_resource type="Script" path="res://Scripts/simplefootsteps.gd" id="25_v543r"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="28_exmif"]
 [ext_resource type="AudioStream" uid="uid://dkbrvl12nplnp" path="res://Audio/sfx/metalfootstep-01.ogg" id="28_njwos"]
 [ext_resource type="AudioStream" uid="uid://5ogpjqvi7p8h" path="res://Audio/sfx/metalfootstep-02.ogg" id="29_xpn45"]
@@ -55,6 +55,7 @@ func exit():
 
 func update(delta: float):
 	if !animPlayer.is_playing():
+		player.finishedExitAnimation.emit()
 		transitioned.emit(self, \"playerIdle\")
 
 func physics_update(delta: float):
@@ -227,6 +228,18 @@ tracks/13/keys = {
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath(".:flip_h")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_gpbgi"]
 resource_name = "fall"
@@ -355,6 +368,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.0]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../exitBasket:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_d1l3n"]
 resource_name = "jump"
@@ -421,7 +446,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_yn6jr"]
 resource_name = "levelExit"
-length = 4.0
+length = 2.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -442,9 +467,9 @@ tracks/1/path = NodePath("../exitBasket:position:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -5.40541, -0.2, -0.594595, 0.25, 0, -5.40541, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0.05, 0.35, 0.75)
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -5.40541, -0.2, -0.594595, 0.25, 0, -5.40541, -0.25, 0, 0.25, 0, -5.40541, -0.25, 0, 0.25, 0, 45, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.05, 0.35, 0.75, 1.1, 2.5)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -453,9 +478,9 @@ tracks/2/path = NodePath("../exitBasket:position:y")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(2.16216, -0.25, 0, 0.25, 0, -14.0541, -0.25, -0.945946, 0.0273237, 22.5541, -2, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0.05, 0.35, 0.75)
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(2.16216, -0.25, 0, 0.25, 0, -14.0541, -0.25, -0.945946, 0.0273237, 22.5541, -2, -0.25, 0, 0.25, 0, -2, -0.25, 0, 0.25, 0, -2, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.05, 0.35, 0.75, 1.1, 2.5)
 }
 tracks/3/type = "bezier"
 tracks/3/imported = false
@@ -486,9 +511,9 @@ tracks/5/path = NodePath(".:position:x")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.35, 0.45)
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 50, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35, 0.45, 1.1, 2.5)
 }
 tracks/6/type = "bezier"
 tracks/6/imported = false
@@ -497,9 +522,9 @@ tracks/6/path = NodePath(".:position:y")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0, 0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1.75, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.35, 0.45, 0.7)
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1.75, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.35, 0.45, 0.7, 1.1, 2.5)
 }
 tracks/7/type = "bezier"
 tracks/7/imported = false
@@ -522,6 +547,42 @@ tracks/8/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0.9, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0, 0.35, 0.5, 0.7)
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:animation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Idle", &"Walk"]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1.1, 1.25, 1.4, 1.55, 1.7, 1.85, 2.03909, 2.18909, 2.33909),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0, 1, 2, 0, 1, 2, 0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath(".:flip_h")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_pg4dh"]
@@ -1048,8 +1109,11 @@ teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerFinishLevel" type="Node" parent="stateFactory"]
+[node name="playerFinishLevel" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite")]
 script = SubResource("GDScript_1gwht")
+player = NodePath("../..")
+animPlayer = NodePath("../../AnimationPlayer")
+playerSprite = NodePath("../../AnimatedSprite2D")
 
 [node name="playerFly" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("10_rtfj4")

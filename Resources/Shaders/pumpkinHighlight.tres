@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://cs4pjrqbas4d8"]
 
-[ext_resource type="Shader" uid="uid://7rs006r172ky" path="res://Resources/Shaders/pumpkinHighlight.gdshader" id="1_sl0in"]
+[ext_resource type="Shader" path="res://Resources/Shaders/pumpkinHighlight.gdshader" id="1_sl0in"]
 
 [sub_resource type="Gradient" id="Gradient_ljwev"]
 offsets = PackedFloat32Array(0.658031, 0.880829, 0.979275, 1)
