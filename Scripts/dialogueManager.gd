@@ -75,8 +75,8 @@ func progressDialogue():
 	if currentEntry.focusPlayer:
 		changeCameraFocusToPlayer.emit()
 	else:
-		print_debug(get_node(currentEntry.currentFocus))
-		changeCameraFocus.emit(currentEntry.currentFocus)
+		print_debug(get_node(currentEntry.currentFocusAbsolutePath))
+		changeCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
 	
 	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
 	dialogueText.text = currentEntry.dialogueText

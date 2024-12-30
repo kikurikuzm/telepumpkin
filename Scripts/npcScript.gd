@@ -27,6 +27,12 @@ func _process(delta):
 func _ready():
 	animSprite.flip_h = spriteFlip
 	animSprite.play(npcLook)
+	
+	for conversation in dialogueArray:
+		for dialogue in conversation.conversationArray:
+			if dialogue.currentFocus:
+				dialogue.currentFocusAbsolutePath = get_node(dialogue.currentFocus).get_path()
+			
 
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and canTalk:

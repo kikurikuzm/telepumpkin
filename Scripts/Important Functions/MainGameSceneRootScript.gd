@@ -158,11 +158,9 @@ func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:Vector2):
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
 
 func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):
-	_playerCharacterChangePosition(spawnCoordinates)
-	print(levelPath, spawnCoordinates)
-	if levelLoader.validateLevel(levelPath):
-		print("valid level")
-		initiateLevelChange(levelPath)
+	initiateLevelChange(levelPath)
+	if spawnCoordinates != Vector2.ZERO:
+		_playerCharacterChangePosition(spawnCoordinates)
 
 func _pauseGame():
 	get_tree().paused = true

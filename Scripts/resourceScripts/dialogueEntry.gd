@@ -1,11 +1,12 @@
 class_name DialogueEntry extends Resource
 
-@export_group("Dialogue Settings")
 @export_multiline var dialogueText : String = "Enter text here!"
+@export_group("Dialogue Settings")
 @export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var dialoguePortrait: String
 @export var textSpeed : float = 1.0
 @export_group("Focus Settings")
 @export var currentFocus : NodePath
+var currentFocusAbsolutePath : String = ""
 @export var focusPlayer : bool = false
 @export_group("Camera Settings")
 @export var cameraSpeed : float = 0.1

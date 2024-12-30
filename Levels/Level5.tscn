@@ -27,7 +27,7 @@ position = Vector2(672, 780)
 [node name="pumpkin3" parent="." instance=ExtResource("3_8vp4g")]
 position = Vector2(1233, 552)
 unstable = true
-unstableTeleport = 2
+unstableTeleport = 3
 
 [node name="exit" parent="." instance=ExtResource("4_vcy84")]
 position = Vector2(1232, 720)

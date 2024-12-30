@@ -82,9 +82,7 @@ func _process(delta):
 			for node in interactArea.get_overlapping_areas():
 				if node.is_in_group("entrance"):
 					var entrance = node.get_parent()
-					if entrance.enabled == true:
-						emit_signal("enteringEntrance", entrance.scene)
-						entrance.enterScene()
+					entrance.enterScene()
 					break
 				
 		if !hasTPP:

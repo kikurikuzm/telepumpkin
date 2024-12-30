@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://bve7wh3cybj72"]
 
-[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_gxn4m"]
+[ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_gxn4m"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_w73xn"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_4rebf"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_yd1qr"]

@@ -8,15 +8,16 @@ extends Node2D
 @onready var enterTimer = $enterTimer
 @onready var transition = get_parent().get_parent().get_node("transitionLayer")
 
-@export var scene : String
+@export_file("*.tscn") var desiredLevel : String
 @export var enabled = true
 @export var secret = false
 @export var exitLocation = Vector2.ZERO
 
 var loadedScene
 
+signal requestLevelChange(levelFilepath, levelSpawnPosition)
+
 func _ready():
-	loadedScene = load(scene)
 	if secret or !enabled:
 		interactIcon.visible = false
 
@@ -25,19 +26,16 @@ func _process(delta):
 		get_tree().paused = true
 	
 func enterScene():
-	if scene != null and enterTimer.is_stopped() and enabled:
-		var rootnode = get_parent().get_parent()
-		get_tree().paused = true
+	if desiredLevel != null and enterTimer.is_stopped() and enabled:
 		doorSFX.play()
-		await(doorSFX.finished)
-		get_parent().get_parent().loadLevel(loadedScene,2,exitLocation)
+		requestLevelChange.emit(desiredLevel, exitLocation)
 	else:
 		print("scene not found")
 
 func save() -> Dictionary:
 	var saveDict = {
 		"name" : name,
-		"scene" : scene,
+		"scene" : desiredLevel,
 		"enabled" : enabled,
 		"secret" : secret,
 		"exitLocationX" : exitLocation.x,
@@ -46,7 +44,7 @@ func save() -> Dictionary:
 	return saveDict
 
 func loadJSON(saveData) -> void: 
-	scene = saveData["scene"]
+	desiredLevel = saveData["scene"]
 	enabled = saveData["enabled"]
 	secret = saveData["secret"]
 	exitLocation.x = saveData["exitLocationX"]
