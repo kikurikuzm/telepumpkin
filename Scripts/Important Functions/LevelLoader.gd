@@ -32,8 +32,9 @@ func instanceLevel(levelSetIndex:int) -> void:
 	add_child(instancedLevel)
 
 func instanceLevelFromPath(levelPath:String) -> bool:
-	if !validateLevel(levelPath):
-		return false
+	#if !validateLevel(levelPath):
+		#print("invalid level - " + levelPath)
+		#return false
 	if loadedLevel != null:
 		loadedLevel = null
 	if instancedLevel != null:

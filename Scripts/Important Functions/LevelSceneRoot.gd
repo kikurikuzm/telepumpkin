@@ -16,7 +16,7 @@ func _ready():
 	if get_parent() is Window:
 		push_warning("Not running in MainScene")
 		gvars.levelToLoadInMainScene = self.scene_file_path
-		print(gvars.levelToLoadInMainScene)
+		#print_debug(gvars.levelToLoadInMainScene)
 		get_tree().change_scene_to_file("res://Instances/Important/MainGameScene.tscn")
 	
 	allRootChildren = self.get_children()

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="DialogueEntry" load_steps=2 format=3 uid="uid://j53w3eeymiqe"]
+
+[ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="1_8a3lu"]
+
+[resource]
+script = ExtResource("1_8a3lu")
+dialogueText = "beep boop
+i am a super duper robit
+beep bleeping bleeeep
+lol i just insulted you in robot..
+jeesh how many new lines can i have here!!"
+dialoguePortrait = "kin"
+cameraSpeed = 0.1
+cameraZoom = 4.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = ExtResource("1_8a3lu")

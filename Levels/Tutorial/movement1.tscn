@@ -1,10 +1,46 @@
-[gd_scene load_steps=6 format=4 uid="uid://d0uyiyn8sigtg"]
+[gd_scene load_steps=12 format=4 uid="uid://d0uyiyn8sigtg"]
 
-[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_onr1q"]
+[ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_onr1q"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_ohk40"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="2_w7lya"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="3_gdbu0"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4_rioaj"]
+[ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="6_21xf0"]
+[ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="7_w5jp6"]
+[ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="8_3tiau"]
+
+[sub_resource type="Resource" id="Resource_jhsho"]
+script = ExtResource("8_3tiau")
+dialogueText = "i am a talking hourse"
+dialoguePortrait = "bald"
+textSpeed = 0.01
+currentFocus = NodePath("../exit")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 6.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = ExtResource("8_3tiau")
+
+[sub_resource type="Resource" id="Resource_w5jp6"]
+script = ExtResource("8_3tiau")
+dialogueText = "poop!!!"
+dialoguePortrait = "bald"
+textSpeed = 0.5
+currentFocus = NodePath("")
+focusPlayer = true
+cameraSpeed = 0.1
+cameraZoom = 2.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = ExtResource("8_3tiau")
+
+[sub_resource type="Resource" id="Resource_ytyy4"]
+script = ExtResource("7_w5jp6")
+conversationArray = Array[ExtResource("8_3tiau")]([SubResource("Resource_jhsho"), SubResource("Resource_w5jp6")])
+metadata/_custom_type_script = ExtResource("7_w5jp6")
 
 [node name="Movement1" type="Node"]
 script = ExtResource("1_onr1q")
@@ -24,3 +60,8 @@ zoom = Vector2(3, 3)
 
 [node name="exit" parent="." instance=ExtResource("4_rioaj")]
 position = Vector2(273, 17)
+
+[node name="NPC" parent="." instance=ExtResource("6_21xf0")]
+position = Vector2(157, -33)
+npcLook = "bald"
+dialogueArray = Array[ExtResource("7_w5jp6")]([SubResource("Resource_ytyy4")])

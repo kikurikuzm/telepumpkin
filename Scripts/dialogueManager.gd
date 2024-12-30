@@ -19,16 +19,21 @@ class_name DialogueManager
 @onready var textSpeed = $textSpeed ##A timer used to have the letters show every given amount of time.
 
 var dialogueInitializer
-var currentConversation = 0 ##The index of the current conversation.
-var currentTextIndex = 0 ##The index of the current text chunk within the .json file.
+var currentTextIndex = 0
+var NPCConversationArray : Array[DialogueConversation]
+var currentConversation : DialogueConversation
+var currentConversationIndex = 0
 var queuedConvo = null
+
+var portraitEnum : Array = ["bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke"]
 
 var questIndex ##The quest index, given by the dialogue .json and used at the end of dialogue.
 
 var inDialogue = false ##Whether or not the player is currently interacting with an NPC.
 var inCutscene = false ##Whether or not the player is currently in a cutscene.
 
-var conversation : Array ##The parsed array from the .json file.
+var currentDialogueEntryIndex : int = 0
+var currentEntry : DialogueEntry
 
 var currentLevelChildren : Array
 
@@ -40,57 +45,50 @@ signal beginDialogueCutscene(desiredCutscene:String)
 signal changePlayerCharacterState(desiredState:String)
 
 ##The function that performs setup for dialogue.
-func conversationInitiate(convoNumb:int=0, npcInstance:Node2D=null): 
+func conversationInitiate(dialogueConversation:Array[DialogueConversation], dialogueConversationID:int, npcInstance:Node2D=null): 
 	print("started dialogue from DialogueManager")
 	inDialogue = true
 	dialogueInitializer = npcInstance
-	conversation = parseJSON()
-	currentConversation = convoNumb
-	#oldZoom = mainCamera.desiredZoom
+	currentDialogueEntryIndex = 0
+	NPCConversationArray = dialogueConversation
+	currentConversationIndex = dialogueConversationID
+	currentConversation = dialogueConversation[currentConversationIndex]
 	$textSkipDelay.start()
 	progressDialogue()
 
 ##The function that progresses dialogue and does the bulk of the work. This is where events in the dialogue are performed, such as 'cameraSpeed'.
-func progressDialogue(): 
-	var quickConvoVar = conversation[currentConversation]["conversation"][currentTextIndex]
+func progressDialogue():
+	if currentDialogueEntryIndex >= len(currentConversation.conversationArray):
+		endDialogue()
+		return
+	else:
+		currentEntry = currentConversation.conversationArray[currentDialogueEntryIndex]
 	
 	dialogueContinue.visible = false
 	dialogueText.visible_characters = 0
 	dialogueBox.visible = true
 	inDialogue = true
 	
-	var currentCharacter = quickConvoVar["character"]
-	
-	#comparing every npc name to current character
-	for node in currentLevelChildren:
-		if node.name == str(currentCharacter):
-			currentCharacter = node
-			break
-		else:
-			pass
+	#var currentCharacter = quickConvoVar["character"]
 	
 	
-	if currentCharacter is String:
-		if currentCharacter == "player":
-			changeCameraFocusToPlayer.emit()
-			#mainCamera.currentParent = mainCamera.playerRef
+	if currentEntry.focusPlayer:
+		changeCameraFocusToPlayer.emit()
 	else:
-		changeCameraFocus.emit(currentCharacter)
+		print_debug(get_node(currentEntry.currentFocus))
+		changeCameraFocus.emit(currentEntry.currentFocus)
 	
-	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + quickConvoVar["portrait"])
-	dialogueText.text = quickConvoVar["text"]
+	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
+	dialogueText.text = currentEntry.dialogueText
+
+	changeCameraSmoothingAmount.emit(currentEntry.cameraSpeed)
+	changeCameraZoom.emit(Vector2(currentEntry.cameraZoom,currentEntry.cameraZoom))
 	
-	if quickConvoVar.has("cameraSpeed"):
-		changeCameraSmoothingAmount.emit(quickConvoVar["cameraSpeed"])
-	if quickConvoVar.has("speed"):
-		textSpeed.wait_time = quickConvoVar["speed"]
-	if quickConvoVar.has("zoom"):
-		changeCameraZoom.emit(str_to_var(quickConvoVar["zoom"]))
-	if quickConvoVar.has("quest"):
-		questIndex = quickConvoVar["quest"]
-	if quickConvoVar.has("cutscene"):
-		var cutscene = quickConvoVar["cutscene"][0]
-		var playDuringDialogue = bool(quickConvoVar["cutscene"][1])
+	textSpeed.wait_time = currentEntry.textSpeed
+	
+	#if quickConvoVar.has("cutscene"):
+		#var cutscene = quickConvoVar["cutscene"][0]
+		#var playDuringDialogue = bool(quickConvoVar["cutscene"][1])
 		
 		#if playDuringDialogue:
 			#beginDialogueCutscene.emit(cutscene)
@@ -101,20 +99,17 @@ func progressDialogue():
 			#dialogueBox.visible = true
 			#dialogueText.visible = true
 		
-	if quickConvoVar.has("nextConvo"):
-		queueConvo(quickConvoVar["nextConvo"])
-	if quickConvoVar.has("canMove"):
-		pass
-	else:
+	#if currentEntry.goToNextConversation:
+		#queueConvo(quickConvoVar["nextConvo"])
+	if !currentEntry.playerCanMove:
 		changePlayerCharacterState.emit("playerBusy")
-		#get_parent().get_parent().player.changeState("playerbusy")
-	if quickConvoVar.has("changeMyConvo"):
-		dialogueInitializer.convoID = quickConvoVar["changeMyConvo"]
-	if quickConvoVar["text"] == "":
+		
+	if currentEntry.manualNextConversation > 0:
+		dialogueInitializer.convoID = currentEntry.manualNextConversation
+		
+	if currentEntry.dialogueText == "":
 		dialogueBox.visible = false
 		dialogueText.visible_ratio = 1
-	if quickConvoVar["portrait"] == "":
-		dialoguePortrait.texture = Texture2D.new()
 	
 	currentTextIndex += 1
 	
@@ -124,6 +119,8 @@ func progressDialogue():
 		$dialogueSFX.pitch_scale = randf_range(0.9, 1.1)
 		$dialogueSFX.play()
 		await textSpeed.timeout
+	
+	currentDialogueEntryIndex += 1
 	
 	##The function that ends a given dialogue and performs the necessary cleanup.
 func endDialogue(): 
@@ -136,6 +133,7 @@ func endDialogue():
 	inDialogue = false
 	
 	currentTextIndex = 0
+	currentDialogueEntryIndex = 0
 	#if questIndex != null:
 		#rootnode.get_node("questManager").changeQuest(questIndex)
 	#questIndex = null
@@ -149,7 +147,7 @@ func endDialogue():
 	#mainCamera.currentParent = mainCamera.playerRef
 	
 	if queuedConvo != null:
-		conversationInitiate(queuedConvo)
+		conversationInitiate(NPCConversationArray, currentConversationIndex)
 		queuedConvo = null
 	#else:
 		#if dialogueInitializer is NPC:
@@ -173,10 +171,6 @@ func parseJSON() -> Array:
 	else:
 		return []
 
-## The function used to determine what happens when triggered by the 'trigger' node.
-func trigger(): 
-	conversationInitiate()
-
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped() and !inCutscene:
 		if dialogueText.visible_characters == len(dialogueText.get_parsed_text()):
@@ -184,7 +178,7 @@ func _input(event):
 				get_parent().get_parent().questManager.changeQuest(questIndex)
 				questIndex = null
 			
-			if len(conversation[currentConversation]["conversation"]) > currentTextIndex:
+			if len(currentEntry.dialogueText) > currentTextIndex:
 				progressDialogue()
 			else:
 				endDialogue()

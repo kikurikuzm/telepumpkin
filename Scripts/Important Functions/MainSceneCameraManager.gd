@@ -11,6 +11,9 @@ func mainCameraChangeParent(desiredParent:Node2D):
 
 func mainCameraReturnToOriginalParent():
 	mainCameraReference.returnToParent()
+
+func mainCameraSnapToParent():
+	mainCameraReference.snapToParent()
 	
 func mainCameraReturnToPlayer():
 	mainCameraReference.returnToPlayer()

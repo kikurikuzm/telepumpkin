@@ -52,7 +52,7 @@ func interpretNewInput(newLine:String):
 	debugConsoleTextInputReference.grab_focus()
 
 func writeToDebugConsole(stringToWrite:String):
-	debugOutputReference.append_text("\n[color=lightgrey]" + stringToWrite)
+	debugOutputReference.append_text("\n[color=web_gray]" + stringToWrite)
 
 func commandTogglePlayerFly():
 	if debugPlayerFlyToggle:

@@ -17,10 +17,10 @@ extends Node
 var currentLevelSetIndex : int = 0
 
 func _ready() -> void:
-	initiateLevelChange()
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)
 	cameraManager.setMainCameraReference(mainCameraReference)
 	debuggerMenu.debugLevelList = levelLoader.levelSet
+	initiateLevelChange()
 
 func connectToLevelNodeSignals():
 	var nodeSignalsArray = levelLoader.passRootNodeSignalsToConnect()
@@ -67,16 +67,16 @@ func disconnnectCallablesFromSignals():
 func initiateLevelChange(levelPath:String = ""):
 	disconnnectCallablesFromSignals()
 	
-	var levelLoadedExternally : String
+	var levelLoadedExternally : String = ""
 	
 	print_debug(levelPath)
 	
-	if !levelPath.is_empty() || levelPath != "":
+	if levelPath != "":
 		levelLoadedExternally = levelPath
 	else:
 		levelLoadedExternally = gvars.levelToLoadInMainScene
 	
-	if !levelLoadedExternally.is_empty():
+	if levelLoadedExternally != "":
 		levelLoader.instanceLevelFromPath(levelLoadedExternally)
 		var levelLoaderLevelSet = levelLoader.levelSet
 		if levelLoadedExternally in levelLoaderLevelSet:
@@ -87,6 +87,7 @@ func initiateLevelChange(levelPath:String = ""):
 		levelLoader.instanceLevel(currentLevelSetIndex)
 	
 	levelLoader.setupExternalLevelNodes(playerReference)
+	cameraManager.mainCameraSnapToParent()
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
 	connectToLevelNodeSignals()
 	
@@ -127,8 +128,8 @@ func _mainCameraChangeFocus(desiredTarget:Node2D):
 func _mainCameraFocusPlayer():
 	cameraManager.mainCameraReturnToPlayer()
 
-func _dialogueManagerBeginDialogue(emittingNPCConversationID, emittingNPCInstanceReference):
-	dialogueManager.conversationInitiate(emittingNPCConversationID, emittingNPCInstanceReference)
+func _dialogueManagerBeginDialogue(emittingNPCConversation:DialogueConversation, emittingNPCInstanceReference):
+	dialogueManager.conversationInitiate(emittingNPCConversation, emittingNPCInstanceReference)
 
 func _levelCompleted():
 	currentLevelSetIndex += 1
@@ -144,8 +145,8 @@ func _levelCutsceneBegin(passedCutscenePlayerCharacter, passedCutsceneCamera, pa
 func _levelCutsceneEnd():
 	cutsceneManager.cleanupCutscene()
 
-func _levelNPCInstanceBeginConversation(emittingNPCConversationID, emittingNPCInstanceReference):
-	dialogueManager.conversationInitiate(emittingNPCConversationID, emittingNPCInstanceReference)
+func _levelNPCInstanceBeginConversation(emittingNPCConversationArray, emittingNPCConversationID, emittingNPCInstanceReference):
+	dialogueManager.conversationInitiate(emittingNPCConversationArray, emittingNPCConversationID, emittingNPCInstanceReference)
 
 func _levelCameraZoneGiveMainCameraFocus(cameraZoneReference):
 	cameraManager.mainCameraChangeParent(cameraZoneReference)

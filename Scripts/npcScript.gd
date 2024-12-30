@@ -12,10 +12,11 @@ class_name NPC extends Node2D
 @export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var npcLook: String
 @export var spriteFlip : bool
 @export var convoID : int
+@export var dialogueArray : Array[DialogueConversation]
 
 var canTalk = true
 
-signal initiateDialogue(conversationID, emittingNPCReference)
+signal initiateDialogue(conversationArray, conversationID, emittingNPCReference)
 
 func _process(delta):
 	if Engine.is_editor_hint():
@@ -37,7 +38,7 @@ func _input(event):
 
 func NPCBeginConversation():
 	print("begin conversation")
-	initiateDialogue.emit(convoID, self)
+	initiateDialogue.emit(dialogueArray, convoID, self)
 	canTalk = false
 
 func NPCFinishConversation():

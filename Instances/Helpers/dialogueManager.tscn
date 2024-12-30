@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://bos8ss8x8l7og"]
 
-[ext_resource type="Script" path="res://Scripts/dialogueManager.gd" id="1_b43uq"]
-[ext_resource type="Shader" path="res://Resources/Shaders/wigglewavy.gdshader" id="2_ea7an"]
-[ext_resource type="Shader" path="res://Resources/Shaders/wavy.gdshader" id="3_kbs7n"]
+[ext_resource type="Script" uid="uid://3qkryl4sejod" path="res://Scripts/dialogueManager.gd" id="1_b43uq"]
+[ext_resource type="Shader" uid="uid://c2kixvp8ls0q7" path="res://Resources/Shaders/wigglewavy.gdshader" id="2_ea7an"]
+[ext_resource type="Shader" uid="uid://bp7t12p2tmln8" path="res://Resources/Shaders/wavy.gdshader" id="3_kbs7n"]
 [ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="4_pceyl"]
 [ext_resource type="FontFile" uid="uid://o30a3wtnmnd6" path="res://Resources/UAV-OSD-Mono.ttf" id="6_xeeeg"]
 [ext_resource type="AudioStream" uid="uid://bwmmara6fxk1j" path="res://Audio/sfx/Tick.wav" id="12_cqag5"]
