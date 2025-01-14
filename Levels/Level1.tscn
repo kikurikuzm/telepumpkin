@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://cidi3o4bpysic"]
+[gd_scene load_steps=26 format=4 uid="uid://cidi3o4bpysic"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_fsv8h"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ksfga"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="7_p5kdo"]
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="8_457oh"]
 [ext_resource type="Texture2D" uid="uid://bvj047u5divdh" path="res://Sprites/NPCs/cloakBroom.png" id="10_gpdfg"]
+[ext_resource type="PackedScene" uid="uid://d0ntk07ipfpv4" path="res://Scripts/resourceScripts/cutsceneAnimationTarget.tscn" id="10_p2sgf"]
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="10_ub7qm"]
 [ext_resource type="Texture2D" uid="uid://c150c2o83sjnm" path="res://Sprites/Misc/bush.png" id="11_ve376"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="12_3b8gg"]
@@ -502,15 +503,20 @@ pumpkinsNeeded = 1
 position = Vector2(1089, 641)
 zoom = Vector2(3, 3)
 
-[node name="cutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderCamera", "placeholderPlayer") groups=["level_cutsceneplayer"]]
+[node name="cutscenePlayer" type="AnimationPlayer" parent="." node_paths=PackedStringArray("placeholderPlayer", "animationTargets") groups=["level_cutsceneplayer"]]
 libraries = {
 &"": SubResource("AnimationLibrary_vjwsx"),
 &"tutorial": SubResource("AnimationLibrary_anf63")
 }
 script = ExtResource("6_2p6ya")
 animationName = "tutorial/level1intro"
-placeholderCamera = NodePath("../cam")
 placeholderPlayer = NodePath("../playerDummy")
+animationTargets = [NodePath("CutsceneAnimationTarget")]
+
+[node name="CutsceneAnimationTarget" parent="cutscenePlayer" instance=ExtResource("10_p2sgf")]
+visible = false
+position = Vector2(1022, 689)
+animationTarget = "uid://dfn02ff1m04mi"
 
 [node name="startCutscene" parent="." instance=ExtResource("7_p5kdo")]
 position = Vector2(1092, 714)

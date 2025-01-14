@@ -31,7 +31,7 @@ unstableTeleport = 3
 
 [node name="exit" parent="." instance=ExtResource("4_vcy84")]
 position = Vector2(1232, 720)
-pumpkinsNeeded = 3
+pumpkinsNeeded = 1
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(928, 663)

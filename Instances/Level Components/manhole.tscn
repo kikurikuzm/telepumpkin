@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cl1u4c1fck5lu"]
 
-[ext_resource type="Script" path="res://Scripts/manhole.gd" id="1_xf3yg"]
+[ext_resource type="Script" uid="uid://bxq681jw4j47n" path="res://Scripts/manhole.gd" id="1_xf3yg"]
 [ext_resource type="Texture2D" uid="uid://bolkrxba3t62e" path="res://Sprites/Misc/manhole.png" id="2_mhy5w"]
 [ext_resource type="AudioStream" uid="uid://cvc5dcbyncxei" path="res://Audio/sfx/manholeEnter.ogg" id="4_m81ai"]
 

@@ -1,3 +1,4 @@
+@tool
 extends AnimationPlayer
 class_name CutscenePlayer
 ## A level element that provides a way to show the player a cutscene.
@@ -9,13 +10,23 @@ class_name CutscenePlayer
 #var player : Player ##A reference to the player node.
 #var cinemaBoxes ##A reference to the 'cinemaboxes' that are shown when in a cutscene.
 
+@export_category("Animation Properties")
 @export var animationName : String ##The name of the animation for the cutscene. The animation must be in it's own animation library.
-@export var placeholderCamera : Marker2D ##A reference to a Marker2D used to move the main camera to. The scale of the object changes the main camera's zoom. If no node is provided, the camera is able to freely move with the player or remains as the map camera.
+@export_category("Animation Placeholders")
+
+#@export_tool_button("Create New Placeholder Camera", "Camera2D")
+#var CreateNewPlaceholderCamera_action = createPlaceholderCamera
+#@export var placeholderCamera : Marker2D ##A reference to a Marker2D used to move the main camera to. The scale of the object changes the main camera's zoom. If no node is provided, the camera is able to freely move with the player or remains as the map camera.
+#@export_tool_button("Create New Placeholder Player", "CharacterBody2D")
+#var CreateNewPlaceholderPlayer_action = createPlaceholderPlayer
 @export var placeholderPlayer : AnimatedSprite2D ##A reference to the 'playerDummy' node used for animating the player. The visibility of this object becomes the actual player node's visibility but inversed. If no node is provided, the player is able to freely move during the cutscene.
+@export_tool_button("Create New Animation Target")
+var createNewTarget_action = createNewAnimationTarget
+@export var animationTargets: Array[CutsceneAnimationTarget]
 
 var inCutscene = false ##Used to check if a cutscene is currently playing.
 
-signal initiateCutscene(cutscenePlayerCharacter, cutsceneCamera, emittingCutscenePlayer)
+signal initiateCutscene(animationTargetArray:Array[CutsceneAnimationTarget])
 signal endCutscene
 
 #func _process(delta):
@@ -39,7 +50,7 @@ func startCutscene(cutscene:String, resetPlayer:bool = true):
 		#player.changeState("playerbusy")
 	#cinemaBoxes.play("in")
 	#inCutscene = true
-	initiateCutscene.emit(placeholderPlayer, placeholderCamera, self)
+	initiateCutscene.emit(animationTargets)
 	play(cutscene)
 	
 	await self.animation_finished
@@ -59,3 +70,17 @@ func trigger():
 
 func _exit_tree():
 	stop()
+
+func createPlaceholderPlayer():
+	var newPlaceholderInstance = load("res://Instances/Helpers/player_dummy.tscn")
+	newPlaceholderInstance
+	
+
+func createPlaceholderCamera():
+	pass
+
+func createNewAnimationTarget():
+	var newAnimationTarget = load("res://Scripts/resourceScripts/cutsceneAnimationTarget.tscn").instantiate()
+	animationTargets.append(newAnimationTarget)
+	add_child(newAnimationTarget)
+	newAnimationTarget.owner = get_tree().edited_scene_root

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://d0uyiyn8sigtg"]
+[gd_scene load_steps=14 format=4 uid="uid://d0uyiyn8sigtg"]
 
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_onr1q"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_ohk40"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="7_w5jp6"]
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="8_3tiau"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="9_3tiau"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="10_jhsho"]
 
 [sub_resource type="Resource" id="Resource_jhsho"]
 script = ExtResource("8_3tiau")
@@ -71,3 +72,7 @@ dialogueArray = Array[ExtResource("7_w5jp6")]([SubResource("Resource_ytyy4")])
 [node name="entrance" parent="." groups=["level_levelChangeRequester"] instance=ExtResource("9_3tiau")]
 position = Vector2(688, 746)
 desiredLevel = "uid://dwskemtt7pawt"
+
+[node name="trigger" parent="." instance=ExtResource("10_jhsho")]
+position = Vector2(932, 767)
+isVisibleInGame = false
