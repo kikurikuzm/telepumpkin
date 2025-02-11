@@ -514,7 +514,6 @@ placeholderPlayer = NodePath("../playerDummy")
 animationTargets = [NodePath("CutsceneAnimationTarget")]
 
 [node name="CutsceneAnimationTarget" parent="cutscenePlayer" instance=ExtResource("10_p2sgf")]
-visible = false
 position = Vector2(1022, 689)
 animationTarget = "uid://dfn02ff1m04mi"
 

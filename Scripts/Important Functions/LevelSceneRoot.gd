@@ -43,7 +43,7 @@ func initializeLevel():
 			newParallax2D.scroll_offset = Vector2(990, 660)
 			newParallax2D.scroll_scale = Vector2(0.7, 0.7)
 			newParallax2D.scale = Vector2(0.75, 0.75)
-			newParallax2D.z_index = -2
+			newParallax2D.z_index = -5
 			newParallax2D.add_child(newBackgroundSprite)
 			
 			if levelVariablesResource.levelForeground != null:

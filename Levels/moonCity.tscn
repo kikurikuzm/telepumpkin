@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=4 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
-[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
+[ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
 [ext_resource type="Texture2D" uid="uid://duokp1u0wgyb8" path="res://Sprites/backgrounds/fog.png" id="2_acwq0"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_ekeby"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="3_3vfoy"]
@@ -72,8 +72,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r8px8"]
 _data = {
-"RESET": SubResource("Animation_0fwv7"),
-"fog": SubResource("Animation_12kk5")
+&"RESET": SubResource("Animation_0fwv7"),
+&"fog": SubResource("Animation_12kk5")
 }
 
 [sub_resource type="Gradient" id="Gradient_6vx5o"]
@@ -107,7 +107,7 @@ tile_set = ExtResource("1_qmji2")
 [node name="smogmove" type="AnimationPlayer" parent="."]
 root_node = NodePath("")
 libraries = {
-"": SubResource("AnimationLibrary_r8px8")
+&"": SubResource("AnimationLibrary_r8px8")
 }
 autoplay = "fog"
 
@@ -189,12 +189,10 @@ npcLook = "smoke"
 
 [node name="hotel entrance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(863, 758)
-scene = "Levels/apartments.tscn"
 
 [node name="library entrance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(558, 758)
 scale = Vector2(1, 1.01032)
-scene = "Levels/library.tscn"
 
 [node name="Poster" type="Sprite2D" parent="."]
 z_index = -1
@@ -240,7 +238,6 @@ texture = ExtResource("9_102g8")
 
 [node name="shackEnterance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(-514, 758)
-scene = "Levels/shack.tscn"
 enabled = false
 
 [node name="lamppost" parent="." instance=ExtResource("13_0aphl")]
@@ -278,7 +275,6 @@ position = Vector2(-231, 746)
 collisionShapeTransform = Vector4(0, 0, 0.94, 0.415)
 usesCustomTransform = true
 cameraZoom = 5.465
-isVisibleInGame = null
 
 [node name="platform" parent="." instance=ExtResource("13_2rtaq")]
 position = Vector2(-231, 599)

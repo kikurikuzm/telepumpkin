@@ -68,6 +68,8 @@ script = ExtResource("1_b43uq")
 wait_time = 0.06
 one_shot = true
 
+[node name="Timer" type="Timer" parent="textSpeed"]
+
 [node name="textSkipDelay" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
