@@ -1,6 +1,6 @@
 extends Control
 
-@export (int) var Mteleports
+@export var Mteleports : int
 var currentTPs = 0
 
 func _process(delta):

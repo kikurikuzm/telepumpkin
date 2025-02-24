@@ -15,8 +15,8 @@ run/main_scene="res://Instances/mainMenu.tscn"
 config/features=PackedStringArray("4.4")
 run/max_fps=60
 boot_splash/bg_color=Color(0.423529, 0.337255, 0.443137, 1)
-boot_splash/image="res://Sprites/Misc/icon.png"
 boot_splash/fullsize=false
+boot_splash/image="res://Sprites/Misc/icon.png"
 config/icon="res://Sprites/Misc/icon.png"
 boot_splash/minimum_display_time=25
 
@@ -220,11 +220,11 @@ common/physics_interpolation=true
 
 textures/canvas_textures/default_texture_filter=0
 lights_and_shadows/directional_shadow/16_bits=false
+lights_and_shadows/positional_shadow/atlas_16_bits=false
 2d/shadow_atlas/size=4096
 shading/overrides/force_vertex_shading=true
 shading/overrides/force_lambert_over_burley=true
 environment/ssil/quality=3
-lights_and_shadows/positional_shadow/atlas_16_bits=false
 quality/filters/sharpen_intensity=0.021
 quality/filters/anisotropic_filter_level=8
 quality/filters/use_nearest_mipmap_filter=true

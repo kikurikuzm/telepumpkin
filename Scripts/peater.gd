@@ -23,11 +23,11 @@ func _process(delta):
 			eat()
 			node.queue_free()
 	
-	var player = get_parent().get_parent().get_node("Player")
-	if player.global_position.x > global_position.x:
-		$AnimatedSprite2D.flip_h = false
-	elif player.global_position.x < global_position.x:
-		$AnimatedSprite2D.flip_h = true
-	if $AnimatedSprite2D.animation == "leafflap":
-		$AnimatedSprite2D.speed_scale = (5 / abs(player.global_position.x - global_position.x) * 7)
-		$AnimatedSprite2D.speed_scale = clamp($AnimatedSprite2D.speed_scale, 0.3, 1.8)
+	#var player = get_parent().get_parent().get_node("Player")
+	#if player.global_position.x > global_position.x:
+		#$AnimatedSprite2D.flip_h = false
+	#elif player.global_position.x < global_position.x:
+		#$AnimatedSprite2D.flip_h = true
+	#if $AnimatedSprite2D.animation == "leafflap":
+		#$AnimatedSprite2D.speed_scale = (5 / abs(player.global_position.x - global_position.x) * 7)
+		#$AnimatedSprite2D.speed_scale = clamp($AnimatedSprite2D.speed_scale, 0.3, 1.8)

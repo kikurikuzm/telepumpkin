@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://uvubvbwf20q5"]
+[gd_scene load_steps=13 format=3 uid="uid://uvubvbwf20q5"]
 
-[ext_resource type="Script" path="res://Scripts/peater.gd" id="1_n5p6t"]
+[ext_resource type="Script" uid="uid://dwp0a63f6a1bw" path="res://Scripts/peater.gd" id="1_n5p6t"]
 [ext_resource type="Texture2D" uid="uid://dhsm0vppjr5b" path="res://Sprites/NPCs/peateranim.png" id="2_42clr"]
 [ext_resource type="Texture2D" uid="uid://b4kjrvxxvdubj" path="res://Sprites/NPCs/peaterplaceholder.png" id="2_0888a"]
 
@@ -41,7 +41,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/path = NodePath("neck2/Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -53,7 +53,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/path = NodePath("neck2/Sprite2D:skew")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -65,7 +65,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/path = NodePath("neck2/Sprite2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -106,7 +106,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/path = NodePath("neck2/Sprite2D:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -118,7 +118,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:skew")
+tracks/1/path = NodePath("neck2/Sprite2D:skew")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -130,7 +130,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/path = NodePath("neck2/Sprite2D:position")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -166,11 +166,14 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gu60s"]
 _data = {
-"RESET": SubResource("Animation_ymadv"),
-"idle": SubResource("Animation_ot5oe")
+&"RESET": SubResource("Animation_ymadv"),
+&"idle": SubResource("Animation_ot5oe")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w5ddq"]
+
 [node name="peater" type="Node2D"]
+position = Vector2(197, 125)
 script = ExtResource("1_n5p6t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -180,22 +183,70 @@ animation = &"leafflap"
 autoplay = "leafflap"
 frame_progress = 0.247615
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-1, 1)
-texture = ExtResource("2_0888a")
-
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 36
 collision_mask = 36
-priority = 1.0
+priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_yhhef")
 debug_color = Color(0, 0.635294, 0.415686, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
 libraries = {
-"": SubResource("AnimationLibrary_gu60s")
+&"": SubResource("AnimationLibrary_gu60s")
 }
+autoplay = "idle"
+
+[node name="base" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="base"]
+shape = SubResource("CapsuleShape2D_w5ddq")
+
+[node name="neck" type="RigidBody2D" parent="."]
+position = Vector2(49, 10)
+lock_rotation = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="neck"]
+shape = SubResource("CapsuleShape2D_w5ddq")
+
+[node name="Line2D" type="Line2D" parent="neck"]
+position = Vector2(0, -15)
+points = PackedVector2Array(0, 0, 0, 30)
+width = 5.0
+
+[node name="neck2" type="RigidBody2D" parent="."]
+position = Vector2(98, 21)
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="neck2"]
+shape = SubResource("CapsuleShape2D_w5ddq")
+
+[node name="Line2D" type="Line2D" parent="neck2"]
+position = Vector2(0, -15)
+points = PackedVector2Array(0, 0, 0, 30)
+width = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="neck2"]
+position = Vector2(-1, 1)
+rotation = -3.14159
+texture = ExtResource("2_0888a")
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
+rotation = -1.3637
+node_a = NodePath("../base")
+node_b = NodePath("../neck")
+bias = 0.9
+stiffness = 64.0
+damping = 2.0
+
+[node name="DampedSpringJoint2D2" type="DampedSpringJoint2D" parent="."]
+position = Vector2(49, 10)
+rotation = -1.3637
+node_a = NodePath("../neck")
+node_b = NodePath("../neck2")
+bias = 0.9
+stiffness = 64.0
+damping = 2.0

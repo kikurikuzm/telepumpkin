@@ -7,6 +7,7 @@ class_name playerStretch
 const MIN_JUMPSTRENGTH = 0
 const MAX_JUMPSTRENGTH = 270
 var walkspeed = 6.0
+var residualSpeed = 0
 
 var stretchAnimationUpPlayed = false
 var stretchAnimationDownPlayed = false
@@ -14,6 +15,7 @@ var stretchAnimationDownPlayed = false
 func enter():
 	MAXSPEED = 45
 	ACCELERATE = 0.012
+	residualSpeed = player.velocity.x
 	animPlayer.play("stretch")
 
 func exit():
@@ -34,20 +36,20 @@ func physics_update(delta: float):
 	if Input.is_action_pressed("left"):
 		direction = -1
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
-		player.velocity.x = walkspeed * accelerate(direction)
+		player.velocity.x += walkspeed * accelerate(direction)
 		playerSprite.flip_h = true
 	if Input.is_action_pressed("right"):
 		direction = 1
 		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
-		player.velocity.x = walkspeed * accelerate(direction)
+		player.velocity.x += walkspeed * accelerate(direction)
 		playerSprite.flip_h = false
 		
-	if Input.is_action_just_released("left") or \
-	Input.is_action_just_released("right"):
-		curveX = 0
+	#if Input.is_action_just_released("left") or \
+	#Input.is_action_just_released("right"):
+		#curveX = 0
 	
-	if direction == 0:
-		player.velocity.x = 0
+	#if direction == 0:
+		#player.velocity.x = 0
 	
 	if Input.is_action_pressed("up"):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 0.9, 0.07)
@@ -67,6 +69,8 @@ func physics_update(delta: float):
 			stretchAnimationDownPlayed = true
 	
 	if Input.is_action_just_released("up"):
+		teleportRange.scale.x = lerp(teleportRange.scale.x, 1.5, 0.07)
+		teleportRange.scale.y = lerp(teleportRange.scale.y, 1.5, 0.085)
 		animPlayer.play("snapBack")
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			transitioned.emit(self, "playerjump")
@@ -76,6 +80,10 @@ func physics_update(delta: float):
 		transitioned.emit(self, "playeridle")
 	
 	player.velocity.x += friction * sign(player.velocity.x) * -1
+	residualSpeed = move_toward(residualSpeed, 0, friction)
 	
-	player.velocity.x = clampf(player.velocity.x, -MAXSPEED, MAXSPEED)
+	print(residualSpeed)
+	
+	player.velocity.x = clampf(player.velocity.x, -(MAXSPEED + abs(residualSpeed)), (MAXSPEED + abs(residualSpeed)))
+	residualSpeed = clampf(residualSpeed, -125, 125)
 	player.move_and_slide()

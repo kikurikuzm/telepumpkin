@@ -11,17 +11,33 @@ var pumpkinsCollected = 0
 
 signal levelFinished
 
-func _on_pumpkin_check_timeout():
-	for node in area.get_overlapping_bodies():
-		if node.is_in_group("player") and pumpkinsCollected >= pumpkinsNeeded and pumpkinAcceptTimer.is_stopped():
-			levelFinished.emit()
-			pumpkinAcceptTimer.start()
-			
-		elif node.is_in_group("pumpkin") and pumpkinsCollected < pumpkinsNeeded:
-			node.queue_free()
-			pumpkinsCollected += 1
-			var particleInst = achieveParticles.instantiate()
-			add_child(particleInst)
+#func _on_pumpkin_check_timeout():
+	#for node in area.get_overlapping_bodies():
+		#if node.is_in_group("player") and pumpkinsCollected >= pumpkinsNeeded and pumpkinAcceptTimer.is_stopped():
+			#levelFinished.emit()
+			#pumpkinAcceptTimer.start()
+			#
+		#elif node.is_in_group("pumpkin") and pumpkinsCollected < pumpkinsNeeded:
+			#node.queue_free()
+			#pumpkinsCollected += 1
+			#var particleInst = achieveParticles.instantiate()
+			#add_child(particleInst)
 
 func trigger():
 	levelFinished.emit()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player") and pumpkinsCollected >= pumpkinsNeeded and pumpkinAcceptTimer.is_stopped():
+		levelFinished.emit()
+		pumpkinAcceptTimer.start()
+		
+	elif body.is_in_group("pumpkin") and pumpkinsCollected < pumpkinsNeeded:
+		body.queue_free()
+		pumpkinsCollected += 1
+		
+		if(pumpkinsCollected == pumpkinsNeeded):
+			levelFinished.emit()
+		
+		var particleInst = achieveParticles.instantiate()
+		add_child(particleInst)
