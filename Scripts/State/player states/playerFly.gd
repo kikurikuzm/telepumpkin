@@ -13,6 +13,7 @@ func update(delta: float):
 	pass
 
 func physics_update(delta: float):
+	super(delta)
 	if Input.is_action_pressed("up"):
 		player.position.y -= 10
 	if Input.is_action_pressed("down"):

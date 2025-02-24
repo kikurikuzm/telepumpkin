@@ -22,6 +22,8 @@ func update(delta: float):
 		player.velocity.x += aircontrol
 
 func physics_update(delta: float):
+	super(delta)
+	
 	if player.velocity.y > 0:
 		player.gravity = gvars.playerGravity * 2.3
 		currentVelocityY = player.velocity.y

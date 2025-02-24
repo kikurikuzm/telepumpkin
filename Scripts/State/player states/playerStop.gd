@@ -16,8 +16,8 @@ func exit():
 	pass
 
 func update(delta: float):
-	
-	
+	if Input.is_action_just_pressed("kick"):
+		transitioned.emit(self, "playerkick")
 #	if Input.is_action_pressed("left"):
 #		transitioned.emit(self, "playerwalking")
 #	if Input.is_action_pressed("right"):
@@ -25,6 +25,7 @@ func update(delta: float):
 	pass
 
 func physics_update(delta: float):
+	super(delta)
 	playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 0.0, 0.2)
 	
 	if player.velocity.x <= stopThreshold and \

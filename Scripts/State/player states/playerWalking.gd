@@ -1,6 +1,8 @@
 extends PlayerState
 class_name playerMoving
 
+@onready var coyoteTimer = $"../../coyoteTimer"
+
 func enter():
 	MAXSPEED = 125
 	ACCELERATE = 0.005
@@ -11,9 +13,11 @@ func exit():
 	playerSprite.rotation_degrees = 0
 
 func update(delta: float):
-	pass
+	if Input.is_action_just_pressed("kick"):
+		transitioned.emit(self, "playerkick")
 
 func physics_update(delta: float):
+	super(delta)
 	if Input.is_action_pressed("up") or \
 	Input.is_action_pressed("down"):
 		transitioned.emit(self, "playerstretch")
@@ -35,6 +39,8 @@ func physics_update(delta: float):
 			transitioned.emit(self, "playeridle")
 	
 	if player.velocity.y > 0:
+		coyoteTimer.start(AIRTIME)
+		print("started timer")
 		transitioned.emit(self, "playerfalling")
 	
 	player.velocity.x = clampf(player.velocity.x, -MAXSPEED, MAXSPEED)

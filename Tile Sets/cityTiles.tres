@@ -17,20 +17,11 @@ use_texture_padding = false
 0:0/0 = 0
 0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_jyckg")
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7i57t"]
 resource_name = "stair"
 texture = ExtResource("1_62u4d")
 texture_region_size = Vector2i(32, 32)
-15:0/next_alternative_id = 2
-15:0/0 = 0
-15:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, 2, 16, -16, -1)
-15:0/0/physics_layer_0/polygon_0/one_way = true
-15:0/1 = 1
-15:0/1/flip_h = true
-15:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 16, 16, -16, 16, -2, -3.5, 16)
-15:0/1/physics_layer_0/polygon_0/one_way = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5y8jh"]
 resource_name = "base"

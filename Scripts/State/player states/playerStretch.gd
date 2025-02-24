@@ -12,13 +12,16 @@ var residualSpeed = 0
 var stretchAnimationUpPlayed = false
 var stretchAnimationDownPlayed = false
 
+var hasHadAirTimer = false
+
 func enter():
 	MAXSPEED = 45
 	ACCELERATE = 0.012
 	residualSpeed = player.velocity.x
-	animPlayer.play("stretch")
+	animPlayer.play("jumpSquat")
 
 func exit():
+	MAXSPEED = 125
 	teleportRange.scale = Vector2(1.5, 1.5)
 	stretchAnimationDownPlayed = false
 	stretchAnimationUpPlayed = false
@@ -27,20 +30,33 @@ func update(delta: float):
 	pass
 
 func physics_update(delta: float):
+	super(delta)
+	
+	if player.is_on_floor():
+		hasHadAirTimer = false
+	
+	if !player.is_on_floor() and coyoteTimer.is_stopped() and hasHadAirTimer == false:
+		coyoteTimer.start(AIRTIME)
+		hasHadAirTimer = true
+		print("started timer")
+	
 	var direction = 0
 	debugLabel.text = str(player.jumpstrength)
-	if sign(player.velocity.y) == 1:
-		coyoteTimer.start(1)
-		print("started timer")
+	#if sign(player.velocity.y) == 1:
+		#coyoteTimer.start(1)
+		#print("started timer")
 	
 	if Input.is_action_pressed("left"):
 		direction = -1
-		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
+		#playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
+		#playerSprite.skew = deg_to_rad(lerp(deg_to_rad(playerSprite.skew), -15.0, 0.001))
 		player.velocity.x += walkspeed * accelerate(direction)
 		playerSprite.flip_h = true
+	
 	if Input.is_action_pressed("right"):
 		direction = 1
-		playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
+		#playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
+		#playerSprite.skew = deg_to_rad(lerp(deg_to_rad(playerSprite.skew), 15.0, 0.001))
 		player.velocity.x += walkspeed * accelerate(direction)
 		playerSprite.flip_h = false
 		
@@ -74,15 +90,15 @@ func physics_update(delta: float):
 		animPlayer.play("snapBack")
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			transitioned.emit(self, "playerjump")
-		else: transitioned.emit(self, "playerfalling")
+		else:
+			transitioned.emit(self, "playerfalling")
 		
 	if Input.is_action_just_released("down"):
 		transitioned.emit(self, "playeridle")
 	
-	player.velocity.x += friction * sign(player.velocity.x) * -1
-	residualSpeed = move_toward(residualSpeed, 0, friction)
-	
-	print(residualSpeed)
+	player.velocity.x = lerp(player.velocity.x, 0.0, 0.1)
+	residualSpeed = lerp(residualSpeed, 0.0, 0.1)
+	residualSpeed = floorf(residualSpeed)
 	
 	player.velocity.x = clampf(player.velocity.x, -(MAXSPEED + abs(residualSpeed)), (MAXSPEED + abs(residualSpeed)))
 	residualSpeed = clampf(residualSpeed, -125, 125)

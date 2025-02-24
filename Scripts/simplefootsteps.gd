@@ -40,7 +40,7 @@ func _process(delta):
 func spawnFootstep():
 	var currentTileMap
 	
-	if get_collider() is TileMap: 
+	if get_collider() is TileMapLayer: 
 		currentTileMap = get_collider()
 	
 	if is_instance_valid(currentTileMap):

@@ -37,9 +37,6 @@ signal enteringEntrance(scene)
 signal finishedExitAnimation
 
 func _physics_process(delta):
-	if !is_on_floor():
-		velocity.y += gravity
-	
 	var interactArray = interactArea.get_overlapping_areas()
 	for area in interactArray:
 		if area.get_parent().is_in_group("manhole"):
@@ -52,6 +49,7 @@ func _physics_process(delta):
 					velocity = exitVariables[1]
 	
 func _process(delta):
+	
 	if tppInst != null:
 		tppLine.visible = true
 		tppLine.set_point_position(1, to_local(tppInst.pointPos))

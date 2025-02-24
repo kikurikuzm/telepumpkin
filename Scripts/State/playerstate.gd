@@ -17,6 +17,7 @@ var curveX : float
 
 var MAXSPEED = 125
 var ACCELERATE = 0.005
+var AIRTIME = 0.2
 
 func accelerate(moveDir:int):
 	curveY = 0
@@ -35,4 +36,5 @@ func update(_delta: float):
 	pass
 
 func physics_update(_delta: float):
-	pass
+	if !player.is_on_floor():
+		player.velocity.y += player.gravity

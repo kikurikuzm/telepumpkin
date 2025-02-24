@@ -2,10 +2,11 @@ extends PlayerState
 class_name playerIdle
 
 @onready var pumpkinRaycast = $"../../pumpkinMagnet"
+@onready var coyoteTimer = $"../../coyoteTimer"
 
 func enter():
 	playerSprite.rotation_degrees = 0
-	animPlayer.play("idle")
+	animPlayer.play("newIdle")
 
 func exit():
 	pass
@@ -26,6 +27,8 @@ func physics_update(delta: float):
 	#if pumpkinRaycast.get_collider().is_in_group("pumpkin"):
 		#player.velocity.y = 0
 	if !player.is_on_floor():
+		coyoteTimer.start(AIRTIME)
+		print("started timer")
 		transitioned.emit(self, "playerfalling")
 	
 	player.move_and_slide()

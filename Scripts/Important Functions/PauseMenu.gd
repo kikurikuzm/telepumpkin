@@ -27,6 +27,8 @@ func handlePausing():
 		pauseGame.emit()
 		animationPlayer.play("pauseGame")
 		
+		resumeButton.grab_focus()
+		
 		resumeButton.disabled = false
 		restartButton.disabled = false
 		settingsButton.disabled = false
