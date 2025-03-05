@@ -4,8 +4,8 @@ class_name playerKick
 @onready var kickArea = $"../../kickArea"
 
 var hasImpacted = false
-var kickStrengthHorizontal = 4500
-var kickStrengthVertical = 3500
+var kickStrengthHorizontal = 1500
+var kickStrengthVertical = 1500
 var kickDirection = 1
 
 func enter():
@@ -35,7 +35,7 @@ func physics_update(delta: float):
 			for i in kickArea.get_overlapping_bodies():
 				if i.is_in_group("pumpkin"):
 					print(player.velocity.x)
-					i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(player.velocity.x)/100 + 1), -kickStrengthVertical), Vector2(0,0))
+					i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(player.velocity.x)/45 + 1), -kickStrengthVertical), Vector2(0,0))
 					print("BANG")
 					hasImpacted = true
 	

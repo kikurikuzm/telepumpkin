@@ -39,7 +39,8 @@ func _on_area_2d_body_entered(body):
 		cameraZoneGetCamera()
 
 func _on_area_2d_body_exited(body):
-	cameraZoneReturnCamera()
+	if body.is_in_group("player"):
+		cameraZoneReturnCamera()
 
 func _on_check_if_empty_timeout():
 	if !area2D.has_overlapping_bodies():

@@ -32,7 +32,7 @@ var hasPlayed = false
 @onready var footstepInstance = preload("res://Instances/Helpers/footstep_audio.tscn")
 
 func _process(delta):
-	if animatedSprite.animation == "Walk" and animatedSprite.frame == 1:
+	if animatedSprite.animation == "Walk" and (animatedSprite.frame == 0 or animatedSprite.frame == 2):
 		if !hasPlayed:
 			spawnFootstep()
 			return

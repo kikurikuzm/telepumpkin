@@ -99,7 +99,7 @@ func restartLevel():
 	initiateLevelChange()
 
 func exitToMenu():
-	pass
+	get_tree().change_scene_to_file("res://Instances/mainMenu.tscn")
 
 #Signal functions begin here
 

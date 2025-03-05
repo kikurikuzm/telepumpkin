@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=67 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" uid="uid://b2rcdd2cjidp7" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -555,6 +555,82 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_posx8"]
+resource_name = "kick"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"kick"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 3, 4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.275, 0.291667, 0.4, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.865, 1.145), Vector2(0.865, 1.145), Vector2(1.15, 0.805), Vector2(1.15, 0.805), Vector2(1.15, 0.805), Vector2(1.11515, 1.04049)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.275),
+"transitions": PackedFloat32Array(0.535887, 1, 1),
+"update": 0,
+"values": [0.0, 0.0436332, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.275, 0.291667, 0.4, 0.466667, 0.6),
+"transitions": PackedFloat32Array(0.535887, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2.555), Vector2(2.75, 0.15), Vector2(2.875, 1.54), Vector2(2.8, 1.59), Vector2(2.7, 1.205), Vector2(0, 0), Vector2(1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.275, 0.291667, 0.4, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.113446, 0.0, 0.261799, 0.287979, 0.18326, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_qffwg"]
@@ -1165,7 +1241,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_m7s4w"]
 resource_name = "walk"
-length = 0.3
+length = 0.55
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -1174,10 +1250,10 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0, 1, 2, 1]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -1198,10 +1274,10 @@ tracks/2/path = NodePath(".:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.166667, 0.3, 0.433333),
+"transitions": PackedFloat32Array(2.82843, 0.49851, 2.82, 0.49851),
 "update": 0,
-"values": [Vector2(0, -2), Vector2(0, 0)]
+"values": [Vector2(0, -1), Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -1228,82 +1304,6 @@ tracks/4/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_posx8"]
-resource_name = "kick"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"kick"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [2, 3, 4]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.275, 0.291667, 0.4, 0.466667, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.865, 1.145), Vector2(0.865, 1.145), Vector2(1.15, 0.805), Vector2(1.15, 0.805), Vector2(1.15, 0.805), Vector2(1.11515, 1.04049)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:skew")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.275),
-"transitions": PackedFloat32Array(0.535887, 1, 1),
-"update": 0,
-"values": [0.0, 0.0436332, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.275, 0.291667, 0.4, 0.466667, 0.6),
-"transitions": PackedFloat32Array(0.535887, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -2.555), Vector2(2.75, 0.15), Vector2(2.875, 1.54), Vector2(2.8, 1.59), Vector2(2.7, 1.205), Vector2(0, 0), Vector2(1, 0)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.266667, 0.275, 0.291667, 0.4, 0.466667, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.113446, 0.0, 0.261799, 0.287979, 0.18326, 0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cxkr1"]
 _data = {
 &"RESET": SubResource("Animation_ur6mr"),
@@ -1327,6 +1327,41 @@ _data = {
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r0502"]
 closed = false
 polygon = PackedVector2Array(-9, 3, -9, 4, -7, 4, 7, 4, 9, 4, 9, 3)
+
+[sub_resource type="Curve" id="Curve_43dfb"]
+_data = [Vector2(0, 0.569774), 0.0, 0.152198, 0, 0, Vector2(0.617021, 0), -1.09687, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qffwg"]
+curve = SubResource("Curve_43dfb")
+
+[sub_resource type="Curve" id="Curve_posx8"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, -2.73156, 0, 0, Vector2(0.550152, 0.422504), -3.22821, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2vvt4"]
+curve = SubResource("Curve_posx8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qffwg"]
+lifetime_randomness = 0.15
+particle_flag_align_y = true
+particle_flag_disable_z = true
+angle_min = -20.0
+angle_max = 3.50001
+inherit_velocity_ratio = 0.185
+direction = Vector3(-1, -0.64, 0)
+spread = 21.075
+initial_velocity_min = 62.6
+initial_velocity_max = 71.45
+gravity = Vector3(0, -30, 0)
+scale_min = 4.4
+scale_max = 4.45
+scale_curve = SubResource("CurveTexture_2vvt4")
+alpha_curve = SubResource("CurveTexture_qffwg")
+turbulence_enabled = true
+turbulence_influence_min = 0.06
+turbulence_influence_max = 0.06
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bcid"]
 size = Vector2(32, 38)
@@ -1487,6 +1522,14 @@ range_layer_max = 1
 texture = ExtResource("5_qpng8")
 texture_scale = 0.05
 
+[node name="stopDustParticles" type="GPUParticles2D" parent="."]
+position = Vector2(3.24324, 14.0541)
+emitting = false
+amount = 25
+randomness = 0.5
+trail_lifetime = 0.15
+process_material = SubResource("ParticleProcessMaterial_qffwg")
+
 [node name="exitBasket" type="Sprite2D" parent="."]
 visible = false
 z_index = 1
@@ -1506,7 +1549,6 @@ shape = SubResource("RectangleShape2D_4bcid")
 
 [node name="kickArea" type="Area2D" parent="."]
 position = Vector2(8.64865, 10.8108)
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kickArea"]
 position = Vector2(-8.64865, -1.08108)
@@ -1538,7 +1580,7 @@ pitch_scale = 0.96
 [node name="fallThump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("24_x075c")
 volume_db = -10.0
-pitch_scale = 0.79
+pitch_scale = 1.99
 
 [node name="footstepManager" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32)

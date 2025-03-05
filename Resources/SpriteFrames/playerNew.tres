@@ -35,25 +35,25 @@ region = Rect2(192, 0, 32, 32)
 atlas = ExtResource("2_6ghgl")
 region = Rect2(224, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ohwml"]
-atlas = ExtResource("1_kyw8e")
-region = Rect2(150, 0, 30, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_woyfb"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(608, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rf3cf"]
 atlas = ExtResource("1_kyw8e")
 region = Rect2(180, 0, 30, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_iwjhe"]
-atlas = ExtResource("1_kyw8e")
-region = Rect2(0, 0, 30, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnpiw"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(512, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2sxgm"]
-atlas = ExtResource("1_kyw8e")
-region = Rect2(60, 0, 30, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_yay8q"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(544, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i6x81"]
-atlas = ExtResource("1_kyw8e")
-region = Rect2(90, 0, 30, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3w1sk"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(576, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ghgl"]
 atlas = ExtResource("2_6ghgl")
@@ -130,7 +130,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ohwml")
+"texture": SubResource("AtlasTexture_woyfb")
 }],
 "loop": true,
 "name": &"Stop",
@@ -146,17 +146,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_iwjhe")
+"texture": SubResource("AtlasTexture_nnpiw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2sxgm")
+"texture": SubResource("AtlasTexture_yay8q")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i6x81")
+"texture": SubResource("AtlasTexture_3w1sk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yay8q")
 }],
 "loop": true,
 "name": &"Walk",
-"speed": 10.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,

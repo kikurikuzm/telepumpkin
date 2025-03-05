@@ -1,6 +1,8 @@
 extends PlayerState
 class_name playerFalling
 
+@onready var fallThumpAudio = preload("res://Audio/sfx/fall thump.ogg")
+
 var aircontrol = 1
 var currentVelocityY: float
 
@@ -10,6 +12,7 @@ func enter():
 
 func exit():
 	if player.is_on_floor():
+		impactAudio.stream = fallThumpAudio
 		impactAudio.pitch_scale = randf_range(0.75, 1.0)
 		impactAudio.volume_db = (currentVelocityY / 30) - 10
 		impactAudio.volume_db = clampf(impactAudio.volume_db, -30.0, 10.0)

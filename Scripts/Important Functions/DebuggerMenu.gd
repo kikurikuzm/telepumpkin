@@ -1,7 +1,4 @@
-extends Node
-
-@onready var debugConsoleTextInputReference = $PanelContainer/VBoxContainer/DebugCommandInput
-@onready var debugOutputReference = $PanelContainer/VBoxContainer/DebugConsoleOutput
+extends CanvasLayer
 
 var debugPlayerFlyToggle = false
 var debugLevelList : Array[String]
@@ -15,65 +12,25 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_menu"):
 		if self.visible == false:
 			self.visible = true
-			debugConsoleTextInputReference.grab_focus()
 		elif self.visible == true:
 			self.visible = false
 
-func interpretNewInput(newLine:String):
-	debugConsoleTextInputReference.clear()
-	
-	var pastInputCommand = false
-	var commandInputCommand : String = ""
-	var commandInputArgument : String = ""
-	
-	for character in newLine:
-		if character == " ":
-			pastInputCommand = true
-		
-		if character != " " and character != "\n" and character != null:
-			if !pastInputCommand:
-				commandInputCommand += character
-			elif pastInputCommand:
-				commandInputArgument += character
-			
-	match commandInputCommand:
-		"fly":
-			commandTogglePlayerFly()
-		"level":
-			if !commandInputArgument.is_empty():
-				if commandInputArgument == "list":
-					for level in debugLevelList:
-						writeToDebugConsole(level)
-				else:
-					commandChangeToLevel(commandInputArgument)
-		"skip":
-			commandSkipCurrentlyPlayingCutscene()
-	
-	debugConsoleTextInputReference.grab_focus()
-
-func writeToDebugConsole(stringToWrite:String):
-	debugOutputReference.append_text("\n[color=web_gray]" + stringToWrite)
-
 func commandTogglePlayerFly():
-	if debugPlayerFlyToggle:
+	if !debugPlayerFlyToggle:
 		commandModifyPlayerState.emit("playerIdle")
-		writeToDebugConsole("Disabled player flight")
 		debugPlayerFlyToggle = false
-	elif !debugPlayerFlyToggle:
+	elif debugPlayerFlyToggle:
 		commandModifyPlayerState.emit("playerFly")
-		writeToDebugConsole("Enabled player flight")
 		debugPlayerFlyToggle = true
 
 func commandChangeToLevel(desiredLevelPath:String):
 	commandChangeToLevelSignal.emit("res://Levels/" + desiredLevelPath)
-	writeToDebugConsole("Changing to level " + desiredLevelPath)
 
 func commandSkipCurrentlyPlayingCutscene():
 	commandSkipCurrentCutscene.emit()
-	writeToDebugConsole("Skipped currently playing cutscene")
 
-func _debugInputCommandSubmitted(new_text: String) -> void:
-	interpretNewInput(new_text)
+#Signals ---------
 
-func _parseErrorMessage(errorMessage: String) -> void:
-	writeToDebugConsole(errorMessage)
+func _on_noclip_toggled(toggled_on: bool) -> void:
+	debugPlayerFlyToggle = toggled_on
+	commandTogglePlayerFly()

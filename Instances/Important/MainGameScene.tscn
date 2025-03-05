@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ciuswkeg660ew"]
+[gd_scene load_steps=22 format=3 uid="uid://ciuswkeg660ew"]
 
 [ext_resource type="PackedScene" uid="uid://bedp1kcel7xwt" path="res://Instances/Important/LevelLoader.tscn" id="1_i68tn"]
 [ext_resource type="Script" uid="uid://bissop614ltbh" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_sqsrj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dfig6n2n2qwqj" path="res://Scripts/Important Functions/DebuggerMenu.gd" id="2_qrl6x"]
 [ext_resource type="Script" uid="uid://dk3irp6kew6s6" path="res://Scripts/Important Functions/MainSceneCutsceneManager.gd" id="2_w3bxq"]
 [ext_resource type="Shader" uid="uid://clqktdglysmby" path="res://Resources/Shaders/blur.gdshader" id="3_fps76"]
+[ext_resource type="Theme" uid="uid://pvs82dxh5eld" path="res://Resources/Themes/DebugMenu.tres" id="3_ml867"]
 [ext_resource type="Script" uid="uid://vy10whq5fqge" path="res://Scripts/Important Functions/PauseMenu.gd" id="3_n0a70"]
 [ext_resource type="Script" uid="uid://bsrjffypfv164" path="res://Scripts/Important Functions/LevelSet.gd" id="3_w5c4r"]
 [ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="4_1jw7k"]
@@ -244,35 +245,41 @@ outline_color = Color(0.850477, 0.295411, 0.302585, 1)
 
 [sub_resource type="Resource" id="Resource_aiegr"]
 script = ExtResource("3_w5c4r")
-levelList = Array[String](["uid://bpjox1o3i6pbq", "res://Levels/Level1.tscn", "res://Levels/Level2.tscn", "res://Levels/Level3.tscn", "res://Levels/Level4.tscn", "res://Levels/Level5.tscn"])
+levelList = Array[String](["res://Levels/Level1.tscn", "res://Levels/Level2.tscn", "res://Levels/Level3.tscn", "res://Levels/Level4.tscn", "res://Levels/Level5.tscn", "uid://dpdr7qdrkm73t", "uid://bwif5kh6bhds0"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_sqsrj")
 
 [node name="DebuggerMenu" type="CanvasLayer" parent="."]
+layer = 10
 visible = false
 script = ExtResource("2_qrl6x")
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="DebuggerMenu"]
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = -454.0
+offset_top = 25.0
+offset_right = -18.0
+offset_bottom = -25.0
+grow_horizontal = 0
 grow_vertical = 2
+theme = ExtResource("3_ml867")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DebuggerMenu/PanelContainer"]
+[node name="TabContainer" type="TabContainer" parent="DebuggerMenu/PanelContainer"]
 layout_mode = 2
+current_tab = 0
 
-[node name="DebugConsoleOutput" type="RichTextLabel" parent="DebuggerMenu/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(950, 950)
+[node name="Common" type="VBoxContainer" parent="DebuggerMenu/PanelContainer/TabContainer"]
 layout_mode = 2
-bbcode_enabled = true
+metadata/_tab_index = 0
 
-[node name="DebugCommandInput" type="LineEdit" parent="DebuggerMenu/PanelContainer/VBoxContainer"]
+[node name="Noclip" type="CheckButton" parent="DebuggerMenu/PanelContainer/TabContainer/Common"]
 layout_mode = 2
-focus_mode = 1
-placeholder_text = "Enter a command..."
+text = "No-clip"
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -375,6 +382,7 @@ script = ExtResource("2_w3bxq")
 levelSetResource = SubResource("Resource_aiegr")
 
 [node name="LevelAmbience" type="AudioStreamPlayer" parent="."]
+volume_db = -19.025
 
 [node name="Player" parent="." instance=ExtResource("4_1jw7k")]
 
@@ -387,7 +395,7 @@ visible = false
 [connection signal="commandChangeToLevelSignal" from="DebuggerMenu" to="." method="_goToSpecifiedLevel"]
 [connection signal="commandModifyPlayerState" from="DebuggerMenu" to="." method="_playerCharacterChangeState"]
 [connection signal="commandSkipCurrentCutscene" from="DebuggerMenu" to="." method="_skipCurrentCutscene"]
-[connection signal="text_submitted" from="DebuggerMenu/PanelContainer/VBoxContainer/DebugCommandInput" to="DebuggerMenu" method="_debugInputCommandSubmitted"]
+[connection signal="toggled" from="DebuggerMenu/PanelContainer/TabContainer/Common/Noclip" to="DebuggerMenu" method="_on_noclip_toggled"]
 [connection signal="exitToMenu" from="PauseMenu" to="." method="_playerExitToMenu"]
 [connection signal="pauseGame" from="PauseMenu" to="." method="_pauseGame"]
 [connection signal="restartLevel" from="PauseMenu" to="." method="_playerRestartLevel"]

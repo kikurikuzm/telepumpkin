@@ -81,7 +81,7 @@ func physics_update(delta: float):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 3.5, 0.085)
 		teleportRange.scale.y = lerp(teleportRange.scale.y, 0.9, 0.07)
 		if !stretchAnimationDownPlayed:
-			animPlayer.play("stretchDown")
+			#animPlayer.play("stretchDown")
 			stretchAnimationDownPlayed = true
 	
 	if Input.is_action_just_released("up"):

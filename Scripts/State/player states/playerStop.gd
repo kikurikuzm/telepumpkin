@@ -1,21 +1,36 @@
 extends PlayerState
 class_name playerStop
 
+@onready var stopDust = $"../../stopDustParticles"
+
 var stopThreshold = 8
+var direction : int = -1
+
+const TILTAMOUNT = 10.0
+const SKEWAMOUNT = 10.0
 
 func enter():
-	if sign(player.velocity.x) == -1:
+	direction = sign(player.velocity.x)
+	if direction == -1:
 		playerSprite.flip_h = true
-	elif sign(player.velocity.x) == 1:
+	elif direction == 1:
 		playerSprite.flip_h = false
 		
 	animPlayer.play("stop")
 	turnTimer.start(0.15)
+	
+	stopDust.process_material.direction = Vector3(direction*-1, 0, 0)
+	stopDust.emitting = true
 
 func exit():
-	pass
+	stopDust.emitting = false
+	playerSprite.rotation_degrees = 0.0
+	playerSprite.skew = 0.0
 
 func update(delta: float):
+	playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, TILTAMOUNT*direction, 0.1)
+	playerSprite.skew = lerp(playerSprite.skew, deg_to_rad(SKEWAMOUNT*direction), 0.1)
+	
 	if Input.is_action_just_pressed("kick"):
 		transitioned.emit(self, "playerkick")
 #	if Input.is_action_pressed("left"):
@@ -26,7 +41,6 @@ func update(delta: float):
 
 func physics_update(delta: float):
 	super(delta)
-	playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 0.0, 0.2)
 	
 	if player.velocity.x <= stopThreshold and \
 	player.velocity.x >= -stopThreshold:
