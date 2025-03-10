@@ -24,20 +24,23 @@ signal levelFinished
 			#add_child(particleInst)
 
 func trigger():
-	levelFinished.emit()
-
+	reachedMaxPumpkins()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and pumpkinsCollected >= pumpkinsNeeded and pumpkinAcceptTimer.is_stopped():
-		levelFinished.emit()
+		reachedMaxPumpkins()
 		pumpkinAcceptTimer.start()
 		
 	elif body.is_in_group("pumpkin") and pumpkinsCollected < pumpkinsNeeded:
-		body.queue_free()
+		body.pumpkinDestroy()
 		pumpkinsCollected += 1
 		
 		if(pumpkinsCollected == pumpkinsNeeded):
-			levelFinished.emit()
+			reachedMaxPumpkins()
 		
 		var particleInst = achieveParticles.instantiate()
 		add_child(particleInst)
+
+func reachedMaxPumpkins():
+	levelFinished.emit()
+	self.visible = false

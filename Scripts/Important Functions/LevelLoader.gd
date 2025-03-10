@@ -55,6 +55,7 @@ func setupExternalLevelNodes(playerReference:CharacterBody2D) -> void:
 
 func passRootNodeSignalsToConnect() -> Array:
 	var levelChangingNodeReferenceArray = instancedLevel.getLevelChangingNodeReferences()
+	var playerChangingNodeReferenceArray = instancedLevel.getPlayerChangingNodeReferences()
 	var levelExitReference = instancedLevel.getLevelExitReference()
 	var levelCutscenePlayerReference = instancedLevel.getLevelCutsceneReference()
 	var levelMapCameraReference = instancedLevel.getLevelMapCameraReference()
@@ -65,6 +66,7 @@ func passRootNodeSignalsToConnect() -> Array:
 	var levelCameraZoneInstancesArray : Array
 	var levelNPCInstancesArray : Array
 	var levelChangingInstancesArray : Array
+	var playerChangingInstancesArray : Array
 	
 	if levelExitReference != null:
 		levelNodeSignalsArray.append(levelExitReference.levelFinished)
@@ -102,9 +104,21 @@ func passRootNodeSignalsToConnect() -> Array:
 		print_debug("lchange instances not null")
 		var levelChangingInstanceSignalsArray : Array
 		for levelChangingNode in levelChangingNodeReferenceArray:
-			levelChangingInstanceSignalsArray.append(levelChangingNode.requestLevelChange)
-			print_debug("appended node signal")
+			if is_instance_valid(levelChangingNode):
+				levelChangingInstanceSignalsArray.append(levelChangingNode.requestLevelChange)
+				print_debug("appended node signal")
 		levelNodeSignalsArray.append(levelChangingInstanceSignalsArray)
+	else:
+		levelNodeSignalsArray.append([])
+	
+	if playerChangingNodeReferenceArray != null:
+		print_debug("lchange instances not null")
+		var playerChangingInstanceSignalsArray : Array
+		for playerChangingNode in playerChangingNodeReferenceArray:
+			if is_instance_valid(playerChangingNode):
+				playerChangingInstanceSignalsArray.append(playerChangingNode.requestPlayerChange)
+				print_debug("appended node signal")
+		levelNodeSignalsArray.append(playerChangingInstanceSignalsArray)
 	else:
 		levelNodeSignalsArray.append([])
 	

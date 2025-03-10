@@ -34,6 +34,7 @@ gvars="*res://Scripts/gvars.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
+window/vsync/vsync_mode=2
 window/use_physical_light_units=false
 
 [editor]
@@ -62,7 +63,8 @@ level_cutsceneplayer=""
 level_exit=""
 level_npc=""
 level_camerazone=""
-level_levelChangeRequester=""
+level_gameStateModifier=""
+level_playerStateModifier=""
 
 [gui]
 

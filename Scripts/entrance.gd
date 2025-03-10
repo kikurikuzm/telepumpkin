@@ -16,10 +16,7 @@ extends Node2D
 var loadedScene
 
 signal requestLevelChange(levelFilepath, levelSpawnPosition)
-
-func _ready():
-	if secret or !enabled:
-		interactIcon.visible = false
+signal requestPlayerChange(desiredState:String)
 
 func _process(delta):
 	if !enterTimer.is_stopped():
@@ -27,10 +24,15 @@ func _process(delta):
 	
 func enterScene():
 	if desiredLevel != null and enterTimer.is_stopped() and enabled:
+		requestPlayerChange.emit("playerBusy")
 		doorSFX.play()
+		await doorSFX.finished
 		requestLevelChange.emit(desiredLevel, exitLocation)
 	else:
 		print("scene not found")
+
+func trigger():
+	enterScene()
 
 func save() -> Dictionary:
 	var saveDict = {

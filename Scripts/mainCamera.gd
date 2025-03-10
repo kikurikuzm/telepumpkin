@@ -6,17 +6,18 @@ var playerRef
 var smoothAmount = 0.2
 var oldZoom
 var desiredZoom = Vector2(4.5, 4.5)
-var playerZoom = 5.5
+var playerZoom = null
 
 func _ready():
 	playerRef = currentParent
 
 func _process(delta):
 	if !is_instance_valid(currentParent):
+		print_debug("Invalid parent!")
 		currentParent = $"../Player"
 	
 	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
-	zoom = lerp(zoom, desiredZoom, smoothAmount) 
+	zoom = lerp(zoom, desiredZoom, smoothAmount)
 
 func snapToParent():
 	global_position = currentParent.global_position
@@ -46,18 +47,22 @@ func returnToParent():
 	currentParent = playerRef
 
 func changeZoom(newZoom:Vector2):
-	print("changed camera zoom")
-	if newZoom is not Vector2:
-		push_error("Invalid zoom variable type!")
+	if playerZoom == null:
+		playerZoom = desiredZoom
+	if newZoom is not Vector2 or newZoom == Vector2.ZERO:
+		print_debug("Invalid zoom variable type!")
+		returnToOldZoom()
 		return
-	oldZoom = desiredZoom
-	desiredZoom = newZoom
-	return
+	else:
+		print("changed camera zoom")
+		oldZoom = desiredZoom
+		desiredZoom = newZoom
+		return
 
 func returnToOldZoom():
-	if oldZoom != null:
-		desiredZoom = oldZoom
-		oldZoom = null
+	if playerZoom != null:
+		desiredZoom = playerZoom
+		playerZoom = null
 		return
 
 func isPlayerParent() -> bool:

@@ -18,7 +18,7 @@ class_name DialogueManager
 
 @onready var textSpeed = $textSpeed ##A timer used to have the letters show every given amount of time.
 
-var dialogueInitializer
+var dialogueInitializer : NPC
 var currentTextIndex = 0
 var NPCConversationArray : Array[DialogueConversation]
 var currentConversation : DialogueConversation
@@ -58,7 +58,7 @@ func conversationInitiate(dialogueConversation:Array[DialogueConversation], dial
 
 ##The function that progresses dialogue and does the bulk of the work. This is where events in the dialogue are performed, such as 'cameraSpeed'.
 func progressDialogue():
-	if currentDialogueEntryIndex >= len(currentConversation.conversationArray):
+	if currentDialogueEntryIndex == len(currentConversation.conversationArray):
 		endDialogue()
 		return
 	else:
@@ -69,14 +69,11 @@ func progressDialogue():
 	dialogueBox.visible = true
 	inDialogue = true
 	
-	#var currentCharacter = quickConvoVar["character"]
-	
-	
 	if currentEntry.focusPlayer:
 		changeCameraFocusToPlayer.emit()
 	else:
-		print_debug(get_node(currentEntry.currentFocusAbsolutePath))
-		changeCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
+		print_debug(currentEntry)
+		changeCameraFocus.emit(dialogueInitializer)
 	
 	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
 	dialogueText.text = currentEntry.dialogueText
@@ -96,22 +93,21 @@ func progressDialogue():
 			#beginDialogueCutscene.emit(cutscene)
 			##cutsceneManager.startCutscene(cutscene)
 			#await cutsceneManager.animation_finished
-			#dialogueBox.visible = true
+			#dialogueBox.visible = truerequestPlayerChange.emit("playerBusy")
 			#dialogueText.visible = true
 		
-	#if currentEntry.goToNextConversation:
-		#queueConvo(quickConvoVar["nextConvo"])
 	if !currentEntry.playerCanMove:
 		changePlayerCharacterState.emit("playerBusy")
-		
+	
+	if currentEntry.goToNextConversation:
+		dialogueInitializer.convoID += 1
+	
 	if currentEntry.manualNextConversation > 0:
 		dialogueInitializer.convoID = currentEntry.manualNextConversation
 		
 	if currentEntry.dialogueText == "":
 		dialogueBox.visible = false
 		dialogueText.visible_ratio = 1
-	
-	currentTextIndex += 1
 	
 	while dialogueText.visible_characters < len(dialogueText.get_parsed_text()):
 		dialogueText.visible_characters += 1
@@ -120,27 +116,21 @@ func progressDialogue():
 		$dialogueSFX.play()
 		await textSpeed.timeout
 	
-	currentDialogueEntryIndex += 1
-	
-	##The function that ends a given dialogue and performs the necessary cleanup.
+##The function that ends a given dialogue and performs the necessary cleanup.
 func endDialogue(): 
 	print("ended dialogue from DialogueManager")
-	#var rootnode = get_parent().get_parent()
-	#rootnode.player.changeState("playeridle")
 	
 	dialogueBox.visible = false
 	dialogueContinue.visible = false
 	inDialogue = false
-	
-	currentTextIndex = 0
+
 	currentDialogueEntryIndex = 0
-	#if questIndex != null:
-		#rootnode.get_node("questManager").changeQuest(questIndex)
-	#questIndex = null
 	
 	#changeCameraFocusToPlayer.emit()
-	#changeCameraSmoothingAmount.emit(0.2)
+	#changeCameraSmoothingAmount.emit(Vector2(0.2, 0.2))
+	changeCameraZoom.emit(Vector2.ZERO)
 	changePlayerCharacterState.emit("playerIdle")
+	dialogueInitializer.canTalk = true
 	
 	#mainCamera.desiredZoom = oldZoom
 	#mainCamera.smoothAmount = 0.2
@@ -149,9 +139,6 @@ func endDialogue():
 	if queuedConvo != null:
 		conversationInitiate(NPCConversationArray, currentConversationIndex)
 		queuedConvo = null
-	#else:
-		#if dialogueInitializer is NPC:
-			#dialogueInitializer.canTalk = true
 	return
 
 func queueConvo(convoNumb:int) -> void:
@@ -174,14 +161,8 @@ func parseJSON() -> Array:
 func _input(event):
 	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped() and !inCutscene:
 		if dialogueText.visible_characters == len(dialogueText.get_parsed_text()):
-			if questIndex != null:
-				get_parent().get_parent().questManager.changeQuest(questIndex)
-				questIndex = null
-			
-			if len(currentEntry.dialogueText) > currentTextIndex:
-				progressDialogue()
-			else:
-				endDialogue()
+			currentDialogueEntryIndex += 1
+			progressDialogue()
 		else:
 			dialogueText.visible_characters = len(dialogueText.get_parsed_text())
 

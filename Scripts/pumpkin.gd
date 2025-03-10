@@ -19,6 +19,8 @@ var highlightDistortion : float = 0.2
 var testpos
 var customVelocity = Vector2.ZERO
 
+signal requestLevelChange
+
 #random size adjustment when pumpkins are spawned
 func _init():
 	scale.x = randf_range(0.9, 1.05)
@@ -31,17 +33,17 @@ func _ready():
 	else:
 		animationPlayer.play("normalIdle")
 
-func _physics_process(delta):
-	var areaArray = $Area2D.get_overlapping_areas()
-	for area in areaArray:
-		if area.get_parent().is_in_group("manhole"):
-			if area.get_parent().enterManhole(linear_velocity) != null:
-				var manhole = area.get_parent()
-				var exitVariables = manhole.enterManhole(linear_velocity)
-				manhole.enterSound(self.linear_velocity.y / 20, randf_range(0.80, 1.0))
-				position = exitVariables[0]
-				linear_velocity = exitVariables[1]
-				area.get_parent().pumpkinAmount -= 1
+#func _physics_process(delta):
+	#var areaArray = $Area2D.get_overlapping_areas()
+	#for area in areaArray:
+		#if area.get_parent().is_in_group("manhole"):
+			#if area.get_parent().enterManhole(linear_velocity) != null:
+				#var manhole = area.get_parent()
+				#var exitVariables = manhole.enterManhole(linear_velocity)
+				#manhole.enterSound(self.linear_velocity.y / 20, randf_range(0.80, 1.0))
+				#position = exitVariables[0]
+				#linear_velocity = exitVariables[1]
+				#area.get_parent().pumpkinAmount -= 1
 
 func getVelocity():
 	return linear_velocity
@@ -98,8 +100,8 @@ func teleport(hostPos: Transform2D) -> void:
 			animationPlayer.queue("idle")
 		if unstableTeleport <= 0:
 			#deletes the pumpkin when unstableTeleport reaches 0
-#			get_parent().get_parent().restartLevel()
-			self.queue_free()
+			pumpkinDestroy(true)
+			
 	if !unstable:
 		animationPlayer.play("normalTeleport")
 		animationPlayer.queue("normalIdle")
@@ -128,6 +130,11 @@ func spawnTracer(oldPosition:Vector2) -> void:
 	rayInst.global_position = oldPosition
 	rayInst.target_position = testpos.get_origin() - rayInst.global_position
 	rayInst.get_node("Line2D").add_point(testpos.get_origin() - rayInst.global_position)
+
+func pumpkinDestroy(failure = false):
+	if failure == true:
+		requestLevelChange.emit()
+	self.queue_free()
 
 func save() -> Dictionary:
 	var saveDict = {

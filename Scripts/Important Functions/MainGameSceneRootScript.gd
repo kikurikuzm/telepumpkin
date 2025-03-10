@@ -23,7 +23,7 @@ func _ready() -> void:
 	initiateLevelChange()
 
 func connectToLevelNodeSignals():
-	var nodeSignalsArray = levelLoader.passRootNodeSignalsToConnect()
+	var nodeSignalsArray : Array = levelLoader.passRootNodeSignalsToConnect()
 	
 	nodeSignalsArray[0].connect(_levelCompleted)
 	nodeSignalsArray[1].connect(_levelCutsceneBegin)
@@ -43,6 +43,11 @@ func connectToLevelNodeSignals():
 	for levelChangingNodeSignal in levelChangingNodeSignalsArray:
 		print("connected lchange")
 		levelChangingNodeSignal.connect(_levelChangeRequested)
+	
+	var playerChangingNodeSignalsArray = nodeSignalsArray[6]
+	for playerChangingNodeSignal in playerChangingNodeSignalsArray:
+		print_debug("connected playerChanging node")
+		playerChangingNodeSignal.connect(_playerCharacterChangeState)
 
 func disconnnectCallablesFromSignals():
 	if !levelLoader.isLevelCurrentlyLoaded():
@@ -63,6 +68,14 @@ func disconnnectCallablesFromSignals():
 		cameraZoneSignalColletion[0].disconnect(_levelCameraZoneGiveMainCameraFocus)
 		cameraZoneSignalColletion[1].disconnect(_levelCameraZoneTakeMainCameraFocus)
 		cameraZoneSignalColletion[2].disconnect(_levelCameraZoneChangeMainCameraZoom)
+		
+	var levelChangingSignalCollectionArray = nodeSignalsArray[5]
+	for levelChangingSignalColletion in levelChangingSignalCollectionArray:
+		levelChangingSignalColletion.disconnect(_levelChangeRequested)
+	
+	var playerChangingSignalCollectionArray = nodeSignalsArray[6]
+	for playerChangingSignalCollection in playerChangingSignalCollectionArray:
+		playerChangingSignalCollection.disconnect(_playerCharacterChangeState)
 
 func initiateLevelChange(levelPath:String = ""):
 	disconnnectCallablesFromSignals()
@@ -134,7 +147,9 @@ func _dialogueManagerBeginDialogue(emittingNPCConversation:DialogueConversation,
 func _levelCompleted():
 	currentLevelSetIndex += 1
 	playerReference.changeState("playerFinishLevel")
-	#initiateLevelChange()
+
+func _levelFailed():
+	pass
 
 func _onPlayerExitAnimationFinished():
 	initiateLevelChange()
@@ -158,9 +173,14 @@ func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:Vector2):
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
 
 func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):
+	if levelPath == null:
+		restartLevel()
+		return
+	
 	initiateLevelChange(levelPath)
 	if spawnCoordinates != Vector2.ZERO:
 		_playerCharacterChangePosition(spawnCoordinates)
+	_playerCharacterChangeState("playerIdle")
 
 func _pauseGame():
 	get_tree().paused = true

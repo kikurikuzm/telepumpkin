@@ -21,11 +21,11 @@
 [ext_resource type="AudioStream" uid="uid://rjkd5e5f8lks" path="res://Audio/sfx/concretestep1.ogg" id="11_u8ed2"]
 [ext_resource type="AudioStream" uid="uid://svt0a04xus22" path="res://Audio/sfx/concretestep2.ogg" id="12_2jc7n"]
 [ext_resource type="SpriteFrames" uid="uid://dx3ffhiakq180" path="res://Resources/SpriteFrames/playerNew.tres" id="12_crrlk"]
-[ext_resource type="Texture2D" uid="uid://v7u0ipl2axjg" path="res://Sprites/Misc/basket.png" id="13_x8wns"]
 [ext_resource type="AudioStream" uid="uid://junj2m4vfse4" path="res://Audio/sfx/concretestep3.ogg" id="13_yi6rr"]
 [ext_resource type="AudioStream" uid="uid://d4aw3nbwb6ct" path="res://Audio/sfx/wood_step-01.ogg" id="14_mbwwd"]
 [ext_resource type="AudioStream" uid="uid://osbuu3ys72w0" path="res://Audio/sfx/wood_step-02.ogg" id="15_breqs"]
 [ext_resource type="AudioStream" uid="uid://dnvw53ep1vrqw" path="res://Audio/sfx/wood_step-03.ogg" id="16_1x2s6"]
+[ext_resource type="Texture2D" uid="uid://bkaeby7obkady" path="res://Sprites/Misc/exitBasket.png" id="16_eyegr"]
 [ext_resource type="AudioStream" uid="uid://cd7bmqexlqs4e" path="res://Audio/sfx/pickuptoo.ogg" id="23_hnh6d"]
 [ext_resource type="AudioStream" uid="uid://bhay6ynm00fpy" path="res://Audio/sfx/fall thump.ogg" id="24_x075c"]
 [ext_resource type="Script" uid="uid://bmpahr0mgw8pl" path="res://Scripts/simplefootsteps.gd" id="25_v543r"]
@@ -1324,9 +1324,8 @@ _data = {
 &"walk": SubResource("Animation_m7s4w")
 }
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r0502"]
-closed = false
-polygon = PackedVector2Array(-9, 3, -9, 4, -7, 4, 7, 4, 9, 4, 9, 3)
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_eyegr"]
+polygon = PackedVector2Array(-9.72973, 4.32432, -8.64865, 4.32432, -8.64865, 5.40541, -5.40541, 5.40541, -5.40541, 6.48649, 0, 6.48649, 1.08108, 5.40541, 7.56757, 5.40541, 7.56757, 4.32432, 8.64865, 4.32432)
 
 [sub_resource type="Curve" id="Curve_43dfb"]
 _data = [Vector2(0, 0.569774), 0.0, 0.152198, 0, 0, Vector2(0.617021, 0), -1.09687, 0.0, 0, 0]
@@ -1496,8 +1495,9 @@ sprite_frames = ExtResource("12_crrlk")
 animation = &"Walk"
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="AnimatedSprite2D"]
+visible = false
 z_index = -1
-occluder = SubResource("OccluderPolygon2D_r0502")
+occluder = SubResource("OccluderPolygon2D_eyegr")
 
 [node name="tpp" type="Sprite2D" parent="AnimatedSprite2D"]
 visible = false
@@ -1534,7 +1534,7 @@ process_material = SubResource("ParticleProcessMaterial_qffwg")
 visible = false
 z_index = 1
 position = Vector2(0, 2.16216)
-texture = ExtResource("13_x8wns")
+texture = ExtResource("16_eyegr")
 
 [node name="Teleport" parent="." instance=ExtResource("6_6y066")]
 modulate = Color(1, 1, 1, 0.454902)

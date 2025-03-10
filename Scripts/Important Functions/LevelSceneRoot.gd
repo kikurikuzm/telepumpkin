@@ -1,7 +1,23 @@
+@tool
 class_name LevelSceneRoot extends Node
 
+@export_group("Level Palette")
+@export_tool_button("Create Pumpkin")
+var toolNewPumpkin = tool_newPumpkin
+
+@export_tool_button("Create NPC")
+var toolNewNPC = tool_newNPC
+
+@export_tool_button("Create Exit")
+var toolNewExit = tool_newExit
+
+@export_tool_button("Create Spawn")
+var toolNewSpawn = tool_newSpawn
+
+@export_group("Level Variables")
 @export var levelVariablesResource : LevelVariables
 var levelChangingNodeReferenceArray : Array[Node2D]
+var playerChangingNodeReferenceArray : Array[Node2D]
 var levelSpawnPointReference : Node2D
 var levelExitReference : Node2D
 var levelTileLayerReference : TileMapLayer
@@ -13,17 +29,19 @@ var levelCameraZonesReferenceArray : Array[Node2D]
 var allRootChildren
 
 func _ready():
-	if get_parent() is Window:
-		push_warning("Not running in MainScene")
-		gvars.levelToLoadInMainScene = self.scene_file_path
-		#print_debug(gvars.levelToLoadInMainScene)
-		get_tree().change_scene_to_file("res://Instances/Important/MainGameScene.tscn")
-	
-	allRootChildren = self.get_children()
-	initializeLevel()
+	if !Engine.is_editor_hint():
+		if get_parent() is Window:
+			push_warning("Not running in MainScene")
+			gvars.levelToLoadInMainScene = self.scene_file_path
+			#print_debug(gvars.levelToLoadInMainScene)
+			get_tree().change_scene_to_file("res://Instances/Important/MainGameScene.tscn")
+		
+		allRootChildren = self.get_children()
+		initializeLevel()
 
 func initializeLevel():
 	levelChangingNodeReferenceArray = []
+	playerChangingNodeReferenceArray = []
 	levelNPCsReferenceArray = []
 	levelCameraZonesReferenceArray = []
 	
@@ -52,28 +70,31 @@ func initializeLevel():
 				newParallax2D.add_child(newForegroundSprite)
 		
 	for child in allRootChildren:
-		if child.is_in_group("level_levelChangeRequester"):
+		if child.is_in_group("level_gameStateModifier"):
 			levelChangingNodeReferenceArray.append(child)
 			print("Found level change requester")
+		if child.is_in_group("level_playerStateModifier"):
+			playerChangingNodeReferenceArray.append(child)
+			print("Found player change requester")
 		if child.is_in_group("level_spawnpoint"):
 			levelSpawnPointReference = child
 			print("Found spawnpoint")
-		elif child.is_in_group("level_tilemaplayer"):
+		if child.is_in_group("level_tilemaplayer"):
 			levelTileLayerReference = child
 			print("Found tilemaplayer")
-		elif child.is_in_group("level_mapcamera"):
+		if child.is_in_group("level_mapcamera"):
 			levelMapCameraReference = child
 			print("Found mapcamera")
-		elif child.is_in_group("level_cutsceneplayer"):
+		if child.is_in_group("level_cutsceneplayer"):
 			levelCutscenePlayerReference = child
 			print("Found cutscene player")
-		elif child.is_in_group("level_exit"):
+		if child.is_in_group("level_exit"):
 			levelExitReference = child
 			print("Found exit")
-		elif child.is_in_group("level_npc"):
+		if child.is_in_group("level_npc"):
 			levelNPCsReferenceArray.append(child)
 			print("Found an NPC")
-		elif child.is_in_group("level_camerazone"):
+		if child.is_in_group("level_camerazone"):
 			levelCameraZonesReferenceArray.append(child)
 			print("Found a CameraZone")
 
@@ -135,3 +156,28 @@ func getLevelChangingNodeReferences():
 	else:
 		push_warning("No level-changing nodes found in the level!")
 		return null
+
+func getPlayerChangingNodeReferences():
+	if !playerChangingNodeReferenceArray.is_empty():
+		return playerChangingNodeReferenceArray
+	else:
+		push_warning("No player changing nodes found in the level!")
+		return null
+
+func tool_createNewInstance(instancePath : NodePath):
+	var resource = load(instancePath)
+	var instance = resource.instantiate()
+	self.add_child(instance)
+	instance.owner = self
+
+func tool_newPumpkin():
+	tool_createNewInstance("res://Instances/Level Components/pumpkin.tscn")
+
+func tool_newNPC():
+	tool_createNewInstance("res://Instances/Level Components/NPC.tscn")
+
+func tool_newExit():
+	tool_createNewInstance("res://Instances/Level Components/exit.tscn")
+
+func tool_newSpawn():
+	tool_createNewInstance("res://Instances/Level Components/Spawnpoint.tscn")

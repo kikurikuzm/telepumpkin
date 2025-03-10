@@ -38,7 +38,7 @@ func _input(event):
 	if Input.is_action_just_pressed("teleport") and canTalk:
 		for i in $npcArea.get_overlapping_areas():
 			if i.is_in_group("player"):
-				print("found player and began dialogue")
+				print_debug("found player and began dialogue")
 				NPCBeginConversation()
 				break
 

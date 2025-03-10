@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelVariables" load_steps=3 format=3 uid="uid://b7lh1l45lqecv"]
 
 [ext_resource type="Environment" uid="uid://bdkllmoqon3ww" path="res://Resources/Environments/moonCity.tres" id="2_4qxdj"]
-[ext_resource type="Script" path="res://Scripts/resourceScripts/levelVariables.gd" id="2_hpl7i"]
+[ext_resource type="Script" uid="uid://dsd3252fkhyt0" path="res://Scripts/resourceScripts/levelVariables.gd" id="2_hpl7i"]
 
 [resource]
 script = ExtResource("2_hpl7i")
