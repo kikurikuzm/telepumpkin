@@ -5,8 +5,8 @@ var oldParent
 var playerRef
 var smoothAmount = 0.2
 var oldZoom
-var desiredZoom = Vector2(4.5, 4.5)
-var playerZoom = null
+var desiredZoom : float = 1.0
+var playerZoom : float = 0
 
 func _ready():
 	playerRef = currentParent
@@ -17,11 +17,11 @@ func _process(delta):
 		currentParent = $"../Player"
 	
 	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
-	zoom = lerp(zoom, desiredZoom, smoothAmount)
+	zoom = lerp(zoom, Vector2(desiredZoom,desiredZoom), smoothAmount)
 
 func snapToParent():
 	global_position = currentParent.global_position
-	zoom = desiredZoom
+	zoom = Vector2(desiredZoom, desiredZoom)
 
 func changeParent(newParent):
 	if newParent == null:
@@ -46,11 +46,9 @@ func returnToParent():
 	
 	currentParent = playerRef
 
-func changeZoom(newZoom:Vector2):
-	if playerZoom == null:
-		playerZoom = desiredZoom
-	if newZoom is not Vector2 or newZoom == Vector2.ZERO:
-		print_debug("Invalid zoom variable type!")
+func changeZoom(newZoom:float):
+	if newZoom == 0:
+		print_debug(playerZoom)
 		returnToOldZoom()
 		return
 	else:
@@ -62,8 +60,8 @@ func changeZoom(newZoom:Vector2):
 func returnToOldZoom():
 	if playerZoom != null:
 		desiredZoom = playerZoom
-		playerZoom = null
-		return
+	else:
+		desiredZoom = oldZoom
 
 func isPlayerParent() -> bool:
 	return currentParent == playerRef

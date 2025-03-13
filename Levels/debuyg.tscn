@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bpjox1o3i6pbq"]
+[gd_scene load_steps=18 format=4 uid="uid://bpjox1o3i6pbq"]
 
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ixl1h"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_2hqk7"]
@@ -9,6 +9,9 @@
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="7_e8sut"]
 [ext_resource type="Animation" uid="uid://ujljuyhppecr" path="res://test.tres" id="8_q1qt7"]
 [ext_resource type="Script" uid="uid://cquqdpkj8ecfv" path="res://Scripts/CutscenePlayer.gd" id="9_s22gk"]
+[ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="10_eq704"]
+[ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="11_nvnte"]
+[ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="12_lwogm"]
 
 [sub_resource type="Animation" id="Animation_m3ha0"]
 resource_name = "new_animation"
@@ -18,6 +21,39 @@ _data = {
 &"new_animation": SubResource("Animation_m3ha0"),
 &"test": ExtResource("8_q1qt7")
 }
+
+[sub_resource type="Resource" id="Resource_e8sut"]
+script = ExtResource("12_lwogm")
+dialogueText = "Enter text here!"
+dialoguePortrait = "cool"
+textSpeed = 0.7
+currentFocus = NodePath("")
+focusPlayer = true
+cameraSpeed = 0.1
+cameraZoom = 4.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_eq704"]
+script = ExtResource("12_lwogm")
+dialogueText = "bababaabasuabsui"
+dialoguePortrait = "kid"
+textSpeed = 0.7
+currentFocus = NodePath("../exit")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 2.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_q1qt7"]
+script = ExtResource("11_nvnte")
+conversationArray = Array[ExtResource("12_lwogm")]([SubResource("Resource_e8sut"), SubResource("Resource_eq704")])
+metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
 [node name="LevelSceneRoot" type="Node"]
 script = ExtResource("1_ixl1h")
@@ -67,3 +103,7 @@ libraries = {
 }
 script = ExtResource("9_s22gk")
 metadata/_custom_type_script = "uid://cquqdpkj8ecfv"
+
+[node name="NPC" parent="." instance=ExtResource("10_eq704")]
+position = Vector2(464, 735)
+dialogueArray = Array[ExtResource("11_nvnte")]([SubResource("Resource_q1qt7")])

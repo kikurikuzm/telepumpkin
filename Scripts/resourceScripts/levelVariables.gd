@@ -6,11 +6,11 @@ class_name LevelVariables
 @export_group("Player-Related")
 @export var canTeleport = true
 @export_subgroup("View")
-@export var playerZoom = 4.5
-@export var hasVignette = false
-@export var hasMapView = true
-@export var startsInMap = false
-@export var mapCameraLocked = true
+@export var playerZoom : float = 4.5
+@export var hasVignette : bool = false
+@export var hasMapView : bool = true
+@export var startsInMap : bool = false
+@export var mapCameraLocked : bool = true
 
 
 @export_group("Level-Related")

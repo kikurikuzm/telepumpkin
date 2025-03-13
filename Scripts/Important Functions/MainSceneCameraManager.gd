@@ -5,6 +5,9 @@ var mainCameraReference : Camera2D
 func setMainCameraReference(cameraReference:Camera2D):
 	mainCameraReference = cameraReference
 
+func setMainCameraPlayerZoom(zoom:float):
+	mainCameraReference.playerZoom = zoom
+
 func mainCameraChangeParent(desiredParent:Node2D):
 	if mainCameraReference.getCurrentCameraParent() != desiredParent:
 		mainCameraReference.changeParent(desiredParent)
@@ -18,5 +21,5 @@ func mainCameraSnapToParent():
 func mainCameraReturnToPlayer():
 	mainCameraReference.returnToPlayer()
 
-func mainCameraChangeZoom(desiredZoom:Vector2):
+func mainCameraChangeZoom(desiredZoom:float):
 	mainCameraReference.changeZoom(desiredZoom)

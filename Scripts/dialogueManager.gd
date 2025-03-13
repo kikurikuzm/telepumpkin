@@ -40,7 +40,7 @@ var currentLevelChildren : Array
 signal changeCameraFocus(desiredCameraFocusNode:Node2D)
 signal changeCameraFocusToPlayer()
 signal changeCameraSmoothingAmount(desiredCameraSmoothingAmount:float)
-signal changeCameraZoom(desiredCameraZoom:Vector2)
+signal changeCameraZoom(desiredCameraZoom:float)
 signal beginDialogueCutscene(desiredCutscene:String)
 signal changePlayerCharacterState(desiredState:String)
 
@@ -71,15 +71,17 @@ func progressDialogue():
 	
 	if currentEntry.focusPlayer:
 		changeCameraFocusToPlayer.emit()
+	elif currentEntry.currentFocus != null:
+		print_debug(currentEntry.currentFocusAbsolutePath)
+		changeCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
 	else:
-		print_debug(currentEntry)
 		changeCameraFocus.emit(dialogueInitializer)
 	
 	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
 	dialogueText.text = currentEntry.dialogueText
 
 	changeCameraSmoothingAmount.emit(currentEntry.cameraSpeed)
-	changeCameraZoom.emit(Vector2(currentEntry.cameraZoom,currentEntry.cameraZoom))
+	changeCameraZoom.emit(currentEntry.cameraZoom)
 	
 	textSpeed.wait_time = currentEntry.textSpeed
 	
@@ -126,9 +128,9 @@ func endDialogue():
 
 	currentDialogueEntryIndex = 0
 	
-	#changeCameraFocusToPlayer.emit()
+	changeCameraFocusToPlayer.emit()
 	#changeCameraSmoothingAmount.emit(Vector2(0.2, 0.2))
-	changeCameraZoom.emit(Vector2.ZERO)
+	#changeCameraZoom.emit(0)
 	changePlayerCharacterState.emit("playerIdle")
 	dialogueInitializer.canTalk = true
 	

@@ -104,9 +104,11 @@ func initiateLevelChange(levelPath:String = ""):
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
 	connectToLevelNodeSignals()
 	
-	var currentLevelVariables = levelLoader.getCurrentLevelVariables()
+	var currentLevelVariables : LevelVariables = levelLoader.getCurrentLevelVariables()
 	levelAmbience.stream = currentLevelVariables.levelAmbience
 	levelAmbience.play()
+	cameraManager.setMainCameraPlayerZoom(currentLevelVariables.playerZoom)
+	cameraManager.mainCameraChangeZoom(currentLevelVariables.playerZoom)
 
 func restartLevel():
 	initiateLevelChange()
