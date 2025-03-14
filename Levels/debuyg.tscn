@@ -30,7 +30,7 @@ textSpeed = 0.7
 currentFocus = NodePath("")
 focusPlayer = true
 cameraSpeed = 0.1
-cameraZoom = 4.0
+cameraZoom = 5.5
 playerCanMove = false
 goToNextConversation = false
 manualNextConversation = 0
@@ -106,4 +106,5 @@ metadata/_custom_type_script = "uid://cquqdpkj8ecfv"
 
 [node name="NPC" parent="." instance=ExtResource("10_eq704")]
 position = Vector2(464, 735)
+npcLook = "smoke"
 dialogueArray = Array[ExtResource("11_nvnte")]([SubResource("Resource_q1qt7")])

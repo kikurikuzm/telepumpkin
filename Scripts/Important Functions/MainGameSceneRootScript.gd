@@ -128,13 +128,29 @@ func _goToSpecifiedLevel(desiredLevelPath:String):
 	gvars.levelToLoadInMainScene = desiredLevelPath
 	initiateLevelChange()
 	
-func _playerCharacterChangeState(desiredState:String):
-	playerReference.changeState(desiredState)
+##Signal name: requestPhysicsBodyChange
+func _physicsBodyChangeTransform(physicsBody:PhysicsBody2D, transform:Transform2D, velocity:Vector2):
+	if is_instance_valid(physicsBody):
+		physicsBody.transform = transform
+		
+		if is_instance_of(physicsBody, CharacterBody2D):
+			pass
+		elif is_instance_of(physicsBody, RigidBody2D):
+			pass
+
+##Signal name: requestPlayerChange
+func _playerCharacterChangeState(modifyingValue:Variant):
+	if modifyingValue is String: #If the passed value is a string, assume its for changing the state
+		playerReference.changeState(modifyingValue)
+		
+	if modifyingValue is Array[Vector2]: #assume its changing the position and velocity if passed vector2
+		playerReference.position = modifyingValue[0]
+		playerReference.velocity = modifyingValue[1]
 
 func _playerCharacterChangePosition(desiredPosition:Vector2):
 	playerReference.position = desiredPosition
 
-func _mainCameraChangeZoom(desiredZoom:Vector2):
+func _mainCameraChangeZoom(desiredZoom:float):
 	cameraManager.mainCameraChangeZoom(desiredZoom)
 
 func _mainCameraChangeFocus(desiredTarget:Node2D):

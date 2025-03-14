@@ -12,9 +12,10 @@ class_name DialogueManager
 
 @onready var dialogueBox = $CanvasLayer/dialogBox ##The dialogue box containing the text and portraits of the dialogue.
 
-@onready var dialogueText = $CanvasLayer/dialogBox/text ##The text box containing dialogue.
-@onready var dialoguePortrait = $CanvasLayer/dialogBox/portrait ##The NPC image shown during dialogue.
+@onready var dialogueText = $CanvasLayer/dialogBox/MarginContainer/HBoxContainer/text ##The text box containing dialogue.
+@onready var dialoguePortrait = $CanvasLayer/dialogBox/MarginContainer/HBoxContainer/MarginContainer/portrait ##The NPC image shown during dialogue.
 @onready var dialogueContinue = $CanvasLayer/progress ##The little arrow at the bottom right of the dialogue box that indicates when the dialogue can be progressed.
+@onready var dialogueFromArrow = $CanvasLayer/fromArrow
 
 @onready var textSpeed = $textSpeed ##A timer used to have the letters show every given amount of time.
 
@@ -71,7 +72,7 @@ func progressDialogue():
 	
 	if currentEntry.focusPlayer:
 		changeCameraFocusToPlayer.emit()
-	elif currentEntry.currentFocus != null:
+	elif currentEntry.currentFocus != null and is_instance_valid(get_node(currentEntry.currentFocusAbsolutePath)):
 		print_debug(currentEntry.currentFocusAbsolutePath)
 		changeCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
 	else:
@@ -172,3 +173,14 @@ func _process(delta):
 	gvars.inDialogue = inDialogue
 	if dialogueText.visible_characters == len(dialogueText.get_parsed_text()) and inDialogue:
 		dialogueContinue.visible = true
+	
+	if dialogueInitializer != null and !Engine.is_editor_hint():
+		var pointCount = dialogueFromArrow.get_point_count()
+		var focusScreenPos = dialogueInitializer.get_global_transform_with_canvas().get_origin()
+		var dialogueConnection
+		
+		focusScreenPos = focusScreenPos - dialogueFromArrow.position
+		
+		print(focusScreenPos)
+		dialogueFromArrow.set_point_position(pointCount - 1, focusScreenPos)
+		dialogueFromArrow.set_point_position(0)

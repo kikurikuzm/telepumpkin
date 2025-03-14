@@ -1,6 +1,13 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ccw6y1271j2pb"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://ccw6y1271j2pb"]
 
 [ext_resource type="FontFile" uid="uid://o30a3wtnmnd6" path="res://Resources/UAV-OSD-Mono.ttf" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thrr3"]
+bg_color = Color(0.172549, 0.172549, 0.164706, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([ExtResource("1")])
@@ -14,6 +21,7 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 [resource]
 Label/colors/font_color_shadow = Color(0, 0, 0, 0.737255)
 Label/font_sizes/font_size = 11
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_thrr3")
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
 RichTextLabel/colors/font_color_shadow = Color(0.658824, 0.658824, 0.658824, 1)
 RichTextLabel/fonts/normal_font = SubResource("1")

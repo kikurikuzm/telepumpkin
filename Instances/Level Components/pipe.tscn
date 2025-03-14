@@ -1,18 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://cl1u4c1fck5lu"]
 
-[ext_resource type="Script" uid="uid://bxq681jw4j47n" path="res://Scripts/manhole.gd" id="1_xf3yg"]
-[ext_resource type="Texture2D" uid="uid://bolkrxba3t62e" path="res://Sprites/Misc/manhole.png" id="2_mhy5w"]
-[ext_resource type="AudioStream" uid="uid://cvc5dcbyncxei" path="res://Audio/sfx/manholeEnter.ogg" id="4_m81ai"]
+[ext_resource type="Script" uid="uid://bxq681jw4j47n" path="res://Scripts/manhole.gd" id="1_lescn"]
+[ext_resource type="Texture2D" uid="uid://bolkrxba3t62e" path="res://Sprites/Misc/manhole.png" id="2_48p8f"]
+[ext_resource type="AudioStream" uid="uid://cvc5dcbyncxei" path="res://Audio/sfx/manholeEnter.ogg" id="3_yoet1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jw4wa"]
 size = Vector2(34, 20)
 
-[node name="manhole" type="Node2D" groups=["manhole"]]
-script = ExtResource("1_xf3yg")
+[node name="pipe" type="Node2D" groups=["level_playerStateModifier"]]
+script = ExtResource("1_lescn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -14)
-texture = ExtResource("2_mhy5w")
+texture = ExtResource("2_48p8f")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 16
@@ -27,4 +27,4 @@ shape = SubResource("RectangleShape2D_jw4wa")
 position = Vector2(0, -29)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_m81ai")
+stream = ExtResource("3_yoet1")

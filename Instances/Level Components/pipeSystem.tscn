@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://u436ndnadylb"]
+
+[ext_resource type="Script" uid="uid://n0xbmdrd3rb3" path="res://Scripts/pipeSystem.gd" id="1_dwnxs"]
+
+[node name="PipeSystem" type="Node" node_paths=PackedStringArray("pipes") groups=["level_playerStateModifier"]]
+script = ExtResource("1_dwnxs")
+pipes = [null]

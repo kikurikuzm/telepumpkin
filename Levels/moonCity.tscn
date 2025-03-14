@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=35 format=4 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
@@ -93,6 +93,67 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_x6tfr"]
 gradient = SubResource("Gradient_nx7bn")
+
+[sub_resource type="Resource" id="Resource_j2m2m"]
+script = ExtResource("9_2uoi1")
+dialogueText = "[wave]I see you are interested in this moon trip..."
+dialoguePortrait = "cloak"
+textSpeed = 0.7
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 5.5
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_j2jhi"]
+script = ExtResource("9_2uoi1")
+dialogueText = "[wave]Lucky for you, I have one more ticket left."
+dialoguePortrait = "cloak"
+textSpeed = 0.7
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 4.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_y1yjm"]
+script = ExtResource("9_2uoi1")
+dialogueText = "[wave]Five Fullmoons is the measly cost for a trip to the moon. A once-in-a-lifetime experience..."
+dialoguePortrait = "cloak"
+textSpeed = 0.7
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 4.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_k357n"]
+script = ExtResource("9_2uoi1")
+dialogueText = "[wave]So if you want this here ticket, then you'll need to cough up those five Fullmoons [/wave]fast."
+dialoguePortrait = "cloak"
+textSpeed = 0.7
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 4.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_frmte"]
+script = ExtResource("8_20fxd")
+conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_j2m2m"), SubResource("Resource_j2jhi"), SubResource("Resource_y1yjm"), SubResource("Resource_k357n")])
+metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
 [sub_resource type="Resource" id="Resource_aaajh"]
 script = ExtResource("9_2uoi1")
@@ -223,6 +284,7 @@ zoom = Vector2(0.4, 0.4)
 position = Vector2(1500, 736)
 npcLook = "cloak"
 convoID = 1
+dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_frmte")])
 
 [node name="NPC4" parent="." instance=ExtResource("3_3vfoy")]
 position = Vector2(1358, 1032)

@@ -1,12 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://bos8ss8x8l7og"]
+[gd_scene load_steps=17 format=3 uid="uid://bos8ss8x8l7og"]
 
 [ext_resource type="Script" uid="uid://3qkryl4sejod" path="res://Scripts/dialogueManager.gd" id="1_b43uq"]
 [ext_resource type="Shader" uid="uid://c2kixvp8ls0q7" path="res://Resources/Shaders/wigglewavy.gdshader" id="2_ea7an"]
 [ext_resource type="Shader" uid="uid://bp7t12p2tmln8" path="res://Resources/Shaders/wavy.gdshader" id="3_kbs7n"]
-[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="4_pceyl"]
-[ext_resource type="FontFile" uid="uid://o30a3wtnmnd6" path="res://Resources/UAV-OSD-Mono.ttf" id="6_xeeeg"]
+[ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="6_o06a1"]
+[ext_resource type="Theme" uid="uid://dsw3unrbpqwqx" path="res://Resources/Themes/dialogueTheme.tres" id="7_8cm2j"]
+[ext_resource type="Texture2D" uid="uid://bobh42kleuhmh" path="res://Sprites/NPCs/Portraits/cloak.png" id="8_7pnb1"]
 [ext_resource type="AudioStream" uid="uid://bwmmara6fxk1j" path="res://Audio/sfx/Tick.wav" id="12_cqag5"]
 [ext_resource type="Texture2D" uid="uid://b8qxi8stcmydv" path="res://Sprites/Misc/dialogArrow.png" id="13_ij6ny"]
+
+[sub_resource type="Curve" id="Curve_o06a1"]
+_data = [Vector2(0.478571, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.2196, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a4kcp"]
 shader = ExtResource("3_kbs7n")
@@ -42,24 +47,14 @@ shader_parameter/height = 10.0
 shader_parameter/frequency = 3.0
 shader_parameter/speed = 2.0
 
-[sub_resource type="Theme" id="Theme_od035"]
-Label/colors/font_color = Color(0, 0, 0, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 0
-Label/font_sizes/font_size = 28
-Label/fonts/font = ExtResource("4_pceyl")
-RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
-RichTextLabel/colors/font_outline_color = Color(1, 1, 1, 1)
-RichTextLabel/font_sizes/bold_font_size = 28
-RichTextLabel/font_sizes/normal_font_size = 28
-RichTextLabel/fonts/bold_font = ExtResource("6_xeeeg")
-RichTextLabel/fonts/normal_font = ExtResource("4_pceyl")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5pwf2"]
 shader = ExtResource("3_kbs7n")
 shader_parameter/height = 1.2
 shader_parameter/frequency = 0.4
 shader_parameter/speed = 1.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o06a1"]
+size = Vector2(1084, 185)
 
 [node name="DialogueManager" type="Node"]
 script = ExtResource("1_b43uq")
@@ -82,8 +77,15 @@ max_polyphony = 8
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 5
 
+[node name="fromArrow" type="Line2D" parent="CanvasLayer"]
+position = Vector2(516, 355)
+points = PackedVector2Array(106, -38, -55.85, 112)
+width = 30.0
+width_curve = SubResource("Curve_o06a1")
+default_color = Color(0.172549, 0.172549, 0.164706, 1)
+joint_mode = 1
+
 [node name="progress" type="AnimatedSprite2D" parent="CanvasLayer"]
-visible = false
 modulate = Color(0, 0, 0, 0.2)
 z_index = 1
 z_as_relative = false
@@ -93,11 +95,11 @@ scale = Vector2(2.4, 2.4)
 sprite_frames = SubResource("SpriteFrames_pra1p")
 autoplay = "default"
 
-[node name="dialogBox" type="ColorRect" parent="CanvasLayer"]
-visible = false
+[node name="dialogBox" type="PanelContainer" parent="CanvasLayer"]
 top_level = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_016ig")
+custom_minimum_size = Vector2(100, 100)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -106,30 +108,48 @@ offset_top = 154.0
 offset_right = 537.0
 offset_bottom = 330.0
 grow_horizontal = 2
-color = Color(0.372549, 0.372549, 0.372549, 0.490196)
+theme = ExtResource("6_o06a1")
 
-[node name="text" type="RichTextLabel" parent="CanvasLayer/dialogBox"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -387.0
-offset_top = -30.0
-offset_right = 507.0
-offset_bottom = 75.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_od035")
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/dialogBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_o06a1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/dialogBox/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/dialogBox/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(175, 175)
+layout_mode = 2
+
+[node name="portrait" type="Sprite2D" parent="CanvasLayer/dialogBox/MarginContainer/HBoxContainer/MarginContainer"]
+material = SubResource("ShaderMaterial_5pwf2")
+position = Vector2(75, 75)
+scale = Vector2(7.84375, 7.84375)
+texture = ExtResource("8_7pnb1")
+
+[node name="text" type="RichTextLabel" parent="CanvasLayer/dialogBox/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme = ExtResource("7_8cm2j")
 bbcode_enabled = true
-text = "[fade start=30]Hey, [wave]you[/wave] aren't from [rainbow]around[/rainbow] here, are [b]you?[/b][/fade]"
+text = "test"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
+vertical_alignment = 1
 deselect_on_focus_loss_enabled = false
 
-[node name="portrait" type="Sprite2D" parent="CanvasLayer/dialogBox"]
-material = SubResource("ShaderMaterial_5pwf2")
-position = Vector2(74, 70)
-scale = Vector2(7.84375, 7.84375)
+[node name="RayCast2D" type="RayCast2D" parent="CanvasLayer"]
+position = Vector2(374, 620)
+target_position = Vector2(233, -326)
+collision_mask = 2147483648
+
+[node name="dialogueCollision" type="Area2D" parent="CanvasLayer"]
+collision_layer = 2147483648
+collision_mask = 2147483648
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/dialogueCollision"]
+position = Vector2(964, 237.5)
+shape = SubResource("RectangleShape2D_o06a1")

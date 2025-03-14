@@ -1,4 +1,4 @@
-extends Node2D
+class_name Pipe extends Node2D 
 
 const VELMULT = 1.5
 
@@ -10,38 +10,20 @@ var connector = null
 @onready var splashParticle = load("res://Particles/splash.tscn")
 
 @export var pumpkinAmount = 0
-@export var id = 0
 @export var direction = 0
-#direction 0 is entrance, direction 1 is exit
+var id = 0
+
+@export var exitPipe : Pipe
+
+signal bodyEntered(identifier:int, collidingBody:PhysicsBody2D)
 
 func _process(delta):
-	if direction == 0 and connector == null:
-		for child in get_children():
-			if child.is_in_group("connector"):
-				connector = child
-				break
-	if connector != null:
-		if pumpkinAmount > 0:
-			connector.modulate = Color(1.0, 0.05, 0.05, 1.0) / pumpkinAmount
-		else:
-			connector.modulate = Color(0, 1.0, 1.0, 0.6)
+	if selfArea.has_overlapping_bodies():
+		for i in selfArea.get_overlapping_bodies():
+			if i.is_in_group("level_canEnterPipe"):
+				bodyEntered.emit(self.get_instance_id(), i)
 
-#func _physics_process(delta):
-#	if selfArea.has_overlapping_bodies() and direction == 0:
-#		for i in selfArea.get_overlapping_bodies():
-#			if i.is_in_group("useManholes"):
-#				if i.is_in_group("pumpkin"):
-#					pumpkinAmount -= 1
-#				var posAndVel = enterManhole(i.getVelocity())
-#				i.traverseManhole(posAndVel[0], Vector2(900.0, 910.0))
-#				print(posAndVel)
-#				return
-#			else:
-#				pass
-#	else:
-#		return
-
-func enterManhole(velocity:Vector2):
+func enterManhole(velocity:Vector2) -> void:
 	#basic function to return the current manhole's exit position and velocity
 	var rootNode = get_parent().get_parent()
 	if direction == 0:
@@ -66,9 +48,7 @@ func enterManhole(velocity:Vector2):
 							#facing down
 					
 					var sendPosition = exitManhole.get_node("exitPoint").global_position
-					return([sendPosition, velocity, pumpkinAmount])
-	else:
-		return(null)
+					#return([sendPosition, velocity, pumpkinAmount])
 
 func enterSound(volume = 0.0, pitch = 1):
 	audioPlayer.volume_db = volume

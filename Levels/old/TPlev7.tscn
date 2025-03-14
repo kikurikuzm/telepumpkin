@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="5_ylflq"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="6_7jhhu"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="7_lflwy"]
-[ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="8_54uyr"]
-[ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="11_6rujh"]
+[ext_resource type="PackedScene" path="res://Instances/Helpers/levelVariables.tscn" id="8_54uyr"]
+[ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/pipe.tscn" id="11_6rujh"]
 
 [sub_resource type="Gradient" id="Gradient_ysh3s"]
 interpolation_mode = 1

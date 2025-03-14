@@ -2,10 +2,10 @@
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_6ogjg"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_fdu3m"]
-[ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="3_74pm5"]
+[ext_resource type="PackedScene" path="res://Instances/Helpers/levelVariables.tscn" id="3_74pm5"]
 [ext_resource type="Resource" uid="uid://cd778qcujcn0e" path="res://Resources/LevelVar Sets/mooncity.tres" id="4_hfyri"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="6_85i5t"]
-[ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/manhole.tscn" id="7_f62n0"]
+[ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/pipe.tscn" id="7_f62n0"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="8_bkcbs"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="9_cnwjb"]
 
