@@ -51,7 +51,7 @@ position = Vector2(769, 686)
 position = Vector2(935, 717)
 
 [node name="exit" parent="." instance=ExtResource("4")]
-position = Vector2(992, 689)
+position = Vector2(1156, 656)
 pumpkinsNeeded = 1
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
@@ -64,3 +64,10 @@ libraries = {
 }
 script = ExtResource("6_2p6ya")
 metadata/_custom_type_script = "uid://cquqdpkj8ecfv"
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(1127, 269)
+rotation = -0.356084
+energy = 0.2
+shadow_enabled = true
+shadow_color = Color(0.0588235, 0.0588235, 0.0588235, 1)

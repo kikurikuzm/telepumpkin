@@ -28,7 +28,6 @@ func physics_update(delta: float):
 		#player.velocity.y = 0
 	if !player.is_on_floor():
 		coyoteTimer.start(AIRTIME)
-		print("started timer")
 		transitioned.emit(self, "playerfalling")
 	
 	player.move_and_slide()

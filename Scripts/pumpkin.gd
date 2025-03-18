@@ -1,18 +1,17 @@
 extends RigidBody2D
 
-@export var unstable = false
-@export var unstableTeleport : int
+@export var rotting = false
+@export var rottingTeleport : int
 var highlighted = false
 var maxUnst
 
-@onready var animationPlayer = get_node("pumpkinSprite/abberation/AnimationPlayer")
-@onready var animationTree = get_node("pumpkinSprite/abberation/AnimationTree")
-@onready var poofs = preload("res://Instances/Particles/poofs.tscn")
-@onready var rottenSplash = preload("res://Instances/Particles/RottingTeleportParticles.tscn")
-@onready var teleportLight = preload("res://Instances/Particles/teleport_light.tscn")
-var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
-
+@onready var animationPlayer = $AnimationPlayer
 @onready var sprite = $pumpkinSprite
+
+var poofs = load("res://Instances/Particles/poofs.tscn")
+var rottenSplash = load("res://Instances/Particles/RottingTeleportParticles.tscn")
+var teleportLight = load("res://Instances/Particles/teleport_light.tscn")
+var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 
 var highlightDistortion : float = 0.2
 
@@ -27,8 +26,8 @@ func _init():
 	scale.y = scale.x
 
 func _ready():
-	if unstable:
-		maxUnst = unstableTeleport
+	if rotting:
+		maxUnst = rottingTeleport
 		sprite.animation = "rotting"
 	else:
 		animationPlayer.play("normalIdle")
@@ -53,11 +52,11 @@ func traverseManhole(exitPos: Vector2, exitVel: Vector2):
 	linear_velocity = exitVel
 
 func _process(delta):
-	if unstable:
-		if unstableTeleport > 6:
+	if rotting:
+		if rottingTeleport > 6:
 			sprite.frame = 0
 		else:
-			match unstableTeleport:
+			match rottingTeleport:
 				1:
 					sprite.frame = 5
 				2:
@@ -88,21 +87,21 @@ func teleport(hostPos: Transform2D) -> void:
 	testpos = hostPos
 	custom_integrator = true
 	
-	if unstable:
+	if rotting:
 		var splashInstance = rottenSplash.instantiate()
 		get_parent().add_child(splashInstance)
 		splashInstance.emitting = true
 		splashInstance.global_position = global_position
 		
-		if unstableTeleport > 0:
-			unstableTeleport -= 1
+		if rottingTeleport > 0:
+			rottingTeleport -= 1
 			animationPlayer.play("teleport")
 			animationPlayer.queue("idle")
-		if unstableTeleport <= 0:
-			#deletes the pumpkin when unstableTeleport reaches 0
+		if rottingTeleport <= 0:
+			#deletes the pumpkin when rottingTeleport reaches 0
 			pumpkinDestroy(true)
 			
-	if !unstable:
+	if !rotting:
 		animationPlayer.play("normalTeleport")
 		animationPlayer.queue("normalIdle")
 
@@ -141,9 +140,9 @@ func save() -> Dictionary:
 		"name" : name,
 		"posX" : position.x,
 		"posY" : position.y,
-		"teleports" : unstableTeleport
+		"teleports" : rottingTeleport
 	}
 	return saveDict
 
 func loadJSON(nodeData) -> void:
-	unstableTeleport = nodeData["teleports"]
+	rottingTeleport = nodeData["teleports"]

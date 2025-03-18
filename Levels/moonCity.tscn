@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=34 format=4 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="12_y4nsy"]
 [ext_resource type="PackedScene" uid="uid://xr8202de1yy1" path="res://Instances/Level Components/lamppost.tscn" id="13_0aphl"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="13_2rtaq"]
-[ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="14_3gthw"]
 [ext_resource type="Texture2D" uid="uid://b0tr7dgyjv7pp" path="res://Sprites/Misc/graffiti1.png" id="14_t378c"]
 
 [sub_resource type="Animation" id="Animation_2uoi1"]
@@ -218,9 +217,6 @@ size = Vector2(2632, 1427)
 [node name="LevelSceneRoot" type="Node"]
 script = ExtResource("1_tvqtd")
 levelVariablesResource = ExtResource("10_aqax0")
-
-[node name="dialogueManager" parent="." instance=ExtResource("14_3gthw")]
-dialogueJSONPath = "res://Resources/DialogueJSONs/mooncity.json"
 
 [node name="Layer0" type="TileMapLayer" parent="." groups=["level_tilemaplayer"]]
 use_parent_material = true

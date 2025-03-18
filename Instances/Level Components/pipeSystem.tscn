@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://u436ndnadylb"]
+[gd_scene load_steps=3 format=3 uid="uid://u436ndnadylb"]
 
 [ext_resource type="Script" uid="uid://n0xbmdrd3rb3" path="res://Scripts/pipeSystem.gd" id="1_dwnxs"]
+[ext_resource type="Texture2D" uid="uid://bekkdxldafdtr" path="res://Sprites/editor icons/pipeSystem.png" id="2_3mgf7"]
 
-[node name="PipeSystem" type="Node" node_paths=PackedStringArray("pipes") groups=["level_playerStateModifier"]]
+[node name="PipeSystem" type="Node2D" groups=["level_playerPositionModifier"]]
 script = ExtResource("1_dwnxs")
-pipes = [null]
+
+[node name="editorSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_3mgf7")

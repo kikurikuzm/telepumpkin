@@ -64,6 +64,9 @@ level_npc=""
 level_camerazone=""
 level_gameStateModifier=""
 level_playerStateModifier=""
+level_canEnterPipe=""
+level_playerPositionModifier=""
+level_levelChangeRequester=""
 
 [gui]
 
@@ -211,6 +214,7 @@ kick={
 2d_physics/layer_1="groundCollision"
 2d_physics/layer_2="playerCollision"
 2d_physics/layer_3="pumpkinInteraction"
+2d_physics/layer_4="pipeCollision"
 2d_physics/layer_5="playerInteraction"
 2d_physics/layer_6="peaterLayer"
 

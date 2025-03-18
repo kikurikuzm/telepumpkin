@@ -42,7 +42,6 @@ func physics_update(delta: float):
 	
 	if player.velocity.y > 0:
 		coyoteTimer.start(AIRTIME)
-		print("started timer")
 		transitioned.emit(self, "playerfalling")
 	
 	player.velocity.x = clampf(player.velocity.x, -MAXSPEED, MAXSPEED)

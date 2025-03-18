@@ -78,6 +78,7 @@ max_polyphony = 8
 layer = 5
 
 [node name="fromArrow" type="Line2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(516, 355)
 points = PackedVector2Array(106, -38, -55.85, 112)
 width = 30.0
@@ -86,7 +87,8 @@ default_color = Color(0.172549, 0.172549, 0.164706, 1)
 joint_mode = 1
 
 [node name="progress" type="AnimatedSprite2D" parent="CanvasLayer"]
-modulate = Color(0, 0, 0, 0.2)
+visible = false
+modulate = Color(0, 0, 0, 1)
 z_index = 1
 z_as_relative = false
 material = SubResource("ShaderMaterial_a4kcp")
@@ -134,7 +136,7 @@ custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 theme = ExtResource("7_8cm2j")
 bbcode_enabled = true
-text = "test"
+text = "test woah [i]SUPER[/i] test"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
@@ -142,11 +144,13 @@ vertical_alignment = 1
 deselect_on_focus_loss_enabled = false
 
 [node name="RayCast2D" type="RayCast2D" parent="CanvasLayer"]
+visible = false
 position = Vector2(374, 620)
 target_position = Vector2(233, -326)
 collision_mask = 2147483648
 
 [node name="dialogueCollision" type="Area2D" parent="CanvasLayer"]
+visible = false
 collision_layer = 2147483648
 collision_mask = 2147483648
 

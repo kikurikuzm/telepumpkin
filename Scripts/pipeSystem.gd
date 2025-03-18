@@ -1,12 +1,12 @@
-class_name PipeSystem extends Node
+class_name PipeSystem extends EditorElement
 
 @export var pipes : Array[Pipe]
 
-signal requestPlayerChange(positionAndVelocity:Array[Vector2])
+signal requestPlayerPositionChange(newPosition:Vector2)
 
 func _ready() -> void:
 	for pipe in pipes:
-		pipe.connect("playerEntered", _pipeEntered)
+		pipe.connect("bodyEntered", _pipeEntered)
 
 func _pipeEntered(identifier:int, enteringBody:PhysicsBody2D):
 	var emittingInstance : Pipe = instance_from_id(identifier)
@@ -19,8 +19,11 @@ func _pipeEntered(identifier:int, enteringBody:PhysicsBody2D):
 	var pipeIndex = 0
 	for pipe in pipes:
 		if emittingInstance == pipe:
-			endPosition = pipes[pipeIndex + 1].global_position
+			if pipeIndex + 1 >= len(pipes):
+				endPosition = pipes[0].getExitPosition()
+				break
+			endPosition = pipes[pipeIndex + 1].getExitPosition()
 			break
 		pipeIndex += 1
 	
-	requestPlayerChange.emit([endPosition, leavingVelocity])
+	requestPlayerPositionChange.emit(endPosition)

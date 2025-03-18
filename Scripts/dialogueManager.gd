@@ -45,6 +45,9 @@ signal changeCameraZoom(desiredCameraZoom:float)
 signal beginDialogueCutscene(desiredCutscene:String)
 signal changePlayerCharacterState(desiredState:String)
 
+func _ready() -> void:
+	dialogueBox.visible = false
+
 ##The function that performs setup for dialogue.
 func conversationInitiate(dialogueConversation:Array[DialogueConversation], dialogueConversationID:int, npcInstance:Node2D=null): 
 	print("started dialogue from DialogueManager")
@@ -174,13 +177,13 @@ func _process(delta):
 	if dialogueText.visible_characters == len(dialogueText.get_parsed_text()) and inDialogue:
 		dialogueContinue.visible = true
 	
-	if dialogueInitializer != null and !Engine.is_editor_hint():
-		var pointCount = dialogueFromArrow.get_point_count()
-		var focusScreenPos = dialogueInitializer.get_global_transform_with_canvas().get_origin()
-		var dialogueConnection
-		
-		focusScreenPos = focusScreenPos - dialogueFromArrow.position
-		
-		print(focusScreenPos)
-		dialogueFromArrow.set_point_position(pointCount - 1, focusScreenPos)
-		dialogueFromArrow.set_point_position(0)
+	#if dialogueInitializer != null and !Engine.is_editor_hint():
+		#var pointCount = dialogueFromArrow.get_point_count()
+		#var focusScreenPos = dialogueInitializer.get_global_transform_with_canvas().get_origin()
+		#var dialogueConnection
+		#
+		#focusScreenPos = focusScreenPos - dialogueFromArrow.position
+		#
+		#print(focusScreenPos)
+		#dialogueFromArrow.set_point_position(pointCount - 1, focusScreenPos)
+		#dialogueFromArrow.set_point_position(0)

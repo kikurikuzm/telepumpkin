@@ -9,6 +9,7 @@ class_name Trigger
 @onready var interactIcon = $interactIcon
 
 @export_category("Trigger Properties")
+@export var disabled = false
 @export_group("Trigger Nodes")
 @export var triggerList : Array[NodePath] ##A list of the nodes to trigger when this trigger is triggered.
 @export var triggerListVariables : Array ##A way to trigger nodes and provide them with a variable upon triggering.
@@ -33,7 +34,7 @@ signal requestLevelChange(desiredLevelPath:String, desiredLevelPosition:Vector2)
 func _ready():
 	if !Engine.is_editor_hint():
 		super._ready()
-	if mustInteract:
+	if mustInteract and not disabled:
 		interactIcon.visible = true
 	if get_parent().has_node("cutscenePlayer"):
 		sceneCutscenePlayer = get_parent().get_node("cutscenePlayer")
@@ -43,7 +44,7 @@ func _ready():
 		#checkTriggerList()
 
 func _input(event):
-	if Input.is_action_just_pressed("teleport") and mustInteract:
+	if Input.is_action_just_pressed("teleport") and mustInteract and !disabled:
 		for node in area2d.get_overlapping_areas():
 			if node.is_in_group("player"):
 				if node.get_parent().get_node("stateFactory").current_state != node.get_parent().get_node("stateFactory").states["playerbusy"]:
@@ -86,6 +87,14 @@ func triggerThings(cause) -> void:
 			if desiredGotoLevel != null:
 				requestLevelChange.emit(desiredGotoLevel.resource_path, desiredLevelSpawnPosition)
 				print_debug("emitted level change request with " + str(desiredGotoLevel.resource_path))
+
+func enableTrigger():
+	disabled = false
+	interactIcon.visible = true
+
+func disableTrigger():
+	disabled = true
+	interactIcon.visible = false
 
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:

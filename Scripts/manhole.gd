@@ -17,38 +17,11 @@ var id = 0
 
 signal bodyEntered(identifier:int, collidingBody:PhysicsBody2D)
 
-func _process(delta):
+func _physics_process(delta):
 	if selfArea.has_overlapping_bodies():
 		for i in selfArea.get_overlapping_bodies():
 			if i.is_in_group("level_canEnterPipe"):
-				bodyEntered.emit(self.get_instance_id(), i)
-
-func enterManhole(velocity:Vector2) -> void:
-	#basic function to return the current manhole's exit position and velocity
-	var rootNode = get_parent().get_parent()
-	if direction == 0:
-		for currentNode in rootNode.currentLevel.get_children():
-			if currentNode.is_in_group("manhole"):
-				if currentNode.id == id and currentNode.direction != 0:
-					var exitManhole = currentNode
-					match exitManhole.direction:
-						1:
-							velocity.y = (velocity.y * -1) / VELMULT
-							#facing up
-						2:
-							velocity.x = (abs(velocity.y) * -1) / 2
-							velocity.y = (velocity.y * -1) / 5
-							#facing left
-						3:
-							velocity.x = (abs(velocity.y)) / 2
-							velocity.y = (velocity.y * -1) / 5
-							#facing right
-						4:
-							pass
-							#facing down
-					
-					var sendPosition = exitManhole.get_node("exitPoint").global_position
-					#return([sendPosition, velocity, pumpkinAmount])
+				bodyEnteringPipe(i)
 
 func enterSound(volume = 0.0, pitch = 1):
 	audioPlayer.volume_db = volume
@@ -57,3 +30,17 @@ func enterSound(volume = 0.0, pitch = 1):
 	
 	var splash = splashParticle.instantiate()
 	add_child(splash)
+
+func bodyEnteringPipe(body:PhysicsBody2D):
+	bodyEntered.emit(self.get_instance_id(), body)
+	enterSound()
+
+func getExitPosition() -> Vector2:
+	return $exitPoint.global_position
+
+func getExitVelocity() -> Vector2:
+	var newVelocity = Vector2.ZERO
+	
+	
+	
+	return newVelocity

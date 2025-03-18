@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=68 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" uid="uid://b2rcdd2cjidp7" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -1304,6 +1304,46 @@ tracks/4/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_2vvt4"]
+resource_name = "kickWindup"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"kick"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cxkr1"]
 _data = {
 &"RESET": SubResource("Animation_ur6mr"),
@@ -1312,6 +1352,7 @@ _data = {
 &"jump": SubResource("Animation_d1l3n"),
 &"jumpSquat": SubResource("Animation_eyegr"),
 &"kick": SubResource("Animation_posx8"),
+&"kickWindup": SubResource("Animation_2vvt4"),
 &"leanLeft": SubResource("Animation_qffwg"),
 &"leanRight": SubResource("Animation_43dfb"),
 &"levelExit": SubResource("Animation_yn6jr"),
@@ -1366,15 +1407,15 @@ turbulence_influence_max = 0.06
 size = Vector2(32, 38)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyegr"]
-radius = 14.0541
+radius = 14.7043
 
-[node name="Player" type="CharacterBody2D" groups=["player", "useManholes"]]
+[node name="Player" type="CharacterBody2D" groups=["level_canEnterPipe", "player", "useManholes"]]
 scale = Vector2(0.925, 0.925)
-collision_layer = 2
-collision_mask = 2
-collision_priority = 2.0
+collision_layer = 10
+collision_mask = 10
 floor_constant_speed = true
 floor_snap_length = 3.4
+platform_on_leave = 2
 script = ExtResource("1_cr5rv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1548,10 +1589,11 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_4bcid")
 
 [node name="kickArea" type="Area2D" parent="."]
-position = Vector2(8.64865, 10.8108)
+position = Vector2(9.53674e-07, 7.56757)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kickArea"]
-position = Vector2(-8.64865, -1.08108)
+position = Vector2(0, -2.16216)
+scale = Vector2(1, 1.06)
 shape = SubResource("CircleShape2D_eyegr")
 
 [node name="dialogTimer" type="Timer" parent="."]

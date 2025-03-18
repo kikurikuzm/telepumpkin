@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://6wm6q37p47mj"]
 
 [ext_resource type="PackedScene" uid="uid://dver4moetuuw8" path="res://Instances/Particles/teleport_light.tscn" id="2_5ca6l"]
-[ext_resource type="Script" path="res://Scripts/particleCleanup.gd" id="2_rbjjh"]
+[ext_resource type="Script" uid="uid://dpik0srq6wl03" path="res://Scripts/particleCleanup.gd" id="2_rbjjh"]
 
 [sub_resource type="Gradient" id="Gradient_lnrix"]
 interpolation_mode = 2
@@ -38,15 +38,14 @@ turbulence_noise_speed_random = 0.8
 
 [node name="poofs" type="GPUParticles2D"]
 z_index = 5
-position = Vector2(0, 10)
 amount = 17
-process_material = SubResource("ParticleProcessMaterial_k0cfb")
 lifetime = 2.32
 explosiveness = 1.0
 randomness = 0.23
 visibility_rect = Rect2(-24.8001, -18.6598, 52.8013, 39.1099)
 trail_enabled = true
 trail_lifetime = 0.07
+process_material = SubResource("ParticleProcessMaterial_k0cfb")
 script = ExtResource("2_rbjjh")
 
 [node name="Timer" type="Timer" parent="."]

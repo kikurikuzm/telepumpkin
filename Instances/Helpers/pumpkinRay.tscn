@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://de5ofebbi3kqt"]
 
-[ext_resource type="Script" path="res://Scripts/pumpkinRay.gd" id="1_42gaa"]
+[ext_resource type="Script" uid="uid://tdqy17wjem8d" path="res://Scripts/pumpkinRay.gd" id="1_42gaa"]
 
 [sub_resource type="Curve" id="Curve_6e7rb"]
 _data = [Vector2(0.0217391, 0.634615), 0.0, -0.544379, 0, 0, Vector2(0.996377, 0.269231), 1.74595, 0.0, 0, 0]

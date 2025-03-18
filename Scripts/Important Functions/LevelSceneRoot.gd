@@ -18,6 +18,7 @@ var toolNewSpawn = tool_newSpawn
 @export var levelVariablesResource : LevelVariables
 var levelChangingNodeReferenceArray : Array[Node2D]
 var playerChangingNodeReferenceArray : Array[Node2D]
+var playerPosChangingNodeReferenceArray : Array[Node2D]
 var levelSpawnPointReference : Node2D
 var levelExitReference : Node2D
 var levelTileLayerReference : TileMapLayer
@@ -42,6 +43,7 @@ func _ready():
 func initializeLevel():
 	levelChangingNodeReferenceArray = []
 	playerChangingNodeReferenceArray = []
+	playerPosChangingNodeReferenceArray = []
 	levelNPCsReferenceArray = []
 	levelCameraZonesReferenceArray = []
 	
@@ -76,6 +78,9 @@ func initializeLevel():
 		if child.is_in_group("level_playerStateModifier"):
 			playerChangingNodeReferenceArray.append(child)
 			print("Found player change requester")
+		if child.is_in_group("level_playerPositionModifier"):
+			playerPosChangingNodeReferenceArray.append(child)
+			print("Found player pos change requester")
 		if child.is_in_group("level_spawnpoint"):
 			levelSpawnPointReference = child
 			print("Found spawnpoint")
@@ -162,6 +167,13 @@ func getPlayerChangingNodeReferences():
 		return playerChangingNodeReferenceArray
 	else:
 		push_warning("No player changing nodes found in the level!")
+		return null
+
+func getPlayerPositionChangingNodeReferences():
+	if !playerPosChangingNodeReferenceArray.is_empty():
+		return playerPosChangingNodeReferenceArray
+	else:
+		push_warning("No player position changing nodes found in the level!")
 		return null
 
 func tool_createNewInstance(instancePath : NodePath):

@@ -56,6 +56,7 @@ func setupExternalLevelNodes(playerReference:CharacterBody2D) -> void:
 func passRootNodeSignalsToConnect() -> Array:
 	var levelChangingNodeReferenceArray = instancedLevel.getLevelChangingNodeReferences()
 	var playerChangingNodeReferenceArray = instancedLevel.getPlayerChangingNodeReferences()
+	var playerPosChangingNodeReferenceArray = instancedLevel.getPlayerPositionChangingNodeReferences()
 	var levelExitReference = instancedLevel.getLevelExitReference()
 	var levelCutscenePlayerReference = instancedLevel.getLevelCutsceneReference()
 	var levelMapCameraReference = instancedLevel.getLevelMapCameraReference()
@@ -112,7 +113,7 @@ func passRootNodeSignalsToConnect() -> Array:
 		levelNodeSignalsArray.append([])
 	
 	if playerChangingNodeReferenceArray != null:
-		print_debug("lchange instances not null")
+		print_debug("player state change instances not null")
 		var playerChangingInstanceSignalsArray : Array
 		for playerChangingNode in playerChangingNodeReferenceArray:
 			if is_instance_valid(playerChangingNode):
@@ -121,6 +122,17 @@ func passRootNodeSignalsToConnect() -> Array:
 		levelNodeSignalsArray.append(playerChangingInstanceSignalsArray)
 	else:
 		levelNodeSignalsArray.append([])
+	
+	if playerPosChangingNodeReferenceArray != null:
+		print_debug("player pos change instances not null")
+		var playerPosChangingInstanceSignalsArray : Array #Array to hold all the instance signals
+		for playerPosChangingNode in playerPosChangingNodeReferenceArray: #for loop going over each instance and getting the signal
+			if is_instance_valid(playerPosChangingNode):
+				playerPosChangingInstanceSignalsArray.append(playerPosChangingNode.requestPlayerPositionChange) #appending the instance signal to the signal array
+				print_debug("appended node signal")
+		levelNodeSignalsArray.append(playerPosChangingInstanceSignalsArray) #appending the signal array to the main big array that holds all the signal arrays
+	else:
+		levelNodeSignalsArray.append([]) #appending an empty array to maintain the order of the signal arrays
 	
 	return levelNodeSignalsArray
 

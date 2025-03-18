@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://omxwiw3x34ud"]
+[gd_scene load_steps=22 format=3 uid="uid://omxwiw3x34ud"]
 
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="1"]
 [ext_resource type="Script" uid="uid://ccrrayh3a5ihb" path="res://Scripts/pumpkin.gd" id="2"]
@@ -8,6 +8,14 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6h8hb"]
 friction = 0.75
 bounce = 0.33
+
+[sub_resource type="Animation" id="Animation_cn0hs"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ej3c"]
+_data = {
+&"idle": SubResource("Animation_cn0hs")
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_44wpi"]
 atlas = ExtResource("3_n0aru")
@@ -67,282 +75,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_myx2m"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tck4o"]
-noise = SubResource("FastNoiseLite_myx2m")
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ewnnw"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1b0y"]
-animation = &"insane"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_owba8"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_ewnnw")
-blend_point_0/pos = 0.9
-blend_point_1/node = SubResource("AnimationNodeAnimation_d1b0y")
-blend_point_1/pos = -1.0
-value_label = "0.1"
-
-[sub_resource type="Animation" id="Animation_vqewv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:skew")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.443137, 1, 0.396078)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("..:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 2)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 6)]
-}
-
-[sub_resource type="Animation" id="Animation_nm6hs"]
-resource_name = "explode"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.6, 0.8, 1),
-"transitions": PackedFloat32Array(4.43827, 2.82842, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.945, 0.54), Vector2(1.5, 0.6), Vector2(1.5, 0.6), Vector2(0.519, 1.581)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:skew")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(4.43827),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/path = NodePath("..:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.443137, 1, 0.396078)]
-}
-
-[sub_resource type="Animation" id="Animation_gw7h8"]
-resource_name = "idle"
-length = 5.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.4, 0.6, 0.8, 0.9, 1.4, 1.8, 1.9, 2.4, 3, 3.5, 3.7, 4, 4.2, 4.6, 5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 6), Vector2(2.99776, 10.0036), Vector2(-3.99702, 7.00255), Vector2(0, 10.0036), Vector2(1.9985, 4.00146), Vector2(2.99776, 5.00183), Vector2(-2.99777, 7.00255), Vector2(0.999252, 10.0036), Vector2(0.999252, 9.00328), Vector2(3.99701, 13.0047), Vector2(0, 10.0036), Vector2(3.99701, 11.004), Vector2(-0.999268, 5.00183), Vector2(0, 0), Vector2(-2.99777, 9.00328), Vector2(0, 7.00255), Vector2(1.9985, 7.00255)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.443137, 1, 0.396078)]
-}
-
-[sub_resource type="Animation" id="Animation_jtubt"]
-resource_name = "insane"
-length = 0.23
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0195866, 0.0457021, 0.0631124, 0.0783465, 0.0935805, 0.108815, 0.130577, 0.143635, 0.158869, 0.174103, 0.195866, 0.2111, 0.23),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(17, 10), Vector2(-1, -19), Vector2(-17, 2), Vector2(52, -26), Vector2(-59, -3), Vector2(7, 9), Vector2(-5, -23), Vector2(27, 29), Vector2(-16, -13), Vector2(-80, -19), Vector2(15, 14), Vector2(-38, 22), Vector2(-2, -30), Vector2(-11, 12)]
-}
-
-[sub_resource type="Animation" id="Animation_uvvfm"]
-resource_name = "normalIdle"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(3.03143, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.0625, 0.96875)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(3.03, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0.498)]
-}
-
-[sub_resource type="Animation" id="Animation_js5y7"]
-resource_name = "normalTeleport"
-length = 0.33
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.01249, 0.122284, 0.222284, 0.322284),
-"transitions": PackedFloat32Array(2.73208, 1.03527, 0.329877, 1),
-"update": 0,
-"values": [Vector2(0.563, 3.098), Vector2(2, 0.5), Vector2(0.5, 1), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.01249, 0.123512, 0.223432),
-"transitions": PackedFloat32Array(2.73, 1, 1),
-"update": 0,
-"values": [Vector2(0, -22), Vector2(0, -4), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_r1k2p"]
-resource_name = "teleport"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(4.75683, 0.225313),
-"update": 0,
-"values": [Vector2(2.564, 0.4), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.443137, 1, 0.396078)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ej3c"]
-_data = {
-&"RESET": SubResource("Animation_vqewv"),
-&"explode": SubResource("Animation_nm6hs"),
-&"idle": SubResource("Animation_gw7h8"),
-&"insane": SubResource("Animation_jtubt"),
-&"normalIdle": SubResource("Animation_uvvfm"),
-&"normalTeleport": SubResource("Animation_js5y7"),
-&"teleport": SubResource("Animation_r1k2p")
-}
-
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(26, 4)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cn0hs"]
+size = Vector2(20, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7acg"]
 size = Vector2(26, 21)
@@ -380,51 +114,38 @@ color_ramp = SubResource("GradientTexture1D_vfn7y")
 turbulence_noise_strength = 0.59
 
 [node name="pumpkin" type="RigidBody2D" groups=["level_gameStateModifier", "pumpkin", "useManholes"]]
-collision_layer = 5
+modulate = Color(1, 0.443137, 1, 0.396078)
+collision_layer = 7
 collision_mask = 5
-mass = 20.646
+collision_priority = 2.0
 physics_material_override = SubResource("PhysicsMaterial_6h8hb")
 gravity_scale = 1.78
 can_sleep = false
 lock_rotation = true
 freeze_mode = 1
+continuous_cd = 1
 script = ExtResource("2")
 
-[node name="pumpkinSprite" type="AnimatedSprite2D" parent="."]
-modulate = Color(0, 0, 0, 1)
-material = ExtResource("2_23knt")
-position = Vector2(0, 2)
-sprite_frames = SubResource("SpriteFrames_kg253")
-animation = &"normal"
-
-[node name="abberation" type="Sprite2D" parent="pumpkinSprite"]
-visible = false
-modulate = Color(1, 0.443137, 1, 0.396078)
-position = Vector2(0, 6)
-scale = Vector2(0.0664063, 0.0625)
-texture = SubResource("NoiseTexture2D_tck4o")
-
-[node name="AnimationTree" type="AnimationTree" parent="pumpkinSprite/abberation"]
-tree_root = SubResource("AnimationNodeBlendSpace1D_owba8")
-anim_player = NodePath("../AnimationPlayer")
-parameters/blend_position = 1.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="pumpkinSprite/abberation"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_8ej3c")
 }
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." groups=["level_levelChangeRequester"]]
-polygon = PackedVector2Array(11, 1, 13, 4, 13, 11, 11, 14, 8, 16, -8, 16, -11, 14, -13, 11, -13, 4, -11, 1, -7, -1, 0, -1, 7, -1)
+[node name="pumpkinSprite" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_23knt")
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_kg253")
+animation = &"normal"
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 32770
-collision_mask = 32770
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, 1)
-shape = SubResource("1")
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_cn0hs")
 one_way_collision = true
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 6.05)
+scale = Vector2(1, 1.75)
+polygon = PackedVector2Array(0, 0, -10, 2, 10, 2)
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false

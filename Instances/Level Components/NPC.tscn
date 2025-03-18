@@ -14,9 +14,10 @@ script = ExtResource("1_o0077")
 position = Vector2(1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -3)
 sprite_frames = ExtResource("1")
 animation = &"smoke"
-frame_progress = 0.692145
+frame_progress = 0.257059
 
 [node name="npcArea" type="Area2D" parent="." groups=["npc"]]
 z_index = -1

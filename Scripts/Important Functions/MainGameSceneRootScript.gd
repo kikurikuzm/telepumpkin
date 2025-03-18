@@ -41,13 +41,18 @@ func connectToLevelNodeSignals():
 	
 	var levelChangingNodeSignalsArray = nodeSignalsArray[5]
 	for levelChangingNodeSignal in levelChangingNodeSignalsArray:
-		print("connected lchange")
+		print_debug("connected lchange")
 		levelChangingNodeSignal.connect(_levelChangeRequested)
 	
 	var playerChangingNodeSignalsArray = nodeSignalsArray[6]
 	for playerChangingNodeSignal in playerChangingNodeSignalsArray:
 		print_debug("connected playerChanging node")
 		playerChangingNodeSignal.connect(_playerCharacterChangeState)
+
+	var playerPositionChangingNodeSignalsArray = nodeSignalsArray[7]
+	for playerPositionChangingNodeSignal in playerPositionChangingNodeSignalsArray:
+		print_debug("connected playerPosChanging node")
+		playerPositionChangingNodeSignal.connect(_playerCharacterChangePosition)
 
 func disconnnectCallablesFromSignals():
 	if !levelLoader.isLevelCurrentlyLoaded():
@@ -139,14 +144,10 @@ func _physicsBodyChangeTransform(physicsBody:PhysicsBody2D, transform:Transform2
 			pass
 
 ##Signal name: requestPlayerChange
-func _playerCharacterChangeState(modifyingValue:Variant):
-	if modifyingValue is String: #If the passed value is a string, assume its for changing the state
-		playerReference.changeState(modifyingValue)
-		
-	if modifyingValue is Array[Vector2]: #assume its changing the position and velocity if passed vector2
-		playerReference.position = modifyingValue[0]
-		playerReference.velocity = modifyingValue[1]
+func _playerCharacterChangeState(modifyingValue:String):
+	playerReference.changeState(modifyingValue)
 
+##Signal name: requestPlayerPositionChange
 func _playerCharacterChangePosition(desiredPosition:Vector2):
 	playerReference.position = desiredPosition
 
