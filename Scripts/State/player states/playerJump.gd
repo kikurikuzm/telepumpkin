@@ -25,7 +25,6 @@ func enter():
 	elif Input.is_action_pressed("right"):
 		player.velocity.x += 35
 		player.move_and_slide()
-	
 
 func exit():
 	player.jumpstrength = 0

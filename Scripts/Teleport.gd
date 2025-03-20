@@ -5,8 +5,14 @@ extends Sprite2D
 
 var selectedPumpkin : Node2D
 
+var scaleOverridden = false
+
 func _process(delta):
 	selectedPumpkin = null
+	
+	if !scaleOverridden:
+		scale.x = lerp(scale.x, 1.5, 0.07)
+		scale.y = lerp(scale.y, 1.5, 0.07)
 	
 	self.modulate = lerp(self.modulate, Color(1.0, 1.0, 1.0, 0.15), 0.1)
 	if teleArea.get_overlapping_bodies().size() > 0 and teleTimer.is_stopped():
@@ -35,7 +41,6 @@ func _process(delta):
 			farthestPumpkin.highlighted = true
 			selectedPumpkin = farthestPumpkin
 			self.modulate = lerp(self.modulate, Color(1.0, 1.0, 1.0, 0.6), 0.14)
-
 
 func rangeTeleport(teleportPos:Transform2D) -> void:
 	if teleArea.get_overlapping_bodies().size() > 0 and teleTimer.is_stopped():

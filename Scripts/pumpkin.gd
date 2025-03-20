@@ -101,9 +101,9 @@ func teleport(hostPos: Transform2D) -> void:
 			#deletes the pumpkin when rottingTeleport reaches 0
 			pumpkinDestroy(true)
 			
-	if !rotting:
-		animationPlayer.play("normalTeleport")
-		animationPlayer.queue("normalIdle")
+	#if !rotting:
+		#animationPlayer.play("normalTeleport")
+		#animationPlayer.queue("normalIdle")
 
 func _integrate_forces(state) -> void:
 	if custom_integrator == true:

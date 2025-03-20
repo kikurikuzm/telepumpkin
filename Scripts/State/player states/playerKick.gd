@@ -43,9 +43,11 @@ func physics_update(delta: float):
 	if playerSprite.animation == "kick" and playerSprite.frame == 3 and !hasImpacted:
 		if kickArea.has_overlapping_bodies():
 			for i in kickArea.get_overlapping_bodies():
-				if i.is_in_group("pumpkin"):
+				if i.is_in_group("pumpkin") and is_instance_valid(i):
 					i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(player.velocity.x)/45 + 1), -kickStrengthVertical), Vector2(0,0))
 					hasImpacted = true
+	if hasImpacted:
+		friction = 1.0
 	
 	player.velocity.x = lerp(player.velocity.x, 0.0, friction)
 	

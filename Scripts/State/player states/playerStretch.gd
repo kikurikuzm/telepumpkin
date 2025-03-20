@@ -18,11 +18,12 @@ func enter():
 	MAXSPEED = 45
 	ACCELERATE = 0.012
 	residualSpeed = player.velocity.x
+	teleportRange.scaleOverridden = true
 	animPlayer.play("jumpSquat")
 
 func exit():
 	MAXSPEED = 125
-	teleportRange.scale = Vector2(1.5, 1.5)
+	teleportRange.scaleOverridden = false
 	stretchAnimationDownPlayed = false
 	stretchAnimationUpPlayed = false
 
@@ -85,8 +86,6 @@ func physics_update(delta: float):
 			stretchAnimationDownPlayed = true
 	
 	if Input.is_action_just_released("up"):
-		teleportRange.scale.x = lerp(teleportRange.scale.x, 1.5, 0.07)
-		teleportRange.scale.y = lerp(teleportRange.scale.y, 1.5, 0.085)
 		animPlayer.play("snapBack")
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			transitioned.emit(self, "playerjump")

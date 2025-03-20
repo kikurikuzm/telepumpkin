@@ -13,7 +13,7 @@ class_name cameraZone
 
 signal requestCameraFocus(emittingCameraZoneReference)
 signal returnCameraFocus(emittingCameraZoneReference)
-signal requestCameraZoomChange(requestedZoom:Vector2)
+signal requestCameraZoomChange(requestedZoom:float)
 
 func _process(delta):
 	if usesCustomTransform:
@@ -49,7 +49,7 @@ func _on_check_if_empty_timeout():
 func cameraZoneGetCamera():
 	requestCameraFocus.emit(self)
 	if overrideCameraZoom:
-		requestCameraZoomChange.emit(Vector2(cameraZoom, cameraZoom))
+		requestCameraZoomChange.emit(cameraZoom)
 		return
 
 func cameraZoneReturnCamera():

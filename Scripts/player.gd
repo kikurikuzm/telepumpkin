@@ -49,6 +49,7 @@ func _physics_process(delta):
 					velocity = exitVariables[1]
 	
 func _process(delta):
+	$debugText.text = str(jumpstrength)
 	
 	if tppInst != null:
 		tppLine.visible = true

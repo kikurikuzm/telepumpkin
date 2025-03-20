@@ -188,7 +188,7 @@ func _levelCameraZoneGiveMainCameraFocus(cameraZoneReference):
 func _levelCameraZoneTakeMainCameraFocus(cameraZoneReference):
 	cameraManager.mainCameraReturnToOriginalParent()
 
-func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:Vector2):
+func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:float):
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
 
 func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):

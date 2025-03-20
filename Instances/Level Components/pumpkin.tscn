@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://omxwiw3x34ud"]
+[gd_scene load_steps=23 format=3 uid="uid://omxwiw3x34ud"]
 
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="1"]
 [ext_resource type="Script" uid="uid://ccrrayh3a5ihb" path="res://Scripts/pumpkin.gd" id="2"]
@@ -76,7 +76,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cn0hs"]
-size = Vector2(20, 15)
+size = Vector2(20, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sy4s4"]
+size = Vector2(20, 2.28572)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7acg"]
 size = Vector2(26, 21)
@@ -138,14 +141,14 @@ sprite_frames = SubResource("SpriteFrames_kg253")
 animation = &"normal"
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_cn0hs")
-one_way_collision = true
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0, 6.05)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
 scale = Vector2(1, 1.75)
-polygon = PackedVector2Array(0, 0, -10, 2, 10, 2)
+shape = SubResource("RectangleShape2D_sy4s4")
+one_way_collision = true
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false
