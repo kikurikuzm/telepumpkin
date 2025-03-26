@@ -114,12 +114,12 @@ dialogueArray = Array[ExtResource("11_nvnte")]([SubResource("Resource_q1qt7")])
 
 [node name="entrance" parent="." instance=ExtResource("3_nvnte")]
 z_index = -1
-position = Vector2(46, 689)
+position = Vector2(214, 753)
+rotation = 4.71239
 
 [node name="exit2" parent="." instance=ExtResource("3_nvnte")]
 z_index = -1
-position = Vector2(183, 375)
-rotation = 5.49778
+position = Vector2(587, 681)
 
 [node name="PipeSystem" parent="." node_paths=PackedStringArray("pipes") instance=ExtResource("14_lwogm")]
 position = Vector2(52, 543)

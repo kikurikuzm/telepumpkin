@@ -9,3 +9,6 @@ script = ExtResource("1_dwnxs")
 [node name="editorSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_3mgf7")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

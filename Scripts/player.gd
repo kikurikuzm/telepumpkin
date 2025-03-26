@@ -49,6 +49,7 @@ func _physics_process(delta):
 					velocity = exitVariables[1]
 	
 func _process(delta):
+	$velocityVisualizer.target_position = self.velocity
 	$debugText.text = str(jumpstrength)
 	
 	if tppInst != null:
@@ -83,6 +84,8 @@ func _process(delta):
 					var entrance = node.get_parent()
 					entrance.enterScene()
 					break
+				if node.is_in_group("local_disableTeleport"):
+					print_debug("tried teleporting")
 				
 		if !hasTPP:
 			teleportRange.rangeTeleport(global_transform)

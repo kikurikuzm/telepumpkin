@@ -148,8 +148,10 @@ func _playerCharacterChangeState(modifyingValue:String):
 	playerReference.changeState(modifyingValue)
 
 ##Signal name: requestPlayerPositionChange
-func _playerCharacterChangePosition(desiredPosition:Vector2):
+func _playerCharacterChangePosition(desiredPosition:Vector2, desiredVelocity:Vector2=Vector2.ZERO):
 	playerReference.position = desiredPosition
+	if desiredVelocity != Vector2.ZERO:
+		playerReference.velocity = desiredVelocity
 
 func _mainCameraChangeZoom(desiredZoom:float):
 	cameraManager.mainCameraChangeZoom(desiredZoom)

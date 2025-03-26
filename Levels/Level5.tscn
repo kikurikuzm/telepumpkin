@@ -38,9 +38,13 @@ position = Vector2(536, 588)
 
 [node name="pumpkin3" parent="." instance=ExtResource("6_sraex")]
 position = Vector2(978, 493)
+rotting = true
+rottingTeleport = 1
 
 [node name="pumpkin4" parent="." instance=ExtResource("6_sraex")]
 position = Vector2(798, 618)
+rotting = true
+rottingTeleport = 2
 
 [node name="exit" parent="." instance=ExtResource("7_ygoef")]
 position = Vector2(1057, 719)
@@ -56,3 +60,4 @@ collisionShapeTransform = Vector4(0, 0, 10.05, 9.055)
 usesCustomTransform = true
 overrideCameraZoom = true
 cameraZoom = 2.341
+metadata/_edit_lock_ = true

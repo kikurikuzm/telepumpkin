@@ -1611,6 +1611,7 @@ one_shot = true
 one_shot = true
 
 [node name="debugText" type="Label" parent="."]
+visible = false
 offset_left = -22.0
 offset_top = -30.0
 offset_right = 141.0
@@ -1653,5 +1654,9 @@ moonIndoorsTiles = ExtResource("36_kkynl")
 
 [node name="pumpkinMagnet" type="RayCast2D" parent="."]
 target_position = Vector2(0, 33.5135)
+
+[node name="velocityVisualizer" type="RayCast2D" parent="."]
+modulate = Color(0.331642, 4.21144e-08, 0.155947, 1)
+collide_with_bodies = false
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="footstepManager" method="_on_animated_sprite_2d_frame_changed"]
