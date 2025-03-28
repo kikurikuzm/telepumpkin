@@ -21,6 +21,8 @@ var hasTPP = false
 var holdingTPP = false
 var tppInst
 
+var canTeleport = true
+
 var inNoclip = false
 @export var speed = 100
 var gravity = gvars.playerGravity
@@ -78,18 +80,20 @@ func _process(delta):
 		tpp.visible = false
 	
 	if Input.is_action_just_pressed("teleport"):
-		if interactArea.get_overlapping_areas() != []:
-			for node in interactArea.get_overlapping_areas():
-				if node.is_in_group("entrance"):
-					var entrance = node.get_parent()
-					entrance.enterScene()
-					break
-				if node.is_in_group("local_disableTeleport"):
-					print_debug("tried teleporting")
+		canTeleport = true
+		for node in interactArea.get_overlapping_areas():
+			if node.is_in_group("entrance"):
+				var entrance = node.get_parent()
+				entrance.enterScene()
+				break
+			if node.is_in_group("local_disableTeleport"):
+				canTeleport = false
 				
-		if !hasTPP:
+		if !hasTPP and canTeleport:
 			teleportRange.rangeTeleport(global_transform)
 		tppHandler()
+				
+		
 		
 #	if Input.is_action_just_released("teleport"):
 #		$debugText.visible = false
