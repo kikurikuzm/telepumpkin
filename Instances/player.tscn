@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=70 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" uid="uid://b2rcdd2cjidp7" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://osbuu3ys72w0" path="res://Audio/sfx/wood_step-02.ogg" id="15_breqs"]
 [ext_resource type="AudioStream" uid="uid://dnvw53ep1vrqw" path="res://Audio/sfx/wood_step-03.ogg" id="16_1x2s6"]
 [ext_resource type="Texture2D" uid="uid://bkaeby7obkady" path="res://Sprites/Misc/exitBasket.png" id="16_eyegr"]
+[ext_resource type="AudioStream" uid="uid://bwmmara6fxk1j" path="res://Audio/sfx/Tick.wav" id="20_43dfb"]
 [ext_resource type="AudioStream" uid="uid://cd7bmqexlqs4e" path="res://Audio/sfx/pickuptoo.ogg" id="23_hnh6d"]
 [ext_resource type="AudioStream" uid="uid://bhay6ynm00fpy" path="res://Audio/sfx/fall thump.ogg" id="24_x075c"]
 [ext_resource type="Script" uid="uid://bmpahr0mgw8pl" path="res://Scripts/simplefootsteps.gd" id="25_v543r"]
@@ -1407,7 +1408,7 @@ turbulence_influence_max = 0.06
 size = Vector2(32, 38)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyegr"]
-radius = 14.7043
+radius = 16.2162
 
 [sub_resource type="LabelSettings" id="LabelSettings_eyegr"]
 outline_size = 6
@@ -1628,6 +1629,18 @@ pitch_scale = 0.96
 stream = ExtResource("24_x075c")
 volume_db = -10.0
 pitch_scale = 1.99
+
+[node name="kickSFX" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(1, 1)
+stream = ExtResource("24_x075c")
+volume_db = -0.721
+pitch_scale = 0.27
+
+[node name="kickBlinkSFX" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(1, 1)
+stream = ExtResource("20_43dfb")
+volume_db = -1.138
+pitch_scale = 3.1
 
 [node name="footstepManager" type="RayCast2D" parent="."]
 target_position = Vector2(0, 32)

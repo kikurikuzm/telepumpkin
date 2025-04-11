@@ -15,6 +15,7 @@ var stretchAnimationDownPlayed = false
 var hasHadAirTimer = false
 
 func enter():
+	player.jumpstrength = 100
 	MAXSPEED = 45
 	ACCELERATE = 0.012
 	residualSpeed = player.velocity.x
@@ -94,6 +95,9 @@ func physics_update(delta: float):
 		
 	if Input.is_action_just_released("down"):
 		transitioned.emit(self, "playeridle")
+		
+	if Input.is_action_just_pressed("kick"):
+		transitioned.emit(self, "playerKick")
 	
 	player.velocity.x = lerp(player.velocity.x, 0.0, 0.1)
 	residualSpeed = lerp(residualSpeed, 0.0, 0.1)

@@ -1,0 +1,1 @@
+The main character of the game, and the vehicle for the player. Kin is a sentient pumpkin with two beady eyes, a funny smile, and a pair of twiggy legs, among the usual pumpkin characteristics. They shine a ripe orange and have a leafy stem that shakes and wobbles about.

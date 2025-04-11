@@ -13,7 +13,6 @@ func enter():
 	#audio.volume_db = -10.0
 	#audio.stream = jumpAudio
 	#audio.play()
-	
 	coyoteTimer.stop()
 	animPlayer.play("jump")
 	player.velocity.y = player.jumpstrength * -1

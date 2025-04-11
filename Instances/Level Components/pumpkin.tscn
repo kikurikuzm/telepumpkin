@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dwlb056utp2x7" path="res://Sprites/Misc/rotting pumpkin.png" id="3_n0aru"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6h8hb"]
-friction = 0.75
+friction = 0.6
 bounce = 0.33
 
 [sub_resource type="Animation" id="Animation_cn0hs"]

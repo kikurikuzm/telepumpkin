@@ -7,7 +7,7 @@ offsets = PackedFloat32Array(0.658031, 0.880829, 0.979275, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.139914, 0.139914, 0.139914, 1, 0.433735, 0.433735, 0.433735, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3ehjj"]
-noise_type = 5
+noise_type = 3
 seed = 285
 fractal_type = 2
 fractal_octaves = 3
@@ -24,5 +24,5 @@ noise = SubResource("FastNoiseLite_3ehjj")
 resource_local_to_scene = true
 shader = ExtResource("1_sl0in")
 shader_parameter/noise = SubResource("NoiseTexture2D_deg0o")
-shader_parameter/distortion_strength = 1.025
-shader_parameter/scroll = Vector2(0, 0.24)
+shader_parameter/distortion_strength = 0.106
+shader_parameter/scroll = Vector2(0.078, 0.164)

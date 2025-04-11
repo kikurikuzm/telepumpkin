@@ -79,6 +79,12 @@ func _process(delta):
 	else:
 		tpp.visible = false
 	
+	$Teleport.visible = true
+	for node in interactArea.get_overlapping_areas():
+		if node.is_in_group("local_disableTeleport"):
+				canTeleport = false
+				$Teleport.visible = false
+	
 	if Input.is_action_just_pressed("teleport"):
 		canTeleport = true
 		for node in interactArea.get_overlapping_areas():

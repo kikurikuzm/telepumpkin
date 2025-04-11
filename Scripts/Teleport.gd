@@ -28,7 +28,7 @@ func _process(delta):
 				availablePumpkins.append(node)
 				node.highlighted = false
 		
-		if len(availablePumpkins) > 0:
+		if len(availablePumpkins) > 0 and visible:
 			var farthestPumpkin = availablePumpkins[0]
 		#changing the nearest pumpkin to be the first one in the list
 		#if the list contains anything

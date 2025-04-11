@@ -1,31 +1,35 @@
 [gd_scene load_steps=8 format=3 uid="uid://byhsf5mqeihvq"]
 
-[ext_resource type="Texture2D" uid="uid://bl1sih4l2hc1o" path="res://Sprites/Misc/telecircle.png" id="1_hcgwa"]
 [ext_resource type="Shader" uid="uid://y0p73yutgr8x" path="res://Resources/Shaders/TeleportDisabledZone.tres" id="1_p6ol6"]
+[ext_resource type="Texture2D" uid="uid://dje1tt0vpm47t" path="res://Sprites/Misc/radialdistortion.png" id="3_47hae"]
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="3_qqymq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qljnw"]
-radius = 100.0
+radius = 82.0061
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_p6ol6"]
 noise_type = 2
+seed = 120
 frequency = 0.0055
 fractal_octaves = 4
 fractal_gain = 0.01
-cellular_distance_function = 1
+cellular_distance_function = 2
+cellular_jitter = 1.6
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qqymq"]
 seamless = true
+seamless_blend_skirt = 0.22
 noise = SubResource("FastNoiseLite_p6ol6")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qqymq"]
 shader = ExtResource("1_p6ol6")
-shader_parameter/scroll = 0.21
+shader_parameter/scroll = 0.1
 shader_parameter/noise = SubResource("NoiseTexture2D_qqymq")
 
 [node name="TeleportDisabledZone" type="Node2D"]
 
 [node name="Area2D" type="Area2D" parent="." groups=["local_disableTeleport"]]
+visible = false
 collision_layer = 16
 collision_mask = 16
 gravity = 100.0
@@ -34,13 +38,17 @@ gravity = 100.0
 shape = SubResource("CircleShape2D_qljnw")
 debug_color = Color(0.92809, 0.245094, 0.284443, 0.42)
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(3.0625, 3.0625)
-texture = ExtResource("3_qqymq")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 2
 z_index = 4
+texture_filter = 2
 material = SubResource("ShaderMaterial_qqymq")
 scale = Vector2(3.0625, 3.0625)
-texture = ExtResource("1_hcgwa")
+texture = ExtResource("3_47hae")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+visible = false
+show_behind_parent = true
+texture_filter = 1
+position = Vector2(-0.326531, -4.89796)
+texture = ExtResource("3_qqymq")

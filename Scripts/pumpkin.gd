@@ -9,7 +9,7 @@ var maxUnst
 @onready var sprite = $pumpkinSprite
 
 var poofs = load("res://Instances/Particles/poofs.tscn")
-var rottenSplash = load("res://Instances/Particles/RottingTeleportParticles.tscn")
+var teleportNumber = load("res://Instances/teleportsRemainingNumber.tscn")
 var teleportLight = load("res://Instances/Particles/teleport_light.tscn")
 var raycast = load("res://Instances/Helpers/pumpkinRay.tscn")
 
@@ -88,10 +88,10 @@ func teleport(hostPos: Transform2D) -> void:
 	custom_integrator = true
 	
 	if rotting:
-		var splashInstance = rottenSplash.instantiate()
-		get_parent().add_child(splashInstance)
-		splashInstance.emitting = true
-		splashInstance.global_position = global_position
+		var numberInstance = teleportNumber.instantiate()
+		get_parent().add_child(numberInstance)
+		numberInstance.global_position = global_position
+		numberInstance.teleportsRemaining = rottingTeleport
 		
 		if rottingTeleport > 0:
 			rottingTeleport -= 1

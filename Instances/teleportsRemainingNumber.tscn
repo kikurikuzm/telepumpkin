@@ -1,0 +1,247 @@
+[gd_scene load_steps=30 format=3 uid="uid://c0rgvgfiix8ud"]
+
+[ext_resource type="Texture2D" uid="uid://bb1k2c8xfv7ta" path="res://Sprites/Misc/teleportNumbers.png" id="1_e3j86"]
+[ext_resource type="Script" uid="uid://dlwj1hukm71a1" path="res://Scripts/teleports_remaining_number.gd" id="1_i5lvl"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_y00f0"]
+parameter_name = "scroll"
+default_value_enabled = true
+default_value = 0.5
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_i5lvl"]
+output_port_for_preview = 0
+source = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_syvmu"]
+output_port_for_preview = 0
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0.1, 0.1)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_s6u6q"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_6kclp"]
+input_name = "texture_pixel_size"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_y4l6h"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_cmvfy"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0.1, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_wxutc"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0.02, 0.01)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_3j18b"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(-0.01, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_5xhe4"]
+constant = Color(0.923281, 1.86747e-05, 0.634524, 1)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p25g4"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_0hleo"]
+source = 5
+texture = SubResource("NoiseTexture2D_p25g4")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_x3iox"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_f017h"]
+parameter_name = "noise"
+texture_type = 1
+texture_repeat = 1
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_0vbmu"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ka7re"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_s8b6g"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_7ydcd"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_22n4a"]
+default_input_values = [0, 0.0, 1, 0.05]
+operator = 2
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_acaks"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShader" id="VisualShader_8a0eh"]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float scroll = 0.5;
+uniform sampler2D noise : source_color, repeat_enable;
+
+
+
+void fragment() {
+// Input:13
+	vec2 n_out13p0 = UV;
+
+
+// Input:5
+	vec2 n_out5p0 = UV;
+
+
+// Input:7
+	float n_out7p0 = TIME;
+
+
+// FloatParameter:10
+	float n_out10p0 = scroll;
+
+
+// FloatOp:8
+	float n_out8p0 = n_out7p0 * n_out10p0;
+
+
+// VectorCompose:6
+	float n_in6p1 = 0.00000;
+	vec2 n_out6p0 = vec2(n_out8p0, n_in6p1);
+
+
+// VectorOp:9
+	vec2 n_out9p0 = n_out5p0 + n_out6p0;
+
+
+// UVFunc:4
+	vec2 n_in4p1 = vec2(1.00000, 1.00000);
+	vec2 n_out4p0 = n_out9p0 * n_in4p1 + UV;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(noise, n_out4p0);
+
+
+// VectorOp:12
+	vec2 n_out12p0 = vec2(n_out2p0.xy) + n_out5p0;
+
+
+// VectorOp:17
+	vec2 n_in17p1 = vec2(0.02000, 0.01000);
+	vec2 n_out17p0 = n_out12p0 * n_in17p1;
+
+
+// VectorOp:15
+	vec2 n_out15p0 = n_out13p0 + n_out17p0;
+
+
+	vec4 n_out11p0;
+// Texture2D:11
+	n_out11p0 = texture(TEXTURE, n_out15p0);
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out11p0.xyz);
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(560, -100)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_0hleo")
+nodes/fragment/2/position = Vector2(-1140, -240)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_f017h")
+nodes/fragment/3/position = Vector2(-1660, 80)
+nodes/fragment/4/node = SubResource("VisualShaderNodeUVFunc_0vbmu")
+nodes/fragment/4/position = Vector2(-1420, -140)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_ka7re")
+nodes/fragment/5/position = Vector2(-1920, -300)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorCompose_s8b6g")
+nodes/fragment/6/position = Vector2(-1800, -100)
+nodes/fragment/7/node = SubResource("VisualShaderNodeInput_7ydcd")
+nodes/fragment/7/position = Vector2(-2540, -160)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatOp_22n4a")
+nodes/fragment/8/position = Vector2(-1980, -80)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorOp_acaks")
+nodes/fragment/9/position = Vector2(-1600, -200)
+nodes/fragment/10/node = SubResource("VisualShaderNodeFloatParameter_y00f0")
+nodes/fragment/10/position = Vector2(-2300, 20)
+nodes/fragment/11/node = SubResource("VisualShaderNodeTexture_i5lvl")
+nodes/fragment/11/position = Vector2(120, -20)
+nodes/fragment/12/node = SubResource("VisualShaderNodeVectorOp_syvmu")
+nodes/fragment/12/position = Vector2(-920, -60)
+nodes/fragment/13/node = SubResource("VisualShaderNodeInput_s6u6q")
+nodes/fragment/13/position = Vector2(-460, -100)
+nodes/fragment/14/node = SubResource("VisualShaderNodeInput_6kclp")
+nodes/fragment/14/position = Vector2(-580, 20)
+nodes/fragment/15/node = SubResource("VisualShaderNodeVectorOp_y4l6h")
+nodes/fragment/15/position = Vector2(-100, -40)
+nodes/fragment/16/node = SubResource("VisualShaderNodeVectorOp_cmvfy")
+nodes/fragment/16/position = Vector2(-260, 220)
+nodes/fragment/17/node = SubResource("VisualShaderNodeVectorOp_wxutc")
+nodes/fragment/17/position = Vector2(-660, 140)
+nodes/fragment/18/node = SubResource("VisualShaderNodeVectorOp_3j18b")
+nodes/fragment/18/position = Vector2(-620, 360)
+nodes/fragment/19/node = SubResource("VisualShaderNodeColorConstant_5xhe4")
+nodes/fragment/19/position = Vector2(120, -160)
+nodes/fragment/20/node = SubResource("VisualShaderNodeColorOp_x3iox")
+nodes/fragment/20/position = Vector2(320, -200)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 2, 4, 0, 2, 0, 6, 0, 9, 1, 9, 0, 4, 2, 10, 0, 8, 1, 2, 0, 12, 0, 5, 0, 9, 0, 7, 0, 8, 0, 5, 0, 12, 1, 14, 0, 16, 0, 17, 0, 18, 0, 18, 0, 16, 1, 11, 0, 20, 1, 8, 0, 6, 0, 11, 0, 0, 0, 17, 0, 15, 1, 13, 0, 15, 0, 15, 0, 11, 0, 12, 0, 17, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsvn5"]
+shader = SubResource("VisualShader_8a0eh")
+shader_parameter/scroll = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y00f0"]
+atlas = ExtResource("1_e3j86")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5lvl"]
+atlas = ExtResource("1_e3j86")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syvmu"]
+atlas = ExtResource("1_e3j86")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6u6q"]
+atlas = ExtResource("1_e3j86")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6kclp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y00f0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5lvl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syvmu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6u6q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TeleportsRemainingNumber" type="Node2D"]
+script = ExtResource("1_i5lvl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_nsvn5")
+sprite_frames = SubResource("SpriteFrames_6kclp")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.25
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

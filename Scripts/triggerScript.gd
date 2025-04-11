@@ -20,6 +20,7 @@ var updateTriggerButton_action = checkTriggerList
 @export var anythingTriggers = false ##Whether or not the trigger is triggered by any physics object (Pumpkins, TPP) or only the player.
 @export var mustInteract = false ##Whether or not the player must press the interact button to trigger this trigger.
 @export_group("Level Changing")
+@export var canChangeLevel = false
 @export var desiredGotoLevel : PackedScene ##The scene to send the player to when this is triggered.
 @export var desiredLevelSpawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
 @export var levelTransition = 0 ##What level transition to use upon changing level.
@@ -71,8 +72,8 @@ func triggerThings(cause) -> void:
 				if triggersOnce:
 					hasTriggered = true
 				currentIndex += 1
-			if desiredGotoLevel != null:
-				requestLevelChange.emit(desiredGotoLevel, desiredLevelSpawnPosition)
+			if canChangeLevel:
+				changeLevel()
 		if !anythingTriggers and cause.is_in_group("player"):
 			var currentIndex = 0
 			for i in triggerList:
@@ -84,9 +85,8 @@ func triggerThings(cause) -> void:
 				print("triggered ", str(i))
 				if triggersOnce:
 					hasTriggered = true
-			if desiredGotoLevel != null:
-				requestLevelChange.emit(desiredGotoLevel.resource_path, desiredLevelSpawnPosition)
-				print_debug("emitted level change request with " + str(desiredGotoLevel.resource_path))
+			if canChangeLevel:
+				changeLevel()
 
 func enableTrigger():
 	disabled = false
@@ -126,3 +126,11 @@ func checkTriggerList():
 		currentIndex += 1
 	print("updated trigger variables")
 	#updateTriggerListVariables = false
+
+func changeLevel():
+	if desiredGotoLevel == null:
+		requestLevelChange.emit("", desiredLevelSpawnPosition)
+		print_debug("emitted empty level change request")
+		return
+	requestLevelChange.emit(desiredGotoLevel.resource_path, desiredLevelSpawnPosition)
+	print_debug("emitted level change request with " + str(desiredGotoLevel.resource_path))

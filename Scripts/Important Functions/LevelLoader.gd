@@ -8,6 +8,7 @@ var levelSet : Array
 var currentLevelVariables : LevelVariables
 
 var loadedLevel
+var currentLevelFilePath : String = ""
 var instancedLevel:LevelSceneRoot
 
 signal emitError(String)
@@ -18,13 +19,14 @@ func _ready() -> void:
 func instanceLevel(levelSetIndex:int) -> void:
 	if levelSetIndex + 1 > len(levelSet):
 		return
-	
+
 	if loadedLevel != null:
 		loadedLevel = null
 	if instancedLevel != null:
 		instancedLevel.queue_free()
 	
 	var currentLevelToLoad = levelSet[levelSetIndex]
+	currentLevelFilePath = currentLevelToLoad
 	loadedLevel = load(currentLevelToLoad)
 	
 	instancedLevel = loadedLevel.instantiate()
@@ -41,6 +43,7 @@ func instanceLevelFromPath(levelPath:String) -> bool:
 		instancedLevel.queue_free()
 	
 	var currentLevelToLoad = levelPath
+	currentLevelFilePath = currentLevelToLoad
 	loadedLevel = load(currentLevelToLoad)
 	
 	instancedLevel = loadedLevel.instantiate()
@@ -142,6 +145,9 @@ func isLevelCurrentlyLoaded() -> bool:
 	elif instancedLevel == null:
 		return false
 	return false
+
+func getCurrentLevelFilePath():
+	return currentLevelFilePath
 
 func getCurrentLevelChildren():
 	return instancedLevel.getAllRootChildren()

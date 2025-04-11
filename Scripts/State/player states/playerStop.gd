@@ -33,11 +33,10 @@ func update(delta: float):
 	
 	if Input.is_action_just_pressed("kick"):
 		transitioned.emit(self, "playerkick")
-#	if Input.is_action_pressed("left"):
-#		transitioned.emit(self, "playerwalking")
-#	if Input.is_action_pressed("right"):
-#		transitioned.emit(self, "playerwalking")
-	pass
+	#if Input.is_action_pressed("left"):
+		#player.velocity.x -= 10
+	#if Input.is_action_pressed("right"):
+		#player.velocity.x += 10
 
 func physics_update(delta: float):
 	super(delta)

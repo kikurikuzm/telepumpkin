@@ -83,6 +83,7 @@ func disconnnectCallablesFromSignals():
 		playerChangingSignalCollection.disconnect(_playerCharacterChangeState)
 
 func initiateLevelChange(levelPath:String = ""):
+	
 	disconnnectCallablesFromSignals()
 	
 	var levelLoadedExternally : String = ""
@@ -93,17 +94,20 @@ func initiateLevelChange(levelPath:String = ""):
 		levelLoadedExternally = levelPath
 	else:
 		levelLoadedExternally = gvars.levelToLoadInMainScene
-	
+
 	if levelLoadedExternally != "":
 		levelLoader.instanceLevelFromPath(levelLoadedExternally)
 		var levelLoaderLevelSet = levelLoader.levelSet
 		if levelLoadedExternally in levelLoaderLevelSet:
+			print_debug("found current level in levelset")
 			currentLevelSetIndex = levelLoaderLevelSet.find(levelLoadedExternally)
 		
 		gvars.levelToLoadInMainScene = ""
+	#elif levelLoadedExternally == "" and levelLoader.isLevelCurrentlyLoaded():
+		#levelLoader.instanceLevel()
 	else:
 		levelLoader.instanceLevel(currentLevelSetIndex)
-	
+	print_debug(levelLoadedExternally)
 	levelLoader.setupExternalLevelNodes(playerReference)
 	cameraManager.mainCameraSnapToParent()
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
