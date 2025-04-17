@@ -24,7 +24,7 @@ func _process(_delta) -> void:
 
 func handlePausing():
 	if isPaused:
-		pauseGame.emit()
+		GlobalSignalBus.pauseGame.emit()
 		animationPlayer.play("pauseGame")
 		
 		resumeButton.grab_focus()
@@ -35,7 +35,7 @@ func handlePausing():
 		exitGameButton.disabled = false
 		
 	elif !isPaused:
-		unpauseGame.emit()
+		GlobalSignalBus.unpauseGame.emit()
 		animationPlayer.play("unpauseGame")
 		
 		resumeButton.disabled = true
@@ -48,7 +48,7 @@ func _on_resume_button_pressed() -> void:
 	handlePausing()
 
 func _on_restart_button_pressed() -> void:
-	restartLevel.emit()
+	GlobalSignalBus.restartLevel.emit()
 	isPaused = false
 	handlePausing()
 
@@ -56,4 +56,4 @@ func _on_settings_button_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_exit_game_button_pressed() -> void:
-	exitToMenu.emit()
+	GlobalSignalBus.exitToMenu.emit()

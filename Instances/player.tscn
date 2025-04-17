@@ -1631,13 +1631,11 @@ volume_db = -10.0
 pitch_scale = 1.99
 
 [node name="kickSFX" type="AudioStreamPlayer2D" parent="."]
-scale = Vector2(1, 1)
 stream = ExtResource("24_x075c")
 volume_db = -0.721
 pitch_scale = 0.27
 
 [node name="kickBlinkSFX" type="AudioStreamPlayer2D" parent="."]
-scale = Vector2(1, 1)
 stream = ExtResource("20_43dfb")
 volume_db = -1.138
 pitch_scale = 3.1

@@ -28,6 +28,7 @@ default_bus_layout="res://Audio/audio.tres"
 [autoload]
 
 gvars="*res://Scripts/gvars.gd"
+GlobalSignalBus="*res://Scripts/Important Functions/globalSignalBus.gd"
 
 [display]
 
@@ -48,6 +49,7 @@ enabled=PackedStringArray()
 
 folder_colors={
 "res://Audio/": "yellow",
+"res://Instances/Important/": "yellow",
 "res://Levels/": "teal",
 "res://Scripts/": "red",
 "res://Sprites/": "pink"

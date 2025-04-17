@@ -18,8 +18,6 @@ var highlightDistortion : float = 0.2
 var testpos
 var customVelocity = Vector2.ZERO
 
-signal requestLevelChange
-
 #random size adjustment when pumpkins are spawned
 func _init():
 	scale.x = randf_range(0.9, 1.05)
@@ -132,7 +130,7 @@ func spawnTracer(oldPosition:Vector2) -> void:
 
 func pumpkinDestroy(failure = false):
 	if failure == true:
-		requestLevelChange.emit()
+		GlobalSignalBus.levelFailed.emit()
 	self.queue_free()
 
 func save() -> Dictionary:

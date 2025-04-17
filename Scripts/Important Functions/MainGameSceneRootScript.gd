@@ -16,6 +16,19 @@ extends Node
 
 var currentLevelSetIndex : int = 0
 
+#Connecting to all the signals in GlobalSignalBus
+func _on_tree_entered() -> void:
+	GlobalSignalBus.changeLevel.connect(_levelChangeRequested)
+	GlobalSignalBus.restartLevel.connect(restartLevel)
+	
+	GlobalSignalBus.levelComplete.connect(_levelCompleted)
+	GlobalSignalBus.levelFailed.connect(_levelFailed)
+	
+	GlobalSignalBus.pauseGame.connect(_pauseGame)
+	GlobalSignalBus.unpauseGame.connect(_unpauseGame)
+	
+	GlobalSignalBus.exitToMenu.connect(exitToMenu)
+
 func _ready() -> void:
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)
 	cameraManager.setMainCameraReference(mainCameraReference)
@@ -83,7 +96,6 @@ func disconnnectCallablesFromSignals():
 		playerChangingSignalCollection.disconnect(_playerCharacterChangeState)
 
 func initiateLevelChange(levelPath:String = ""):
-	
 	disconnnectCallablesFromSignals()
 	
 	var levelLoadedExternally : String = ""
@@ -94,6 +106,7 @@ func initiateLevelChange(levelPath:String = ""):
 		levelLoadedExternally = levelPath
 	else:
 		levelLoadedExternally = gvars.levelToLoadInMainScene
+		print_debug(levelLoadedExternally)
 
 	if levelLoadedExternally != "":
 		levelLoader.instanceLevelFromPath(levelLoadedExternally)
@@ -111,7 +124,7 @@ func initiateLevelChange(levelPath:String = ""):
 	levelLoader.setupExternalLevelNodes(playerReference)
 	cameraManager.mainCameraSnapToParent()
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
-	connectToLevelNodeSignals()
+	#connectToLevelNodeSignals()
 	
 	var currentLevelVariables : LevelVariables = levelLoader.getCurrentLevelVariables()
 	levelAmbience.stream = currentLevelVariables.levelAmbience
@@ -172,9 +185,10 @@ func _dialogueManagerBeginDialogue(emittingNPCConversation:DialogueConversation,
 func _levelCompleted():
 	currentLevelSetIndex += 1
 	playerReference.changeState("playerFinishLevel")
+	#Changes level because of the player animation finishing
 
 func _levelFailed():
-	pass
+	restartLevel()
 
 func _onPlayerExitAnimationFinished():
 	initiateLevelChange()

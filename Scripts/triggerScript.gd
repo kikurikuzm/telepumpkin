@@ -20,8 +20,8 @@ var updateTriggerButton_action = checkTriggerList
 @export var anythingTriggers = false ##Whether or not the trigger is triggered by any physics object (Pumpkins, TPP) or only the player.
 @export var mustInteract = false ##Whether or not the player must press the interact button to trigger this trigger.
 @export_group("Level Changing")
-@export var canChangeLevel = false
-@export var desiredGotoLevel : PackedScene ##The scene to send the player to when this is triggered.
+@export_enum("None","Fail","Success","Restart","Specific Level") var levelChangeType = 0
+@export_file("*_lev.tscn") var desiredGotoLevel : String ##The scene to send the player to when this is triggered.
 @export var desiredLevelSpawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
 @export var levelTransition = 0 ##What level transition to use upon changing level.
 
@@ -52,41 +52,33 @@ func _input(event):
 					if sceneCutscenePlayer:
 						if !sceneCutscenePlayer.inCutscene:
 							interactIcon.visible = false
-							triggerThings(node)
+							initiateTrigger(node)
 					else:
 						interactIcon.visible = false
-						triggerThings(node)
+						initiateTrigger(node)
 
 ## The main trigger function. Handles the triggering of its given objects and changing the level if applicable.
-func triggerThings(cause) -> void:
+func initiateTrigger(cause) -> void:
 	print(cause)
 	if !hasTriggered:
 		if anythingTriggers:
-			var currentIndex = 0
-			for i in triggerList:
-				if triggerListVariables[currentIndex] != null:
-					get_node(i).trigger(triggerListVariables[currentIndex])
-				else:
-					get_node(i).trigger()
-				print("triggered ", str(i))
-				if triggersOnce:
-					hasTriggered = true
-				currentIndex += 1
-			if canChangeLevel:
-				changeLevel()
-		if !anythingTriggers and cause.is_in_group("player"):
-			var currentIndex = 0
-			for i in triggerList:
-				if triggerListVariables:
-					if triggerListVariables[currentIndex] != null:
-						get_node(i).trigger(triggerListVariables)
-				else:
-					get_node(i).trigger()
-				print("triggered ", str(i))
-				if triggersOnce:
-					hasTriggered = true
-			if canChangeLevel:
-				changeLevel()
+			triggerThings()
+		elif !anythingTriggers and cause.is_in_group("player"):
+			triggerThings()
+
+func triggerThings():
+	var currentIndex = 0
+	for i in triggerList:
+		if triggerListVariables[currentIndex] != null:
+			get_node(i).trigger(triggerListVariables[currentIndex])
+		else:
+			get_node(i).trigger()
+		print("triggered ", str(i))
+		if triggersOnce:
+			hasTriggered = true
+		currentIndex += 1
+	if levelChangeType != 0:
+		changeLevel()
 
 func enableTrigger():
 	disabled = false
@@ -98,7 +90,7 @@ func disableTrigger():
 
 func _on_area_2d_area_entered(area) -> void:
 	if !mustInteract:
-		triggerThings(area)
+		initiateTrigger(area)
 
 func save():
 	var saveDict = {
@@ -128,9 +120,23 @@ func checkTriggerList():
 	#updateTriggerListVariables = false
 
 func changeLevel():
-	if desiredGotoLevel == null:
-		requestLevelChange.emit("", desiredLevelSpawnPosition)
-		print_debug("emitted empty level change request")
-		return
-	requestLevelChange.emit(desiredGotoLevel.resource_path, desiredLevelSpawnPosition)
-	print_debug("emitted level change request with " + str(desiredGotoLevel.resource_path))
+	match levelChangeType:
+		0: #None
+			pass
+		1: #Fail
+			print("LEVEL FAILED")
+			GlobalSignalBus.levelFailed.emit()
+
+		2: #Success
+			
+			print("LEVEL COMPLETE")
+			GlobalSignalBus.levelComplete.emit()
+			#print_debug("emitted level change request with " + str(desiredGotoLevel))
+		3: #Restart
+			print("LEVEL RESTART")
+			GlobalSignalBus.restartLevel.emit()
+			
+			#print_debug("restarted level")
+		4: #Specific Level
+			print("GOING TO SPECIFIC LEVEL")
+			GlobalSignalBus.changeLevel.emit(desiredGotoLevel, desiredLevelSpawnPosition)

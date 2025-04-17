@@ -245,7 +245,7 @@ outline_color = Color(0.850477, 0.295411, 0.302585, 1)
 
 [sub_resource type="Resource" id="Resource_aiegr"]
 script = ExtResource("3_w5c4r")
-levelList = Array[String](["res://Levels/Level1.tscn", "res://Levels/Level2.tscn", "res://Levels/Level3.tscn", "res://Levels/Level4.tscn", "res://Levels/Level5.tscn", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
+levelList = Array[String](["uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://bve7wh3cybj72", "uid://l65jyprpbqpg", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_sqsrj")
@@ -392,6 +392,7 @@ script = ExtResource("5_5c3qt")
 [node name="Parallax2D" type="Parallax2D" parent="."]
 visible = false
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="commandChangeToLevelSignal" from="DebuggerMenu" to="." method="_goToSpecifiedLevel"]
 [connection signal="commandModifyPlayerState" from="DebuggerMenu" to="." method="_playerCharacterChangeState"]
 [connection signal="commandSkipCurrentCutscene" from="DebuggerMenu" to="." method="_skipCurrentCutscene"]

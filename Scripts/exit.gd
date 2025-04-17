@@ -34,5 +34,5 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		add_child(particleInst)
 
 func reachedMaxPumpkins():
-	levelFinished.emit()
+	GlobalSignalBus.levelComplete.emit()
 	self.visible = false
