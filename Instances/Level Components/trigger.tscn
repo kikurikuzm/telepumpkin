@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
 size = Vector2(66, 64)
 
-[node name="trigger" type="Node2D" groups=["trigger"]]
+[node name="Trigger" type="Node2D" groups=["trigger"]]
 script = ExtResource("1_hmf4k")
 
 [node name="interactIcon" parent="." instance=ExtResource("2_lgav0")]
@@ -21,7 +21,6 @@ collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_nxb7d")
 debug_color = Color(1, 0, 0, 0.278431)
 

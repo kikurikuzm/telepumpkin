@@ -8,7 +8,15 @@ signal restartLevel
 signal levelComplete
 signal levelFailed
 
+signal requestPlayerStateChange(state:Player.PlayerStates)
+
 signal pauseGame
 signal unpauseGame
 
 signal exitToMenu
+
+signal requestCameraFocus(focusRequester:Node2D)
+signal returnCameraFocus()
+signal requestCameraZoomChange(newZoom:float)
+
+signal initiateDialogue(conversationArray:Array[DialogueConversation], conversationID:int, emittingNPC:NPC)

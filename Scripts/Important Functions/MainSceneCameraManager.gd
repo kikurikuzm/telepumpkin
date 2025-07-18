@@ -1,25 +1,26 @@
-extends Node
+class_name CameraManager extends Node
 
-var mainCameraReference : Camera2D
+@export var mainCamera:MainCamera
 
-func setMainCameraReference(cameraReference:Camera2D):
-	mainCameraReference = cameraReference
+func setMainCameraReference(cameraReference:MainCamera) -> void:
+	mainCamera = cameraReference
 
-func setMainCameraPlayerZoom(zoom:float):
-	mainCameraReference.playerZoom = zoom
+func setMainCameraPlayerZoom(zoom:float) -> void:
+	mainCamera.playerZoom = zoom
 
-func mainCameraChangeParent(desiredParent:Node2D):
-	if mainCameraReference.getCurrentCameraParent() != desiredParent:
-		mainCameraReference.changeParent(desiredParent)
+func mainCameraChangeParent(desiredParent:Node2D) -> void:
+	if mainCamera.getCurrentCameraParent() != desiredParent:
+		mainCamera.changeParent(desiredParent)
 
-func mainCameraReturnToOriginalParent():
-	mainCameraReference.returnToParent()
+func mainCameraReturnToOriginalParent() -> void:
+	mainCamera.returnToParent()
+	mainCamera.returnToOldZoom()
 
-func mainCameraSnapToParent():
-	mainCameraReference.snapToParent()
+func mainCameraSnapToParent() -> void:
+	mainCamera.snapToParent()
 	
-func mainCameraReturnToPlayer():
-	mainCameraReference.returnToPlayer()
+func mainCameraReturnToPlayer() -> void:
+	mainCamera.returnToPlayer()
 
-func mainCameraChangeZoom(desiredZoom:float):
-	mainCameraReference.changeZoom(desiredZoom)
+func mainCameraChangeZoom(desiredZoom:float) -> void:
+	mainCamera.changeZoom(desiredZoom)

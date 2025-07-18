@@ -27,8 +27,8 @@ func _ready():
 	if rotting:
 		maxUnst = rottingTeleport
 		sprite.animation = "rotting"
-	else:
-		animationPlayer.play("normalIdle")
+	#else:
+		#animationPlayer.play("normalIdle")
 
 #func _physics_process(delta):
 	#var areaArray = $Area2D.get_overlapping_areas()

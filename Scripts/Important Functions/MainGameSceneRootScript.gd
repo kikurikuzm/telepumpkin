@@ -2,17 +2,17 @@ extends Node
 
 #This node should make sure everything happens, and in the right order.
 
-@onready var levelLoader = $LevelLoader
-@onready var cutsceneManager = $CutsceneManager
-@onready var dialogueManager = $DialogueManager
-@onready var cameraManager = $CameraManager
-@onready var debuggerMenu = $DebuggerMenu
-@onready var pauseMenu = $PauseMenu
+@onready var levelLoader:LevelLoader = $LevelLoader
+@onready var cutsceneManager:CutsceneManager = $CutsceneManager
+@onready var dialogueManager:DialogueManager = $DialogueManager
+@onready var cameraManager:CameraManager = $CameraManager
+@onready var debuggerMenu:CanvasLayer = $DebuggerMenu
+@onready var pauseMenu:CanvasLayer = $PauseMenu
 
-@onready var levelAmbience = $LevelAmbience
+@onready var levelAmbience:AudioStreamPlayer = $LevelAmbience
 
-@onready var playerReference = $Player
-@onready var mainCameraReference = $MainCamera
+@onready var playerReference:Player = $Player
+@onready var mainCameraReference:MainCamera = $MainCamera
 
 var currentLevelSetIndex : int = 0
 
@@ -28,6 +28,12 @@ func _on_tree_entered() -> void:
 	GlobalSignalBus.unpauseGame.connect(_unpauseGame)
 	
 	GlobalSignalBus.exitToMenu.connect(exitToMenu)
+	
+	GlobalSignalBus.requestCameraFocus.connect(_levelCameraZoneGiveMainCameraFocus)
+	GlobalSignalBus.returnCameraFocus.connect(_levelCameraZoneTakeMainCameraFocus)
+	GlobalSignalBus.requestCameraZoomChange.connect(_levelCameraZoneChangeMainCameraZoom)
+
+	GlobalSignalBus.initiateDialogue.connect(_levelNPCInstanceBeginConversation)
 
 func _ready() -> void:
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)
@@ -96,7 +102,7 @@ func disconnnectCallablesFromSignals():
 		playerChangingSignalCollection.disconnect(_playerCharacterChangeState)
 
 func initiateLevelChange(levelPath:String = ""):
-	disconnnectCallablesFromSignals()
+	#disconnnectCallablesFromSignals()
 	
 	var levelLoadedExternally : String = ""
 	
@@ -179,8 +185,8 @@ func _mainCameraChangeFocus(desiredTarget:Node2D):
 func _mainCameraFocusPlayer():
 	cameraManager.mainCameraReturnToPlayer()
 
-func _dialogueManagerBeginDialogue(emittingNPCConversation:DialogueConversation, emittingNPCInstanceReference):
-	dialogueManager.conversationInitiate(emittingNPCConversation, emittingNPCInstanceReference)
+func _dialogueManagerBeginDialogue(emittingNPCConversation:DialogueConversation, emittingNPCInstanceReference:NPC):
+	dialogueManager.conversationInitiate([emittingNPCConversation], 0, emittingNPCInstanceReference)
 
 func _levelCompleted():
 	currentLevelSetIndex += 1
@@ -199,16 +205,16 @@ func _levelCutsceneBegin(passedCutscenePlayerCharacter, passedCutsceneCamera, pa
 func _levelCutsceneEnd():
 	cutsceneManager.cleanupCutscene()
 
-func _levelNPCInstanceBeginConversation(emittingNPCConversationArray, emittingNPCConversationID, emittingNPCInstanceReference):
+func _levelNPCInstanceBeginConversation(emittingNPCConversationArray:Array[DialogueConversation], emittingNPCConversationID:int, emittingNPCInstanceReference:NPC):
 	dialogueManager.conversationInitiate(emittingNPCConversationArray, emittingNPCConversationID, emittingNPCInstanceReference)
 
-func _levelCameraZoneGiveMainCameraFocus(cameraZoneReference):
+func _levelCameraZoneGiveMainCameraFocus(cameraZoneReference:Node2D) -> void:
 	cameraManager.mainCameraChangeParent(cameraZoneReference)
 	
-func _levelCameraZoneTakeMainCameraFocus(cameraZoneReference):
+func _levelCameraZoneTakeMainCameraFocus() -> void:
 	cameraManager.mainCameraReturnToOriginalParent()
 
-func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:float):
+func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:float) -> void:
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
 
 func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):

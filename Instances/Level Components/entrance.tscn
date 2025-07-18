@@ -1,23 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://bogv68ksmv4pq"]
+[gd_scene load_steps=6 format=3 uid="uid://bogv68ksmv4pq"]
 
 [ext_resource type="Script" uid="uid://bioh0xk7jtuqe" path="res://Scripts/entrance.gd" id="1_6ejxa"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="2_21j2v"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="2_a7qy0"]
 [ext_resource type="AudioStream" uid="uid://pn1m7mimnnwj" path="res://Audio/sfx/door open sound effect.ogg" id="4_m3rw5"]
+[ext_resource type="Script" uid="uid://cm5xn4ihn31v0" path="res://Scripts/Important Functions/LevelChangeRequester.gd" id="5_hbkgk"]
 
 [node name="entrance" type="Node2D" groups=["level_gameStateModifier", "level_playerStateModifier", "saveable"]]
 process_mode = 3
 z_index = -2
 script = ExtResource("1_6ejxa")
 
+[node name="LevelChangeRequester" type="Node" parent="."]
+script = ExtResource("5_hbkgk")
+metadata/_custom_type_script = "uid://cm5xn4ihn31v0"
+
 [node name="trigger" parent="." instance=ExtResource("2_a7qy0")]
 z_as_relative = false
 position = Vector2(0, -21)
-triggerList = Array[NodePath]([NodePath("..")])
 triggersOnce = false
 mustInteract = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="doorSprite" type="Sprite2D" parent="."]
 position = Vector2(1, -22)
 texture = ExtResource("2_21j2v")
 
@@ -28,4 +32,5 @@ stream = ExtResource("4_m3rw5")
 wait_time = 0.88
 one_shot = true
 
+[connection signal="triggeredByCause" from="trigger" to="." method="_on_trigger_triggered_by_cause"]
 [connection signal="timeout" from="enterTimer" to="." method="_on_enter_timer_timeout"]

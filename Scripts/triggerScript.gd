@@ -5,92 +5,56 @@ extends EditorElement
 class_name Trigger
 ##A level element that can activate other elements.
 
+@export_category("Trigger Settings")
+@export var enabled:bool = true ##Should this trigger be visible and active?
+@export var triggersOnce:bool = true ##Should this trigger should only fire once?
+@export var anythingTriggers:bool = false ##Should only the [Player] be considered a valid cause to fire?
+@export var mustInteract:bool = false ##Should this trigger require a button press while the [Player] is within range to fire?
+
 @onready var area2d : Area2D = $Area2D
 @onready var interactIcon = $interactIcon
 
-@export_category("Trigger Properties")
-@export var disabled = false
-@export_group("Trigger Nodes")
-@export var triggerList : Array[NodePath] ##A list of the nodes to trigger when this trigger is triggered.
-@export var triggerListVariables : Array ##A way to trigger nodes and provide them with a variable upon triggering.
-@export_tool_button("Update Trigger List Variables") 
-var updateTriggerButton_action = checkTriggerList
-@export_group("Trigger Settings")
-@export var triggersOnce = true ##Whether or not the trigger will only trigger once.
-@export var anythingTriggers = false ##Whether or not the trigger is triggered by any physics object (Pumpkins, TPP) or only the player.
-@export var mustInteract = false ##Whether or not the player must press the interact button to trigger this trigger.
-@export_group("Level Changing")
-@export_enum("None","Fail","Success","Restart","Specific Level") var levelChangeType = 0
-@export_file("*_lev.tscn") var desiredGotoLevel : String ##The scene to send the player to when this is triggered.
-@export var desiredLevelSpawnPosition = Vector2.ZERO ##The position to spawn the player at when this is triggered.
-@export var levelTransition = 0 ##What level transition to use upon changing level.
-
-var sceneCutscenePlayer : CutscenePlayer
-
-var lastTriggerList
 var hasTriggered = false ##Whether or not the trigger has already gone off.
 
-signal requestLevelChange(desiredLevelPath:String, desiredLevelPosition:Vector2)
+signal triggeredByCause(cause:Node2D) ##Emitted when a valid cause to fire has occured.
 
 func _ready():
 	if !Engine.is_editor_hint():
 		super._ready()
-	if mustInteract and not disabled:
+	if mustInteract and enabled:
 		interactIcon.visible = true
-	if get_parent().has_node("cutscenePlayer"):
-		sceneCutscenePlayer = get_parent().get_node("cutscenePlayer")
 
-#func _process(delta):
-	#if updateTriggerListVariables == true:
-		#checkTriggerList()
-
-func _input(event):
-	if Input.is_action_just_pressed("teleport") and mustInteract and !disabled:
+func _unhandled_input(event:InputEvent):
+	if Input.is_action_just_pressed("teleport") and mustInteract and enabled:
 		for node in area2d.get_overlapping_areas():
 			if node.is_in_group("player"):
-				if node.get_parent().get_node("stateFactory").current_state != node.get_parent().get_node("stateFactory").states["playerbusy"]:
-					if sceneCutscenePlayer:
-						if !sceneCutscenePlayer.inCutscene:
-							interactIcon.visible = false
-							initiateTrigger(node)
-					else:
-						interactIcon.visible = false
-						initiateTrigger(node)
-
-## The main trigger function. Handles the triggering of its given objects and changing the level if applicable.
-func initiateTrigger(cause) -> void:
-	print(cause)
-	if !hasTriggered:
-		if anythingTriggers:
-			triggerThings()
-		elif !anythingTriggers and cause.is_in_group("player"):
-			triggerThings()
-
-func triggerThings():
-	var currentIndex = 0
-	for i in triggerList:
-		if triggerListVariables[currentIndex] != null:
-			get_node(i).trigger(triggerListVariables[currentIndex])
-		else:
-			get_node(i).trigger()
-		print("triggered ", str(i))
-		if triggersOnce:
-			hasTriggered = true
-		currentIndex += 1
-	if levelChangeType != 0:
-		changeLevel()
+				interactIcon.visible = false
+				initiateTrigger(node)
+				#if node.get_parent().get_node("stateFactory").current_state != node.get_parent().get_node("stateFactory").states["playerbusy"]:
+					#if sceneCutscenePlayer:
+						#if !sceneCutscenePlayer.inCutscene:
+							#
+					#else:
+						#interactIcon.visible = false
+						#initiateTrigger(node)
 
 func enableTrigger():
-	disabled = false
+	enabled = true
 	interactIcon.visible = true
 
 func disableTrigger():
-	disabled = true
+	enabled = false
 	interactIcon.visible = false
 
-func _on_area_2d_area_entered(area) -> void:
-	if !mustInteract:
-		initiateTrigger(area)
+## The main trigger function. Emits a signal containing whatever caused the trigger
+func initiateTrigger(cause:Node2D) -> void:
+	if hasTriggered == true and triggersOnce == true: return
+	hasTriggered = true
+	
+	if !anythingTriggers and cause.is_in_group("player"):
+		triggeredByCause.emit(cause)
+	elif anythingTriggers:
+		triggeredByCause.emit(cause)
 
 func save():
 	var saveDict = {
@@ -104,39 +68,6 @@ func save():
 func loadJSON(nodeData):
 	hasTriggered = nodeData["triggered"]
 
-func checkTriggerList():
-	var currentIndex = 0
-	for node in triggerList:
-		if triggerList[currentIndex] == null:
-			triggerListVariables[currentIndex] = null
-		if node is NodePath:
-			if get_node(node) is NPC:
-				triggerListVariables.resize(triggerList.size())
-				if triggerListVariables[currentIndex] == null:
-					triggerListVariables[currentIndex] = {"posX" : 0, "posY" : 0}
-		
-		currentIndex += 1
-	print("updated trigger variables")
-	#updateTriggerListVariables = false
-
-func changeLevel():
-	match levelChangeType:
-		0: #None
-			pass
-		1: #Fail
-			print("LEVEL FAILED")
-			GlobalSignalBus.levelFailed.emit()
-
-		2: #Success
-			
-			print("LEVEL COMPLETE")
-			GlobalSignalBus.levelComplete.emit()
-			#print_debug("emitted level change request with " + str(desiredGotoLevel))
-		3: #Restart
-			print("LEVEL RESTART")
-			GlobalSignalBus.restartLevel.emit()
-			
-			#print_debug("restarted level")
-		4: #Specific Level
-			print("GOING TO SPECIFIC LEVEL")
-			GlobalSignalBus.changeLevel.emit(desiredGotoLevel, desiredLevelSpawnPosition)
+func _on_area_2d_area_entered(area) -> void:
+	if !mustInteract:
+		initiateTrigger(area)

@@ -1,37 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://buk438il4heh5"]
+[gd_scene load_steps=4 format=3 uid="uid://buk438il4heh5"]
 
 [ext_resource type="SpriteFrames" uid="uid://dcjjt5y3i5fjm" path="res://Resources/npcframes.tres" id="1"]
 [ext_resource type="Script" uid="uid://q6lggoei701w" path="res://Scripts/npcScript.gd" id="1_o0077"]
-[ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_pj100"]
-
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(66, 62)
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="4_1sfc1"]
 
 [node name="NPC" type="Node2D" groups=["level_npc", "saveable"]]
 script = ExtResource("1_o0077")
-
-[node name="interactIcon" parent="." instance=ExtResource("2_pj100")]
-position = Vector2(1, 1)
+npcLook = "smoke"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = ExtResource("1")
 animation = &"smoke"
-frame_progress = 0.257059
-
-[node name="npcArea" type="Area2D" parent="." groups=["npc"]]
-z_index = -1
-collision_layer = 16
-collision_mask = 16
-collision_priority = 2.0
-priority = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="npcArea"]
-position = Vector2(1, 1)
-shape = SubResource("1")
 
 [node name="interactAudio" type="AudioStreamPlayer2D" parent="."]
 volume_db = 14.273
 
-[connection signal="area_entered" from="npcArea" to="." method="_on_npc_area_area_entered"]
-[connection signal="body_entered" from="npcArea" to="." method="_on_npc_area_body_entered"]
+[node name="Trigger" parent="." instance=ExtResource("4_1sfc1")]
+position = Vector2(0, 1)
+scale = Vector2(0.479846, 1)
+triggersOnce = false
+mustInteract = true
+
+[connection signal="triggeredByCause" from="Trigger" to="." method="_on_receive_trigger_notification"]

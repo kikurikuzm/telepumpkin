@@ -5,18 +5,14 @@ class_name NPC extends Node2D
 ##An interactable level element that displays dialogue. Can be triggered.
 ##
 
-@onready var animSprite = get_node("AnimatedSprite2D")
+@onready var animSprite:AnimatedSprite2D = $AnimatedSprite2D
 
-#@onready var dialogueManager = get_parent().get_node("dialogueManager")
-
-@export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var npcLook: String
-@export var spriteFlip : bool
-@export var convoID : int
-@export var dialogueArray : Array[DialogueConversation]
+@export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var npcLook:String
+@export var spriteFlip:bool
+@export var conversationIndex:int ##The [DialogueConversation] to display upon interaction.
+@export var dialogueArray:Array[DialogueConversation]
 
 var canTalk = true
-
-signal initiateDialogue(conversationArray, conversationID, emittingNPCReference)
 
 func _process(delta):
 	if Engine.is_editor_hint():
@@ -32,19 +28,17 @@ func _ready():
 		for dialogue in conversation.conversationArray:
 			if dialogue.currentFocus:
 				dialogue.currentFocusAbsolutePath = get_node(dialogue.currentFocus).get_path()
-			
+			else:
+				dialogue.currentFocusAbsolutePath = self.get_path()
 
-func _input(event):
-	if Input.is_action_just_pressed("teleport") and canTalk:
-		for i in $npcArea.get_overlapping_areas():
-			if i.is_in_group("player"):
-				print_debug("found player and began dialogue")
-				NPCBeginConversation()
-				break
+func setConversationIndex(newIndex:int) -> void:
+	conversationIndex = newIndex
+ 
+func getConversationIndex() -> int:
+	return conversationIndex
 
 func NPCBeginConversation():
-	print("begin conversation")
-	initiateDialogue.emit(dialogueArray, convoID, self)
+	GlobalSignalBus.initiateDialogue.emit(dialogueArray, conversationIndex, self)
 	canTalk = false
 
 func NPCFinishConversation():
@@ -55,23 +49,15 @@ func save() -> Dictionary:
 		"name" : name,
 		"posX" : position.x,
 		"posY" : position.y,
-		"convoID" : convoID,
+		"conversationIndex" : conversationIndex,
 		"visible" : visible
 	}
 	return saveDict
 
 func loadJSON(nodeData) -> void:
-	convoID = nodeData["convoID"]
+	conversationIndex = nodeData["conversationIndex"]
 	visible = nodeData["visible"]
 
-func trigger(triggerChangePosition = Vector2.ZERO):
-	var triggerConvertedPosition = Vector2(triggerChangePosition[0].posX, triggerChangePosition[0].posY)
-	if triggerConvertedPosition == Vector2.ZERO:
+func _on_receive_trigger_notification(cause:Node2D) -> void:
+	if canTalk:
 		NPCBeginConversation()
-	else:
-		print(triggerChangePosition)
-		#global_position = Vector2(triggerChangePosition[0], triggerChangePosition[1])
-
-func _on_npc_area_area_entered(area):
-	if area.is_in_group("player"):
-		canTalk = true

@@ -1,5 +1,4 @@
-extends Node
-class_name DialogueManager
+class_name DialogueManager extends Node
 ##A node that enables NPCs to provide dialogue to the player.
 ##
 ##This node uses a given .json file to show dialogue to the player when interacting with NPCs.
@@ -17,18 +16,16 @@ class_name DialogueManager
 @onready var dialogueContinue = $CanvasLayer/progress ##The little arrow at the bottom right of the dialogue box that indicates when the dialogue can be progressed.
 @onready var dialogueFromArrow = $CanvasLayer/fromArrow
 
-@onready var textSpeed = $textSpeed ##A timer used to have the letters show every given amount of time.
+@onready var textSpeed:Timer = $textSpeed ##A timer used to have the letters show every given amount of time.
 
 var dialogueInitializer : NPC
 var currentTextIndex = 0
 var NPCConversationArray : Array[DialogueConversation]
 var currentConversation : DialogueConversation
 var currentConversationIndex = 0
-var queuedConvo = null
+var queuedConvo:int = -1
 
 var portraitEnum : Array = ["bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke"]
-
-var questIndex ##The quest index, given by the dialogue .json and used at the end of dialogue.
 
 var inDialogue = false ##Whether or not the player is currently interacting with an NPC.
 var inCutscene = false ##Whether or not the player is currently in a cutscene.
@@ -49,7 +46,7 @@ func _ready() -> void:
 	dialogueBox.visible = false
 
 ##The function that performs setup for dialogue.
-func conversationInitiate(dialogueConversation:Array[DialogueConversation], dialogueConversationID:int, npcInstance:Node2D=null): 
+func conversationInitiate(dialogueConversation:Array[DialogueConversation], dialogueConversationID:int, npcInstance:NPC=null): 
 	print("started dialogue from DialogueManager")
 	inDialogue = true
 	dialogueInitializer = npcInstance
@@ -76,16 +73,15 @@ func progressDialogue():
 	if currentEntry.focusPlayer:
 		changeCameraFocusToPlayer.emit()
 	elif currentEntry.currentFocus != null and is_instance_valid(get_node(currentEntry.currentFocusAbsolutePath)):
-		print_debug(currentEntry.currentFocusAbsolutePath)
-		changeCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
+		GlobalSignalBus.requestCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
 	else:
-		changeCameraFocus.emit(dialogueInitializer)
+		GlobalSignalBus.requestCameraFocus.emit(dialogueInitializer)
 	
 	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
 	dialogueText.text = currentEntry.dialogueText
 
 	changeCameraSmoothingAmount.emit(currentEntry.cameraSpeed)
-	changeCameraZoom.emit(currentEntry.cameraZoom)
+	GlobalSignalBus.requestCameraZoomChange.emit(currentEntry.cameraZoom)
 	
 	textSpeed.wait_time = currentEntry.textSpeed
 	
@@ -106,10 +102,10 @@ func progressDialogue():
 		changePlayerCharacterState.emit("playerBusy")
 	
 	if currentEntry.goToNextConversation:
-		dialogueInitializer.convoID += 1
+		dialogueInitializer.setConversationIndex(dialogueInitializer.getConversationIndex() + 1)
 	
 	if currentEntry.manualNextConversation > 0:
-		dialogueInitializer.convoID = currentEntry.manualNextConversation
+		dialogueInitializer.setConversationIndex(currentEntry.manualNextConversation)
 		
 	if currentEntry.dialogueText == "":
 		dialogueBox.visible = false
@@ -142,9 +138,9 @@ func endDialogue():
 	#mainCamera.smoothAmount = 0.2
 	#mainCamera.currentParent = mainCamera.playerRef
 	
-	if queuedConvo != null:
+	if queuedConvo > -1:
 		conversationInitiate(NPCConversationArray, currentConversationIndex)
-		queuedConvo = null
+		queuedConvo = -1
 	return
 
 func queueConvo(convoNumb:int) -> void:
@@ -171,6 +167,7 @@ func _input(event):
 			progressDialogue()
 		else:
 			dialogueText.visible_characters = len(dialogueText.get_parsed_text())
+		get_viewport().set_input_as_handled()
 
 func _process(delta):
 	gvars.inDialogue = inDialogue

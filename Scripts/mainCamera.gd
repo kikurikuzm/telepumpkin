@@ -1,12 +1,12 @@
-extends Camera2D
+class_name MainCamera extends Camera2D
 
-@onready var currentParent = $"../Player"
-var oldParent
-var playerRef
-var smoothAmount = 0.2
-var oldZoom
-var desiredZoom : float = 1.0
-var playerZoom : float = 0
+@onready var currentParent:Node2D = $"../Player"
+var oldParent:Node2D
+var playerRef:Node2D
+var smoothAmount:float = 0.2
+var oldZoom:float
+var desiredZoom:float = 1.0
+var playerZoom:float = 0
 
 func _ready():
 	playerRef = currentParent
@@ -46,7 +46,7 @@ func returnToParent():
 	
 	currentParent = playerRef
 
-func changeZoom(newZoom:float):
+func changeZoom(newZoom:float): ##Stores the current zoom and changes to the provided zoom.
 	if newZoom == 0:
 		print_debug(playerZoom)
 		returnToOldZoom()
@@ -57,7 +57,7 @@ func changeZoom(newZoom:float):
 		desiredZoom = newZoom
 		return
 
-func returnToOldZoom():
+func returnToOldZoom(): ##Returns to the most recently stored zoom.
 	if playerZoom != null:
 		desiredZoom = playerZoom
 	else:

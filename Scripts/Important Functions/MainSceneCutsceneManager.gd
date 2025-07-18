@@ -1,4 +1,4 @@
-extends Node
+class_name CutsceneManager extends Node
 
 var isCutsceneCurrentlyActive = false
 

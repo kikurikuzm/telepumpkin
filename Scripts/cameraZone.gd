@@ -11,10 +11,6 @@ class_name cameraZone
 @onready var collisionShape2D = $Area2D/CollisionShape2D
 @onready var exampleCamera = $exampleBounds
 
-signal requestCameraFocus(emittingCameraZoneReference)
-signal returnCameraFocus(emittingCameraZoneReference)
-signal requestCameraZoomChange(requestedZoom:float)
-
 func _process(delta):
 	if usesCustomTransform:
 		collisionShape2D.position.x = collisionShapeTransform.x
@@ -47,10 +43,10 @@ func _on_check_if_empty_timeout():
 		cameraZoneReturnCamera()
 
 func cameraZoneGetCamera():
-	requestCameraFocus.emit(self)
+	GlobalSignalBus.requestCameraFocus.emit(self)
 	if overrideCameraZoom:
-		requestCameraZoomChange.emit(cameraZoom)
+		GlobalSignalBus.requestCameraZoomChange.emit(cameraZoom)
 		return
 
 func cameraZoneReturnCamera():
-	returnCameraFocus.emit(self)
+	GlobalSignalBus.returnCameraFocus.emit()

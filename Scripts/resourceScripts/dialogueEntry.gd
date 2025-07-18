@@ -3,13 +3,13 @@ class_name DialogueEntry extends Resource
 @export_multiline var dialogueText : String = "Enter text here!"
 @export_group("Dialogue Settings")
 @export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var dialoguePortrait: String
-@export var textSpeed : float = 0.7
+@export_range(0.0, 0.5, 0.005) var textSpeed : float = 0.07 ##How long in seconds to wait before revealing a character.
 @export_group("Focus Settings")
-@export var currentFocus : NodePath
+@export var currentFocus : NodePath ##Who or what the camera should be centered on for this piece of dialogue.
 var currentFocusAbsolutePath : String = ""
-@export var focusPlayer : bool = false
+@export var focusPlayer : bool = false ##If the camera should be focused on the player or not. Ignored if a node is provided for [param currentFocus].
 @export_group("Camera Settings")
-@export var cameraSpeed : float = 0.1
+@export var cameraSpeed : float = 0.1 ##How fast the camera should interpolate to its next position.
 @export var cameraZoom : float = 4.0
 @export_group("Player Settings")
 @export var playerCanMove : bool = false ##Whether or not the player should be able to move during the dialogue.

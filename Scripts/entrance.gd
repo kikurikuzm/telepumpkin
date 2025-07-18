@@ -1,53 +1,52 @@
 @icon("res://Resources/Editor Icons/entrance.png")
 extends Node2D
 
-@onready var area2d = $Area2D
-@onready var sprite = $Sprite2D
-@onready var interactIcon = $interactIcon
-@onready var doorSFX = $doorSFX
-@onready var enterTimer = $enterTimer
-@onready var transition = get_parent().get_parent().get_node("transitionLayer")
+@export_file("*_lev.tscn") var gotoLevel : String = ""
+@export var gotoLevelPosition:Vector2 = Vector2.ZERO
+@export var enabled:bool = true
+@export var secret:bool = false ##If the prompt to interact with this entrance should be visible or not.
 
-@export_file("*.tscn") var desiredLevel : String
-@export var enabled = true
-@export var secret = false
-@export var exitLocation = Vector2.ZERO
+@onready var sprite:Sprite2D = $doorSprite
+@onready var doorSFX:AudioStreamPlayer2D = $doorSFX
+@onready var enterTimer:Timer = $enterTimer
+@onready var trigger:Trigger = $trigger
+@onready var levelChangeRequester:LevelChangeRequester = $LevelChangeRequester
 
-var loadedScene
-
-signal requestLevelChange(levelFilepath, levelSpawnPosition)
-signal requestPlayerChange(desiredState:String)
+func _ready() -> void:
+	levelChangeRequester.setGotoLevel(gotoLevel)
+	levelChangeRequester.setGotoLevelSpawnPosition(gotoLevelPosition)
 
 func _process(delta):
 	if !enterTimer.is_stopped():
 		get_tree().paused = true
 	
 func enterScene():
-	if desiredLevel != null and enterTimer.is_stopped() and enabled:
-		requestPlayerChange.emit("playerBusy")
+	if gotoLevel != null and enterTimer.is_stopped() and enabled:
+		GlobalSignalBus.requestPlayerStateChange.emit(Player.PlayerStates.BUSY)
 		doorSFX.play()
 		await doorSFX.finished
-		requestLevelChange.emit(desiredLevel, exitLocation)
+		levelChangeRequester.changeLevel()
 	else:
 		print("scene not found")
-
-func trigger():
-	enterScene()
 
 func save() -> Dictionary:
 	var saveDict = {
 		"name" : name,
-		"scene" : desiredLevel,
+		"scene" : gotoLevel,
 		"enabled" : enabled,
 		"secret" : secret,
-		"exitLocationX" : exitLocation.x,
-		"exitLocationY" : exitLocation.y
+		"exitLocationX" : gotoLevelPosition.x,
+		"exitLocationY" : gotoLevelPosition.y
 	}
 	return saveDict
 
 func loadJSON(saveData) -> void: 
-	desiredLevel = saveData["scene"]
+	gotoLevel = saveData["scene"]
 	enabled = saveData["enabled"]
 	secret = saveData["secret"]
-	exitLocation.x = saveData["exitLocationX"]
-	exitLocation.y = saveData["exitLocationY"]
+	gotoLevelPosition.x = saveData["exitLocationX"]
+	gotoLevelPosition.y = saveData["exitLocationY"]
+
+
+func _on_trigger_triggered_by_cause(cause: Node2D) -> void:
+	enterScene()

@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var interactArea = $interactArea
 @onready var tpp = $AnimatedSprite2D/tpp
 @onready var tppLine = $tppLine
-@onready var flashlightHand = $AnimatedSprite2D/flashlightHand
+#@onready var flashlightHand = $AnimatedSprite2D/flashlightHand
 
 @onready var playerLight = $AnimatedSprite2D/playerLight
 
@@ -37,6 +37,19 @@ var mousefly = false
 
 signal enteringEntrance(scene)
 signal finishedExitAnimation
+
+enum PlayerStates {
+	IDLE,
+	WALKING,
+	STOPPING,
+	JUMPING,
+	FALLING,
+	STRETCHING,
+	BUSY,
+	FINISHED_LEVEL,
+	FLYING,
+	KICKING
+}
 
 func _physics_process(delta):
 	var interactArray = interactArea.get_overlapping_areas()

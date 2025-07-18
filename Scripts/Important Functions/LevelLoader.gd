@@ -1,4 +1,4 @@
-extends Node
+class_name LevelLoader extends Node
 
 #This node should handle the loading of levels.
 
