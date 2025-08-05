@@ -105,7 +105,8 @@ func teleport(hostPos: Transform2D) -> void:
 
 func _integrate_forces(state) -> void:
 	if custom_integrator == true:
-		linear_velocity = Vector2.ZERO
+		linear_velocity.x *= 0.1
+		linear_velocity.y *= 0.5
 		
 		var oldPos = self.global_position + Vector2(0, 20)
 		

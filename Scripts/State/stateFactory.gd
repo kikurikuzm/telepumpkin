@@ -4,7 +4,10 @@ class_name StateFactory
 @export var debugtext : Label
 @export var initial_state : State
 
+@onready var player:Player = $".."
+
 var loaded = false
+
 
 var current_state : State
 var states : Dictionary = {}
@@ -31,13 +34,14 @@ func _process(delta):
 	if current_state:
 		current_state.update(delta)
 	
-func _physics_process(delta):
+func physics_process(delta):
 	if !loaded:
 		return
 		
 	if current_state:
 		current_state.physics_update(delta)
-		
+	
+
 func on_child_transition(state, new_state_name):
 	if state != current_state:
 		return

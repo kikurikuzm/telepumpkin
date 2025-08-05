@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://iv7mady3j6r1"]
+[gd_scene load_steps=12 format=4 uid="uid://iv7mady3j6r1"]
 
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_sp617"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_4jthu"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://byhsf5mqeihvq" path="res://Instances/Level Components/TeleportDisabledZone.tscn" id="8_kbb4x"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_124g2"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="10_4jthu"]
+[ext_resource type="Script" uid="uid://cm5xn4ihn31v0" path="res://Scripts/Important Functions/LevelChangeRequester.gd" id="11_8kdam"]
 
 [node name="LevelSceneRoot" type="Node"]
 script = ExtResource("1_sp617")
@@ -59,11 +60,16 @@ scale = Vector2(1.17321, 1.17321)
 [node name="trigger" parent="." groups=["level_gameStateModifier"] instance=ExtResource("9_124g2")]
 position = Vector2(633, 1175)
 scale = Vector2(5.53297, 5.02)
-enabled = null
-anythingTriggers = null
+triggerTargets = Array[NodePath]([NodePath("../LevelChangeRequester")])
 
 [node name="cameraZone" parent="." instance=ExtResource("10_4jthu")]
 position = Vector2(665, 763)
-collisionShapeTransform = Vector4(-89.088, 0, 5, 3.5)
+collisionShapeTransform = Vector4(-125, 0, 5, 3.5)
 usesCustomTransform = true
 overrideCameraZoom = true
+
+[node name="LevelChangeRequester" type="Node" parent="."]
+script = ExtResource("11_8kdam")
+level = "uid://iv7mady3j6r1"
+levelChangeType = 3
+metadata/_custom_type_script = "uid://cm5xn4ihn31v0"

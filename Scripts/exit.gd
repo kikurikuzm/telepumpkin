@@ -15,9 +15,6 @@ signal levelFinished
 func _ready() -> void:
 	playerInteract.disableTrigger()
 
-func trigger():
-	reachedMaxPumpkins()
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#if body.is_in_group("player") and pumpkinsCollected >= pumpkinsNeeded and pumpkinAcceptTimer.is_stopped():
 		#reachedMaxPumpkins()
@@ -36,3 +33,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func reachedMaxPumpkins():
 	GlobalSignalBus.levelComplete.emit()
 	self.visible = false
+
+
+func _on_trigger_triggered_by_cause(cause: Node2D) -> void:
+	reachedMaxPumpkins()

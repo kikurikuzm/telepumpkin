@@ -1,0 +1,3 @@
+- Fix weird occasional crashes that result from kicking pumpkins
+- Finish moving all signals to GlobalSignalBus
+- Settle on the [[Levels]]

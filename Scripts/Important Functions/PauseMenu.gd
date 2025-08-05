@@ -14,6 +14,9 @@ signal unpauseGame
 signal restartLevel
 signal exitToMenu
 
+func _ready() -> void:
+	self.propagate_call("release_focus")
+
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("pause"):
 		if isPaused == true:

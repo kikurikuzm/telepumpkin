@@ -5,21 +5,25 @@ class_name playerKick
 
 var hasImpacted = false
 var inKick = false
-
-const DEFAULT_HORIZONTAL_KICK_STRENGTH = 100
-const PERFECT_HORIZONTAL_KICK_STRENGTH = 150
-const DEFAULT_VERTICAL_KICK_STRENGTH = 50
-const PERFECT_VERTICAL_KICK_STRENGTH = 80
+var kickStopTimer:Timer
+var alreadyImpulsedTargets:Array[Node2D]
 
 var kickStrengthHorizontal = 100
 var kickStrengthVertical = 50
 var kickDirection = 1
 var kickPausetime = 0.04
 
+const DEFAULT_HORIZONTAL_KICK_STRENGTH = 100
+const PERFECT_HORIZONTAL_KICK_STRENGTH = 150
+const DEFAULT_VERTICAL_KICK_STRENGTH = 50
+const PERFECT_VERTICAL_KICK_STRENGTH = 80
+const MAX_KICK_WAIT_TIME := 1.25
+
 func enter():
 	hasImpacted = false
+	alreadyImpulsedTargets = []
 	playerSprite.rotation_degrees = 0
-	animPlayer.play("kick")
+	animPlayer.play("kickWindup")
 	
 	friction = 0.01
 	
@@ -29,16 +33,25 @@ func enter():
 	elif Input.is_action_pressed("right"):
 		playerSprite.flip_h = false
 		kickDirection = 1
+	
+	if !kickStopTimer:
+		kickStopTimer = Timer.new()
+		kickStopTimer.one_shot = true
+		self.add_child(kickStopTimer)
+	
+	kickStopTimer.start(MAX_KICK_WAIT_TIME)
+
 
 func exit():
 	pass
 
 func update(delta: float):
-	#if Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
-		#pass
-	#elif !Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
-		#friction = 0.01
-		#animPlayer.play("kick")
+	if Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
+		if abs(player.velocity.x) < 60.0 and kickStopTimer.is_stopped():
+			transitioned.emit(self, "playerStop")
+	elif !Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
+		friction = 0.01
+		animPlayer.play("kick")
 		#await animPlayer.animation_finished
 		#transitioned.emit(self, "playerIdle")
 			
@@ -48,10 +61,12 @@ func update(delta: float):
 func physics_update(delta: float):
 	super(delta)
 	
-	if playerSprite.animation == "kick" and playerSprite.frame == 3 and !hasImpacted:
+	if playerSprite.animation == "kick" and playerSprite.frame == 3:
 		if kickArea.has_overlapping_bodies():
 			for i in kickArea.get_overlapping_bodies():
-				if i.is_in_group("pumpkin") and is_instance_valid(i) and !hasImpacted:
+				if alreadyImpulsedTargets.has(i): continue
+				
+				if i != null and i.is_in_group("pumpkin"):
 					inKick = true
 					
 					kickStrengthHorizontal = DEFAULT_HORIZONTAL_KICK_STRENGTH
@@ -60,39 +75,33 @@ func physics_update(delta: float):
 					
 					var playerOldVelocity = player.velocity
 					
-					kickPausetime = abs(playerOldVelocity.x / 2000) + 0.01
-					
-					if kickPausetime > 0.06:
+					kickPausetime = abs(playerOldVelocity.x / 200) + 0.01
+					if kickPausetime > 0.46:
 						kickStrengthHorizontal = PERFECT_HORIZONTAL_KICK_STRENGTH
 						kickStrengthVertical = PERFECT_VERTICAL_KICK_STRENGTH
 						
-						var hitTimer = Timer.new()
-						self.add_child(hitTimer)
-						print(kickPausetime)
 						
 						playerSprite.self_modulate = Color(99.0, 99.0, 99.0)
-						hitTimer.start(kickPausetime)
-						hasImpacted = true
+						var hitTimer = get_tree().create_timer(kickPausetime, true, true, true)
 						animPlayer.pause()
 						$"../../kickBlinkSFX".play()
 						
-						Engine.time_scale = 0.1
+						Engine.time_scale = 0.0
 						await hitTimer.timeout
 						Engine.time_scale = 1.0
 						
 						#$"../../kickSFX".play()
 						animPlayer.play()
-						hitTimer.queue_free()
 						playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
 					
-					hasImpacted = true
-					i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(playerOldVelocity.x)/45 + 1), -kickStrengthVertical), Vector2(0,0))
+					if !alreadyImpulsedTargets.has(i) and i != null:
+						i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(playerOldVelocity.x)/45 + 1), -kickStrengthVertical), Vector2(0,0))
+						alreadyImpulsedTargets.append(i)
+						hasImpacted = true
 					
 					inKick = false
 	if hasImpacted:
 		friction = 1.0
 	
 	player.velocity.x = lerp(player.velocity.x, 0.0, friction)
-	
-	player.move_and_slide()
 	

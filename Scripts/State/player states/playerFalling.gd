@@ -42,4 +42,4 @@ func physics_update(delta: float):
 	if player.is_on_floor():
 		transitioned.emit(self, "playerstop")
 	
-	player.move_and_slide()
+	#player.move_and_slide()

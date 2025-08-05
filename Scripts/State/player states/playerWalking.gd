@@ -46,4 +46,4 @@ func physics_update(delta: float):
 	
 	player.velocity.x = clampf(player.velocity.x, -MAXSPEED, MAXSPEED)
 	
-	player.move_and_slide()
+	#player.move_and_slide()

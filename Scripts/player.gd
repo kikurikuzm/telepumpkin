@@ -8,6 +8,9 @@ extends CharacterBody2D
 @onready var tppLine = $tppLine
 #@onready var flashlightHand = $AnimatedSprite2D/flashlightHand
 
+@onready var pumpkinMagnet:ShapeCast2D = $pumpkinMagnet
+@onready var stateFactory:StateFactory = $stateFactory
+
 @onready var playerLight = $AnimatedSprite2D/playerLight
 
 @onready var collectAudio = $collectAudio
@@ -20,6 +23,9 @@ var jumpstrength: float
 var hasTPP = false
 var holdingTPP = false
 var tppInst
+
+var hasPlayerMagnetizedToPumpkin:bool = false
+var lastPlayerMagnetizedVelocity:Vector2 = Vector2.ZERO
 
 var canTeleport = true
 
@@ -63,6 +69,41 @@ func _physics_process(delta):
 					position = exitVariables[0]
 					velocity = exitVariables[1]
 	
+	stateFactory.physics_process(delta)
+	
+	if pumpkinMagnet.is_colliding():
+		var collider:Node2D
+		for collisionIndex in pumpkinMagnet.get_collision_count():
+			collider = pumpkinMagnet.get_collider(collisionIndex)
+			if collider != null and collider.is_in_group("pumpkin"):
+				break
+			
+		if collider == null: return
+		
+		if lastPlayerMagnetizedVelocity != Vector2.ZERO and abs(lastPlayerMagnetizedVelocity.x)/2 < abs(collider.linear_velocity.x):
+			print(lastPlayerMagnetizedVelocity)
+			self.velocity.x -= lastPlayerMagnetizedVelocity.x
+			self.velocity.x += collider.linear_velocity.x
+		lastPlayerMagnetizedVelocity = collider.linear_velocity
+	else:
+		if lastPlayerMagnetizedVelocity != Vector2.ZERO:
+			print_debug("reset velocity")
+		lastPlayerMagnetizedVelocity = Vector2.ZERO
+		
+		#var velocityDirection:int = sign(collider.linear_velocity.x)
+		#if velocityDirection > 0:
+			#if collider.linear_velocity.x > self.velocity.x:
+				#print("positive : \nbefore: %.2f" % self.velocity.x)
+				#self.velocity = collider.linear_velocity
+				#print("after: %.2f" % self.velocity.x)
+		#elif velocityDirection < 0:
+			#if collider.linear_velocity.x < self.velocity.x:
+				#print("negative : \nbefore: %.2f" % self.velocity.x)
+				#self.velocity = collider.linear_velocity
+				#print("after: %.2f" % self.velocity.x)
+				
+	self.move_and_slide()
+
 func _process(delta):
 	$velocityVisualizer.target_position = self.velocity
 	$debugText.text = str(jumpstrength)

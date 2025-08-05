@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=71 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" uid="uid://b2rcdd2cjidp7" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -1414,6 +1414,9 @@ radius = 16.2162
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43dfb"]
+size = Vector2(30, 10)
+
 [node name="Player" type="CharacterBody2D" groups=["level_canEnterPipe", "player", "useManholes"]]
 scale = Vector2(0.925, 0.925)
 collision_layer = 10
@@ -1421,6 +1424,7 @@ collision_mask = 10
 floor_constant_speed = true
 floor_snap_length = 3.4
 platform_on_leave = 2
+platform_floor_layers = 4294901770
 script = ExtResource("1_cr5rv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1663,8 +1667,11 @@ woodTiles = ExtResource("30_e5rbn")
 moonOuterTiles = ExtResource("35_ucock")
 moonIndoorsTiles = ExtResource("36_kkynl")
 
-[node name="pumpkinMagnet" type="RayCast2D" parent="."]
-target_position = Vector2(0, 33.5135)
+[node name="pumpkinMagnet" type="ShapeCast2D" parent="."]
+shape = SubResource("RectangleShape2D_43dfb")
+target_position = Vector2(0, 30)
+margin = 0.1
+collision_mask = 4
 
 [node name="velocityVisualizer" type="RayCast2D" parent="."]
 modulate = Color(0.331642, 4.21144e-08, 0.155947, 1)

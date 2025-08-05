@@ -13,7 +13,6 @@ config_version=5
 config/name="Telepumpkin 2"
 run/main_scene="res://Instances/mainMenu.tscn"
 config/features=PackedStringArray("4.4")
-run/max_fps=60
 boot_splash/bg_color=Color(0.423529, 0.337255, 0.443137, 1)
 boot_splash/fullsize=false
 boot_splash/image="res://Sprites/Misc/icon.png"
@@ -35,6 +34,7 @@ GlobalSignalBus="*res://Scripts/Important Functions/globalSignalBus.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
+window/vsync/vsync_mode=2
 window/use_physical_light_units=false
 
 [editor]
@@ -223,8 +223,8 @@ kick={
 [physics]
 
 2d/run_on_separate_thread=true
-common/max_physics_steps_per_frame=16
 2d/physics_engine="GodotPhysics2D"
+3d/physics_engine="Dummy"
 2d/default_gravity=200.0
 common/physics_interpolation=true
 2d/stretch/mode="canvas_items"
@@ -233,6 +233,7 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"
 lights_and_shadows/directional_shadow/16_bits=false
 lights_and_shadows/positional_shadow/atlas_16_bits=false
 shading/overrides/force_vertex_shading=true

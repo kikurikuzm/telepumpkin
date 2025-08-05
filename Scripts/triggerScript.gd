@@ -5,6 +5,7 @@ extends EditorElement
 class_name Trigger
 ##A level element that can activate other elements.
 
+@export var triggerTargets:Array[NodePath]
 @export_category("Trigger Settings")
 @export var enabled:bool = true ##Should this trigger be visible and active?
 @export var triggersOnce:bool = true ##Should this trigger should only fire once?
@@ -23,6 +24,14 @@ func _ready():
 		super._ready()
 	if mustInteract and enabled:
 		interactIcon.visible = true
+	
+	for node in triggerTargets:
+		var nodeInstance:Node = get_node(node)
+		if nodeInstance.has_method("_on_receive_trigger_notification"):
+			triggeredByCause.connect(nodeInstance._on_receive_trigger_notification)
+			print_debug("Successfully connected to %s" % nodeInstance.to_string())
+		else:
+			print_debug("%s doesn't have proper trigger receive method!" % nodeInstance.to_string())
 
 func _unhandled_input(event:InputEvent):
 	if Input.is_action_just_pressed("teleport") and mustInteract and enabled:
@@ -49,12 +58,13 @@ func disableTrigger():
 ## The main trigger function. Emits a signal containing whatever caused the trigger
 func initiateTrigger(cause:Node2D) -> void:
 	if hasTriggered == true and triggersOnce == true: return
-	hasTriggered = true
 	
-	if !anythingTriggers and cause.is_in_group("player"):
+	if anythingTriggers == false and cause.is_in_group("player"):
 		triggeredByCause.emit(cause)
+		hasTriggered = true
 	elif anythingTriggers:
 		triggeredByCause.emit(cause)
+		hasTriggered = true
 
 func save():
 	var saveDict = {
@@ -68,6 +78,6 @@ func save():
 func loadJSON(nodeData):
 	hasTriggered = nodeData["triggered"]
 
-func _on_area_2d_area_entered(area) -> void:
-	if !mustInteract:
+func _on_area_2d_area_entered(area:Area2D) -> void:
+	if mustInteract == false:
 		initiateTrigger(area)

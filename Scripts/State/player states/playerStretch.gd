@@ -40,7 +40,6 @@ func physics_update(delta: float):
 	if !player.is_on_floor() and coyoteTimer.is_stopped() and hasHadAirTimer == false:
 		coyoteTimer.start(AIRTIME)
 		hasHadAirTimer = true
-		print("started timer")
 	
 	var direction = 0
 	debugLabel.text = str(player.jumpstrength)
@@ -105,4 +104,4 @@ func physics_update(delta: float):
 	
 	player.velocity.x = clampf(player.velocity.x, -(MAXSPEED + abs(residualSpeed)), (MAXSPEED + abs(residualSpeed)))
 	residualSpeed = clampf(residualSpeed, -125, 125)
-	player.move_and_slide()
+	#player.move_and_slide()

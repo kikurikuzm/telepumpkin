@@ -30,4 +30,4 @@ func physics_update(delta: float):
 		coyoteTimer.start(AIRTIME)
 		transitioned.emit(self, "playerfalling")
 	
-	player.move_and_slide()
+	#player.move_and_slide()

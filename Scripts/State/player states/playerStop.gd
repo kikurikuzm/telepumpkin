@@ -52,4 +52,4 @@ func physics_update(delta: float):
 	
 	player.velocity.x += friction * sign(player.velocity.x) * -1
 	
-	player.move_and_slide()
+	#player.move_and_slide()
