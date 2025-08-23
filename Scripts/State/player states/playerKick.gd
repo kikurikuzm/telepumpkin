@@ -21,7 +21,7 @@ const MAX_KICK_WAIT_TIME := 1.25
 
 func enter():
 	hasImpacted = false
-	alreadyImpulsedTargets = []
+	alreadyImpulsedTargets.clear()
 	playerSprite.rotation_degrees = 0
 	animPlayer.play("kickWindup")
 	
@@ -46,6 +46,9 @@ func exit():
 	pass
 
 func update(delta: float):
+	if Input.is_action_just_pressed("up"):
+		transitioned.emit(self, "playerStretch")
+		return
 	if Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
 		if abs(player.velocity.x) < 60.0 and kickStopTimer.is_stopped():
 			transitioned.emit(self, "playerStop")
@@ -96,6 +99,7 @@ func physics_update(delta: float):
 					
 					if !alreadyImpulsedTargets.has(i) and i != null:
 						i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(playerOldVelocity.x)/45 + 1), -kickStrengthVertical), Vector2(0,0))
+						print_debug("impulsed target")
 						alreadyImpulsedTargets.append(i)
 						hasImpacted = true
 					

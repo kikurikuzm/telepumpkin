@@ -15,6 +15,7 @@ extends Node2D
 func _ready() -> void:
 	levelChangeRequester.setGotoLevel(gotoLevel)
 	levelChangeRequester.setGotoLevelSpawnPosition(gotoLevelPosition)
+	levelChangeRequester.setLevelChangeType(LevelChangeRequester.LevelChangeTypes.SPECIFIC_LEVEL)
 
 func _process(delta):
 	if !enterTimer.is_stopped():
@@ -24,10 +25,12 @@ func enterScene():
 	if gotoLevel != null and enterTimer.is_stopped() and enabled:
 		GlobalSignalBus.requestPlayerStateChange.emit(Player.PlayerStates.BUSY)
 		doorSFX.play()
+		Engine.time_scale = 0.1
 		await doorSFX.finished
 		levelChangeRequester.changeLevel()
+		Engine.time_scale = 1.0
 	else:
-		print("scene not found")
+		print_debug("scene not found")
 
 func save() -> Dictionary:
 	var saveDict = {

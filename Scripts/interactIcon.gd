@@ -10,8 +10,6 @@ extends Node2D
 var showing = false
 
 func _ready():
-	print(collisionShape.shape.size)
-	print(customSize)
 	if customSize != Vector2.ZERO:
 		collisionShape.shape.size.x = customSize.x
 		collisionShape.shape.size.y = customSize.y

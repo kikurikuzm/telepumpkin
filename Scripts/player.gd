@@ -81,7 +81,6 @@ func _physics_process(delta):
 		if collider == null: return
 		
 		if lastPlayerMagnetizedVelocity != Vector2.ZERO and abs(lastPlayerMagnetizedVelocity.x)/2 < abs(collider.linear_velocity.x):
-			print(lastPlayerMagnetizedVelocity)
 			self.velocity.x -= lastPlayerMagnetizedVelocity.x
 			self.velocity.x += collider.linear_velocity.x
 		lastPlayerMagnetizedVelocity = collider.linear_velocity

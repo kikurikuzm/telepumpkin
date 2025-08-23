@@ -110,6 +110,7 @@ func initiateLevelChange(levelPath:String = ""):
 	
 	if levelPath != "":
 		levelLoadedExternally = levelPath
+		print_debug("loading passed levelpath")
 	else:
 		levelLoadedExternally = gvars.levelToLoadInMainScene
 		print_debug(levelLoadedExternally)
@@ -218,6 +219,8 @@ func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:float) -> void:
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)
 
 func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):
+	print_debug("level changeded")
+	print_debug("level change requested, given level: %s" % levelPath)
 	if levelPath == null:
 		restartLevel()
 		return

@@ -43,6 +43,8 @@ func changeLevel() -> void: ##Makes a level request based on [param levelChangeT
 			
 		LevelChangeTypes.SPECIFIC_LEVEL:
 			if level:
+				print_debug("changing level to %s " % level)
+				print_debug("with spawnpos at %s " % str(spawnPosition))
 				GlobalSignalBus.changeLevel.emit(level, spawnPosition)
 
 func _on_receive_trigger_notification(cause:Node2D) -> void:

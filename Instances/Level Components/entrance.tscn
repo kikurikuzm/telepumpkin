@@ -12,6 +12,7 @@ z_index = -2
 script = ExtResource("1_6ejxa")
 
 [node name="LevelChangeRequester" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("5_hbkgk")
 metadata/_custom_type_script = "uid://cm5xn4ihn31v0"
 

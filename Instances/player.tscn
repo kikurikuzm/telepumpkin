@@ -1613,6 +1613,7 @@ one_shot = true
 one_shot = true
 
 [node name="coyoteTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="debugText" type="Label" parent="."]

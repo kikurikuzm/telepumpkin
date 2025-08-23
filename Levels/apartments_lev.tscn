@@ -123,8 +123,7 @@ zoom = Vector2(1.491, 3)
 
 [node name="exit" parent="." instance=ExtResource("6_1no0t")]
 position = Vector2(803, 814)
-desiredLevel = "uid://bwif5kh6bhds0"
-exitLocation = Vector2(863, 758)
+gotoLevel = "uid://bwif5kh6bhds0"
 
 [node name="counter" type="Sprite2D" parent="."]
 z_index = -1
