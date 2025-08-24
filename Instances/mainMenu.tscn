@@ -1,12 +1,28 @@
-[gd_scene load_steps=22 format=3 uid="uid://dvodnr4utvfun"]
+[gd_scene load_steps=28 format=3 uid="uid://dvodnr4utvfun"]
 
 [ext_resource type="Script" uid="uid://dbl7bqmnrap0q" path="res://Scripts/mainMenu.gd" id="1_s2c4v"]
 [ext_resource type="Shader" uid="uid://iqp6p7ubsg52" path="res://Resources/Shaders/wiggle.gdshader" id="2_kksby"]
 [ext_resource type="Theme" uid="uid://c3t3dtsco6rf6" path="res://Resources/Themes/MainMenuTheme.tres" id="2_kn6pq"]
+[ext_resource type="Texture2D" uid="uid://bel1p0o5a3qog" path="res://Sprites/backgrounds/mainMenuBG.png" id="3_r0kno"]
 [ext_resource type="Script" uid="uid://dn4y5fobhmob8" path="res://Scripts/UI/Main menu/SettingsOptionsManager.gd" id="4_b0thl"]
 [ext_resource type="Shader" uid="uid://bp7t12p2tmln8" path="res://Resources/Shaders/wavy.gdshader" id="4_j7w7e"]
 [ext_resource type="Script" uid="uid://wuga3pwp6bms" path="res://Scripts/UI/Main menu/MainScreenManager.gd" id="4_meqqy"]
 [ext_resource type="Script" uid="uid://c8aoemd3jekg8" path="res://Scripts/UI/Main menu/SettingsManager.gd" id="4_mw7i6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sk5sq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c0o7e"]
+content_margin_left = 64.0
+content_margin_top = 128.0
+content_margin_right = 64.0
+content_margin_bottom = 128.0
+bg_color = Color(0.223529, 0.203922, 0.341176, 1)
+skew = Vector2(0.027, 0.027)
+border_color = Color(0.223529, 0.203922, 0.341176, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v5r0w"]
 shader = ExtResource("4_j7w7e")
@@ -40,6 +56,13 @@ shader_parameter/height = 1.305
 shader_parameter/frequency = 3.0
 shader_parameter/speed = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r0kno"]
+content_margin_left = 128.0
+content_margin_top = 32.0
+content_margin_right = 128.0
+content_margin_bottom = 32.0
+bg_color = Color(0.63, 0.185, 0, 0.25)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_or5xf"]
 shader = ExtResource("2_kksby")
 shader_parameter/height = 10.0
@@ -52,6 +75,25 @@ font_color = Color(0.721569, 0.321569, 1, 1)
 outline_size = 9
 outline_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
 shadow_size = 629
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qu4y0"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0, 0, 0, 0.313726)
+border_width_top = 4
+border_color = Color(0.945098, 0.360784, 0.109804, 0.756863)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv8hh"]
+content_margin_left = 10.0
+bg_color = Color(0, 0, 0, 0.313726)
+border_width_top = 4
+border_color = Color(0.945098, 0.360784, 0.109804, 0)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="Animation" id="Animation_p0hs6"]
 length = 0.001
@@ -167,139 +209,142 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_s2c4v")
 
-[node name="MainScreenControlNode" type="Control" parent="."]
+[node name="MainPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1920.0
-offset_bottom = -1080.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MainPanelContainer" type="PanelContainer" parent="MainScreenControlNode"]
-layout_mode = 1
-offset_right = 1920.0
-offset_bottom = 1080.0
 theme = ExtResource("2_kn6pq")
-metadata/_edit_use_anchors_ = true
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sk5sq")
 
-[node name="CenterContainer" type="CenterContainer" parent="MainScreenControlNode/MainPanelContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MainPanelContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_c0o7e")
 
-[node name="MainVBox" type="VBoxContainer" parent="MainScreenControlNode/MainPanelContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanelContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/separation = 80
+theme_override_constants/separation = 128
 
-[node name="TitleLabel" type="Label" parent="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox"]
+[node name="TextVBox" type="VBoxContainer" parent="MainPanelContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 26
+
+[node name="TitleLabel" type="Label" parent="MainPanelContainer/PanelContainer/VBoxContainer/TextVBox"]
 material = SubResource("ShaderMaterial_v5r0w")
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_kn6pq")
 text = "Telepumpkin"
 label_settings = SubResource("LabelSettings_hc3o6")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VersionLabel" type="Label" parent="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox"]
+[node name="VersionLabel" type="Label" parent="MainPanelContainer/PanelContainer/VBoxContainer/TextVBox"]
 material = SubResource("ShaderMaterial_y2dy2")
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_kn6pq")
 text = "Version 0.8.0"
 label_settings = SubResource("LabelSettings_cnm72")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MainButtonsVBox" type="VBoxContainer" parent="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox"]
+[node name="MainVBox" type="VBoxContainer" parent="MainPanelContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 66
+alignment = 1
+
+[node name="MainButtonsVBox" type="VBoxContainer" parent="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox"]
+custom_minimum_size = Vector2(560, 256)
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 15
 script = ExtResource("4_meqqy")
 
-[node name="StartButton" type="Button" parent="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox"]
+[node name="StartButton" type="Button" parent="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
+size_flags_vertical = 3
 focus_neighbor_bottom = NodePath("../SettingsButton")
 theme = ExtResource("2_kn6pq")
 text = "Start"
 
-[node name="SettingsButton" type="Button" parent="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox"]
+[node name="SettingsButton" type="Button" parent="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
+size_flags_vertical = 3
 focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
 theme = ExtResource("2_kn6pq")
 text = "Settings"
 expand_icon = true
 
-[node name="QuitButton" type="Button" parent="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox"]
+[node name="QuitButton" type="Button" parent="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
+size_flags_vertical = 3
 focus_neighbor_top = NodePath("../SettingsButton")
 theme = ExtResource("2_kn6pq")
 text = "Quit"
 
-[node name="SettingsControlNode" type="Control" parent="."]
+[node name="SettingsPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-anchor_left = 1.0
-anchor_right = 2.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1920.0
-offset_bottom = -1080.0
+offset_left = 1920.0
+offset_top = -41.0
+offset_right = 1920.0
+offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r0kno")
 
-[node name="SettingsBackgroundContainer" type="PanelContainer" parent="SettingsControlNode"]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-
-[node name="SettingsCenterContainer" type="CenterContainer" parent="SettingsControlNode/SettingsBackgroundContainer"]
+[node name="SettingsVBoxContainer" type="VBoxContainer" parent="SettingsPanelContainer"]
 layout_mode = 2
-
-[node name="SettingsHFlowContainer" type="HFlowContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer"]
-layout_mode = 2
-theme_override_constants/v_separation = 105
+theme_override_constants/separation = 32
 alignment = 1
 
-[node name="SettingsLabel" type="Label" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer"]
+[node name="SettingsLabel" type="Label" parent="SettingsPanelContainer/SettingsVBoxContainer"]
 material = SubResource("ShaderMaterial_or5xf")
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_kn6pq")
 text = "Settings"
 label_settings = SubResource("LabelSettings_wnjly")
 
-[node name="SettingsMenu" type="GridContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer"]
+[node name="SettingsMenu" type="VBoxContainer" parent="SettingsPanelContainer/SettingsVBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/v_separation = 25
+size_flags_vertical = 3
+theme_override_constants/separation = 24
 script = ExtResource("4_mw7i6")
 
-[node name="SettingsOptionsContainer" type="TabContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu"]
+[node name="SettingsOptionsContainer" type="TabContainer" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu"]
 custom_minimum_size = Vector2(700, 500)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 6
 theme = ExtResource("2_kn6pq")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_qu4y0")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_kv8hh")
 tab_alignment = 1
 current_tab = 0
 clip_tabs = false
 all_tabs_in_front = true
 script = ExtResource("4_b0thl")
 
-[node name="GraphicsSettings" type="MarginContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer"]
+[node name="Graphics" type="VBoxContainer" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 35
-theme_override_constants/margin_top = 35
-theme_override_constants/margin_right = 35
-theme_override_constants/margin_bottom = 35
+theme_override_constants/separation = 12
 metadata/_tab_index = 0
 
-[node name="GraphicsSettingsVBox" type="VBoxContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings"]
+[node name="ResolutionDropdown" type="OptionButton" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="ResolutionDropdown" type="OptionButton" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox"]
-visible = false
-layout_mode = 2
+size_flags_horizontal = 0
 tooltip_text = "Adjust the resolution"
 focus_neighbor_right = NodePath("../SimpleGraphicsToggle")
 focus_neighbor_bottom = NodePath("../FullscreenToggle")
@@ -313,61 +358,59 @@ popup/item_1/id = 1
 popup/item_2/text = "1280x800"
 popup/item_2/id = 2
 
-[node name="SimpleGraphicsToggle" type="CheckBox" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox"]
+[node name="SimpleGraphicsToggle" type="CheckBox" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
 tooltip_text = "Removes most of the particles and shaders. Should improve performance somewhat."
 focus_neighbor_left = NodePath("../ResolutionDropdown")
-focus_neighbor_right = NodePath("../../../AudioSettings/AudioSettingsVBox/MuteToggle")
+focus_neighbor_right = NodePath("../../Audio/MuteToggle")
 theme = ExtResource("2_kn6pq")
 text = "Fast Graphics"
 
-[node name="FullscreenToggle" type="CheckBox" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox"]
+[node name="FullscreenToggle" type="CheckBox" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
 tooltip_text = "Enable or disable fullscreen"
 focus_neighbor_top = NodePath("../SimpleGraphicsToggle")
-focus_neighbor_bottom = NodePath("../../../../SettingsButtonsContainer/ApplyButton")
+focus_neighbor_bottom = NodePath("../../../SettingsButtonsContainer/ApplyButton")
 theme = ExtResource("2_kn6pq")
 text = "Fullscreen"
 
-[node name="AudioSettings" type="MarginContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer"]
+[node name="Audio" type="VBoxContainer" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer"]
 visible = false
 layout_mode = 2
-theme_override_constants/margin_left = 35
-theme_override_constants/margin_top = 35
-theme_override_constants/margin_right = 35
-theme_override_constants/margin_bottom = 35
 metadata/_tab_index = 1
 
-[node name="AudioSettingsVBox" type="VBoxContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/AudioSettings"]
-layout_mode = 2
-
-[node name="MuteToggle" type="CheckBox" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/AudioSettings/AudioSettingsVBox"]
+[node name="MuteToggle" type="CheckBox" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Audio"]
+unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Enable or disable fullscreen"
-focus_neighbor_bottom = NodePath("../../../../SettingsButtonsContainer/ApplyButton")
+focus_neighbor_bottom = NodePath("../../../SettingsButtonsContainer/ApplyButton")
 theme = ExtResource("2_kn6pq")
 text = "Mute Audio"
 
-[node name="HSeparator" type="HSeparator" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu"]
+[node name="HSeparator" type="HSeparator" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="SettingsButtonsContainer" type="VBoxContainer" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu"]
+[node name="SettingsButtonsContainer" type="VBoxContainer" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 10
 
-[node name="ApplyButton" type="Button" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer"]
+[node name="ApplyButton" type="Button" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Changing the settings requires a restart"
-focus_neighbor_top = NodePath("../../SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox/FullscreenToggle")
+focus_neighbor_top = NodePath("../../SettingsOptionsContainer/Graphics/FullscreenToggle")
 focus_neighbor_bottom = NodePath("../BackButton")
 theme = ExtResource("2_kn6pq")
 text = "Apply"
 
-[node name="BackButton" type="Button" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer"]
+[node name="BackButton" type="Button" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Go back to the main menu"
@@ -376,13 +419,13 @@ focus_neighbor_bottom = NodePath("../LoadLevelButton")
 theme = ExtResource("2_kn6pq")
 text = "Back"
 
-[node name="HSeparator" type="HSeparator" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer"]
+[node name="HSeparator" type="HSeparator" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 9
 
-[node name="LoadLevelButton" type="Button" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer"]
+[node name="LoadLevelButton" type="Button" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Can be used to load custom levels"
@@ -391,7 +434,7 @@ focus_neighbor_bottom = NodePath("../SaveRemoveButton")
 theme = ExtResource("2_kn6pq")
 text = "Load Level"
 
-[node name="SaveRemoveButton" type="Button" parent="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer"]
+[node name="SaveRemoveButton" type="Button" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 tooltip_text = "Deletes your save data"
@@ -444,23 +487,33 @@ Would you like to play the tutorial?"
 label_settings = SubResource("LabelSettings_68wlk")
 horizontal_alignment = 1
 
-[connection signal="playerSaveWasDeleted" from="." to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_user_save_removed"]
-[connection signal="settingsButtonPressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" to="." method="_on_settings_button_pressed"]
-[connection signal="startButtonPressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox/StartButton" to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_on_start_pressed"]
-[connection signal="pressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox/SettingsButton" to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_on_settings_pressed"]
-[connection signal="pressed" from="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox/QuitButton" to="MainScreenControlNode/MainPanelContainer/CenterContainer/MainVBox/MainButtonsVBox" method="_on_quit_pressed"]
-[connection signal="backButtonPressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" to="." method="_on_back_button_pressed"]
-[connection signal="loadLevelButtonPressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" to="." method="_open_level_select_window"]
-[connection signal="playerSaveDeleted" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" to="." method="_on_player_save_deleted"]
-[connection signal="item_selected" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox/ResolutionDropdown" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer" method="_on_resolution_settings_item_selected"]
-[connection signal="toggled" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox/SimpleGraphicsToggle" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer" method="_on_graphics_settings_toggled"]
-[connection signal="toggled" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/GraphicsSettings/GraphicsSettingsVBox/FullscreenToggle" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer" method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer/AudioSettings/AudioSettingsVBox/MuteToggle" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsOptionsContainer" method="_on_mute_toggled"]
-[connection signal="pressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer/ApplyButton" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" method="_on_apply_pressed"]
-[connection signal="pressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer/BackButton" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" method="_on_back_button_pressed"]
-[connection signal="pressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer/LoadLevelButton" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" method="_on_load_level_button_pressed"]
-[connection signal="pressed" from="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu/SettingsButtonsContainer/SaveRemoveButton" to="SettingsControlNode/SettingsBackgroundContainer/SettingsCenterContainer/SettingsHFlowContainer/SettingsMenu" method="_on_save_remove_pressed"]
+[node name="parallaxBackground" type="Parallax2D" parent="."]
+z_index = -2
+scroll_scale = Vector2(0.137, 0.137)
+
+[node name="background" type="Sprite2D" parent="parallaxBackground"]
+modulate = Color(0.567625, 0.567625, 0.567625, 0.490196)
+position = Vector2(1091.09, 617)
+scale = Vector2(0.948344, 0.948344)
+texture = ExtResource("3_r0kno")
+
+[connection signal="playerSaveWasDeleted" from="." to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_user_save_removed"]
+[connection signal="settingsButtonPressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" to="." method="_on_settings_button_pressed"]
+[connection signal="startButtonPressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/StartButton" to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_on_start_pressed"]
+[connection signal="pressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/SettingsButton" to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_on_settings_pressed"]
+[connection signal="pressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/QuitButton" to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_on_quit_pressed"]
+[connection signal="backButtonPressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" to="." method="_on_back_button_pressed"]
+[connection signal="loadLevelButtonPressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" to="." method="_open_level_select_window"]
+[connection signal="playerSaveDeleted" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" to="." method="_on_player_save_deleted"]
+[connection signal="item_selected" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics/ResolutionDropdown" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_resolution_settings_item_selected"]
+[connection signal="toggled" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics/SimpleGraphicsToggle" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_graphics_settings_toggled"]
+[connection signal="toggled" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics/FullscreenToggle" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_fullscreen_toggled"]
+[connection signal="toggled" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Audio/MuteToggle" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_mute_toggled"]
+[connection signal="pressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/ApplyButton" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" method="_on_apply_pressed"]
+[connection signal="pressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/BackButton" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" method="_on_back_button_pressed"]
+[connection signal="pressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/LoadLevelButton" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" method="_on_load_level_button_pressed"]
+[connection signal="pressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/SaveRemoveButton" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" method="_on_save_remove_pressed"]
 [connection signal="file_selected" from="levelDialogue" to="." method="_on_level_dialogue_file_selected"]
 [connection signal="canceled" from="startTutorial" to="." method="_on_start_tutorial_canceled"]
 [connection signal="confirmed" from="startTutorial" to="." method="_on_start_tutorial_confirmed"]

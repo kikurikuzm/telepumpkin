@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Story/Story Outline.md",
+                "file": "Game/Levels.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Story Outline"
+              "title": "Levels"
             }
           }
         ],
@@ -175,6 +175,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -185,10 +186,13 @@
   },
   "active": "7791beeeb10f4542",
   "lastOpenFiles": [
-    "Game/Documentation.md",
+    "Game/Code/Documentation.md",
+    "Game/Code",
+    "Game/Levels.md",
+    "Game/To-do.md",
+    "Story/Story Outline.md",
     "Story/Characters/Kin.md",
     "Game",
-    "Story/Story Outline.md",
     "Story/Characters",
     "Story",
     "Welcome.md"

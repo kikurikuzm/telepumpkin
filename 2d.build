@@ -5,6 +5,8 @@
 		"disable_navigation": true,
 		"openxr": false
 	},
-	"disabled_classes": [],
+	"disabled_classes": [
+		"Node3D"
+	],
 	"type": "build_profile"
 }

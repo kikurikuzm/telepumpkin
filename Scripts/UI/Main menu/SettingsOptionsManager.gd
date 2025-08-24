@@ -1,39 +1,40 @@
 extends Control
 
+@onready var resolutionChange:OptionButton = %ResolutionDropdown
+@onready var simpleGraphicsToggle:CheckBox = %SimpleGraphicsToggle
+@onready var fullscreenToggle:CheckBox = %FullscreenToggle
 
+@onready var muteToggle:CheckBox = %MuteToggle
 
 func saveSettingsForSave(configFile:FileAccess):
-	configFile.store_8($GraphicsSettings/GraphicsSettingsVBox/ResolutionDropdown.selected)
-	configFile.store_8($GraphicsSettings/GraphicsSettingsVBox/SimpleGraphicsToggle.button_pressed)
-	configFile.store_8($GraphicsSettings/GraphicsSettingsVBox/FullscreenToggle.button_pressed)
-	configFile.store_8($AudioSettings/AudioSettingsVBox/MuteToggle.button_pressed)
-	return
-
-
+	configFile.store_8(resolutionChange.selected)
+	configFile.store_8(simpleGraphicsToggle.button_pressed)
+	configFile.store_8(fullscreenToggle.button_pressed)
+	configFile.store_8(muteToggle.button_pressed)
 
 func loadSettingsFromSave(configFile):
 	var tempIndex = configFile.get_8()
-	$GraphicsSettings/GraphicsSettingsVBox/ResolutionDropdown.selected = tempIndex
+	resolutionChange.selected = tempIndex
 	print(tempIndex)
 	_on_resolution_settings_item_selected(tempIndex)
 	
 	tempIndex = bool(configFile.get_8())
-	$GraphicsSettings/GraphicsSettingsVBox/SimpleGraphicsToggle.button_pressed = tempIndex
+	simpleGraphicsToggle.button_pressed = tempIndex
 	_on_graphics_settings_item_selected(tempIndex)
 	
 	tempIndex = bool(configFile.get_8())
-	$GraphicsSettings/GraphicsSettingsVBox/FullscreenToggle.button_pressed = tempIndex
+	fullscreenToggle.button_pressed = tempIndex
 	_on_fullscreen_toggled(tempIndex)
 	
 	tempIndex = bool(configFile.get_8())
-	$AudioSettings/AudioSettingsVBox/MuteToggle.button_pressed = tempIndex
+	muteToggle.button_pressed = tempIndex
 	_on_mute_toggled(tempIndex)
 
 
 
 func _on_fullscreen_toggled(button_pressed):
 	if button_pressed == true:
-		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_FULLSCREEN)
 	elif button_pressed == false:
 		ProjectSettings.set_setting("display/window/size/mode", DisplayServer.WINDOW_MODE_MAXIMIZED)
 
@@ -42,14 +43,14 @@ func _on_fullscreen_toggled(button_pressed):
 func _on_resolution_settings_item_selected(index):
 	match index:
 		0:
-			ProjectSettings.set_setting("display/window/size/viewport_width", 2560)
-			ProjectSettings.set_setting("display/window/size/viewport_height", 1440)
+			ProjectSettings.set_setting("display/window/size/window_width_override", 2560)
+			ProjectSettings.set_setting("display/window/size/window_height_override", 1440)
 		1:
-			ProjectSettings.set_setting("display/window/size/viewport_width", 1920)
-			ProjectSettings.set_setting("display/window/size/viewport_height", 1080)
+			ProjectSettings.set_setting("display/window/size/window_width_override", 1920)
+			ProjectSettings.set_setting("display/window/size/window_height_override", 1080)
 		2:
-			ProjectSettings.set_setting("display/window/size/viewport_width", 1280)
-			ProjectSettings.set_setting("display/window/size/viewport_height", 800)
+			ProjectSettings.set_setting("display/window/size/window_width_override", 1280)
+			ProjectSettings.set_setting("display/window/size/window_height_override", 800)
 
 
 

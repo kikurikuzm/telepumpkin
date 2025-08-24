@@ -15,7 +15,7 @@ var stretchAnimationDownPlayed = false
 var hasHadAirTimer = false
 
 func enter():
-	player.jumpstrength = 100
+	player.jumpstrength = 150
 	MAXSPEED = 45
 	ACCELERATE = 0.012
 	residualSpeed = player.velocity.x
