@@ -4,8 +4,9 @@ extends Sprite2D
 @onready var teleArea = get_node("Area2D")
 
 var selectedPumpkin : Node2D
-
 var scaleOverridden = false
+
+const TELEPORT_COOLDOWN : float = 0.55
 
 func _process(delta):
 	selectedPumpkin = null
@@ -76,5 +77,5 @@ func teleportMove(teleportPos:Transform2D, pumpkin):
 	pumpkin.translate(Vector2(0, -15))
 	$teleportAudio.pitch_scale = randf_range(0.8, 1.2)
 	$teleportAudio.play()
-	teleTimer.start()
+	teleTimer.start(TELEPORT_COOLDOWN)
 	return

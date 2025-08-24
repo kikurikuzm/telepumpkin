@@ -17,8 +17,7 @@ animation = &"smoke"
 volume_db = 14.273
 
 [node name="Trigger" parent="." instance=ExtResource("4_1sfc1")]
-position = Vector2(0, 1)
-scale = Vector2(0.479846, 1)
+triggerSize = Rect2i(0, 0, 28, 66)
 triggersOnce = false
 mustInteract = true
 

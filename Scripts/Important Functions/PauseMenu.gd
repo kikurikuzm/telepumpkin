@@ -40,6 +40,7 @@ func handlePausing():
 	elif !isPaused:
 		GlobalSignalBus.unpauseGame.emit()
 		animationPlayer.play("unpauseGame")
+		propagate_call("release_focus")
 		
 		resumeButton.disabled = true
 		restartButton.disabled = true

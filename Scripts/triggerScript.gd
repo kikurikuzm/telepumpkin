@@ -6,6 +6,7 @@ class_name Trigger
 ##A level element that can activate other elements.
 
 @export var triggerTargets:Array[NodePath]
+@export var triggerSize:Rect2i
 @export_category("Trigger Settings")
 @export var enabled:bool = true ##Should this trigger be visible and active?
 @export var triggersOnce:bool = true ##Should this trigger should only fire once?
@@ -25,6 +26,12 @@ func _ready():
 	if mustInteract and enabled:
 		interactIcon.visible = true
 	
+	area2d.position = triggerSize.position
+	area2d.get_node("CollisionShape2D").shape.size = triggerSize.size
+	
+	interactIcon.position = triggerSize.position
+	interactIcon.customSize = (triggerSize.size as Vector2)
+	
 	for node in triggerTargets:
 		var nodeInstance:Node = get_node(node)
 		if nodeInstance.has_method("_on_receive_trigger_notification"):
@@ -32,6 +39,14 @@ func _ready():
 			print_debug("Successfully connected to %s" % nodeInstance.to_string())
 		else:
 			print_debug("%s doesn't have proper trigger receive method!" % nodeInstance.to_string())
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		area2d.position = triggerSize.position
+		area2d.get_node("CollisionShape2D").shape.size = triggerSize.size
+		
+		interactIcon.position = triggerSize.position
+		interactIcon.customSize = (triggerSize.size as Vector2)
 
 func _unhandled_input(event:InputEvent):
 	if Input.is_action_just_pressed("teleport") and mustInteract and enabled:

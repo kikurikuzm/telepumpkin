@@ -3,8 +3,9 @@ class_name playerKick
 
 @onready var kickArea = $"../../kickArea"
 
-var hasImpacted = false
-var inKick = false
+var hasImpacted:bool = false
+var hasProducedEffect:bool = false
+var inKick:bool = false
 var kickStopTimer:Timer
 var alreadyImpulsedTargets:Array[Node2D]
 
@@ -46,11 +47,9 @@ func exit():
 	pass
 
 func update(delta: float):
-	if Input.is_action_just_pressed("up"):
-		transitioned.emit(self, "playerStretch")
-		return
 	if Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
 		if abs(player.velocity.x) < 60.0 and kickStopTimer.is_stopped():
+			print_debug("kick did not succeed, changing to playerstop")
 			transitioned.emit(self, "playerStop")
 	elif !Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
 		friction = 0.01
@@ -58,7 +57,8 @@ func update(delta: float):
 		#await animPlayer.animation_finished
 		#transitioned.emit(self, "playerIdle")
 			
-	if !animPlayer.is_playing() and !inKick:
+	if !animPlayer.is_playing() and !inKick and Engine.time_scale == 1.0:
+		print_debug("Finished kick, changing to playerstop")
 		transitioned.emit(self, "playerStop")
 
 func physics_update(delta: float):
@@ -71,6 +71,7 @@ func physics_update(delta: float):
 				
 				if i != null and i.is_in_group("pumpkin"):
 					inKick = true
+					hasProducedEffect = false
 					
 					kickStrengthHorizontal = DEFAULT_HORIZONTAL_KICK_STRENGTH
 					kickStrengthVertical = DEFAULT_VERTICAL_KICK_STRENGTH
@@ -87,19 +88,21 @@ func physics_update(delta: float):
 						playerSprite.self_modulate = Color(99.0, 99.0, 99.0)
 						var hitTimer = get_tree().create_timer(kickPausetime, true, true, true)
 						animPlayer.pause()
-						$"../../kickBlinkSFX".play()
+						kickStopTimer.paused = true
+						
+						if !hasProducedEffect:
+							$"../../kickBlinkSFX".play()
+							hasProducedEffect = true
 						
 						Engine.time_scale = 0.0
-						await hitTimer.timeout
-						Engine.time_scale = 1.0
+						finishPerfectKick(hitTimer)
 						
-						#$"../../kickSFX".play()
-						animPlayer.play()
-						playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
 					
 					if !alreadyImpulsedTargets.has(i) and i != null:
+						if Input.is_action_pressed("up"):
+							kickStrengthVertical *= 2.5
+							kickStrengthHorizontal *= 0.75
 						i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(playerOldVelocity.x)/45 + 1), -kickStrengthVertical), Vector2(0,0))
-						print_debug("impulsed target")
 						alreadyImpulsedTargets.append(i)
 						hasImpacted = true
 					
@@ -109,3 +112,11 @@ func physics_update(delta: float):
 	
 	player.velocity.x = lerp(player.velocity.x, 0.0, friction)
 	
+
+func finishPerfectKick(hitTimer:SceneTreeTimer) -> void:
+	print_debug("Started hittimer await")
+	await hitTimer.timeout
+	animPlayer.play()
+	playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
+	Engine.time_scale = 1.0
+	return
