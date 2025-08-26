@@ -8,14 +8,13 @@
 size = Vector2(32, 32)
 
 [node name="exit" type="Node2D" groups=["level_exit"]]
-editor_description = "The exit for any given level. Place this where you want to player to exit to, and set the amount of pumpkins needed to unlock the exit."
+editor_description = "The exit for any given level. Place this where you want to player to exit the level, and set the amount of pumpkins needed to unlock the exit."
 script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_dufrg")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 6
 collision_mask = 6
 
@@ -28,6 +27,7 @@ shape = SubResource("1")
 wait_time = 0.1
 
 [node name="trigger" parent="." instance=ExtResource("3_yo2gt")]
+triggerSize = Rect2i(0, 0, 32, 32)
 mustInteract = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

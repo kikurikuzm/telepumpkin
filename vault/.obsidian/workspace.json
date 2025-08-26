@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Game/To-do.md",
+                "file": "Game/Code/Bug Book/Pumpkin Kick Crash.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "To-do"
+              "title": "Pumpkin Kick Crash"
             }
           }
         ],
@@ -93,7 +93,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "d6296d7bd2933bb8",
@@ -186,10 +187,16 @@
   },
   "active": "7791beeeb10f4542",
   "lastOpenFiles": [
+    "Screenshot From 2025-08-25 10-31-08.png.import",
+    "Screenshot From 2025-08-25 10-32-08.png.import",
+    "Screenshot From 2025-08-25 10-32-08.png",
+    "Screenshot From 2025-08-25 10-31-08.png",
+    "Game/To-do.md",
+    "Game/Code/Bug Book/Pumpkin Kick Crash.md",
+    "Game/Code/Bug Book",
     "Game/Levels.md",
     "Game/Code/Documentation.md",
     "Game/Code",
-    "Game/To-do.md",
     "Story/Story Outline.md",
     "Story/Characters/Kin.md",
     "Game",

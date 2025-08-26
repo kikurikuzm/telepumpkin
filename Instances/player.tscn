@@ -39,10 +39,11 @@
 [ext_resource type="TileSet" uid="uid://dvq0b3c4vp1n2" path="res://Tile Sets/sewer.tres" id="33_3g0tg"]
 [ext_resource type="TileSet" uid="uid://pxsy5kt4g5v5" path="res://Tile Sets/outsidemoontres.tres" id="35_ucock"]
 [ext_resource type="TileSet" uid="uid://bffawxnah4r6u" path="res://Tile Sets/indoorMoontiles.tres" id="36_kkynl"]
+[ext_resource type="PackedScene" uid="uid://df87xnhlrr345" path="res://Instances/Helpers/PumpkinMagnet.tscn" id="40_qffwg"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qna8a"]
-radius = 13.0
-height = 31.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qffwg"]
+radius = 11.8919
+height = 28.1081
 
 [sub_resource type="GDScript" id="GDScript_1gwht"]
 script/source = "extends PlayerState
@@ -1414,22 +1415,19 @@ radius = 16.2162
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_43dfb"]
-size = Vector2(30, 10)
-
 [node name="Player" type="CharacterBody2D" groups=["level_canEnterPipe", "player", "useManholes"]]
 scale = Vector2(0.925, 0.925)
 collision_layer = 10
 collision_mask = 10
+collision_priority = 5.0
 floor_constant_speed = true
-floor_snap_length = 3.4
-platform_on_leave = 2
-platform_floor_layers = 4294901770
+platform_floor_layers = 4294901772
 script = ExtResource("1_cr5rv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7.10543e-15, 0)
-shape = SubResource("CapsuleShape2D_qna8a")
+position = Vector2(0, 2.16216)
+scale = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_qffwg")
 
 [node name="stateFactory" type="Node" parent="." node_paths=PackedStringArray("debugtext", "initial_state")]
 script = ExtResource("2_7igkb")
@@ -1524,6 +1522,7 @@ impactAudio = NodePath("../../fallThump")
 turnTimer = NodePath("../../turnTimer")
 
 [node name="tppLine" type="Line2D" parent="."]
+light_mask = 0
 z_index = -1
 points = PackedVector2Array(0, 0, 0, 1)
 width = 6.0
@@ -1616,8 +1615,10 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
+[node name="kickFailTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="debugText" type="Label" parent="."]
-visible = false
 offset_left = -22.0
 offset_top = -30.0
 offset_right = 141.0
@@ -1668,11 +1669,7 @@ woodTiles = ExtResource("30_e5rbn")
 moonOuterTiles = ExtResource("35_ucock")
 moonIndoorsTiles = ExtResource("36_kkynl")
 
-[node name="pumpkinMagnet" type="ShapeCast2D" parent="."]
-shape = SubResource("RectangleShape2D_43dfb")
-target_position = Vector2(0, 30)
-margin = 0.1
-collision_mask = 4
+[node name="pumpkinMagnet" parent="." instance=ExtResource("40_qffwg")]
 
 [node name="velocityVisualizer" type="RayCast2D" parent="."]
 modulate = Color(0.331642, 4.21144e-08, 0.155947, 1)

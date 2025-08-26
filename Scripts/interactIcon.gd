@@ -24,9 +24,10 @@ func _process(delta):
 	
 	if Engine.is_editor_hint():
 		showInteract()
-		if customSize != Vector2.ZERO:
-			collisionShape.shape.size.x = customSize.x
-			collisionShape.shape.size.y = customSize.y
+		
+	if customSize != Vector2.ZERO:
+		collisionShape.shape.size.x = customSize.x
+		collisionShape.shape.size.y = customSize.y
 
 func showInteract():
 	interactIcon.modulate = lerp(interactIcon.modulate, Color(1.0, 1.0, 1.0, 1.0), 0.1)

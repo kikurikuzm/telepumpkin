@@ -2,12 +2,12 @@ extends PlayerState
 class_name playerKick
 
 @onready var kickArea = $"../../kickArea"
+@onready var kickStopTimer:Timer = $"../../kickFailTimer"
 
 var hasImpacted:bool = false
 var hasProducedEffect:bool = false
 var inKick:bool = false
-var kickStopTimer:Timer
-var alreadyImpulsedTargets:Array[Node2D]
+var alreadyImpulsedTargets:Array[Node2D] = []
 
 var kickStrengthHorizontal = 100
 var kickStrengthVertical = 50
@@ -16,11 +16,17 @@ var kickPausetime = 0.04
 
 const DEFAULT_HORIZONTAL_KICK_STRENGTH = 100
 const PERFECT_HORIZONTAL_KICK_STRENGTH = 150
-const DEFAULT_VERTICAL_KICK_STRENGTH = 50
-const PERFECT_VERTICAL_KICK_STRENGTH = 80
-const MAX_KICK_WAIT_TIME := 1.25
+const DEFAULT_VERTICAL_KICK_STRENGTH = 35
+const PERFECT_VERTICAL_KICK_STRENGTH = 50
+
+const MAX_VERTICAL_KICK_STRENGTH := 100
+const MAX_HORIZONTAL_KICK_STRENGTH := 300
+
+const MAX_KICK_WAIT_TIME := 0.5
+const MIN_REQUIRED_MOVEMENT_VELOCITY := 60.0
 
 func enter():
+	print_debug("Initiated a kick")
 	hasImpacted = false
 	alreadyImpulsedTargets.clear()
 	playerSprite.rotation_degrees = 0
@@ -28,17 +34,17 @@ func enter():
 	
 	friction = 0.01
 	
+	if playerSprite.flip_h == true:
+		kickDirection = -1
+	elif playerSprite.flip_h == false:
+		kickDirection = 1
+	
 	if Input.is_action_pressed("left"):
 		playerSprite.flip_h = true
 		kickDirection = -1
 	elif Input.is_action_pressed("right"):
 		playerSprite.flip_h = false
 		kickDirection = 1
-	
-	if !kickStopTimer:
-		kickStopTimer = Timer.new()
-		kickStopTimer.one_shot = true
-		self.add_child(kickStopTimer)
 	
 	kickStopTimer.start(MAX_KICK_WAIT_TIME)
 
@@ -48,7 +54,8 @@ func exit():
 
 func update(delta: float):
 	if Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
-		if abs(player.velocity.x) < 60.0 and kickStopTimer.is_stopped():
+		print(player.velocity)
+		if abs(player.velocity.x) < MIN_REQUIRED_MOVEMENT_VELOCITY and kickStopTimer.is_stopped():
 			print_debug("kick did not succeed, changing to playerstop")
 			transitioned.emit(self, "playerStop")
 	elif !Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
@@ -80,6 +87,8 @@ func physics_update(delta: float):
 					var playerOldVelocity = player.velocity
 					
 					kickPausetime = abs(playerOldVelocity.x / 200) + 0.01
+					
+					#region Perfect Kick Code
 					if kickPausetime > 0.46:
 						kickStrengthHorizontal = PERFECT_HORIZONTAL_KICK_STRENGTH
 						kickStrengthVertical = PERFECT_VERTICAL_KICK_STRENGTH
@@ -96,13 +105,29 @@ func physics_update(delta: float):
 						
 						Engine.time_scale = 0.0
 						finishPerfectKick(hitTimer)
-						
+					#endregion
 					
 					if !alreadyImpulsedTargets.has(i) and i != null:
+						if i is not RigidBody2D: return
+						
+						kickStrengthHorizontal = (kickStrengthHorizontal * kickDirection) * (abs(playerOldVelocity.x)/45 + 1)
+						kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/45 + 1)) * -1
+						
 						if Input.is_action_pressed("up"):
-							kickStrengthVertical *= 2.5
-							kickStrengthHorizontal *= 0.75
-						i.apply_impulse(Vector2((kickStrengthHorizontal*kickDirection)*(abs(playerOldVelocity.x)/45 + 1), -kickStrengthVertical), Vector2(0,0))
+							var swappedStrength:float = kickStrengthVertical
+							kickStrengthVertical = (abs(kickStrengthHorizontal) * 0.8) * -1
+							kickStrengthHorizontal = abs(swappedStrength * 0.25) * kickDirection
+						else:
+							#if kickStrengthVertical > kickStrengthHorizontal:
+								#var swappedStrength:float = kickStrengthHorizontal
+								#kickStrengthHorizontal = kickStrengthVertical
+								#kickStrengthVertical = swappedStrength
+								
+							kickStrengthVertical = clampf(kickStrengthVertical, -MAX_VERTICAL_KICK_STRENGTH, MAX_VERTICAL_KICK_STRENGTH)
+						
+						print_debug("Kick strength vector : %s, player velocity : %s" % [str(Vector2(kickStrengthHorizontal, kickStrengthVertical)), str(playerOldVelocity)])
+						
+						i.apply_impulse(Vector2(kickStrengthHorizontal, kickStrengthVertical), Vector2(0,0))
 						alreadyImpulsedTargets.append(i)
 						hasImpacted = true
 					

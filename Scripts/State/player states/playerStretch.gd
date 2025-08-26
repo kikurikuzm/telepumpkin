@@ -4,8 +4,6 @@ class_name playerStretch
 @onready var coyoteTimer = $"../../coyoteTimer"
 @onready var debugLabel = $"../../debugText"
 
-const MIN_JUMPSTRENGTH = 0
-const MAX_JUMPSTRENGTH = 270
 var walkspeed = 6.0
 var residualSpeed = 0
 
@@ -14,9 +12,15 @@ var stretchAnimationDownPlayed = false
 
 var hasHadAirTimer = false
 
+const MIN_JUMPSTRENGTH = 0
+const MAX_JUMPSTRENGTH = 270
+const JUMPSTRENGTH_INCREASE = 3
+
+const MAX_STRETCH_WALK_SPEED = 45
+
 func enter():
 	player.jumpstrength = 150
-	MAXSPEED = 45
+	MAXSPEED = 125
 	ACCELERATE = 0.012
 	residualSpeed = player.velocity.x
 	teleportRange.scaleOverridden = true
@@ -51,14 +55,16 @@ func physics_update(delta: float):
 		direction = -1
 		#playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
 		#playerSprite.skew = deg_to_rad(lerp(deg_to_rad(playerSprite.skew), -15.0, 0.001))
-		player.velocity.x += walkspeed * accelerate(direction)
+		if abs(player.velocity.x) < MAX_STRETCH_WALK_SPEED:
+			player.velocity.x += walkspeed * direction
 		playerSprite.flip_h = true
 	
 	if Input.is_action_pressed("right"):
 		direction = 1
 		#playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
 		#playerSprite.skew = deg_to_rad(lerp(deg_to_rad(playerSprite.skew), 15.0, 0.001))
-		player.velocity.x += walkspeed * accelerate(direction)
+		if abs(player.velocity.x) < MAX_STRETCH_WALK_SPEED:
+			player.velocity.x += walkspeed * direction
 		playerSprite.flip_h = false
 		
 	#if Input.is_action_just_released("left") or \
@@ -72,7 +78,7 @@ func physics_update(delta: float):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, 0.9, 0.07)
 		teleportRange.scale.y = lerp(teleportRange.scale.y, 3.0, 0.085)
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
-			player.jumpstrength += 8
+			player.jumpstrength += JUMPSTRENGTH_INCREASE
 			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
 		#if !stretchAnimationUpPlayed:
 			#animPlayer.play("stretchUp")

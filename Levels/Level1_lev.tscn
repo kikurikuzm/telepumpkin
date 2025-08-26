@@ -51,10 +51,6 @@ position = Vector2(769, 686)
 [node name="pumpkin" parent="." instance=ExtResource("2")]
 position = Vector2(915, 719)
 
-[node name="exit" parent="." instance=ExtResource("4")]
-position = Vector2(1156, 656)
-pumpkinsNeeded = 1
-
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(977, 596)
 zoom = Vector2(3, 3)
@@ -76,3 +72,7 @@ shadow_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 [node name="entrance" parent="." instance=ExtResource("10_7fl83")]
 position = Vector2(509, 473)
 rotation = -0.0642116
+
+[node name="exit" parent="." instance=ExtResource("4")]
+position = Vector2(1152, 656)
+pumpkinsNeeded = 1

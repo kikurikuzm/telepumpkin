@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://df87xnhlrr345"]
+
+[ext_resource type="Script" uid="uid://dnfjwacoq0635" path="res://Scripts/pumpkinMagnet.gd" id="1_h2p6x"]
+
+[node name="pumpkinMagnet" type="RayCast2D"]
+target_position = Vector2(0, 20)
+collision_mask = 4
+script = ExtResource("1_h2p6x")
+
+[node name="leftRay" type="RayCast2D" parent="."]
+position = Vector2(-11.8919, 0)
+target_position = Vector2(0, 20)
+
+[node name="rightRay" type="RayCast2D" parent="."]
+position = Vector2(11.8919, 0)
+target_position = Vector2(0, 20)

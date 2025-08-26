@@ -22,7 +22,10 @@ func update(delta: float):
 
 func physics_update(delta: float):
 	player.velocity.y += 3
-	player.velocity.x = 0
+	if abs(player.velocity.x) > 8:
+		transitioned.emit(self, "playerStop")
+	elif abs(player.velocity.x) < 8:
+		player.velocity.x = 0
 	
 	#if pumpkinRaycast.get_collider().is_in_group("pumpkin"):
 		#player.velocity.y = 0

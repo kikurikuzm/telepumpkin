@@ -6,9 +6,11 @@ extends CharacterBody2D
 @onready var interactArea = $interactArea
 @onready var tpp = $AnimatedSprite2D/tpp
 @onready var tppLine = $tppLine
+@onready var playerCollision:CollisionShape2D = $CollisionShape2D
 #@onready var flashlightHand = $AnimatedSprite2D/flashlightHand
 
-@onready var pumpkinMagnet:ShapeCast2D = $pumpkinMagnet
+@onready var pumpkinMagnet:RayCast2D = $pumpkinMagnet
+
 @onready var stateFactory:StateFactory = $stateFactory
 
 @onready var playerLight = $AnimatedSprite2D/playerLight
@@ -71,41 +73,50 @@ func _physics_process(delta):
 	
 	stateFactory.physics_process(delta)
 	
-	if pumpkinMagnet.is_colliding():
-		var collider:Node2D
-		for collisionIndex in pumpkinMagnet.get_collision_count():
-			collider = pumpkinMagnet.get_collider(collisionIndex)
-			if collider != null and collider.is_in_group("pumpkin"):
-				break
-			
-		if collider == null: return
+	#self.velocity = pumpkinMagnet.magnetizePlayerVelocity(self.velocity)
+	
+	#if pumpkinMagnet.is_colliding() or magnetLeft.is_colliding() or magnetRight.is_colliding():
+		#var collider:Node2D
+		#var colliderVelocity:Vector2
+		#
+		#
+		#for collisionIndex in pumpkinMagnet.get_collision_count():
+			#collider = pumpkinMagnet.get_collider()
+			#if collider != null and collider.is_in_group("pumpkin"):
+				#break
+			#
+		#if collider == null: return
+		#
+		#colliderVelocity = collider.linear_velocity
+		#
+		#if abs(self.velocity.x) > abs(colliderVelocity.x):
+			#self.velocity.x += colliderVelocity.x
+		#else:
+			#print_debug(str(colliderVelocity))
+			#self.velocity.x = colliderVelocity.x
+		#
+		##if self.velocity.y < colliderVelocity.y:
+			##self.velocity.y += colliderVelocity.y
+		##else:
+			##self.velocity.y = colliderVelocity.y
+		#
+		## Gives the player the force of the impact if the pumpkin suddenly stops
+		#if lastPlayerMagnetizedVelocity != Vector2.ZERO and abs(lastPlayerMagnetizedVelocity.x)/2 > abs(collider.linear_velocity.x):
+			##self.velocity.y = (abs(lastPlayerMagnetizedVelocity.y) + 5) * -1
+			#
+			#print_debug("boosted player velocity to : %s " % str(lastPlayerMagnetizedVelocity))
+		#lastPlayerMagnetizedVelocity = collider.linear_velocity
+	#else:
+		#if lastPlayerMagnetizedVelocity != Vector2.ZERO:
+			#print_debug("reset velocity")
+		#lastPlayerMagnetizedVelocity = Vector2.ZERO
 		
-		if lastPlayerMagnetizedVelocity != Vector2.ZERO and abs(lastPlayerMagnetizedVelocity.x)/2 < abs(collider.linear_velocity.x):
-			self.velocity.x -= lastPlayerMagnetizedVelocity.x
-			self.velocity.x += collider.linear_velocity.x
-		lastPlayerMagnetizedVelocity = collider.linear_velocity
-	else:
-		if lastPlayerMagnetizedVelocity != Vector2.ZERO:
-			print_debug("reset velocity")
-		lastPlayerMagnetizedVelocity = Vector2.ZERO
-		
-		#var velocityDirection:int = sign(collider.linear_velocity.x)
-		#if velocityDirection > 0:
-			#if collider.linear_velocity.x > self.velocity.x:
-				#print("positive : \nbefore: %.2f" % self.velocity.x)
-				#self.velocity = collider.linear_velocity
-				#print("after: %.2f" % self.velocity.x)
-		#elif velocityDirection < 0:
-			#if collider.linear_velocity.x < self.velocity.x:
-				#print("negative : \nbefore: %.2f" % self.velocity.x)
-				#self.velocity = collider.linear_velocity
-				#print("after: %.2f" % self.velocity.x)
-				
+	
 	self.move_and_slide()
 
 func _process(delta):
 	$velocityVisualizer.target_position = self.velocity
-	$debugText.text = str(jumpstrength)
+	$debugText.text = str(self.velocity)
 	
 	if tppInst != null:
 		tppLine.visible = true
@@ -149,7 +160,9 @@ func _process(delta):
 				canTeleport = false
 				
 		if !hasTPP and canTeleport:
-			teleportRange.rangeTeleport(global_transform)
+			var teleportDestination:Transform2D = self.global_transform
+			teleportDestination.origin.y = self.global_position.y + playerCollision.shape.get_rect().size.y * 0.5
+			teleportRange.rangeTeleport(teleportDestination)
 		tppHandler()
 				
 		

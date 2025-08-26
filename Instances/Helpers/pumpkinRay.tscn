@@ -11,6 +11,7 @@ interpolation_mode = 2
 colors = PackedColorArray(1, 0.345098, 1, 1, 0, 0, 0, 0)
 
 [node name="pumpkinray" type="RayCast2D"]
+visible = false
 collision_mask = 32
 hit_from_inside = true
 collide_with_areas = true

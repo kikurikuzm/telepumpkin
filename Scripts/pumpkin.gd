@@ -12,13 +12,9 @@ var raycast:PackedScene = preload("res://Instances/Helpers/pumpkinRay.tscn")
 @onready var sprite = $pumpkinSprite
 
 var highlighted:bool = false
-
-
-
 var highlightDistortion : float = 0.2
 
-var testpos
-var customVelocity = Vector2.ZERO
+var newPosition
 
 #random size adjustment when pumpkins are spawned
 func _init():
@@ -32,23 +28,7 @@ func _ready():
 		#animationPlayer.play("normalIdle")
 
 #func _physics_process(delta):
-	#var areaArray = $Area2D.get_overlapping_areas()
-	#for area in areaArray:
-		#if area.get_parent().is_in_group("manhole"):
-			#if area.get_parent().enterManhole(linear_velocity) != null:
-				#var manhole = area.get_parent()
-				#var exitVariables = manhole.enterManhole(linear_velocity)
-				#manhole.enterSound(self.linear_velocity.y / 20, randf_range(0.80, 1.0))
-				#position = exitVariables[0]
-				#linear_velocity = exitVariables[1]
-				#area.get_parent().pumpkinAmount -= 1
-
-func getVelocity():
-	return linear_velocity
 	
-func traverseManhole(exitPos: Vector2, exitVel: Vector2):
-	self.position = exitPos
-	self.linear_velocity = exitVel
 
 func _process(delta):
 	if rotting:
@@ -81,9 +61,17 @@ func _process(delta):
 		
 	highlighted = false
 
+
+func getVelocity():
+	return linear_velocity
+	
+func traverseManhole(exitPos: Vector2, exitVel: Vector2):
+	self.position = exitPos
+	self.linear_velocity = exitVel
+
 func teleport(hostPos: Transform2D) -> void:
 	#called by the player script when the pumpkin is teleported
-	testpos = hostPos
+	newPosition = hostPos.get_origin()
 	self.custom_integrator = true
 	
 	if rotting:
@@ -104,14 +92,14 @@ func teleport(hostPos: Transform2D) -> void:
 		#animationPlayer.play("normalTeleport")
 		#animationPlayer.queue("normalIdle")
 
-func _integrate_forces(state) -> void:
+func _integrate_forces(state:PhysicsDirectBodyState2D) -> void:
 	if custom_integrator == true:
 		linear_velocity.x *= 0.1
 		linear_velocity.y *= 0.5
 		
 		var oldPos:Vector2 = self.global_position + Vector2(0, 20)
 		
-		state.set_transform(testpos)
+		state.transform.origin = newPosition
 		
 		var poofInstance:Node2D = poofs.instantiate()
 		poofInstance.hide()
@@ -128,13 +116,11 @@ func spawnTracer(oldPosition:Vector2) -> void:
 	apply_impulse(Vector2(0, -60))
 	
 	var rayInst:Node2D = raycast.instantiate()
-	rayInst.hide()
+	
+	rayInst.setupRay(self, oldPosition, newPosition)
+	
 	get_tree().root.add_child(rayInst)
-	rayInst.sender = self
-	rayInst.global_position = oldPosition
-	rayInst.target_position = testpos.get_origin() - rayInst.global_position
-	rayInst.get_node("Line2D").add_point(testpos.get_origin() - rayInst.global_position)
-	rayInst.show()
+	
 
 func pumpkinDestroy(failure = false):
 	if failure == true:

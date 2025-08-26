@@ -227,7 +227,6 @@ kick={
 2d/run_on_separate_thread=true
 2d/physics_engine="GodotPhysics2D"
 3d/physics_engine="Dummy"
-2d/default_gravity=200.0
 common/physics_interpolation=true
 2d/stretch/mode="canvas_items"
 2d/stretch/scale=1.0

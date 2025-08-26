@@ -72,7 +72,7 @@ func rangeTeleport(teleportPos:Transform2D) -> void:
 			#print("teleported new nearest")
 				teleportMove(teleportPos, nearestPumpkin)
 	
-func teleportMove(teleportPos:Transform2D, pumpkin):
+func teleportMove(teleportPos:Transform2D, pumpkin:RigidBody2D):
 	pumpkin.teleport(teleportPos)
 	pumpkin.translate(Vector2(0, -15))
 	$teleportAudio.pitch_scale = randf_range(0.8, 1.2)
