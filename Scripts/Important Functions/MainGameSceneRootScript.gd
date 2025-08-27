@@ -14,6 +14,7 @@ extends Node
 @onready var playerReference:Player = $Player
 @onready var mainCameraReference:MainCamera = $MainCamera
 
+var cameraOwnerQueue:Array[Node2D] = []
 var currentLevelSetIndex : int = 0
 
 #Connecting to all the signals in GlobalSignalBus
@@ -118,11 +119,14 @@ func initiateLevelChange(levelPath:String = ""):
 	if levelLoadedExternally != "":
 		levelLoader.instanceLevelFromPath(levelLoadedExternally)
 		var levelLoaderLevelSet = levelLoader.levelSet
-		if levelLoadedExternally in levelLoaderLevelSet:
+		var externalLevelUID = ResourceLoader.get_resource_uid(levelLoadedExternally)
+		externalLevelUID = ResourceUID.id_to_text(externalLevelUID)
+		print_debug(externalLevelUID)
+		if externalLevelUID in levelLoaderLevelSet:
 			print_debug("found current level in levelset")
-			currentLevelSetIndex = levelLoaderLevelSet.find(levelLoadedExternally)
+			currentLevelSetIndex = levelLoaderLevelSet.find(externalLevelUID)
 		
-		gvars.levelToLoadInMainScene = ""
+		#gvars.levelToLoadInMainScene = ""
 	#elif levelLoadedExternally == "" and levelLoader.isLevelCurrentlyLoaded():
 		#levelLoader.instanceLevel()
 	else:
@@ -193,6 +197,8 @@ func _levelCompleted():
 	currentLevelSetIndex += 1
 	playerReference.changeState("playerFinishLevel")
 	#Changes level because of the player animation finishing
+	
+	gvars.levelToLoadInMainScene = ""
 
 func _levelFailed():
 	restartLevel()
@@ -210,10 +216,19 @@ func _levelNPCInstanceBeginConversation(emittingNPCConversationArray:Array[Dialo
 	dialogueManager.conversationInitiate(emittingNPCConversationArray, emittingNPCConversationID, emittingNPCInstanceReference)
 
 func _levelCameraZoneGiveMainCameraFocus(cameraZoneReference:Node2D) -> void:
+	if cameraOwnerQueue.has(cameraZoneReference): return
+	
+	cameraOwnerQueue.append(cameraZoneReference)
 	cameraManager.mainCameraChangeParent(cameraZoneReference)
 	
 func _levelCameraZoneTakeMainCameraFocus() -> void:
-	cameraManager.mainCameraReturnToOriginalParent()
+	if cameraOwnerQueue.size() == 1: # Only resetting the camera if that was the last cameraZone to have it
+		cameraManager.mainCameraReturnToOriginalParent()
+	
+	cameraOwnerQueue.pop_front()
+	
+	if cameraOwnerQueue.size() >= 1:
+		cameraManager.mainCameraChangeParent(cameraOwnerQueue.front())
 
 func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:float) -> void:
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)

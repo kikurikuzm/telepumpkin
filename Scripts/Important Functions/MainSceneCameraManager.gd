@@ -2,11 +2,15 @@ class_name CameraManager extends Node
 
 @export var mainCamera:MainCamera
 
+
 func setMainCameraReference(cameraReference:MainCamera) -> void:
 	mainCamera = cameraReference
 
 func setMainCameraPlayerZoom(zoom:float) -> void:
 	mainCamera.playerZoom = zoom
+
+func getMainCameraCurrentParent() -> Node2D:
+	return mainCamera.currentParent
 
 func mainCameraChangeParent(desiredParent:Node2D) -> void:
 	if mainCamera.getCurrentCameraParent() != desiredParent:

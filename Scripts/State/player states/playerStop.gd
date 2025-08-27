@@ -20,7 +20,7 @@ func enter():
 	turnTimer.start(0.15)
 	
 	stopDust.process_material.direction = Vector3(direction*-1, 0, 0)
-	stopDust.emitting = true
+	
 
 func exit():
 	stopDust.emitting = false
@@ -44,12 +44,19 @@ func physics_update(delta: float):
 	if player.velocity.x <= stopThreshold and \
 	player.velocity.x >= -stopThreshold:
 		transitioned.emit(self, "playeridle")
+		return
 	
 	if turnTimer.is_stopped():
 		if Input.is_action_pressed("left") or \
 		Input.is_action_pressed("right"):
 			transitioned.emit(self, "playerwalking")
+			return
+			
+	if !player.is_on_floor():
+		transitioned.emit(self, "playerFalling")
+		return
 	
+	stopDust.emitting = true
 	player.velocity.x += friction * sign(player.velocity.x) * -1
 	
 	#player.move_and_slide()

@@ -127,7 +127,7 @@ func physics_update(delta: float):
 						
 						print_debug("Kick strength vector : %s, player velocity : %s" % [str(Vector2(kickStrengthHorizontal, kickStrengthVertical)), str(playerOldVelocity)])
 						
-						i.apply_impulse(Vector2(kickStrengthHorizontal, kickStrengthVertical), Vector2(0,0))
+						i.call_deferred("apply_impulse", Vector2(kickStrengthHorizontal, kickStrengthVertical), Vector2(0,0))
 						alreadyImpulsedTargets.append(i)
 						hasImpacted = true
 					

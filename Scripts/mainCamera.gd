@@ -3,9 +3,9 @@ class_name MainCamera extends Camera2D
 @onready var currentParent:Node2D = $"../Player"
 var oldParent:Node2D
 var playerRef:Node2D
-var smoothAmount:float = 0.2
+var smoothAmount:float = 0.15
 var oldZoom:float
-var desiredZoom:float = 1.0
+var desiredZoom:float = 5.0
 var playerZoom:float = 0
 
 func _ready():
@@ -16,7 +16,7 @@ func _process(delta):
 		print_debug("Invalid parent!")
 		currentParent = $"../Player"
 	
-	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
+	global_position = lerp(global_position, Vector2(currentParent.get_transform().origin.x, currentParent.get_transform().origin.y - 20), smoothAmount)
 	zoom = lerp(zoom, Vector2(desiredZoom,desiredZoom), smoothAmount)
 
 func snapToParent():

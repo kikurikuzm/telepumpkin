@@ -19,7 +19,7 @@ const JUMPSTRENGTH_INCREASE = 3
 const MAX_STRETCH_WALK_SPEED = 45
 
 func enter():
-	player.jumpstrength = 150
+	player.jumpstrength = 155
 	MAXSPEED = 125
 	ACCELERATE = 0.012
 	residualSpeed = player.velocity.x

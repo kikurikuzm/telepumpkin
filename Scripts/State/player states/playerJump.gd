@@ -8,6 +8,8 @@ class_name playerJump
 
 var aircontrol = 3
 
+const HORIZONTAL_BOOST = 50
+
 func enter():
 	#audio.pitch_scale = 2.0
 	#audio.volume_db = -10.0
@@ -19,10 +21,10 @@ func enter():
 	player.gravity = gvars.playerGravity / 1.2
 	
 	if Input.is_action_pressed("left"):
-		player.velocity.x -= 35
+		player.velocity.x -= HORIZONTAL_BOOST
 		#player.move_and_slide()
 	elif Input.is_action_pressed("right"):
-		player.velocity.x += 35
+		player.velocity.x += HORIZONTAL_BOOST
 		#player.move_and_slide()
 
 func exit():

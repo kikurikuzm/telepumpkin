@@ -65,13 +65,12 @@ anchor_mode = 0
 zoom = Vector2(3, 3)
 
 [node name="NPC" parent="." instance=ExtResource("6_21xf0")]
-position = Vector2(816, 720)
+position = Vector2(805, 724)
 npcLook = "bald"
 dialogueArray = Array[ExtResource("7_w5jp6")]([SubResource("Resource_ytyy4")])
 
 [node name="entrance" parent="." groups=["level_levelChangeRequester"] instance=ExtResource("9_3tiau")]
 position = Vector2(1063, 776)
-desiredLevel = "uid://cow4r430a7mp1"
 
 [node name="Label" type="Label" parent="."]
 offset_left = 775.0
@@ -84,4 +83,4 @@ label_settings = SubResource("LabelSettings_w5jp6")
 
 [node name="CutscenePlayer" type="AnimationPlayer" parent="."]
 script = ExtResource("9_jhsho")
-metadata/_custom_type_script = ExtResource("9_jhsho")
+metadata/_custom_type_script = "uid://cquqdpkj8ecfv"

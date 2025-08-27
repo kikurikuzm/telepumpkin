@@ -160,9 +160,12 @@ func _process(delta):
 				canTeleport = false
 				
 		if !hasTPP and canTeleport:
-			var teleportDestination:Transform2D = self.global_transform
-			teleportDestination.origin.y = self.global_position.y + playerCollision.shape.get_rect().size.y * 0.5
-			teleportRange.rangeTeleport(teleportDestination)
+			var teleportDestination:Vector2 = self.global_position
+			var kickbackVelocity:Vector2
+			teleportDestination.y = self.global_position.y + playerCollision.shape.get_rect().size.y * 0.5
+			kickbackVelocity = teleportRange.rangeTeleport(teleportDestination, self.velocity)
+			
+			if !self.is_on_floor(): self.velocity += kickbackVelocity
 		tppHandler()
 				
 		

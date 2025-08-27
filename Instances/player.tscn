@@ -1416,6 +1416,7 @@ outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody2D" groups=["level_canEnterPipe", "player", "useManholes"]]
+physics_interpolation_mode = 1
 scale = Vector2(0.925, 0.925)
 collision_layer = 10
 collision_mask = 10
@@ -1426,7 +1427,6 @@ script = ExtResource("1_cr5rv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.16216)
-scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_qffwg")
 
 [node name="stateFactory" type="Node" parent="." node_paths=PackedStringArray("debugtext", "initial_state")]
@@ -1487,6 +1487,7 @@ playerSprite = NodePath("../../AnimatedSprite2D")
 teleportRange = NodePath("../../Teleport")
 impactAudio = NodePath("../../fallThump")
 turnTimer = NodePath("../../turnTimer")
+friction = 7
 
 [node name="playerBusy" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "animPlayer", "playerSprite", "teleportRange", "impactAudio", "turnTimer")]
 script = ExtResource("9_8rj2v")
@@ -1619,6 +1620,7 @@ one_shot = true
 one_shot = true
 
 [node name="debugText" type="Label" parent="."]
+visible = false
 offset_left = -22.0
 offset_top = -30.0
 offset_right = 141.0

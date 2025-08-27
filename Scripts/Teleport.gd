@@ -7,6 +7,7 @@ var selectedPumpkin : Node2D
 var scaleOverridden = false
 
 const TELEPORT_COOLDOWN : float = 0.55
+const KICKBACK_MOD : float = 1.1
 
 func _process(delta):
 	selectedPumpkin = null
@@ -43,39 +44,46 @@ func _process(delta):
 			selectedPumpkin = farthestPumpkin
 			self.modulate = lerp(self.modulate, Color(1.0, 1.0, 1.0, 0.6), 0.14)
 
-func rangeTeleport(teleportPos:Transform2D) -> void:
-	if teleArea.get_overlapping_bodies().size() > 0 and teleTimer.is_stopped():
-		#getting all the physics bodies within the teleport range
-		var selected = teleArea.get_overlapping_bodies()
-		
-		var availablePumpkins = []
-		
-		var failCount = 0
-		
-		for node in selected:
-			if node.is_in_group("pumpkin") and !availablePumpkins.has(node):
-				availablePumpkins.append(node)
-		
-		if len(availablePumpkins) > 0:
-			var nearestPumpkin = availablePumpkins[0]
-		
-			for pumpkin in availablePumpkins:
-				if pumpkin.global_position.distance_to(self.global_position) > nearestPumpkin.global_position.distance_to(self.global_position):
-					nearestPumpkin = pumpkin
-				else:
-					failCount += 1
-					
-			if failCount == len(availablePumpkins):
-			#print("already had closest")
-				teleportMove(teleportPos, nearestPumpkin)
-			else:
-			#print("teleported new nearest")
-				teleportMove(teleportPos, nearestPumpkin)
+func rangeTeleport(teleportPos:Vector2, teleportVelocity:Vector2) -> Vector2:
+	if teleArea.get_overlapping_bodies().size() <= 0 or !teleTimer.is_stopped(): return Vector2.ZERO
 	
-func teleportMove(teleportPos:Transform2D, pumpkin:RigidBody2D):
-	pumpkin.teleport(teleportPos)
+	#getting all the physics bodies within the teleport range
+	var selected = teleArea.get_overlapping_bodies()
+	
+	var availablePumpkins = []
+	
+	var failCount = 0
+	
+	for node in selected:
+		if node.is_in_group("pumpkin") and !availablePumpkins.has(node):
+			availablePumpkins.append(node)
+	
+	if len(availablePumpkins) > 0:
+		var nearestPumpkin = availablePumpkins[0]
+	
+		for pumpkin in availablePumpkins:
+			if pumpkin.global_position.distance_to(self.global_position) > nearestPumpkin.global_position.distance_to(self.global_position):
+				nearestPumpkin = pumpkin
+			else:
+				failCount += 1
+				
+		if failCount == len(availablePumpkins):
+		#print("already had closest")
+			return teleportMove(teleportPos, teleportVelocity, nearestPumpkin)
+		else:
+		#print("teleported new nearest")
+			return teleportMove(teleportPos, teleportVelocity, nearestPumpkin)
+		
+	return Vector2.ZERO
+	
+func teleportMove(teleportPos:Vector2, teleportVelocity:Vector2, pumpkin:RigidBody2D) -> Vector2:
+	var pumpkinPosition:Vector2 = pumpkin.global_position
+	var kickbackVelocity:Vector2 = teleportPos - pumpkinPosition # A directional impulse against the player as a result of teleportation. 
+	kickbackVelocity *= KICKBACK_MOD
+	
+	pumpkin.teleport(teleportPos, teleportVelocity)
 	pumpkin.translate(Vector2(0, -15))
 	$teleportAudio.pitch_scale = randf_range(0.8, 1.2)
 	$teleportAudio.play()
 	teleTimer.start(TELEPORT_COOLDOWN)
-	return
+	return kickbackVelocity

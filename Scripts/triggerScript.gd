@@ -12,6 +12,7 @@ class_name Trigger
 @export var triggersOnce:bool = true ##Should this trigger should only fire once?
 @export var anythingTriggers:bool = false ##Should only the [Player] be considered a valid cause to fire?
 @export var mustInteract:bool = false ##Should this trigger require a button press while the [Player] is within range to fire?
+@export var showInteractIcon:bool = true ##Should the interact icon for this trigger be visible at all?
 
 @onready var area2d : Area2D = $Area2D
 @onready var interactIcon = $interactIcon
@@ -23,14 +24,18 @@ signal triggeredByCause(cause:Node2D) ##Emitted when a valid cause to fire has o
 func _ready():
 	if !Engine.is_editor_hint():
 		super._ready()
-	if mustInteract and enabled:
+	if mustInteract and enabled and showInteractIcon:
 		interactIcon.visible = true
+	else:
+		interactIcon.visible = false
 	
-	area2d.position = triggerSize.position
-	area2d.get_node("CollisionShape2D").shape.size = triggerSize.size
+	self.area2d.position = self.triggerSize.position
+	self.area2d.get_node("CollisionShape2D").shape.size = self.triggerSize.size
 	
-	interactIcon.position = triggerSize.position
-	interactIcon.customSize = (triggerSize.size as Vector2)
+	self.interactIcon.position = self.triggerSize.position
+	self.interactIcon.customSize = (self.triggerSize.size as Vector2)
+	
+	self.interactIcon.enabled = showInteractIcon
 	
 	for node in triggerTargets:
 		var nodeInstance:Node = get_node(node)
@@ -42,17 +47,17 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
-		area2d.position = triggerSize.position
-		area2d.get_node("CollisionShape2D").shape.size = triggerSize.size
+		self.area2d.position = self.triggerSize.position
+		self.area2d.get_node("CollisionShape2D").shape.size = self.triggerSize.size
 		
-		interactIcon.position = triggerSize.position
-		interactIcon.customSize = (triggerSize.size as Vector2)
+		self.interactIcon.position = self.triggerSize.position
+		self.interactIcon.customSize = (self.triggerSize.size as Vector2)
 
 func _unhandled_input(event:InputEvent):
 	if Input.is_action_just_pressed("teleport") and mustInteract and enabled:
 		for node in area2d.get_overlapping_areas():
 			if node.is_in_group("player"):
-				interactIcon.visible = false
+				#interactIcon.visible = false
 				initiateTrigger(node)
 				#if node.get_parent().get_node("stateFactory").current_state != node.get_parent().get_node("stateFactory").states["playerbusy"]:
 					#if sceneCutscenePlayer:

@@ -387,6 +387,7 @@ volume_db = -19.025
 [node name="Player" parent="." instance=ExtResource("4_1jw7k")]
 
 [node name="MainCamera" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
 script = ExtResource("5_5c3qt")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]

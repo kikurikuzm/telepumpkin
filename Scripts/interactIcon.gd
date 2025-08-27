@@ -6,6 +6,7 @@ extends Node2D
 @onready var collisionShape : CollisionShape2D = get_node("Area2D/CollisionShape2D")
 
 @export var customSize = Vector2.ZERO
+@export var enabled:bool = true
 
 var showing = false
 
@@ -17,7 +18,7 @@ func _ready():
 	hideInteract()
 
 func _process(delta):
-	if showing:
+	if showing and enabled:
 		showInteract()
 	else:
 		hideInteract()

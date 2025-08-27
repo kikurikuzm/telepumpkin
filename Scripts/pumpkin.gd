@@ -14,7 +14,8 @@ var raycast:PackedScene = preload("res://Instances/Helpers/pumpkinRay.tscn")
 var highlighted:bool = false
 var highlightDistortion : float = 0.2
 
-var newPosition
+var newPosition:Vector2
+var newVelocity:Vector2
 
 #random size adjustment when pumpkins are spawned
 func _init():
@@ -69,10 +70,14 @@ func traverseManhole(exitPos: Vector2, exitVel: Vector2):
 	self.position = exitPos
 	self.linear_velocity = exitVel
 
-func teleport(hostPos: Transform2D) -> void:
-	#called by the player script when the pumpkin is teleported
-	newPosition = hostPos.get_origin()
+func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
+	
+	newPosition = destination
+	newVelocity = inheritedVelocity
+	
 	self.custom_integrator = true
+	self.hide()
+	
 	
 	if rotting:
 		var numberInstance = teleportNumber.instantiate()
@@ -94,8 +99,9 @@ func teleport(hostPos: Transform2D) -> void:
 
 func _integrate_forces(state:PhysicsDirectBodyState2D) -> void:
 	if custom_integrator == true:
-		linear_velocity.x *= 0.1
-		linear_velocity.y *= 0.5
+		
+		#linear_velocity = newVelocity * 0.1
+		linear_velocity *= 0.5
 		
 		var oldPos:Vector2 = self.global_position + Vector2(0, 20)
 		
@@ -109,7 +115,7 @@ func _integrate_forces(state:PhysicsDirectBodyState2D) -> void:
 		poofInstance.show()
 		
 		await get_tree().physics_frame
-		
+		self.show()
 		self.custom_integrator = false
 
 func spawnTracer(oldPosition:Vector2) -> void:

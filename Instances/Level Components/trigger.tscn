@@ -11,6 +11,7 @@ size = Vector2(0, 0)
 script = ExtResource("1_hmf4k")
 
 [node name="interactIcon" parent="." instance=ExtResource("2_lgav0")]
+enabled = null
 
 [node name="Area2D" type="Area2D" parent="."]
 light_mask = 0
