@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_ispy0")
 canTeleport = false
-playerZoom = 3.5
+playerZoom = 5.0
 hasVignette = true
 hasMapView = false
 startsInMap = false
@@ -15,6 +15,6 @@ mapCameraLocked = true
 levelTransition = 1
 musicChance = 0.2
 levelGravity = 9.8
-isDark = false
+isDark = true
 levelBackground = ExtResource("2_iccil")
 worldEnvironment = ExtResource("3_n8xbw")

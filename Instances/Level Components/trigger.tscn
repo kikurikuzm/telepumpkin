@@ -5,13 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://caqsjy8qx0b7v" path="res://Resources/Editor Icons/trigger.png" id="2_nj6ps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
-size = Vector2(0, 0)
+size = Vector2(32, 32)
 
 [node name="Trigger" type="Node2D" groups=["trigger"]]
 script = ExtResource("1_hmf4k")
+triggerSize = Rect2(0, 0, 1, 1)
 
 [node name="interactIcon" parent="." instance=ExtResource("2_lgav0")]
-enabled = null
 
 [node name="Area2D" type="Area2D" parent="."]
 light_mask = 0

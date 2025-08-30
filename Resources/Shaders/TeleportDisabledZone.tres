@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=21 format=3 uid="uid://y0p73yutgr8x"]
+[gd_resource type="VisualShader" load_steps=22 format=3 uid="uid://y0p73yutgr8x"]
 
 [sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_k2nbb"]
 parameter_name = "scroll"
@@ -47,6 +47,10 @@ texture = SubResource("NoiseTexture2D_p25g4")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_4l7vr"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_k2nbb"]
+output_port_for_preview = 0
+source = 5
 
 [sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_xpl60"]
 parameter_name = "noise"
@@ -209,4 +213,6 @@ nodes/fragment/19/node = SubResource("VisualShaderNodeColorConstant_k2nbb")
 nodes/fragment/19/position = Vector2(120, -160)
 nodes/fragment/20/node = SubResource("VisualShaderNodeColorOp_4l7vr")
 nodes/fragment/20/position = Vector2(320, -160)
-nodes/fragment/connections = PackedInt32Array(3, 0, 2, 2, 4, 0, 2, 0, 6, 0, 9, 1, 9, 0, 4, 2, 10, 0, 8, 1, 2, 0, 12, 0, 5, 0, 9, 0, 7, 0, 8, 0, 5, 0, 12, 1, 13, 0, 15, 0, 15, 0, 11, 0, 16, 0, 15, 1, 14, 0, 16, 0, 12, 0, 17, 0, 17, 0, 18, 0, 18, 0, 16, 1, 20, 0, 0, 0, 11, 0, 20, 1, 19, 0, 20, 0, 8, 0, 6, 0)
+nodes/fragment/21/node = SubResource("VisualShaderNodeTexture_k2nbb")
+nodes/fragment/21/position = Vector2(-1200, 180)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 2, 4, 0, 2, 0, 6, 0, 9, 1, 9, 0, 4, 2, 10, 0, 8, 1, 2, 0, 12, 0, 5, 0, 9, 0, 7, 0, 8, 0, 5, 0, 12, 1, 13, 0, 15, 0, 15, 0, 11, 0, 16, 0, 15, 1, 14, 0, 16, 0, 12, 0, 17, 0, 17, 0, 18, 0, 18, 0, 16, 1, 20, 0, 0, 0, 11, 0, 20, 1, 19, 0, 20, 0, 8, 0, 6, 0, 3, 0, 21, 2)

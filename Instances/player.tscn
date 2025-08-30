@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=77 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Script" uid="uid://b2rcdd2cjidp7" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
@@ -40,6 +40,7 @@
 [ext_resource type="TileSet" uid="uid://pxsy5kt4g5v5" path="res://Tile Sets/outsidemoontres.tres" id="35_ucock"]
 [ext_resource type="TileSet" uid="uid://bffawxnah4r6u" path="res://Tile Sets/indoorMoontiles.tres" id="36_kkynl"]
 [ext_resource type="PackedScene" uid="uid://df87xnhlrr345" path="res://Instances/Helpers/PumpkinMagnet.tscn" id="40_qffwg"]
+[ext_resource type="Texture2D" uid="uid://c3vrr0n8ysvel" path="res://Sprites/Misc/telepoof.png" id="41_posx8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qffwg"]
 radius = 11.8919
@@ -1405,6 +1406,31 @@ turbulence_enabled = true
 turbulence_influence_min = 0.06
 turbulence_influence_max = 0.06
 
+[sub_resource type="Curve" id="Curve_2vvt4"]
+_data = [Vector2(0, 0.912579), 0.0, 0.0, 0, 0, Vector2(0.576842, 1), 0.0, 0.0, 0, 0, Vector2(0.909474, 0.537184), 0.651371, 0.651371, 0, 0, Vector2(1, 0), -1.21829, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_e5s0j"]
+curve = SubResource("Curve_2vvt4")
+
+[sub_resource type="Curve" id="Curve_inqhq"]
+_data = [Vector2(0, 0.0383703), 0.0, 0.0, 0, 0, Vector2(0.143158, 1), 0.0, 0.0, 0, 0, Vector2(0.652632, 0.922864), 0.0, 0.0, 0, 0, Vector2(1, 0.650316), -0.0996994, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_5tg1k"]
+curve = SubResource("Curve_inqhq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wy1o5"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 98, 0)
+scale_max = 1.25
+scale_curve = SubResource("CurveTexture_5tg1k")
+alpha_curve = SubResource("CurveTexture_e5s0j")
+turbulence_enabled = true
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bcid"]
 size = Vector2(32, 38)
 
@@ -1579,6 +1605,20 @@ amount = 25
 randomness = 0.5
 trail_lifetime = 0.15
 process_material = SubResource("ParticleProcessMaterial_qffwg")
+
+[node name="doublejumpParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+physics_interpolation_mode = 2
+emitting = false
+amount = 30
+texture = ExtResource("41_posx8")
+lifetime = 1.53
+one_shot = true
+explosiveness = 1.0
+randomness = 0.05
+trail_lifetime = 0.19
+trail_section_subdivisions = 1
+process_material = SubResource("ParticleProcessMaterial_wy1o5")
 
 [node name="exitBasket" type="Sprite2D" parent="."]
 visible = false

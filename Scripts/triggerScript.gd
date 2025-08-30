@@ -6,15 +6,16 @@ class_name Trigger
 ##A level element that can activate other elements.
 
 @export var triggerTargets:Array[NodePath]
-@export var triggerSize:Rect2i
+@export var triggerSize:Rect2
 @export_category("Trigger Settings")
 @export var enabled:bool = true ##Should this trigger be visible and active?
 @export var triggersOnce:bool = true ##Should this trigger should only fire once?
-@export var anythingTriggers:bool = false ##Should only the [Player] be considered a valid cause to fire?
+@export var playerTrigger:bool = true ##If the player will be able to trigger this trigger
 @export var mustInteract:bool = false ##Should this trigger require a button press while the [Player] is within range to fire?
 @export var showInteractIcon:bool = true ##Should the interact icon for this trigger be visible at all?
 
-@onready var area2d : Area2D = $Area2D
+@onready var area2d : Area2D = get_node("Area2D")
+@onready var areaCollision:CollisionShape2D = get_node("Area2D/CollisionShape2D")
 @onready var interactIcon = $interactIcon
 
 var hasTriggered = false ##Whether or not the trigger has already gone off.
@@ -24,18 +25,19 @@ signal triggeredByCause(cause:Node2D) ##Emitted when a valid cause to fire has o
 func _ready():
 	if !Engine.is_editor_hint():
 		super._ready()
-	if mustInteract and enabled and showInteractIcon:
-		interactIcon.visible = true
-	else:
-		interactIcon.visible = false
+		self.area2d.position = self.triggerSize.position
+		self.areaCollision.scale = self.triggerSize.size
+		
+		self.interactIcon.position = self.triggerSize.position
+		self.interactIcon.customSize = self.triggerSize.size
+		
+		self.interactIcon.enabled = showInteractIcon
+	#if mustInteract and enabled and showInteractIcon:
+		#interactIcon.visible = true
+	#else:
+		#interactIcon.visible = false
 	
-	self.area2d.position = self.triggerSize.position
-	self.area2d.get_node("CollisionShape2D").shape.size = self.triggerSize.size
 	
-	self.interactIcon.position = self.triggerSize.position
-	self.interactIcon.customSize = (self.triggerSize.size as Vector2)
-	
-	self.interactIcon.enabled = showInteractIcon
 	
 	for node in triggerTargets:
 		var nodeInstance:Node = get_node(node)
@@ -48,7 +50,7 @@ func _ready():
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		self.area2d.position = self.triggerSize.position
-		self.area2d.get_node("CollisionShape2D").shape.size = self.triggerSize.size
+		self.areaCollision.scale = self.triggerSize.size
 		
 		self.interactIcon.position = self.triggerSize.position
 		self.interactIcon.customSize = (self.triggerSize.size as Vector2)
@@ -79,10 +81,10 @@ func disableTrigger():
 func initiateTrigger(cause:Node2D) -> void:
 	if hasTriggered == true and triggersOnce == true: return
 	
-	if anythingTriggers == false and cause.is_in_group("player"):
+	if playerTrigger == true and cause.is_in_group("player"):
 		triggeredByCause.emit(cause)
 		hasTriggered = true
-	elif anythingTriggers:
+	elif playerTrigger == false and !cause.is_in_group("player"):
 		triggeredByCause.emit(cause)
 		hasTriggered = true
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c7oa4p0xn7ya"]
 
-[ext_resource type="Script" path="res://Scripts/interactIcon.gd" id="1_a5j2p"]
+[ext_resource type="Script" uid="uid://ja4je5ersew7" path="res://Scripts/interactIcon.gd" id="1_a5j2p"]
 [ext_resource type="Texture2D" uid="uid://wt3k8w4av4gt" path="res://Sprites/Misc/interact.png" id="2_n6542"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_331gd"]
@@ -26,16 +26,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwy6t"]
-size = Vector2(66, 64)
+size = Vector2(32, 32)
 
 [node name="interactIcon" type="Node2D"]
 script = ExtResource("1_a5j2p")
+customSize = Vector2(1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.285714)
 z_index = -1
 texture_filter = 1
-position = Vector2(0, -32.8571)
+position = Vector2(0, -40)
 sprite_frames = SubResource("SpriteFrames_lfsyg")
 autoplay = "default"
 frame_progress = 0.65462

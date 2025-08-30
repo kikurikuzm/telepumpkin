@@ -13,7 +13,7 @@ var stretchAnimationDownPlayed = false
 var hasHadAirTimer = false
 
 const MIN_JUMPSTRENGTH = 0
-const MAX_JUMPSTRENGTH = 270
+const MAX_JUMPSTRENGTH = 277
 const JUMPSTRENGTH_INCREASE = 3
 
 const MAX_STRETCH_WALK_SPEED = 45
@@ -93,8 +93,13 @@ func physics_update(delta: float):
 	
 	if Input.is_action_just_released("up"):
 		animPlayer.play("snapBack")
-		if player.is_on_floor() or !coyoteTimer.is_stopped():
+		if player.is_on_floor():
 			transitioned.emit(self, "playerjump")
+		elif !coyoteTimer.is_stopped():
+			var playerVelocityDirection:Vector2 = player.velocity.normalized()
+			transitioned.emit(self, "playerjump")
+			%doublejumpParticles.process_material.direction = Vector3(-playerVelocityDirection.x, playerVelocityDirection.y, 0)
+			%doublejumpParticles.restart()
 		else:
 			transitioned.emit(self, "playerfalling")
 		

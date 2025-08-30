@@ -19,6 +19,7 @@ metadata/_custom_type_script = "uid://cm5xn4ihn31v0"
 [node name="trigger" parent="." instance=ExtResource("2_a7qy0")]
 z_as_relative = false
 position = Vector2(0, -21)
+triggerSize = Rect2(0, 0, 1, 2)
 triggersOnce = false
 mustInteract = true
 
