@@ -2,12 +2,12 @@
 
 [ext_resource type="TileSet" uid="uid://dvq0b3c4vp1n2" path="res://Tile Sets/sewer.tres" id="1_pthbi"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_6vful"]
-[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="3_j306a"]
+[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="3_j306a"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4_yb4i0"]
 [ext_resource type="Texture2D" uid="uid://bfqnfsxdaxvu1" path="res://Sprites/lights/spotlight.png" id="5_18lep"]
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="6_fwis7"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="7_m1nls"]
-[ext_resource type="PackedScene" uid="uid://3trsvvlmhqul" path="res://Instances/Helpers/levelVariables.tscn" id="8_41qmy"]
+[ext_resource type="PackedScene" path="res://Instances/Helpers/levelVariables.tscn" id="8_41qmy"]
 [ext_resource type="Resource" uid="uid://cqrj2u4yhvtx3" path="res://Resources/LevelVar Sets/sewers.tres" id="9_kxrwp"]
 [ext_resource type="PackedScene" uid="uid://uvubvbwf20q5" path="res://Instances/Level Components/peater.tscn" id="11_j80at"]
 

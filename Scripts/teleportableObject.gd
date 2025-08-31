@@ -1,10 +1,14 @@
-extends RigidBody2D
+class_name TeleportableObject extends CharacterBody2D
 
 var poofs:PackedScene = preload("res://Instances/Particles/poofs.tscn")
 var teleportNumber:PackedScene = preload("res://Instances/teleportsRemainingNumber.tscn")
 var teleportLight:PackedScene = preload("res://Instances/Particles/teleport_light.tscn")
 var raycast:PackedScene = preload("res://Instances/Helpers/pumpkinRay.tscn")
 
+@export_group("Physics Properties")
+@export var physicsProperties:PhysicsMaterial
+
+@export_group("Pumpkin Properties")
 @export var rotting:bool = false
 @export var rottingTeleport:int = 0
 
@@ -12,46 +16,72 @@ var raycast:PackedScene = preload("res://Instances/Helpers/pumpkinRay.tscn")
 @onready var sprite = $pumpkinSprite
 
 var highlighted:bool = false
-var highlightDistortion : float = 0.2
+var highlightDistortion : float = 0.0
 
 var newPosition:Vector2
 var newVelocity:Vector2
 
-#random size adjustment when pumpkins are spawned
-func _init():
-	scale.x = randf_range(0.9, 1.05)
-	scale.y = scale.x
+var lastFrameVelocity:Vector2 = Vector2.ZERO
+
+var gravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+const TELEPORT_VELOCITY_DECAY:Vector2 = Vector2(0, 0.5)
+const TELEPORT_VELOCITY_BUMP:Vector2 = Vector2(0, -60)
+
+const MIN_VELOCITY_CUTOFF:float = 5.0
+
+const SHADER_MAX_DISTORTION:float = 0.16
 
 func _ready():
+	sprite.material.set_shader_parameter("distortion_strength", 0.0)
 	if rotting:
 		sprite.animation = "rotting"
-	#else:
-		#animationPlayer.play("normalIdle")
+	else:
+		sprite.animation = "normal"
 
-#func _physics_process(delta):
+func _physics_process(delta):
+	self.velocity.y += gravity * 0.5 * delta
 	
+	if self.is_on_floor():
+		if abs(self.velocity.x) > MIN_VELOCITY_CUTOFF:
+			self.velocity.x += (sqrt(abs(self.velocity.x)) * physicsProperties.friction) * -1 * signf(self.velocity.x)
+		else:
+			self.velocity.x = 0
+	
+	if abs(self.velocity) > Vector2(200, 200):
+		print_debug(self.velocity)
+		self.velocity.y = clampf(self.velocity.y, -200, 200) # hopefully avoids sending the player into space/the void
+	self.velocity.x = clampf(self.velocity.x, -300, 300)
+	
+	if self.is_on_floor():
+		self.velocity.y -= lastFrameVelocity.y
+	else:
+		lastFrameVelocity = velocity
+	
+	lastFrameVelocity = lastFrameVelocity * physicsProperties.bounce
+	
+	self.move_and_slide()
 
 func _process(delta):
 	if rotting:
-		if rottingTeleport > 6:
+		if rottingTeleport > 5:
 			sprite.frame = 0
 		else:
 			match rottingTeleport:
 				1:
-					sprite.frame = 5
-				2:
 					sprite.frame = 4
-				3:
+				2:
 					sprite.frame = 3
-				4:
+				3:
 					sprite.frame = 2
-				5:
+				4:
 					sprite.frame = 1
-				6:
+				5:
 					sprite.frame = 0
+
 	
 	if highlighted:
-		highlightDistortion = lerp(highlightDistortion, 0.16, 0.1)
+		highlightDistortion = lerp(highlightDistortion, SHADER_MAX_DISTORTION, 0.1)
 		sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
 		$selectParticles.emitting = true
 		
@@ -62,22 +92,34 @@ func _process(delta):
 		
 	highlighted = false
 
+func setVelocity(newVelocity:Vector2) -> void:
+	self.velocity = newVelocity
 
 func getVelocity():
-	return linear_velocity
+	return velocity
 	
 func traverseManhole(exitPos: Vector2, exitVel: Vector2):
 	self.position = exitPos
-	self.linear_velocity = exitVel
+	self.velocity = exitVel
 
 func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
-	
 	newPosition = destination
 	newVelocity = inheritedVelocity
 	
-	self.custom_integrator = true
-	self.hide()
+	velocity *= TELEPORT_VELOCITY_DECAY
+	velocity += TELEPORT_VELOCITY_BUMP
+		
+	var oldPos:Vector2 = self.global_position + Vector2(0, 20)
 	
+	await get_tree().physics_frame
+	self.global_position = newPosition
+	
+	var poofInstance:Node2D = poofs.instantiate()
+	poofInstance.hide()
+	get_tree().root.add_child(poofInstance)
+	poofInstance.global_position = oldPos
+	spawnTracer(oldPos)
+	poofInstance.show()
 	
 	if rotting:
 		var numberInstance = teleportNumber.instantiate()
@@ -97,29 +139,9 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
 		#animationPlayer.play("normalTeleport")
 		#animationPlayer.queue("normalIdle")
 
-func _integrate_forces(state:PhysicsDirectBodyState2D) -> void:
-	if custom_integrator == true:
-		
-		#linear_velocity = newVelocity * 0.1
-		linear_velocity *= 0.5
-		
-		var oldPos:Vector2 = self.global_position + Vector2(0, 20)
-		
-		state.transform.origin = newPosition
-		
-		var poofInstance:Node2D = poofs.instantiate()
-		poofInstance.hide()
-		get_tree().root.add_child(poofInstance)
-		poofInstance.global_position = oldPos
-		spawnTracer(oldPos)
-		poofInstance.show()
-		
-		await get_tree().physics_frame
-		self.show()
-		self.custom_integrator = false
 
 func spawnTracer(oldPosition:Vector2) -> void:
-	apply_impulse(Vector2(0, -60))
+	#apply_impulse(Vector2(0, -60)) # gives a bump of upward velocity on teleport
 	
 	var rayInst:Node2D = raycast.instantiate()
 	

@@ -29,7 +29,7 @@ func magnetizePlayerVelocity(currentPlayerVelocity:Vector2) -> Vector2:
 			var currentObject:Node2D = ray.get_collider()
 			
 			if currentObject == null: continue
-			if !currentObject.is_in_group("pumpkin"): continue
+			if currentObject is not TeleportableObject: continue
 			if currentObject is not RigidBody2D: continue
 			
 			if collidingObject == null:

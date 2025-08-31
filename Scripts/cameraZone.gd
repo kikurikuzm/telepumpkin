@@ -31,16 +31,16 @@ func _process(delta):
 			#cameraZoneGetCamera()
 
 func _on_area_2d_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("entity_player_body"):
 		cameraZoneGetCamera()
 
 func _on_area_2d_body_exited(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("entity_player_body"):
 		cameraZoneReturnCamera()
 
-func _on_check_if_empty_timeout():
-	if !area2D.has_overlapping_bodies():
-		cameraZoneReturnCamera()
+#func _on_check_if_empty_timeout():
+	#if !area2D.has_overlapping_bodies():
+		#cameraZoneReturnCamera()
 
 func cameraZoneGetCamera():
 	GlobalSignalBus.requestCameraFocus.emit(self)

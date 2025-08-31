@@ -1,11 +1,11 @@
-[gd_scene load_steps=20 format=4 uid="uid://bpjox1o3i6pbq"]
+[gd_scene load_steps=21 format=4 uid="uid://bpjox1o3i6pbq"]
 
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ixl1h"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_2hqk7"]
 [ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="3_3fpu3"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/pipe.tscn" id="3_nvnte"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="4_eq704"]
-[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="5_nvnte"]
+[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="5_nvnte"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="6_lwogm"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="7_e8sut"]
 [ext_resource type="Animation" uid="uid://ujljuyhppecr" path="res://test.tres" id="8_q1qt7"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="11_nvnte"]
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="12_lwogm"]
 [ext_resource type="PackedScene" uid="uid://u436ndnadylb" path="res://Instances/Level Components/pipeSystem.tscn" id="14_lwogm"]
+[ext_resource type="PackedScene" uid="uid://ctcjvamn72bwl" path="res://Instances/Level Components/tpp.tscn" id="15_e8sut"]
 
 [sub_resource type="Animation" id="Animation_m3ha0"]
 resource_name = "new_animation"
@@ -29,6 +30,7 @@ script = ExtResource("12_lwogm")
 dialogueText = "Enter text here!"
 dialoguePortrait = "cool"
 textSpeed = 0.05
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = true
 cameraSpeed = 0.1
@@ -43,6 +45,7 @@ script = ExtResource("12_lwogm")
 dialogueText = "bababaabasuabsui"
 dialoguePortrait = "kid"
 textSpeed = 0.7
+triggerToFire = NodePath("")
 currentFocus = NodePath("../exit")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -79,7 +82,6 @@ position = Vector2(934, 732)
 
 [node name="pumpkin2" parent="." instance=ExtResource("5_nvnte")]
 position = Vector2(657, 701)
-continuous_cd = 0
 
 [node name="pumpkin3" parent="." instance=ExtResource("5_nvnte")]
 position = Vector2(921, 682)
@@ -109,13 +111,16 @@ metadata/_custom_type_script = "uid://cquqdpkj8ecfv"
 
 [node name="NPC" parent="." instance=ExtResource("10_eq704")]
 position = Vector2(464, 735)
-npcLook = "smoke"
+facePlayer = null
 dialogueArray = Array[ExtResource("11_nvnte")]([SubResource("Resource_q1qt7")])
+interactToInitiate = null
+collideToInitiate = null
 
-[node name="entrance" parent="." instance=ExtResource("3_nvnte")]
+[node name="entrance" parent="." node_paths=PackedStringArray("exitPipe") instance=ExtResource("3_nvnte")]
 z_index = -1
 position = Vector2(214, 753)
 rotation = 4.71239
+exitPipe = NodePath("../exit2")
 
 [node name="exit2" parent="." instance=ExtResource("3_nvnte")]
 z_index = -1
@@ -124,3 +129,6 @@ position = Vector2(587, 681)
 [node name="PipeSystem" parent="." node_paths=PackedStringArray("pipes") instance=ExtResource("14_lwogm")]
 position = Vector2(52, 543)
 pipes = [NodePath("../entrance"), NodePath("../exit2")]
+
+[node name="tpp" parent="." instance=ExtResource("15_e8sut")]
+position = Vector2(523, 733)

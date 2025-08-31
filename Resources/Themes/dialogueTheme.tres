@@ -1,5 +1,6 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dsw3unrbpqwqx"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dsw3unrbpqwqx"]
 
+[ext_resource type="FontFile" uid="uid://dap7epbdqs3gp" path="res://Resources/UAV-OSD-Sans-Mono.ttf" id="1_guwo0"]
 [ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="1_ior1e"]
 [ext_resource type="FontFile" uid="uid://o30a3wtnmnd6" path="res://Resources/UAV-OSD-Mono.ttf" id="2_guwo0"]
 
@@ -9,14 +10,15 @@ bg_color = Color(0.61339, 0.61339, 0.61339, 1)
 [resource]
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/constants/line_spacing = 5
 Label/constants/outline_size = 0
 Label/font_sizes/font_size = 28
-Label/fonts/font = ExtResource("1_ior1e")
+Label/fonts/font = ExtResource("1_guwo0")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_guwo0")
 RichTextLabel/colors/default_color = Color(1, 0.952941, 0.952941, 1)
-RichTextLabel/colors/font_outline_color = Color(0.627451, 0.486275, 1, 1)
+RichTextLabel/constants/line_separation = 8
 RichTextLabel/constants/outline_size = 3
-RichTextLabel/font_sizes/bold_font_size = 28
-RichTextLabel/font_sizes/normal_font_size = 28
+RichTextLabel/font_sizes/bold_font_size = 36
+RichTextLabel/font_sizes/normal_font_size = 32
 RichTextLabel/fonts/bold_font = ExtResource("2_guwo0")
 RichTextLabel/fonts/normal_font = ExtResource("1_ior1e")

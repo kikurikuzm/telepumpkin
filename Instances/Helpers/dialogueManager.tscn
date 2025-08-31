@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://bos8ss8x8l7og"]
 
-[ext_resource type="Script" uid="uid://3qkryl4sejod" path="res://Scripts/dialogueManager.gd" id="1_b43uq"]
+[ext_resource type="Script" uid="uid://3qkryl4sejod" path="res://Instances/Level Components/dialogueManager.gd" id="1_b43uq"]
 [ext_resource type="Shader" uid="uid://c2kixvp8ls0q7" path="res://Resources/Shaders/wigglewavy.gdshader" id="2_ea7an"]
 [ext_resource type="Shader" uid="uid://bp7t12p2tmln8" path="res://Resources/Shaders/wavy.gdshader" id="3_kbs7n"]
 [ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="6_o06a1"]
@@ -12,6 +12,18 @@
 [sub_resource type="Curve" id="Curve_o06a1"]
 _data = [Vector2(0.478571, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.2196, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_016ig"]
+shader = ExtResource("2_ea7an")
+shader_parameter/height = 1.0
+shader_parameter/frequency = 3.0
+shader_parameter/speed = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5pwf2"]
+shader = ExtResource("3_kbs7n")
+shader_parameter/height = 1.2
+shader_parameter/frequency = 0.4
+shader_parameter/speed = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a4kcp"]
 shader = ExtResource("3_kbs7n")
@@ -41,18 +53,6 @@ animations = [{
 "speed": 1.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_016ig"]
-shader = ExtResource("2_ea7an")
-shader_parameter/height = 10.0
-shader_parameter/frequency = 3.0
-shader_parameter/speed = 2.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5pwf2"]
-shader = ExtResource("3_kbs7n")
-shader_parameter/height = 1.2
-shader_parameter/frequency = 0.4
-shader_parameter/speed = 1.5
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o06a1"]
 size = Vector2(1084, 185)
 
@@ -71,7 +71,7 @@ one_shot = true
 
 [node name="dialogueSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_cqag5")
-volume_db = -8.896
+volume_db = -15.0
 max_polyphony = 8
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -86,17 +86,6 @@ width_curve = SubResource("Curve_o06a1")
 default_color = Color(0.172549, 0.172549, 0.164706, 1)
 joint_mode = 1
 
-[node name="progress" type="AnimatedSprite2D" parent="CanvasLayer"]
-visible = false
-modulate = Color(0, 0, 0, 1)
-z_index = 1
-z_as_relative = false
-material = SubResource("ShaderMaterial_a4kcp")
-position = Vector2(1422, 278)
-scale = Vector2(2.4, 2.4)
-sprite_frames = SubResource("SpriteFrames_pra1p")
-autoplay = "default"
-
 [node name="dialogBox" type="PanelContainer" parent="CanvasLayer"]
 top_level = true
 texture_filter = 1
@@ -105,10 +94,10 @@ custom_minimum_size = Vector2(100, 100)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -537.0
+offset_left = -547.5
 offset_top = 154.0
-offset_right = 537.0
-offset_bottom = 330.0
+offset_right = 547.5
+offset_bottom = 345.0
 grow_horizontal = 2
 theme = ExtResource("6_o06a1")
 
@@ -117,6 +106,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("6_o06a1")
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/dialogBox/MarginContainer"]
 layout_mode = 2
@@ -132,6 +125,8 @@ scale = Vector2(7.84375, 7.84375)
 texture = ExtResource("8_7pnb1")
 
 [node name="text" type="RichTextLabel" parent="CanvasLayer/dialogBox/MarginContainer/HBoxContainer"]
+z_index = 1
+z_as_relative = false
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 theme = ExtResource("7_8cm2j")
@@ -140,8 +135,17 @@ text = "test woah [i]SUPER[/i] test"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
-vertical_alignment = 1
 deselect_on_focus_loss_enabled = false
+
+[node name="progress" type="AnimatedSprite2D" parent="CanvasLayer"]
+visible = false
+modulate = Color(0, 0, 0, 1)
+z_as_relative = false
+material = SubResource("ShaderMaterial_a4kcp")
+position = Vector2(1477, 320)
+scale = Vector2(2.4, 2.4)
+sprite_frames = SubResource("SpriteFrames_pra1p")
+autoplay = "default"
 
 [node name="RayCast2D" type="RayCast2D" parent="CanvasLayer"]
 visible = false

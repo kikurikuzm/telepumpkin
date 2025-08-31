@@ -19,7 +19,7 @@ func eat():
 
 func _process(delta):
 	for node in $Area2D.get_overlapping_bodies():
-		if node.is_in_group("pumpkin"):
+		if node is TeleportableObject:
 			eat()
 			node.queue_free()
 	

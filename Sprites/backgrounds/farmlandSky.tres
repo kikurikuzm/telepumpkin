@@ -2,11 +2,12 @@
 
 [sub_resource type="Gradient" id="Gradient_e10nl"]
 interpolation_mode = 2
-colors = PackedColorArray(0.764004, 0.886025, 1, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.829716)
+colors = PackedColorArray(1, 1, 1, 1, 0.0666667, 0.678431, 0.756863, 1)
 
 [resource]
 gradient = SubResource("Gradient_e10nl")
 width = 2000
 height = 1000
-fill_from = Vector2(0.508547, 0)
+fill_from = Vector2(0.886326, 0)
 fill_to = Vector2(1, 1)

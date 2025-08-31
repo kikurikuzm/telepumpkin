@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=4 uid="uid://cwmj8ohfsooe0"]
 
-[ext_resource type="Script" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_o71jo"]
+[ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_o71jo"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_t3p2e"]
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="3_bnr5m"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="4_wkqkp"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="5_o7s5a"]
-[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="6_bfy5o"]
+[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="6_bfy5o"]
 
 [node name="Movement1" type="Node"]
 script = ExtResource("1_o71jo")

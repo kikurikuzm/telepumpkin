@@ -42,6 +42,6 @@ func _pipeEntered(identifier:int, enteringBody:PhysicsBody2D):
 		leavingVelocity = Vector2(transformedVelX, transformedVelY)
 		
 		print_debug(leavingVelocity)
-		requestPlayerPositionChange.emit(endPosition, leavingVelocity)
+		GlobalSignalBus.requestPlayerPositionChange.emit(endPosition, leavingVelocity)
 		
 		entranceCooldown.start(1.0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=33 format=4 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
@@ -10,10 +10,7 @@
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="9_2uoi1"]
 [ext_resource type="Texture2D" uid="uid://b14mb3oy84jyr" path="res://Sprites/tiles/poster.png" id="9_102g8"]
 [ext_resource type="Resource" uid="uid://cd778qcujcn0e" path="res://Resources/LevelVar Sets/mooncity.tres" id="10_aqax0"]
-[ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="12_y4nsy"]
 [ext_resource type="PackedScene" uid="uid://xr8202de1yy1" path="res://Instances/Level Components/lamppost.tscn" id="13_0aphl"]
-[ext_resource type="PackedScene" uid="uid://bk5xs2vlh2fwe" path="res://Instances/Level Components/platform.tscn" id="13_2rtaq"]
-[ext_resource type="Texture2D" uid="uid://b0tr7dgyjv7pp" path="res://Sprites/Misc/graffiti1.png" id="14_t378c"]
 
 [sub_resource type="Animation" id="Animation_2uoi1"]
 length = 0.001
@@ -99,6 +96,7 @@ dialogueText = "[wave]\"Hey there, little... thing!...\"[/wave] [i]The wavy figu
 Enthusiatically, they lean down to meet you at what you can only assume is eye-level."
 dialoguePortrait = "cloak"
 textSpeed = 0.07
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -113,6 +111,7 @@ script = ExtResource("9_2uoi1")
 dialogueText = "[wave]\"You [/wave][b]really[/b][wave] need this ticket! Yes, this...\"[/wave] They wriggle something out of a crevice in their baggy attire, shakily unfurling a pitiful little shred of paper."
 dialoguePortrait = "cloak"
 textSpeed = 0.06
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -127,6 +126,7 @@ script = ExtResource("9_2uoi1")
 dialogueText = "[wave]\"This'll be your way out of here and to the moon! Y-you'll be the envy of all of your kin! The first little thing on the moon!\"[/wave] The figure waves the floppy excuse for a ticket in your face as they hastily talk at you."
 dialoguePortrait = "cloak"
 textSpeed = 0.07
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -141,6 +141,7 @@ script = ExtResource("9_2uoi1")
 dialogueText = "[wave]\"...All I want in return is a measly five Fullmoons. Okay- hurry up! Go! Get my money! Quit staring at me already!\""
 dialoguePortrait = "cloak"
 textSpeed = 0.07
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -160,6 +161,7 @@ script = ExtResource("9_2uoi1")
 dialogueText = "[wave]\"Heh, are you lost? Well I'll have you know that a little birdie told me where to get some cash. Take a look at the door over there, behind me.\""
 dialoguePortrait = "cloak"
 textSpeed = 0.07
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -179,6 +181,7 @@ script = ExtResource("9_2uoi1")
 dialogueText = "test"
 dialoguePortrait = "smoke"
 textSpeed = 0.07
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -198,6 +201,7 @@ script = ExtResource("9_2uoi1")
 dialogueText = "test 2! convo 2"
 dialoguePortrait = "smoke"
 textSpeed = 0.07
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -212,6 +216,7 @@ script = ExtResource("9_2uoi1")
 dialogueText = "Enter text here!"
 dialoguePortrait = ""
 textSpeed = 0.07
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -300,26 +305,37 @@ zoom = Vector2(0.4, 0.4)
 position = Vector2(1500, 736)
 npcLook = "cloak"
 dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_frmte"), SubResource("Resource_702n2")])
+interactToInitiate = true
+collideToInitiate = false
 
 [node name="NPC4" parent="." instance=ExtResource("3_3vfoy")]
 position = Vector2(1358, 1032)
 npcLook = "kid"
 spriteFlip = true
+interactToInitiate = true
+collideToInitiate = false
 
 [node name="NPC3" parent="." instance=ExtResource("3_3vfoy")]
 z_index = 3
 position = Vector2(1153, 1032)
 npcLook = "cool"
+interactToInitiate = true
+collideToInitiate = false
 
 [node name="NPC2" parent="." instance=ExtResource("3_3vfoy")]
 z_index = 3
 position = Vector2(1080, 1032)
 npcLook = "bald"
 spriteFlip = true
+interactToInitiate = true
+collideToInitiate = false
 
 [node name="NPC" parent="." instance=ExtResource("3_3vfoy")]
 position = Vector2(730, 736)
+npcLook = "smoke"
 dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_20fxd"), SubResource("Resource_8qvt3")])
+interactToInitiate = true
+collideToInitiate = false
 
 [node name="apartments entrance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(853, 760)
@@ -328,6 +344,7 @@ gotoLevel = "uid://caj8q2uncg5ct"
 [node name="library entrance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(558, 758)
 scale = Vector2(1, 1.01032)
+gotoLevel = "uid://cpafis3j1jvn0"
 
 [node name="Poster" type="Sprite2D" parent="."]
 z_index = -1
@@ -375,10 +392,8 @@ texture = ExtResource("9_102g8")
 position = Vector2(960, 736)
 npcLook = "inspect"
 dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_lp2p0")])
-
-[node name="shackEnterance" parent="." instance=ExtResource("4_1ugjb")]
-position = Vector2(-514, 758)
-enabled = false
+interactToInitiate = true
+collideToInitiate = false
 
 [node name="lamppost" parent="." instance=ExtResource("13_0aphl")]
 position = Vector2(719, 704)
@@ -407,26 +422,3 @@ audio_bus_name = &"reverb"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="reverbArea"]
 position = Vector2(0, -22.5)
 shape = SubResource("RectangleShape2D_37ck6")
-
-[node name="Graffiti1" type="Sprite2D" parent="."]
-z_index = -2
-position = Vector2(-228, 692)
-rotation = 0.141372
-texture = ExtResource("14_t378c")
-
-[node name="bottomReach" parent="." instance=ExtResource("12_y4nsy")]
-position = Vector2(-231, 746)
-collisionShapeTransform = Vector4(0, 0, 0.94, 0.415)
-usesCustomTransform = true
-cameraZoom = 5.465
-
-[node name="platform" parent="." instance=ExtResource("13_2rtaq")]
-position = Vector2(-231, 599)
-scale = Vector2(0.61, 1)
-
-[node name="entrance" parent="." instance=ExtResource("4_1ugjb")]
-position = Vector2(-232, 584)
-
-[node name="shackLocked" parent="." instance=ExtResource("3_3vfoy")]
-position = Vector2(-514, 736)
-npcLook = "inspect"

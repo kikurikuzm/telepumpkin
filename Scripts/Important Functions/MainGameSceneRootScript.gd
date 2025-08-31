@@ -27,8 +27,9 @@ func _on_tree_entered() -> void:
 	
 	GlobalSignalBus.pauseGame.connect(_pauseGame)
 	GlobalSignalBus.unpauseGame.connect(_unpauseGame)
-	
 	GlobalSignalBus.exitToMenu.connect(exitToMenu)
+	
+	GlobalSignalBus.requestPlayerPositionChange.connect(_playerCharacterChangePosition)
 	
 	GlobalSignalBus.requestCameraFocus.connect(_levelCameraZoneGiveMainCameraFocus)
 	GlobalSignalBus.returnCameraFocus.connect(_levelCameraZoneTakeMainCameraFocus)
@@ -41,6 +42,8 @@ func _ready() -> void:
 	cameraManager.setMainCameraReference(mainCameraReference)
 	debuggerMenu.debugLevelList = levelLoader.levelSet
 	initiateLevelChange()
+	
+	$UILayer/SubViewport.world_2d = get_viewport().world_2d
 
 func connectToLevelNodeSignals():
 	var nodeSignalsArray : Array = levelLoader.passRootNodeSignalsToConnect()
@@ -180,6 +183,7 @@ func _playerCharacterChangePosition(desiredPosition:Vector2, desiredVelocity:Vec
 	playerReference.position = desiredPosition
 	if desiredVelocity != Vector2.ZERO:
 		playerReference.velocity = desiredVelocity
+		cameraManager.mainCameraSnapToParent()
 
 func _mainCameraChangeZoom(desiredZoom:float):
 	cameraManager.mainCameraChangeZoom(desiredZoom)
@@ -227,8 +231,10 @@ func _levelCameraZoneTakeMainCameraFocus() -> void:
 	
 	cameraOwnerQueue.pop_front()
 	
-	if cameraOwnerQueue.size() >= 1:
+	if cameraOwnerQueue.size() >= 1 and is_instance_valid(cameraOwnerQueue.front()):
 		cameraManager.mainCameraChangeParent(cameraOwnerQueue.front())
+	else:
+		cameraManager.mainCameraReturnToPlayer()
 
 func _levelCameraZoneChangeMainCameraZoom(cameraZoneDesiredZoom:float) -> void:
 	cameraManager.mainCameraChangeZoom(cameraZoneDesiredZoom)

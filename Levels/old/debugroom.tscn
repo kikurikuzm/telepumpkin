@@ -5,7 +5,7 @@
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="2"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_lnutd"]
 [ext_resource type="PackedScene" uid="uid://ce55buakgjg5x" path="res://Instances/Level Components/radio.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/pipe.tscn" id="5_eesqr"]
 [ext_resource type="AudioStream" uid="uid://cq7edrbcnpmme" path="res://Audio/Kings and Queens of Wasteland.mp3" id="5_rsidw"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="7_6nr3k"]

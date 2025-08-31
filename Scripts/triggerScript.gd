@@ -58,8 +58,9 @@ func _process(delta: float) -> void:
 func _unhandled_input(event:InputEvent):
 	if Input.is_action_just_pressed("teleport") and mustInteract and enabled:
 		for node in area2d.get_overlapping_areas():
-			if node.is_in_group("player"):
-				#interactIcon.visible = false
+			if node.is_in_group("entity_player_interaction_area") and playerTrigger:
+				initiateTrigger(node)
+			elif node.is_in_group("entity_teleportable_object_area") and !playerTrigger:
 				initiateTrigger(node)
 				#if node.get_parent().get_node("stateFactory").current_state != node.get_parent().get_node("stateFactory").states["playerbusy"]:
 					#if sceneCutscenePlayer:
@@ -81,13 +82,16 @@ func disableTrigger():
 func initiateTrigger(cause:Node2D) -> void:
 	if hasTriggered == true and triggersOnce == true: return
 	
-	if playerTrigger == true and cause.is_in_group("player"):
+	if playerTrigger == true and cause.is_in_group("entity_player_interaction_area"):
 		triggeredByCause.emit(cause)
 		hasTriggered = true
-	elif playerTrigger == false and !cause.is_in_group("player"):
+	elif playerTrigger == false and cause.is_in_group("entity_teleportable_object_area"):
 		triggeredByCause.emit(cause)
 		hasTriggered = true
-
+	elif !cause.is_in_group("entity_player_interaction_area") and !cause.is_in_group("entity_teleportable_object_area"):
+		triggeredByCause.emit(cause)
+		hasTriggered = true
+	
 func save():
 	var saveDict = {
 		"name" : name,
@@ -102,4 +106,7 @@ func loadJSON(nodeData):
 
 func _on_area_2d_area_entered(area:Area2D) -> void:
 	if mustInteract == false:
-		initiateTrigger(area)
+		if area.is_in_group("entity_player_interaction_area") and playerTrigger:
+			initiateTrigger(area)
+		elif area.is_in_group("entity_teleportable_object_area") and !playerTrigger:
+			initiateTrigger(area)

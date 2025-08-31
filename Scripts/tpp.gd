@@ -1,40 +1,47 @@
 extends RigidBody2D
 
-var movePos : Vector2
-var pointPos : Vector2
-var lineColor : Gradient
-
 const purpleGradient = preload("res://Resources/purplegradient.tres")
 const fadedGradient = preload("res://Resources/fadedGradient.tres")
 const orangeGradient = preload("res://Resources/orangegradient.tres")
 
+@onready var playerLight:PointLight2D = $PointLight2D
+@onready var teleportRange:TeleportRange = $Teleport
+
+var movePos : Vector2
+var pointPos : Vector2
+var lineColor : Gradient
+
 var stretching = false
 
-@onready var playerLight = $PointLight2D
+const DEFAULT_LIGHT_COLOUR : Color = Color(0.75, 0.0, 0.0)
+const PLAYER_FOUND_LIGHT_COLOUR : Color = Color(0.1, 0.2, 0.6)
+const TARGET_FOUND_LIGHT_COLOUR : Color = Color(0.2, 0.5, 0.1)
+
+const VERTICAL_STRETCH_SCALE : Vector2 = Vector2(0.4, 3.0)
+const HORIZONTAL_STRETCH_SCALE: Vector2 = Vector2(3.0, 0.4)
 
 func _process(delta):
 	if !stretching:
-		$Teleport.scale.x = lerp($Teleport.scale.x, 1.594, 0.1)
-		$Teleport.scale.y = lerp($Teleport.scale.y, 1.594, 0.1)
+		teleportRange.scale.x = lerp(teleportRange.scale.x, 1.594, 0.1)
+		teleportRange.scale.y = lerp(teleportRange.scale.y, 1.594, 0.1)
 	
-	if $Teleport.selectedPumpkin != null:
-		pointPos = lerp(pointPos, $Teleport.selectedPumpkin.global_position + Vector2(0, 6), 0.2)
+	if teleportRange.selectedPumpkin != null:
+		pointPos = lerp(pointPos, teleportRange.selectedPumpkin.global_position + Vector2(0, 6), 0.2)
 		lineColor = orangeGradient
 	elif global_position != Vector2.ZERO:
 		pointPos = lerp(pointPos, global_position + Vector2(0, 6), 0.36)
 		lineColor = fadedGradient
 	
-	if $Teleport/Area2D.has_overlapping_areas():
-		var bodyIndex = 0
-		for area in $Teleport/Area2D.get_overlapping_areas():
-			if area.is_in_group("player"):
-				playerLight.color = Color(0.21,0.41,0.00,1.00)
-				lineColor = purpleGradient
-				break
-			else:
-				if bodyIndex + 1 == len($Teleport/Area2D.get_overlapping_bodies()):
-					playerLight.color = Color(0.74,0.00,0.00,1.00)
-				bodyIndex += 1
+	if teleportRange.rangeHasPlayer():
+		playerLight.color = PLAYER_FOUND_LIGHT_COLOUR
+		lineColor = purpleGradient
+		teleportRange.setCanHighlight(false)
+	elif teleportRange.rangeHasTeleportTargets():
+		playerLight.color = TARGET_FOUND_LIGHT_COLOUR
+		teleportRange.setCanHighlight(true)
+	else:
+		playerLight.color = DEFAULT_LIGHT_COLOUR
+	
 	
 	if Input.is_action_pressed("up"):
 		stretchUp()
@@ -50,21 +57,21 @@ func throw(velocity:Vector2):
 
 func stretchUp():
 	stretching = true
-	$Teleport.scale.x = lerp($Teleport.scale.x, 0.4, 0.1)
-	$Teleport.scale.y = lerp($Teleport.scale.y, 3.0, 0.1)
+	teleportRange.scale = lerp(teleportRange.scale, VERTICAL_STRETCH_SCALE, 0.1)
 
 func stretchDown():
 	stretching = true
-	$Teleport.scale.x = lerp($Teleport.scale.x, 3.0, 0.1)
-	$Teleport.scale.y = lerp($Teleport.scale.y, 0.4, 0.1)
+	teleportRange.scale = lerp(teleportRange.scale, HORIZONTAL_STRETCH_SCALE, 0.1)
 
-func TPteleport(teleportPos):
-	$Teleport.rangeTeleport(teleportPos)
+func teleportFromTPP(playerPosition:Vector2, playerVelocity:Vector2) -> Vector2:
+	return teleportRange.rangeTeleport(playerPosition, playerVelocity)
 
 func tppReturn():
-	print("returned")
+	print_debug("returned")
 	self.queue_free()
-	return(true)
+
+func tppHasValidTargets() -> bool:
+	return teleportRange.rangeHasTeleportTargets()
 
 func _on_body_entered(body):
 	$clangAudio.pitch_scale = randf_range(0.7, 1.0)

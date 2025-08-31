@@ -1,19 +1,23 @@
-[gd_scene load_steps=22 format=3 uid="uid://ciuswkeg660ew"]
+[gd_scene load_steps=24 format=3 uid="uid://ciuswkeg660ew"]
 
-[ext_resource type="PackedScene" uid="uid://bedp1kcel7xwt" path="res://Instances/Important/LevelLoader.tscn" id="1_i68tn"]
-[ext_resource type="Script" uid="uid://bissop614ltbh" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_sqsrj"]
-[ext_resource type="Script" uid="uid://do026n4evefw2" path="res://Scripts/Important Functions/MainSceneCameraManager.gd" id="2_3s1mj"]
-[ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="2_mfwcf"]
-[ext_resource type="Script" uid="uid://dfig6n2n2qwqj" path="res://Scripts/Important Functions/DebuggerMenu.gd" id="2_qrl6x"]
-[ext_resource type="Script" uid="uid://dk3irp6kew6s6" path="res://Scripts/Important Functions/MainSceneCutsceneManager.gd" id="2_w3bxq"]
-[ext_resource type="Shader" uid="uid://clqktdglysmby" path="res://Resources/Shaders/blur.gdshader" id="3_fps76"]
-[ext_resource type="Theme" uid="uid://pvs82dxh5eld" path="res://Resources/Themes/DebugMenu.tres" id="3_ml867"]
-[ext_resource type="Script" uid="uid://vy10whq5fqge" path="res://Scripts/Important Functions/PauseMenu.gd" id="3_n0a70"]
-[ext_resource type="Script" uid="uid://bsrjffypfv164" path="res://Scripts/Important Functions/LevelSet.gd" id="3_w5c4r"]
-[ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="4_1jw7k"]
-[ext_resource type="Theme" uid="uid://canh65nrg7pr8" path="res://Resources/pauseMenuTheme.tres" id="4_ygts8"]
-[ext_resource type="Script" uid="uid://xy2n4l8sst72" path="res://Scripts/mainCamera.gd" id="5_5c3qt"]
-[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="5_ygts8"]
+[ext_resource type="Script" uid="uid://bissop614ltbh" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_ip1ij"]
+[ext_resource type="Script" uid="uid://d3ow0p13muao2" path="res://Scripts/UI/offscreenView.gd" id="2_g8ftp"]
+[ext_resource type="Script" uid="uid://dfig6n2n2qwqj" path="res://Scripts/Important Functions/DebuggerMenu.gd" id="3_1vqvf"]
+[ext_resource type="Theme" uid="uid://pvs82dxh5eld" path="res://Resources/Themes/DebugMenu.tres" id="4_3rw4o"]
+[ext_resource type="Script" uid="uid://vy10whq5fqge" path="res://Scripts/Important Functions/PauseMenu.gd" id="5_8fjle"]
+[ext_resource type="Shader" uid="uid://clqktdglysmby" path="res://Resources/Shaders/blur.gdshader" id="6_s2pxu"]
+[ext_resource type="Theme" uid="uid://canh65nrg7pr8" path="res://Resources/pauseMenuTheme.tres" id="7_m113a"]
+[ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="8_ke5mj"]
+[ext_resource type="Script" uid="uid://do026n4evefw2" path="res://Scripts/Important Functions/MainSceneCameraManager.gd" id="9_3s04a"]
+[ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="10_13h7d"]
+[ext_resource type="Script" uid="uid://dk3irp6kew6s6" path="res://Scripts/Important Functions/MainSceneCutsceneManager.gd" id="11_m0nie"]
+[ext_resource type="PackedScene" uid="uid://bedp1kcel7xwt" path="res://Instances/Important/LevelLoader.tscn" id="12_mk1ug"]
+[ext_resource type="Script" uid="uid://bsrjffypfv164" path="res://Scripts/Important Functions/LevelSet.gd" id="13_j1jxu"]
+[ext_resource type="PackedScene" uid="uid://dfn02ff1m04mi" path="res://Instances/player.tscn" id="14_rdcvr"]
+[ext_resource type="Script" uid="uid://xy2n4l8sst72" path="res://Scripts/mainCamera.gd" id="15_lq855"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ml867"]
+viewport_path = NodePath("UILayer/SubViewport")
 
 [sub_resource type="Animation" id="Animation_ml867"]
 length = 0.001
@@ -232,28 +236,56 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l41h4"]
-shader = ExtResource("3_fps76")
+shader = ExtResource("6_s2pxu")
 shader_parameter/lod = 0.0
 shader_parameter/tint = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_ygts8"]
-font = ExtResource("5_ygts8")
+font = ExtResource("8_ke5mj")
 font_size = 80
 font_color = Color(0.97595, 0.726067, 0.632655, 1)
 outline_size = 15
 outline_color = Color(0.850477, 0.295411, 0.302585, 1)
 
 [sub_resource type="Resource" id="Resource_aiegr"]
-script = ExtResource("3_w5c4r")
+script = ExtResource("13_j1jxu")
 levelList = Array[String](["uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://bve7wh3cybj72", "uid://l65jyprpbqpg", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
 
 [node name="MainGameSceneRoot" type="Node"]
-script = ExtResource("1_sqsrj")
+script = ExtResource("1_ip1ij")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+layer = 3
+visible = false
+script = ExtResource("2_g8ftp")
+
+[node name="SubViewport" type="SubViewport" parent="UILayer"]
+disable_3d = true
+transparent_bg = true
+snap_2d_transforms_to_pixel = true
+gui_disable_input = true
+
+[node name="tppCamera" type="Camera2D" parent="UILayer/SubViewport"]
+position = Vector2(960, 540)
+
+[node name="PanelContainer" type="PanelContainer" parent="UILayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 978.0
+offset_top = 516.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="offscreenView" type="TextureRect" parent="UILayer/PanelContainer"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_ml867")
+expand_mode = 1
 
 [node name="DebuggerMenu" type="CanvasLayer" parent="."]
 layer = 10
 visible = false
-script = ExtResource("2_qrl6x")
+script = ExtResource("3_1vqvf")
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="DebuggerMenu"]
@@ -267,7 +299,7 @@ offset_right = -18.0
 offset_bottom = -25.0
 grow_horizontal = 0
 grow_vertical = 2
-theme = ExtResource("3_ml867")
+theme = ExtResource("4_3rw4o")
 
 [node name="TabContainer" type="TabContainer" parent="DebuggerMenu/PanelContainer"]
 layout_mode = 2
@@ -284,7 +316,7 @@ text = "No-clip"
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 5
-script = ExtResource("3_n0a70")
+script = ExtResource("5_8fjle")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PauseMenu"]
 libraries = {
@@ -309,7 +341,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("4_ygts8")
+theme = ExtResource("7_m113a")
 alignment = 1
 
 [node name="titleLabel" type="Label" parent="PauseMenu/VBoxContainer"]
@@ -370,25 +402,25 @@ disabled = true
 text = "Quit??"
 
 [node name="CameraManager" type="Node" parent="."]
-script = ExtResource("2_3s1mj")
+script = ExtResource("9_3s04a")
 
-[node name="DialogueManager" parent="." instance=ExtResource("2_mfwcf")]
+[node name="DialogueManager" parent="." instance=ExtResource("10_13h7d")]
 dialogueJSONPath = "res://Resources/DialogueJSONs/Level1.json"
 
 [node name="CutsceneManager" type="Node" parent="."]
-script = ExtResource("2_w3bxq")
+script = ExtResource("11_m0nie")
 
-[node name="LevelLoader" parent="." instance=ExtResource("1_i68tn")]
+[node name="LevelLoader" parent="." instance=ExtResource("12_mk1ug")]
 levelSetResource = SubResource("Resource_aiegr")
 
 [node name="LevelAmbience" type="AudioStreamPlayer" parent="."]
 volume_db = -19.025
 
-[node name="Player" parent="." instance=ExtResource("4_1jw7k")]
+[node name="Player" parent="." instance=ExtResource("14_rdcvr")]
 
 [node name="MainCamera" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
-script = ExtResource("5_5c3qt")
+script = ExtResource("15_lq855")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 visible = false

@@ -42,9 +42,9 @@ func hideInteract():
 	positionTween.tween_property(interactIcon, "position:y", ICON_HIDDEN_POSITION, POSITION_TWEEN_DUR).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _on_area_2d_area_entered(area):
-	if area.is_in_group("player") and enabled == true:
+	if area.is_in_group("entity_player_interaction_area") and enabled == true:
 		showInteract()
 
 func _on_area_2d_area_exited(area):
-	if area.is_in_group("player"):
+	if area.is_in_group("entity_player_interaction_area"):
 		hideInteract()

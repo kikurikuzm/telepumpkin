@@ -20,7 +20,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		#reachedMaxPumpkins()
 		#pumpkinAcceptTimer.start()
 		
-	if body.is_in_group("pumpkin") and pumpkinsCollected < pumpkinsNeeded:
+	if body is TeleportableObject and pumpkinsCollected < pumpkinsNeeded:
 		body.pumpkinDestroy()
 		pumpkinsCollected += 1
 		

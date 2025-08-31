@@ -33,6 +33,8 @@ var inCutscene = false ##Whether or not the player is currently in a cutscene.
 var currentDialogueEntryIndex : int = 0
 var currentEntry : DialogueEntry
 
+var triggerToFire : Trigger = null
+
 var currentLevelChildren : Array
 
 signal changeCameraFocus(desiredCameraFocusNode:Node2D)
@@ -76,6 +78,10 @@ func progressDialogue():
 		GlobalSignalBus.requestCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
 	else:
 		GlobalSignalBus.requestCameraFocus.emit(dialogueInitializer)
+	
+	if currentEntry.triggerToFire:
+		print_debug(currentEntry.triggerAbsolutePath)
+		triggerToFire = get_node(currentEntry.triggerAbsolutePath)
 	
 	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
 	dialogueText.text = currentEntry.dialogueText
@@ -141,6 +147,12 @@ func endDialogue():
 	if queuedConvo > -1:
 		conversationInitiate(NPCConversationArray, currentConversationIndex)
 		queuedConvo = -1
+	
+	if triggerToFire != null:
+		print_debug(triggerToFire)
+		triggerToFire.initiateTrigger(dialogueInitializer)
+		triggerToFire = null
+	
 	return
 
 func queueConvo(convoNumb:int) -> void:

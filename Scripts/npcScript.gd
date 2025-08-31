@@ -6,11 +6,19 @@ class_name NPC extends Node2D
 ##
 
 @onready var animSprite:AnimatedSprite2D = $AnimatedSprite2D
+@onready var playerCheckArea:Area2D = $playerCheckArea
+@onready var trigger:Trigger = $Trigger
 
-@export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke") var npcLook:String
-@export var spriteFlip:bool
+@export_group("Appearance")
+@export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke", "science") var npcLook:String
+@export var spriteFlip:bool = false
+@export var facePlayer:bool = true
+@export_group("Dialogue")
 @export var conversationIndex:int ##The [DialogueConversation] to display upon interaction.
 @export var dialogueArray:Array[DialogueConversation]
+@export_group("Interaction")
+@export var interactToInitiate:bool = true
+@export var collideToInitiate:bool = false
 
 var canTalk = true
 
@@ -19,10 +27,28 @@ func _process(delta):
 		animSprite.flip_h = spriteFlip
 		animSprite.play(npcLook)
 		return
+	
+	if playerCheckArea.has_overlapping_bodies() and facePlayer == true:
+		for body in playerCheckArea.get_overlapping_bodies():
+			if body is Player:
+				if body.global_position > self.global_position:
+					animSprite.flip_h = true
+				elif body.global_position < self.global_position:
+					animSprite.flip_h = false
+				break
+	else:
+		animSprite.flip_h = spriteFlip
 
 func _ready():
 	animSprite.flip_h = spriteFlip
 	animSprite.play(npcLook)
+	
+	if !interactToInitiate:
+		trigger.disableTrigger()
+	
+	if collideToInitiate:
+		trigger.enableTrigger()
+		trigger.mustInteract = false
 	
 	for conversation in dialogueArray:
 		for dialogue in conversation.conversationArray:
@@ -30,6 +56,9 @@ func _ready():
 				dialogue.currentFocusAbsolutePath = get_node(dialogue.currentFocus).get_path()
 			else:
 				dialogue.currentFocusAbsolutePath = self.get_path()
+			
+			if dialogue.triggerToFire:
+				dialogue.triggerAbsolutePath = get_node(dialogue.triggerToFire).get_path()
 
 func setConversationIndex(newIndex:int) -> void:
 	conversationIndex = newIndex

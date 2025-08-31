@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://diqw6fe0sax1m" path="res://Audio/sfx/metal hi newt.ogg" id="7_2v4sm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o6q5d"]
-rough = true
+friction = 0.95
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_76bij"]
 
@@ -39,12 +39,11 @@ scale_curve = SubResource("CurveTexture_vrjb7")
 color = Color(1, 0.568627, 0.337255, 1)
 color_ramp = SubResource("GradientTexture1D_7a1sb")
 
-[node name="tpp" type="RigidBody2D" groups=["tpp"]]
+[node name="tpp" type="RigidBody2D" groups=["entity_tpp"]]
 disable_mode = 1
 collision_layer = 17
 collision_mask = 17
 physics_material_override = SubResource("PhysicsMaterial_o6q5d")
-gravity_scale = 8.0
 can_sleep = false
 continuous_cd = 1
 contact_monitor = true
@@ -67,9 +66,9 @@ scale = Vector2(1.594, 1.594)
 texture = ExtResource("3_mnji8")
 script = ExtResource("4_srt4t")
 
-[node name="Area2D" type="Area2D" parent="Teleport" groups=["tpArea"]]
+[node name="Area2D" type="Area2D" parent="Teleport" groups=["entity_tpp_range"]]
 collision_layer = 20
-collision_mask = 20
+collision_mask = 22
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport/Area2D"]
 shape = SubResource("CircleShape2D_tntab")
@@ -82,7 +81,7 @@ stream = ExtResource("5_e133v")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -10)
-color = Color(0.741176, 0, 0.00784314, 1)
+color = Color(0.75, 0, 0, 1)
 energy = 2.0
 texture = ExtResource("4_037hj")
 texture_scale = 0.06

@@ -34,5 +34,5 @@ stream = ExtResource("4_m3rw5")
 wait_time = 0.88
 one_shot = true
 
-[connection signal="triggeredByCause" from="trigger" to="." method="_on_trigger_triggered_by_cause"]
+[connection signal="triggeredByCause" from="trigger" to="." method="_on_receive_trigger_notification"]
 [connection signal="timeout" from="enterTimer" to="." method="_on_enter_timer_timeout"]

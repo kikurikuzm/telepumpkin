@@ -19,7 +19,7 @@ const PERFECT_HORIZONTAL_KICK_STRENGTH = 150
 const DEFAULT_VERTICAL_KICK_STRENGTH = 35
 const PERFECT_VERTICAL_KICK_STRENGTH = 50
 
-const MAX_VERTICAL_KICK_STRENGTH := 100
+const MAX_VERTICAL_KICK_STRENGTH := 500
 const MAX_HORIZONTAL_KICK_STRENGTH := 300
 
 const MAX_KICK_WAIT_TIME := 0.5
@@ -76,7 +76,7 @@ func physics_update(delta: float):
 			for i in kickArea.get_overlapping_bodies():
 				if alreadyImpulsedTargets.has(i): continue
 				
-				if i != null and i.is_in_group("pumpkin"):
+				if i != null and i is TeleportableObject:
 					inKick = true
 					hasProducedEffect = false
 					
@@ -103,12 +103,12 @@ func physics_update(delta: float):
 							$"../../kickBlinkSFX".play()
 							hasProducedEffect = true
 						
-						Engine.time_scale = 0.0
+						Engine.time_scale = 0.1
 						finishPerfectKick(hitTimer)
 					#endregion
 					
 					if !alreadyImpulsedTargets.has(i) and i != null:
-						if i is not RigidBody2D: return
+						if i is not TeleportableObject: return
 						
 						kickStrengthHorizontal = (kickStrengthHorizontal * kickDirection) * (abs(playerOldVelocity.x)/45 + 1)
 						kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/45 + 1)) * -1
@@ -127,7 +127,7 @@ func physics_update(delta: float):
 						
 						print_debug("Kick strength vector : %s, player velocity : %s" % [str(Vector2(kickStrengthHorizontal, kickStrengthVertical)), str(playerOldVelocity)])
 						
-						i.call_deferred("apply_impulse", Vector2(kickStrengthHorizontal, kickStrengthVertical), Vector2(0,0))
+						i.setVelocity(Vector2(kickStrengthHorizontal, kickStrengthVertical))
 						alreadyImpulsedTargets.append(i)
 						hasImpacted = true
 					

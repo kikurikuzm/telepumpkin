@@ -5,7 +5,7 @@
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="3_8kdam"]
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_4i1jg"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="5_fjiiu"]
-[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="6_2m1ul"]
+[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="6_2m1ul"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="7_yhnns"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_124g2"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="10_4jthu"]
@@ -30,7 +30,7 @@ tile_set = ExtResource("4_4i1jg")
 position = Vector2(246, 779)
 
 [node name="pumpkin4" parent="." instance=ExtResource("6_2m1ul")]
-position = Vector2(514, 777)
+position = Vector2(560, 777)
 rotting = true
 rottingTeleport = 2
 
@@ -56,7 +56,7 @@ levelChangeType = 3
 metadata/_custom_type_script = "uid://cm5xn4ihn31v0"
 
 [node name="Trigger" parent="." instance=ExtResource("9_124g2")]
-position = Vector2(651, 1072)
+position = Vector2(651, 1111)
 triggerTargets = Array[NodePath]([NodePath("../LevelChangeRequester")])
 triggerSize = Rect2(0, 0, 16.09, 11.78)
 showInteractIcon = false

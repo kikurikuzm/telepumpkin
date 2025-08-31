@@ -9,6 +9,7 @@ signal levelComplete
 signal levelFailed
 
 signal requestPlayerStateChange(state:Player.PlayerStates)
+signal requestPlayerPositionChange(newPosition:Vector2, newVelocity:Vector2)
 
 signal pauseGame
 signal unpauseGame

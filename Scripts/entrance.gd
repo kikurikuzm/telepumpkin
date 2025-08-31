@@ -51,5 +51,5 @@ func loadJSON(saveData) -> void:
 	gotoLevelPosition.y = saveData["exitLocationY"]
 
 
-func _on_trigger_triggered_by_cause(cause: Node2D) -> void:
+func _on_receive_trigger_notification(cause:Node2D) -> void:
 	enterScene()

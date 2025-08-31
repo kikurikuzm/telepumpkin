@@ -3,13 +3,14 @@ extends CharacterBody2D
 
 @onready var spriteAnim = $AnimatedSprite2D
 @onready var teleportRange = $Teleport
-@onready var interactArea = $interactArea
+@onready var interactArea:Area2D = $interactArea
 @onready var tpp = $AnimatedSprite2D/tpp
 @onready var tppLine = $tppLine
 @onready var playerCollision:CollisionShape2D = $CollisionShape2D
 #@onready var flashlightHand = $AnimatedSprite2D/flashlightHand
 
 @onready var pumpkinMagnet:RayCast2D = $pumpkinMagnet
+@onready var teleportSpaceCheck:RayCast2D = $teleportSpaceCheck
 
 @onready var stateFactory:StateFactory = $stateFactory
 
@@ -24,6 +25,7 @@ var jumpstrength: float
 
 var hasTPP = false
 var holdingTPP = false
+var isHighlighted:bool = false
 var tppInst
 
 var hasPlayerMagnetizedToPumpkin:bool = false
@@ -32,9 +34,7 @@ var lastPlayerMagnetizedVelocity:Vector2 = Vector2.ZERO
 var canTeleport = true
 
 var inNoclip = false
-@export var speed = 100
 var gravity = gvars.playerGravity
-@export var jumpStrength = 200
 var direction
 
 var cameraZoom = 3.5
@@ -58,6 +58,10 @@ enum PlayerStates {
 	FLYING,
 	KICKING
 }
+
+const SHADER_PLAYER_HIGHLIGHT_DISTORTION : float = 0.01
+
+const HORIZONTAL_THROW_VELOCITY_BOOST : float = 200.0
 
 func _physics_process(delta):
 	var interactArray = interactArea.get_overlapping_areas()
@@ -112,11 +116,42 @@ func _physics_process(delta):
 		#lastPlayerMagnetizedVelocity = Vector2.ZERO
 		
 	
+	if abs(self.global_position.x) > 2000 or abs(self.global_position.y) > 2000 or self.global_position == Vector2.ZERO:
+		print_debug("Player left the bounds!")
+		GlobalSignalBus.restartLevel.emit()
 	self.move_and_slide()
 
 func _process(delta):
 	$velocityVisualizer.target_position = self.velocity
 	$debugText.text = str(self.velocity)
+	
+	$Teleport.visible = true
+	for node in interactArea.get_overlapping_areas():
+		if node.is_in_group("local_disableTeleport"):
+				canTeleport = false
+				$Teleport.visible = false
+	
+	tppProcess()
+	
+	if Input.is_action_just_pressed("teleport"):
+		playerInteractionInitiated()
+
+func tppProcess() -> void:
+	
+	self.isHighlighted = false
+	
+	if interactArea.has_overlapping_areas():
+		for area in interactArea.get_overlapping_areas():
+			if area.is_in_group("entity_tpp_range"):
+					self.isHighlighted = true
+					break
+	
+	if isHighlighted:
+		var highlightDistortion = lerp((spriteAnim.material as ShaderMaterial).get_shader_parameter("distortion_strength"), SHADER_PLAYER_HIGHLIGHT_DISTORTION, 0.1)
+		(spriteAnim.material as ShaderMaterial).set_shader_parameter("distortion_strength", highlightDistortion)
+	else:
+		var highlightDistortion = lerp((spriteAnim.material as ShaderMaterial).get_shader_parameter("distortion_strength"), 0.0, 0.04)
+		(spriteAnim.material as ShaderMaterial).set_shader_parameter("distortion_strength", highlightDistortion)
 	
 	if tppInst != null:
 		tppLine.visible = true
@@ -129,8 +164,6 @@ func _process(delta):
 		tppInst = null
 		tppLine.visible = false
 	
-	gvars.onFloor = is_on_floor()
-	
 	if hasTPP:
 		$Teleport.visible = false
 		$Teleport.set_process(false)
@@ -142,59 +175,70 @@ func _process(delta):
 		tpp.visible = true
 	else:
 		tpp.visible = false
-	
-	$Teleport.visible = true
-	for node in interactArea.get_overlapping_areas():
-		if node.is_in_group("local_disableTeleport"):
-				canTeleport = false
-				$Teleport.visible = false
-	
-	if Input.is_action_just_pressed("teleport"):
-		canTeleport = true
-		for node in interactArea.get_overlapping_areas():
-			if node.is_in_group("entrance"):
-				var entrance = node.get_parent()
-				entrance.enterScene()
-				break
-			if node.is_in_group("local_disableTeleport"):
-				canTeleport = false
-				
-		if !hasTPP and canTeleport:
-			var teleportDestination:Vector2 = self.global_position
-			var kickbackVelocity:Vector2
-			teleportDestination.y = self.global_position.y + playerCollision.shape.get_rect().size.y * 0.5
-			kickbackVelocity = teleportRange.rangeTeleport(teleportDestination, self.velocity)
-			
-			if !self.is_on_floor(): self.velocity += kickbackVelocity
-		tppHandler()
-				
-		
-		
-#	if Input.is_action_just_released("teleport"):
-#		$debugText.visible = false
 
 func tppHandler() -> void:
-	if hasTPP and holdingTPP and !gvars.inDialogue:
-		holdingTPP = false
+	if hasTPP and holdingTPP:
 		var tpInstance = tpLoad.instantiate()
+		var thrownVelocity:Vector2 = self.velocity * 1.25
+		
+		if Input.is_action_pressed("left"):
+			thrownVelocity.x -= HORIZONTAL_THROW_VELOCITY_BOOST
+		elif Input.is_action_pressed("right"):
+			thrownVelocity.x += HORIZONTAL_THROW_VELOCITY_BOOST
+		
+		holdingTPP = false
+		
 		tpInstance.pointPos = self.global_position
 		get_parent().add_child(tpInstance)
 		tpInstance.global_position = self.global_position
-		tpInstance.throw(velocity * 4)
+		tpInstance.throw(thrownVelocity)
 		tppInst = tpInstance
 		return
+		
 	if !holdingTPP:
-		var collectArray = get_node("interactArea").get_overlapping_areas()
-		if collectArray.size() != 0:
-			for i in collectArray:
-				if i.is_in_group("tpArea"):
-					holdingTPP = i.get_parent().get_parent().tppReturn()
+		if interactArea.has_overlapping_areas():
+			for area in interactArea.get_overlapping_areas():
+				if area.is_in_group("entity_tpp_range"):
+					area.get_parent().get_parent().call("tppReturn") # :(
 					collectAudio.pitch_scale = randf_range(0.8, 1.05)
 					collectAudio.play()
-					hasTPP = true
-	if hasTPP and !holdingTPP:
-		get_parent().get_node("tpp").TPteleport(global_transform)
-		return
+					self.hasTPP = true
+					self.holdingTPP = true
+					return
+
+func playerInteractionInitiated() -> void:
+	canTeleport = true
+	for node in interactArea.get_overlapping_areas():
+		#if node.is_in_group("entrance"):
+			#var entrance = node.get_parent()
+			#entrance.enterScene()
+			#return
+		if node.is_in_group("local_disableTeleport"):
+			canTeleport = false
+		elif node.is_in_group("entity_trigger_area"):
+			if node.get_parent().playerTrigger == true:
+				return
+	
+	tppHandler()
+
+	if canTeleport and (teleportRange.canTeleport() == true or is_instance_valid(tppInst) and tppInst.tppHasValidTargets()):
+		var teleportDestination:Vector2 = self.global_position
+		var kickbackVelocity:Vector2
+		if !teleportSpaceCheck.is_colliding() and self.is_on_floor():
+			var yOffset:float = playerCollision.shape.get_rect().size.y * 0.5
+			teleportDestination.y = self.global_position.y
+			self.global_position.y -= 15
+			await get_tree().physics_frame
+		elif !self.is_on_floor():
+			teleportDestination.y = self.global_position.y + playerCollision.shape.get_rect().size.y * 0.5
+		
+		if hasTPP and !holdingTPP:
+			kickbackVelocity = tppInst.teleportFromTPP(teleportDestination, self.velocity)
+		else:
+			kickbackVelocity = teleportRange.rangeTeleport(teleportDestination, self.velocity)
+		
+		if !self.is_on_floor(): self.velocity += kickbackVelocity
+
 
 func changeState(state:String) -> void:
 	$stateFactory.on_child_transition($stateFactory.current_state, state)
@@ -204,6 +248,9 @@ func getCurrentState() -> State:
 
 func getVelocity():
 	return velocity
+
+func setPlayerHighlighted(isHighlighted:bool) -> void:
+	self.isHighlighted = isHighlighted
 
 func traverseManhole(exitPos: Vector2, exitVel: Vector2):
 	position = exitPos

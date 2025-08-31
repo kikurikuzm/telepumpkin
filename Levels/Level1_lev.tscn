@@ -1,8 +1,8 @@
-[gd_scene load_steps=18 format=4 uid="uid://d0cu4f2afatpi"]
+[gd_scene load_steps=23 format=4 uid="uid://d0cu4f2afatpi"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_fsv8h"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ksfga"]
-[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/pumpkin.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="2"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_a2ot6"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="11_u0kaf"]
 [ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="12_u8g8w"]
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="13_hc0x2"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="14_u8g8w"]
+[ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="15_hc0x2"]
 
 [sub_resource type="Animation" id="Animation_m3ha0"]
 resource_name = "new_animation"
@@ -28,10 +30,11 @@ script = ExtResource("13_hc0x2")
 dialogueText = "You see a towering mound of grass-covered dirt judging you with a stoic gaze. You feel as though you should offer it something."
 dialoguePortrait = ""
 textSpeed = 0.07
-currentFocus = NodePath("")
+triggerToFire = NodePath("")
+currentFocus = NodePath("../moundViewFocus")
 focusPlayer = false
 cameraSpeed = 0.1
-cameraZoom = 4.0
+cameraZoom = 6.0
 playerCanMove = false
 goToNextConversation = false
 manualNextConversation = 0
@@ -40,6 +43,41 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_0h0my"]
 script = ExtResource("12_u8g8w")
 conversationArray = Array[ExtResource("13_hc0x2")]([SubResource("Resource_32wqn")])
+metadata/_custom_type_script = "uid://cgtgjpboysb1f"
+
+[sub_resource type="Resource" id="Resource_u8g8w"]
+script = ExtResource("13_hc0x2")
+dialogueText = "As you timidly offer your brilliant-orange lookalike, the air around you begins to feel as though it's electrified."
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 6.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_hc0x2"]
+script = ExtResource("13_hc0x2")
+dialogueText = "Suddenly!-"
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("../offeringCompleteTrigger")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 6.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_pug0n"]
+script = ExtResource("12_u8g8w")
+conversationArray = Array[ExtResource("13_hc0x2")]([SubResource("Resource_u8g8w"), SubResource("Resource_hc0x2")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
 [node name="LevelSceneRoot" type="Node"]
@@ -61,7 +99,7 @@ tile_set = ExtResource("4_5g41i")
 position = Vector2(769, 686)
 
 [node name="pumpkin" parent="." instance=ExtResource("2")]
-position = Vector2(915, 719)
+position = Vector2(923, 683)
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(977, 596)
@@ -133,6 +171,35 @@ usesCustomTransform = true
 overrideCameraZoom = true
 
 [node name="moundNPC" parent="." instance=ExtResource("11_m83ex")]
-position = Vector2(632, 448)
+position = Vector2(592, 440)
 npcLook = "inspect"
 dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_0h0my")])
+interactToInitiate = true
+collideToInitiate = false
+
+[node name="moundViewFocus" type="Marker2D" parent="."]
+position = Vector2(536, 392)
+gizmo_extents = 25.0
+
+[node name="pumpkinOfferingTrigger" parent="." instance=ExtResource("14_u8g8w")]
+position = Vector2(620, 464)
+triggerTargets = Array[NodePath]([NodePath("../offeringDialogue")])
+triggerSize = Rect2(0, 0, 3.358, 3.282)
+playerTrigger = false
+showInteractIcon = false
+
+[node name="offeringDialogue" parent="." instance=ExtResource("11_m83ex")]
+position = Vector2(522, 357)
+npcLook = "inspect"
+facePlayer = false
+dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_pug0n")])
+interactToInitiate = false
+collideToInitiate = false
+
+[node name="entrance" parent="." instance=ExtResource("15_hc0x2")]
+position = Vector2(1331, 116)
+gotoLevel = "uid://qwes0xww5doy"
+
+[node name="offeringCompleteTrigger" parent="." instance=ExtResource("14_u8g8w")]
+position = Vector2(1398, 105)
+triggerTargets = Array[NodePath]([NodePath("../entrance")])

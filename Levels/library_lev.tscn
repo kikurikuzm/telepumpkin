@@ -1,0 +1,220 @@
+[gd_scene load_steps=26 format=4 uid="uid://cpafis3j1jvn0"]
+
+[ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="1_d4keh"]
+[ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_r23dv"]
+[ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_ckqg2"]
+[ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="3_c58ar"]
+[ext_resource type="Resource" uid="uid://b7lh1l45lqecv" path="res://Resources/LevelVar Sets/indoors.tres" id="6_v813u"]
+[ext_resource type="Texture2D" uid="uid://bwtnsau7d8vw5" path="res://Sprites/backgrounds/moonCityBG.tres" id="7_nr2lq"]
+[ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="8_ebrtg"]
+[ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="9_g63xh"]
+[ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="9_ndunk"]
+[ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="10_cbf0c"]
+[ext_resource type="Texture2D" uid="uid://blip6bjacflhv" path="res://Sprites/Decoration/bookshelf.png" id="11_4jog3"]
+[ext_resource type="PackedScene" uid="uid://vf7h7cq8vyr1" path="res://Instances/flickerLight.tscn" id="11_cf64c"]
+[ext_resource type="Texture2D" uid="uid://f2nesbooxn5p" path="res://Sprites/Misc/hangingLamp.png" id="12_2bv41"]
+[ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="13_uttqn"]
+[ext_resource type="Texture2D" uid="uid://g70hhwfm2bvf" path="res://Sprites/Misc/counter.png" id="13_xf34m"]
+
+[sub_resource type="Gradient" id="Gradient_qne3f"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1boj5"]
+gradient = SubResource("Gradient_qne3f")
+
+[sub_resource type="Resource" id="Resource_h7j3t"]
+script = ExtResource("10_cbf0c")
+dialogueText = "\"Have you come to get us out of here?\""
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 7.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_ndunk"]
+script = ExtResource("10_cbf0c")
+dialogueText = "\"...Who am I kidding. You look too happy to have any business down here.\" The man lets out a heavy, wistful sigh."
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 7.0
+playerCanMove = false
+goToNextConversation = true
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_3leqj"]
+script = ExtResource("9_ndunk")
+conversationArray = Array[ExtResource("10_cbf0c")]([SubResource("Resource_h7j3t"), SubResource("Resource_ndunk")])
+metadata/_custom_type_script = "uid://cgtgjpboysb1f"
+
+[sub_resource type="Resource" id="Resource_cbf0c"]
+script = ExtResource("10_cbf0c")
+dialogueText = "\"I remember back when I was just a wee lad, we'd hike to the nearby farm and get some huge pumpkins from the kind farmer there.\""
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 7.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_32a4c"]
+script = ExtResource("10_cbf0c")
+dialogueText = "\"We had to take turns hauling just a single one, cause our arms got so tired.\""
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 7.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_dd558"]
+script = ExtResource("10_cbf0c")
+dialogueText = "\"You know, that farm must've supplied our town with thousands of pumpkins over the years.\""
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 7.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_cy4rm"]
+script = ExtResource("10_cbf0c")
+dialogueText = "\"Heh, thanks for that bit of nostalgia. Maybe I'll get to see that farm again someday.\""
+dialoguePortrait = ""
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 7.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_75cgt"]
+script = ExtResource("9_ndunk")
+conversationArray = Array[ExtResource("10_cbf0c")]([SubResource("Resource_cbf0c"), SubResource("Resource_32a4c"), SubResource("Resource_dd558"), SubResource("Resource_cy4rm")])
+metadata/_custom_type_script = "uid://cgtgjpboysb1f"
+
+[node name="LevelSceneRoot" type="Node"]
+script = ExtResource("1_r23dv")
+levelVariablesResource = ExtResource("6_v813u")
+metadata/_custom_type_script = "uid://c11oms6kjkmfs"
+
+[node name="main" type="TileMapLayer" parent="."]
+texture_filter = 1
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAJABsAAAAAAAEAAAAKABsAAAAAAAEAAAALABsAAAAAAAEAAAAMABsAAAAAAAEAAAANABsAAAAAAAEAAAAOABsAAAAAAAEAAAAPABsAAAAAAAEAAAAQABsAAAAAAAEAAAARABsAAAAAAAEAAAASABsAAAAAAAEAAAAJABwAAAAAAAEAAAAJAB0AAAAAAAEAAAAKAB0AAAAAAAEAAAAKABwAAAAAAAEAAAAKAB4AAAAAAAEAAAALABwAAAAAAAEAAAALAB0AAAAAAAEAAAALAB4AAAAAAAEAAAAJAB4AAAAAAAEAAAAMAB4AAAAAAAEAAAAMAB0AAAAAAAEAAAAMABwAAAAAAAEAAAANAB4AAAAAAAEAAAANAB0AAAAAAAEAAAANABwAAAAAAAEAAAAOABwAAAAAAAEAAAAOAB0AAAAAAAEAAAAOAB4AAAAAAAEAAAAPABwAAAAAAAEAAAAPAB0AAAAAAAEAAAAPAB4AAAAAAAEAAAAQAB0AAAAAAAEAAAAQABwAAAAAAAEAAAAQAB4AAAAAAAEAAAARAB0AAAAAAAEAAAARABwAAAAAAAEAAAARAB4AAAAAAAEAAAASAB0AAAAAAAEAAAASABwAAAAAAAEAAAASAB4AAAAAAAEAAAAIABoAAAABAAEAAAAIABkAAAADAAEAAAAIABgAAAADAAEAAAAIABcAAAADAAEAAAATABkAAAADAAEAADATABgAAAADAAEAADATABcAAAADAAEAADATABoAAAABAAEAABAIABsAAAAAAAEAAAAIABwAAAAAAAEAAAATABsAAAAAAAEAAAATABwAAAAAAAEAAAATAB0AAAAAAAEAAAAIAB0AAAAAAAEAAAAIABYAAAACAAEAAFATABYAAAACAAEAAEAJABoAAAABAAAAAAAKABoAAAABAAAAAAALABoAAAABAAAAAAAMABoAAAABAAAAAAANABoAAAABAAAAAAAOABoAAAABAAAAAAAPABoAAAABAAAAAAAQABoAAAABAAAAAAARABoAAAABAAAAAAASABoAAAABAAAAAAAHABkAAAACAAAAACAHABgAAAACAAAAACAHABcAAAACAAAAACAHABYAAAACAAAAACAUABkAAAACAAAAACAUABgAAAACAAAAACAUABcAAAACAAAAACAUABYAAAACAAAAACAHABoAAAAEAAEAAAAGABoAAAAEAAEAAAAFABoAAAAEAAEAAAAUABoAAAAEAAEAAAAVABoAAAAEAAEAAAAWABoAAAAEAAEAAAAGABkAAAACAAAAAAAFABkAAAACAAAAAAAFABgAAAACAAAAAAAGABgAAAACAAAAAAAFABcAAAACAAAAAAAFABYAAAACAAAAAAAGABYAAAACAAAAAAAGABcAAAACAAAAAAAVABkAAAACAAAAAAAWABkAAAACAAAAAAAWABgAAAACAAAAAAAVABgAAAACAAAAAAAVABcAAAACAAAAAAAVABYAAAACAAAAAAAWABcAAAACAAAAAAAWABYAAAACAAAAAAAFABsAAAAAAAEAAAAFABwAAAAAAAEAAAAFAB0AAAAAAAEAAAAGAB0AAAAAAAEAAAAHAB0AAAAAAAEAAAAHABwAAAAAAAEAAAAHABsAAAAAAAEAAAAGABsAAAAAAAEAAAAGABwAAAAAAAEAAAAVABwAAAAAAAEAAAAUABwAAAAAAAEAAAAUABsAAAAAAAEAAAAVABsAAAAAAAEAAAAVAB0AAAAAAAEAAAAUAB0AAAAAAAEAAAAWABsAAAAAAAEAAAAWABwAAAAAAAEAAAAHABUAAAACAAAAAAAIABUAAAACAAAAAAAJABUAAAACAAAAAAAKABUAAAACAAAAAAALABUAAAACAAAAAAAMABUAAAACAAAAAAANABUAAAACAAAAAAAOABUAAAACAAAAAAAPABUAAAACAAAAAAAQABUAAAACAAAAAAARABUAAAACAAAAAAASABUAAAACAAAAAAATABUAAAACAAAAAAAUABUAAAACAAAAAAAJABYAAAADAAAAAAAKABYAAAADAAAAAAALABYAAAADAAAAAAAMABYAAAADAAAAAAANABYAAAADAAAAAAAOABYAAAADAAAAAAAPABYAAAADAAAAAAAQABYAAAADAAAAAAARABYAAAADAAAAAAASABYAAAADAAAAAAA=")
+tile_set = ExtResource("1_d4keh")
+
+[node name="spawn" parent="." instance=ExtResource("2_ckqg2")]
+z_index = -1025
+position = Vector2(450, 816)
+
+[node name="thumb" type="Camera2D" parent="."]
+position = Vector2(450, 787)
+zoom = Vector2(5, 5)
+
+[node name="entrance" parent="." instance=ExtResource("3_c58ar")]
+z_index = -1
+z_as_relative = false
+position = Vector2(450, 823)
+gotoLevel = "uid://bwif5kh6bhds0"
+gotoLevelPosition = Vector2(558, 758)
+
+[node name="areaDarkness" type="PointLight2D" parent="."]
+position = Vector2(567, 280)
+scale = Vector2(25.2656, 26)
+energy = 0.7
+blend_mode = 1
+texture = SubResource("GradientTexture2D_1boj5")
+metadata/_edit_lock_ = true
+
+[node name="bg" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(463.5, 466.25)
+scale = Vector2(0.419, 0.8055)
+texture = ExtResource("7_nr2lq")
+metadata/_edit_lock_ = true
+
+[node name="bg2" type="Sprite2D" parent="."]
+z_index = -11
+position = Vector2(459, 346.75)
+scale = Vector2(0.38, 1.0535)
+texture = ExtResource("8_ebrtg")
+metadata/_edit_lock_ = true
+
+[node name="deskNPC" parent="." instance=ExtResource("9_g63xh")]
+z_index = -1
+position = Vector2(566, 801)
+npcLook = "bald"
+dialogueArray = Array[ExtResource("9_ndunk")]([SubResource("Resource_3leqj"), SubResource("Resource_75cgt")])
+interactToInitiate = true
+collideToInitiate = false
+
+[node name="librarygoer" parent="." instance=ExtResource("9_g63xh")]
+position = Vector2(379, 803)
+npcLook = "kid"
+interactToInitiate = true
+collideToInitiate = false
+
+[node name="NPC2" parent="." instance=ExtResource("9_g63xh")]
+position = Vector2(451, 416)
+npcLook = "cool"
+spriteFlip = true
+interactToInitiate = true
+collideToInitiate = false
+
+[node name="Bookshelf" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(348, 801)
+texture = ExtResource("11_4jog3")
+
+[node name="hanginglamp" type="Sprite2D" parent="."]
+position = Vector2(450, 744)
+texture = ExtResource("12_2bv41")
+
+[node name="flickerLight" parent="hanginglamp" instance=ExtResource("11_cf64c")]
+position = Vector2(3.05176e-05, 2.62701)
+scale = Vector2(1.16, 0.71998)
+energy = 1.11
+
+[node name="counter" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(566, 819)
+texture = ExtResource("13_xf34m")
+
+[node name="cameraZone" parent="." instance=ExtResource("13_uttqn")]
+position = Vector2(448, 815)
+collisionShapeTransform = Vector4(0, 0, 5.217, 2.131)
+usesCustomTransform = true
+overrideCameraZoom = true
+cameraZoom = 6.0
+metadata/_edit_lock_ = true
