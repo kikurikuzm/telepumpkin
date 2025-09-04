@@ -38,10 +38,9 @@ position = Vector2(896, 734)
 zoom = Vector2(2.5, 2.5)
 
 [node name="cameraZone" parent="." instance=ExtResource("8_vi4w6")]
-position = Vector2(968, 816)
-collisionShapeTransform = Vector4(-296.973, -20, 0.876, 3.213)
-usesCustomTransform = true
-overrideCameraZoom = true
+position = Vector2(911, 816)
+collisionShapeTransform = Rect2(-240, -50, 0.484, 1)
+cameraZoom = 3.2
 
 [node name="bgFar" type="Parallax2D" parent="."]
 modulate = Color(0.52549, 0.52549, 0.52549, 1)

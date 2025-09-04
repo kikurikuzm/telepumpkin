@@ -18,6 +18,6 @@ signal exitToMenu
 
 signal requestCameraFocus(focusRequester:Node2D)
 signal returnCameraFocus()
-signal requestCameraZoomChange(newZoom:float)
+signal requestCameraZoomChange(newZoom:float) #TODO : change camera management to a singleton cause this sucks :( some sort of system with priority and whatnot would be good
 
 signal initiateDialogue(conversationArray:Array[DialogueConversation], conversationID:int, emittingNPC:NPC)

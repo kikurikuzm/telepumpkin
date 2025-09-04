@@ -32,15 +32,13 @@ var inCutscene = false ##Whether or not the player is currently in a cutscene.
 
 var currentDialogueEntryIndex : int = 0
 var currentEntry : DialogueEntry
+var lastFocusTarget:Node2D = null
 
 var triggerToFire : Trigger = null
 
 var currentLevelChildren : Array
 
-signal changeCameraFocus(desiredCameraFocusNode:Node2D)
-signal changeCameraFocusToPlayer()
 signal changeCameraSmoothingAmount(desiredCameraSmoothingAmount:float)
-signal changeCameraZoom(desiredCameraZoom:float)
 signal beginDialogueCutscene(desiredCutscene:String)
 signal changePlayerCharacterState(desiredState:String)
 
@@ -72,12 +70,17 @@ func progressDialogue():
 	dialogueBox.visible = true
 	inDialogue = true
 	
+	CameraManager.setZoom(currentEntry.cameraZoom)
+	
 	if currentEntry.focusPlayer:
-		changeCameraFocusToPlayer.emit()
+		CameraManager.focusPlayer()
 	elif currentEntry.currentFocus != null and is_instance_valid(get_node(currentEntry.currentFocusAbsolutePath)):
-		GlobalSignalBus.requestCameraFocus.emit(get_node(currentEntry.currentFocusAbsolutePath))
+		CameraManager.setCurrentFocus(get_node(currentEntry.currentFocusAbsolutePath))
 	else:
-		GlobalSignalBus.requestCameraFocus.emit(dialogueInitializer)
+		CameraManager.setCurrentFocus(dialogueInitializer)
+	
+	if lastFocusTarget != null: CameraManager.removeFocus(lastFocusTarget)
+	lastFocusTarget = CameraManager.getCurrentFocus()
 	
 	if currentEntry.triggerToFire:
 		print_debug(currentEntry.triggerAbsolutePath)
@@ -86,8 +89,8 @@ func progressDialogue():
 	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
 	dialogueText.text = currentEntry.dialogueText
 
-	changeCameraSmoothingAmount.emit(currentEntry.cameraSpeed)
-	GlobalSignalBus.requestCameraZoomChange.emit(currentEntry.cameraZoom)
+	#changeCameraSmoothingAmount.emit(currentEntry.cameraSpeed)
+	#GlobalSignalBus.requestCameraZoomChange.emit(currentEntry.cameraZoom)
 	
 	textSpeed.wait_time = currentEntry.textSpeed
 	
@@ -126,7 +129,8 @@ func progressDialogue():
 	
 ##The function that ends a given dialogue and performs the necessary cleanup.
 func endDialogue(): 
-	print("ended dialogue from DialogueManager")
+	CameraManager.resetPlayerZoom()
+	CameraManager.clearStacks()
 	
 	dialogueBox.visible = false
 	dialogueContinue.visible = false
@@ -134,9 +138,8 @@ func endDialogue():
 
 	currentDialogueEntryIndex = 0
 	
-	changeCameraFocusToPlayer.emit()
 	#changeCameraSmoothingAmount.emit(Vector2(0.2, 0.2))
-	#changeCameraZoom.emit(0)
+
 	changePlayerCharacterState.emit("playerIdle")
 	dialogueInitializer.canTalk = true
 	

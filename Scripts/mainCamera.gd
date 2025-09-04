@@ -16,7 +16,7 @@ func _process(delta):
 		print_debug("Invalid parent!")
 		currentParent = $"../Player"
 	
-	global_position = lerp(global_position, Vector2(currentParent.get_transform().origin.x, currentParent.get_transform().origin.y - 20), smoothAmount)
+	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
 	zoom = lerp(zoom, Vector2(desiredZoom,desiredZoom), smoothAmount)
 
 func snapToParent():
@@ -25,7 +25,7 @@ func snapToParent():
 
 func changeParent(newParent):
 	if newParent == null:
-		push_error("Invalid desired parent!")
+		#push_error("Invalid desired parent!")
 		return
 	
 	oldParent = currentParent
@@ -48,11 +48,9 @@ func returnToParent():
 
 func changeZoom(newZoom:float): ##Stores the current zoom and changes to the provided zoom.
 	if newZoom == 0:
-		print_debug(playerZoom)
 		returnToOldZoom()
 		return
 	else:
-		print("changed camera zoom")
 		oldZoom = desiredZoom
 		desiredZoom = newZoom
 		return

@@ -1,4 +1,4 @@
-class_name CameraManager extends Node
+class_name MainSceneCameraManager extends Node
 
 @export var mainCamera:MainCamera
 

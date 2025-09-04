@@ -208,8 +208,6 @@ texture = ExtResource("13_xf34m")
 
 [node name="cameraZone" parent="." instance=ExtResource("13_uttqn")]
 position = Vector2(448, 815)
-collisionShapeTransform = Vector4(0, 0, 5.217, 2.131)
-usesCustomTransform = true
-overrideCameraZoom = true
+collisionShapeTransform = Rect2(0, 0, 5, 3)
 cameraZoom = 6.0
 metadata/_edit_lock_ = true

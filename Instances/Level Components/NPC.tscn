@@ -19,7 +19,7 @@ animation = &"smoke"
 [node name="interactAudio" type="AudioStreamPlayer2D" parent="."]
 volume_db = 14.273
 
-[node name="Trigger" parent="." instance=ExtResource("4_1sfc1")]
+[node name="Trigger" parent="." groups=["entity_npc_trigger"] instance=ExtResource("4_1sfc1")]
 triggerSize = Rect2(0, -8, 1.25, 2)
 triggersOnce = false
 mustInteract = true

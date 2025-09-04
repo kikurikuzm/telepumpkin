@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ciuswkeg660ew"]
+[gd_scene load_steps=25 format=3 uid="uid://ciuswkeg660ew"]
 
 [ext_resource type="Script" uid="uid://bissop614ltbh" path="res://Scripts/Important Functions/MainGameSceneRootScript.gd" id="1_ip1ij"]
 [ext_resource type="Script" uid="uid://d3ow0p13muao2" path="res://Scripts/UI/offscreenView.gd" id="2_g8ftp"]
@@ -18,6 +18,9 @@
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ml867"]
 viewport_path = NodePath("UILayer/SubViewport")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ybplw"]
+font_size = 24
 
 [sub_resource type="Animation" id="Animation_ml867"]
 length = 0.001
@@ -249,7 +252,7 @@ outline_color = Color(0.850477, 0.295411, 0.302585, 1)
 
 [sub_resource type="Resource" id="Resource_aiegr"]
 script = ExtResource("13_j1jxu")
-levelList = Array[String](["uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://bve7wh3cybj72", "uid://l65jyprpbqpg", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
+levelList = Array[String](["uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://l65jyprpbqpg", "uid://bve7wh3cybj72", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_ip1ij")
@@ -284,7 +287,6 @@ expand_mode = 1
 
 [node name="DebuggerMenu" type="CanvasLayer" parent="."]
 layer = 10
-visible = false
 script = ExtResource("3_1vqvf")
 metadata/_edit_use_anchors_ = true
 
@@ -301,17 +303,41 @@ grow_horizontal = 0
 grow_vertical = 2
 theme = ExtResource("4_3rw4o")
 
-[node name="TabContainer" type="TabContainer" parent="DebuggerMenu/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DebuggerMenu/PanelContainer"]
 layout_mode = 2
-current_tab = 0
 
-[node name="Common" type="VBoxContainer" parent="DebuggerMenu/PanelContainer/TabContainer"]
+[node name="TabContainer" type="TabContainer" parent="DebuggerMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 1
+
+[node name="Common" type="VBoxContainer" parent="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Noclip" type="CheckButton" parent="DebuggerMenu/PanelContainer/TabContainer/Common"]
+[node name="Noclip" type="CheckButton" parent="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer/Common"]
 layout_mode = 2
 text = "No-clip"
+
+[node name="Level" type="VBoxContainer" parent="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="skipLevelButton" type="Button" parent="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer/Level"]
+layout_mode = 2
+text = "Go to next level"
+
+[node name="debugInfoContainer" type="PanelContainer" parent="DebuggerMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="debugInfo" type="Label" parent="DebuggerMenu/PanelContainer/VBoxContainer/debugInfoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Debug Info: "
+label_settings = SubResource("LabelSettings_ybplw")
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -331,6 +357,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
 modulate = Color(1, 1, 1, 0)
@@ -343,6 +370,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("7_m113a")
 alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="titleLabel" type="Label" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
@@ -369,7 +397,7 @@ disabled = true
 text = "Resume?"
 
 [node name="restartButton" type="Button" parent="PauseMenu/VBoxContainer"]
-custom_minimum_size = Vector2(500, 100)
+custom_minimum_size = Vector2(660, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
@@ -429,7 +457,7 @@ visible = false
 [connection signal="commandChangeToLevelSignal" from="DebuggerMenu" to="." method="_goToSpecifiedLevel"]
 [connection signal="commandModifyPlayerState" from="DebuggerMenu" to="." method="_playerCharacterChangeState"]
 [connection signal="commandSkipCurrentCutscene" from="DebuggerMenu" to="." method="_skipCurrentCutscene"]
-[connection signal="toggled" from="DebuggerMenu/PanelContainer/TabContainer/Common/Noclip" to="DebuggerMenu" method="_on_noclip_toggled"]
+[connection signal="toggled" from="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer/Common/Noclip" to="DebuggerMenu" method="_on_noclip_toggled"]
 [connection signal="exitToMenu" from="PauseMenu" to="." method="_playerExitToMenu"]
 [connection signal="pauseGame" from="PauseMenu" to="." method="_pauseGame"]
 [connection signal="restartLevel" from="PauseMenu" to="." method="_playerRestartLevel"]
@@ -438,8 +466,5 @@ visible = false
 [connection signal="pressed" from="PauseMenu/VBoxContainer/restartButton" to="PauseMenu" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/settingsButton" to="PauseMenu" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/exitGameButton" to="PauseMenu" method="_on_exit_game_button_pressed"]
-[connection signal="changeCameraFocus" from="DialogueManager" to="." method="_mainCameraChangeFocus"]
-[connection signal="changeCameraFocusToPlayer" from="DialogueManager" to="." method="_mainCameraFocusPlayer"]
-[connection signal="changeCameraZoom" from="DialogueManager" to="." method="_mainCameraChangeZoom"]
 [connection signal="changePlayerCharacterState" from="DialogueManager" to="." method="_playerCharacterChangeState"]
 [connection signal="finishedExitAnimation" from="Player" to="." method="_onPlayerExitAnimationFinished"]

@@ -77,8 +77,7 @@ zoom = Vector2(2.25, 2.25)
 
 [node name="cameraZone" parent="." instance=ExtResource("9_q5lgr")]
 position = Vector2(799, 701)
-collisionShapeTransform = Vector4(0, 0, 2.535, 1)
-usesCustomTransform = true
+collisionShapeTransform = Rect2(0, 0, 2.5, 1)
 
 [node name="closerForegroundParallax" type="Parallax2D" parent="."]
 modulate = Color(0.74978, 0.74978, 0.74978, 1)

@@ -40,7 +40,11 @@ func physics_process(delta):
 		
 	if current_state:
 		current_state.physics_update(delta)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if !loaded: return
 	
+	if current_state: current_state.unhandled_input(event)
 
 func getCurrentStateName() -> String:
 	return current_state.name
