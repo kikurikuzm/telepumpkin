@@ -111,10 +111,9 @@ metadata/_custom_type_script = "uid://cquqdpkj8ecfv"
 
 [node name="NPC" parent="." instance=ExtResource("10_eq704")]
 position = Vector2(464, 735)
-facePlayer = null
 dialogueArray = Array[ExtResource("11_nvnte")]([SubResource("Resource_q1qt7")])
-interactToInitiate = null
-collideToInitiate = null
+interactToInitiate = true
+collideToInitiate = false
 
 [node name="entrance" parent="." node_paths=PackedStringArray("exitPipe") instance=ExtResource("3_nvnte")]
 z_index = -1

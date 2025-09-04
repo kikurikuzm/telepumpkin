@@ -133,7 +133,7 @@ func _process(delta):
 	
 	tppProcess()
 	
-	if Input.is_action_just_pressed("teleport"):
+	if Input.is_action_just_pressed("teleport") and self.getCurrentStateName() != "playerBusy":
 		playerInteractionInitiated()
 
 func tppProcess() -> void:
@@ -245,6 +245,9 @@ func changeState(state:String) -> void:
 
 func getCurrentState() -> State:
 	return $stateFactory.current_state
+
+func getCurrentStateName() -> String:
+	return $stateFactory.getCurrentStateName()
 
 func getVelocity():
 	return velocity

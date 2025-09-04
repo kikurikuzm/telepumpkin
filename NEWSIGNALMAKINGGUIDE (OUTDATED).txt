@@ -1,9 +1,0 @@
-To make a new signal for level elements (e.g. level_playerPositionModifier) you must:
-
-1. Create the global group with a suitable name
-2. Add a new group check in LevelSceneRoot.gd, around line 74. You need to add a new array at the top of the script that holds the nodes with the corresponding signal.
-3. Add a new node reference array in LevelLoader.gd's "passRootNodeSignalsToConnect()", like "var playerPositionChangingNodeReferenceArray"
-4. Add a new if-statement checking to see if that array isn't null. If it isn't null, then append each signal to the corresponding *InstanceSignalsArray.
-5. Add a new NodeSignalsArray to MainGameSceneRoot.gd that connects each of the newly aquired InstanceSignals to the correct method in MainGameSceneRoot.gd. (e.g. connect playerPositionChangingNodeSignal to _playerCharacterChangePosition())
-
-If all has gone right, you SHOULD now have a new signal that works and stuff. pray it works.

@@ -176,21 +176,16 @@ z_index = -1
 position = Vector2(566, 801)
 npcLook = "bald"
 dialogueArray = Array[ExtResource("9_ndunk")]([SubResource("Resource_3leqj"), SubResource("Resource_75cgt")])
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="librarygoer" parent="." instance=ExtResource("9_g63xh")]
-position = Vector2(379, 803)
+position = Vector2(379, 804)
 npcLook = "kid"
-interactToInitiate = true
-collideToInitiate = false
+interactToInitiate = false
 
 [node name="NPC2" parent="." instance=ExtResource("9_g63xh")]
 position = Vector2(451, 416)
 npcLook = "cool"
 spriteFlip = true
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="Bookshelf" type="Sprite2D" parent="."]
 z_index = -1

@@ -9,15 +9,12 @@ size = Vector2(70, 49)
 
 [node name="NPC" type="Node2D" groups=["level_npc", "saveable"]]
 script = ExtResource("1_o0077")
-npcLook = "science"
-interactToInitiate = null
-collideToInitiate = null
+npcLook = "smoke"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = ExtResource("1")
-animation = &"science"
-frame_progress = 0.733003
+animation = &"smoke"
 
 [node name="interactAudio" type="AudioStreamPlayer2D" parent="."]
 volume_db = 14.273

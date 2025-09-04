@@ -42,6 +42,9 @@ func physics_process(delta):
 		current_state.physics_update(delta)
 	
 
+func getCurrentStateName() -> String:
+	return current_state.name
+
 func on_child_transition(state, new_state_name):
 	if state != current_state:
 		return

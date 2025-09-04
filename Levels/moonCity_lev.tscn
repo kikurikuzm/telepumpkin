@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=32 format=4 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
@@ -231,11 +231,6 @@ script = ExtResource("8_20fxd")
 conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_2uoi1"), SubResource("Resource_2jwe5")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
-[sub_resource type="Resource" id="Resource_lp2p0"]
-script = ExtResource("8_20fxd")
-conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_aaajh")])
-metadata/_custom_type_script = "uid://cgtgjpboysb1f"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37ck6"]
 size = Vector2(2632, 1427)
 
@@ -302,40 +297,29 @@ position = Vector2(959, 637)
 zoom = Vector2(0.4, 0.4)
 
 [node name="NPC5" parent="." instance=ExtResource("3_3vfoy")]
-position = Vector2(1500, 736)
+position = Vector2(1500, 738)
 npcLook = "cloak"
 dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_frmte"), SubResource("Resource_702n2")])
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="NPC4" parent="." instance=ExtResource("3_3vfoy")]
 position = Vector2(1358, 1032)
 npcLook = "kid"
 spriteFlip = true
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="NPC3" parent="." instance=ExtResource("3_3vfoy")]
 z_index = 3
 position = Vector2(1153, 1032)
 npcLook = "cool"
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="NPC2" parent="." instance=ExtResource("3_3vfoy")]
 z_index = 3
 position = Vector2(1080, 1032)
 npcLook = "bald"
 spriteFlip = true
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="NPC" parent="." instance=ExtResource("3_3vfoy")]
 position = Vector2(730, 736)
-npcLook = "smoke"
 dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_20fxd"), SubResource("Resource_8qvt3")])
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="apartments entrance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(853, 760)
@@ -387,13 +371,6 @@ z_index = -1
 position = Vector2(360, 718)
 rotation = 0.0698132
 texture = ExtResource("9_102g8")
-
-[node name="NPC6" parent="." instance=ExtResource("3_3vfoy")]
-position = Vector2(960, 736)
-npcLook = "inspect"
-dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_lp2p0")])
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="lamppost" parent="." instance=ExtResource("13_0aphl")]
 position = Vector2(719, 704)
