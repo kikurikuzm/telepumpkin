@@ -5,7 +5,7 @@ extends Node
 @onready var levelLoader:LevelLoader = $LevelLoader
 @onready var cutsceneManager:CutsceneManager = $CutsceneManager
 @onready var dialogueManager:DialogueManager = $DialogueManager
-@onready var cameraManager:CameraManager = $CameraManager
+@onready var cameraManager:MainSceneCameraManager = $CameraManager
 @onready var debuggerMenu:CanvasLayer = $DebuggerMenu
 @onready var pauseMenu:CanvasLayer = $PauseMenu
 
@@ -31,15 +31,19 @@ func _on_tree_entered() -> void:
 	
 	GlobalSignalBus.requestPlayerPositionChange.connect(_playerCharacterChangePosition)
 	
-	GlobalSignalBus.requestCameraFocus.connect(_levelCameraZoneGiveMainCameraFocus)
-	GlobalSignalBus.returnCameraFocus.connect(_levelCameraZoneTakeMainCameraFocus)
-	GlobalSignalBus.requestCameraZoomChange.connect(_levelCameraZoneChangeMainCameraZoom)
-
+	#GlobalSignalBus.requestCameraFocus.connect(_levelCameraZoneGiveMainCameraFocus)
+	#GlobalSignalBus.returnCameraFocus.connect(_levelCameraZoneTakeMainCameraFocus)
+	#GlobalSignalBus.requestCameraZoomChange.connect(_levelCameraZoneChangeMainCameraZoom)
+	
 	GlobalSignalBus.initiateDialogue.connect(_levelNPCInstanceBeginConversation)
+	
+	
 
 func _ready() -> void:
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)
-	cameraManager.setMainCameraReference(mainCameraReference)
+	#cameraManager.setMainCameraReference(mainCameraReference)
+	CameraManager.setMainCameraReference(mainCameraReference)
+	CameraManager.setPlayerReference(playerReference)
 	debuggerMenu.debugLevelList = levelLoader.levelSet
 	initiateLevelChange()
 	
@@ -136,15 +140,15 @@ func initiateLevelChange(levelPath:String = ""):
 		levelLoader.instanceLevel(currentLevelSetIndex)
 	print_debug(levelLoadedExternally)
 	levelLoader.setupExternalLevelNodes(playerReference)
-	cameraManager.mainCameraSnapToParent()
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
 	#connectToLevelNodeSignals()
 	
 	var currentLevelVariables : LevelVariables = levelLoader.getCurrentLevelVariables()
 	levelAmbience.stream = currentLevelVariables.levelAmbience
 	levelAmbience.play()
-	cameraManager.setMainCameraPlayerZoom(currentLevelVariables.playerZoom)
-	cameraManager.mainCameraChangeZoom(currentLevelVariables.playerZoom)
+	CameraManager.setPlayerZoom(currentLevelVariables.playerZoom)
+	CameraManager.clearStacks()
+	CameraManager.snapToFocusPosition()
 
 func restartLevel():
 	initiateLevelChange()
@@ -183,7 +187,7 @@ func _playerCharacterChangePosition(desiredPosition:Vector2, desiredVelocity:Vec
 	playerReference.position = desiredPosition
 	if desiredVelocity != Vector2.ZERO:
 		playerReference.velocity = desiredVelocity
-		cameraManager.mainCameraSnapToParent()
+		CameraManager.snapToFocusPosition()
 
 func _mainCameraChangeZoom(desiredZoom:float):
 	cameraManager.mainCameraChangeZoom(desiredZoom)

@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var spriteAnim = $AnimatedSprite2D
+@onready var spriteAnim:AnimatedSprite2D = $AnimatedSprite2D
 @onready var teleportRange = $Teleport
 @onready var interactArea:Area2D = $interactArea
 @onready var tpp = $AnimatedSprite2D/tpp
@@ -146,13 +146,13 @@ func tppProcess() -> void:
 					self.isHighlighted = true
 					break
 	
-	if isHighlighted:
-		var highlightDistortion = lerp((spriteAnim.material as ShaderMaterial).get_shader_parameter("distortion_strength"), SHADER_PLAYER_HIGHLIGHT_DISTORTION, 0.1)
-		(spriteAnim.material as ShaderMaterial).set_shader_parameter("distortion_strength", highlightDistortion)
-	else:
-		var highlightDistortion = lerp((spriteAnim.material as ShaderMaterial).get_shader_parameter("distortion_strength"), 0.0, 0.04)
-		(spriteAnim.material as ShaderMaterial).set_shader_parameter("distortion_strength", highlightDistortion)
-	
+	#if isHighlighted:
+		#var highlightDistortion = lerp((spriteAnim.material as ShaderMaterial).get_shader_parameter("distortion_strength"), SHADER_PLAYER_HIGHLIGHT_DISTORTION, 0.1)
+		#(spriteAnim.material as ShaderMaterial).set_shader_parameter("distortion_strength", highlightDistortion)
+	#else:
+		#var highlightDistortion = lerp((spriteAnim.material as ShaderMaterial).get_shader_parameter("distortion_strength"), 0.0, 0.04)
+		#(spriteAnim.material as ShaderMaterial).set_shader_parameter("distortion_strength", highlightDistortion)
+	#
 	if tppInst != null:
 		tppLine.visible = true
 		tppLine.set_point_position(1, to_local(tppInst.pointPos))
@@ -223,14 +223,16 @@ func playerInteractionInitiated() -> void:
 
 	if canTeleport and (teleportRange.canTeleport() == true or is_instance_valid(tppInst) and tppInst.tppHasValidTargets()):
 		var teleportDestination:Vector2 = self.global_position
+		teleportDestination.y += playerCollision.shape.get_rect().size.y * 0.5
 		var kickbackVelocity:Vector2
-		if !teleportSpaceCheck.is_colliding() and self.is_on_floor():
-			var yOffset:float = playerCollision.shape.get_rect().size.y * 0.5
-			teleportDestination.y = self.global_position.y
+		if !teleportSpaceCheck.is_colliding() and self.is_on_floor(): # If the player is grounded and there isn't anything above them
 			self.global_position.y -= 15
 			await get_tree().physics_frame
-		elif !self.is_on_floor():
-			teleportDestination.y = self.global_position.y + playerCollision.shape.get_rect().size.y * 0.5
+		elif teleportSpaceCheck.is_colliding(): # If the player has something above them, nudge the destination to the side of the player
+			var direction:int = 1
+			if spriteAnim.flip_h == false: direction = -1
+			
+			teleportDestination.x += (playerCollision.shape.get_rect().size.x * 0.5 + 10) * direction 
 		
 		if hasTPP and !holdingTPP:
 			kickbackVelocity = tppInst.teleportFromTPP(teleportDestination, self.velocity)

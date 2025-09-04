@@ -1,6 +1,6 @@
 @tool
 extends EditorElement
-class_name cameraZone
+class_name CameraZone
 
 @export var collisionShapeTransform = Vector4.ZERO ##X position, Y position, X scale, Y scale
 @export var usesCustomTransform = false
@@ -43,10 +43,10 @@ func _on_area_2d_body_exited(body):
 		#cameraZoneReturnCamera()
 
 func cameraZoneGetCamera():
-	GlobalSignalBus.requestCameraFocus.emit(self)
 	if overrideCameraZoom:
-		GlobalSignalBus.requestCameraZoomChange.emit(cameraZoom)
-		return
+		CameraManager.setZoom(cameraZoom)
+	
+	CameraManager.setCurrentFocus(self)
 
 func cameraZoneReturnCamera():
-	GlobalSignalBus.returnCameraFocus.emit()
+	CameraManager.removeFocus(self)

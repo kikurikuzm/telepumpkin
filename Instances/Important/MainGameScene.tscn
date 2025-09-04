@@ -249,7 +249,7 @@ outline_color = Color(0.850477, 0.295411, 0.302585, 1)
 
 [sub_resource type="Resource" id="Resource_aiegr"]
 script = ExtResource("13_j1jxu")
-levelList = Array[String](["uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://bve7wh3cybj72", "uid://l65jyprpbqpg", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
+levelList = Array[String](["uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://l65jyprpbqpg", "uid://bve7wh3cybj72", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_ip1ij")
@@ -438,8 +438,5 @@ visible = false
 [connection signal="pressed" from="PauseMenu/VBoxContainer/restartButton" to="PauseMenu" method="_on_restart_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/settingsButton" to="PauseMenu" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/exitGameButton" to="PauseMenu" method="_on_exit_game_button_pressed"]
-[connection signal="changeCameraFocus" from="DialogueManager" to="." method="_mainCameraChangeFocus"]
-[connection signal="changeCameraFocusToPlayer" from="DialogueManager" to="." method="_mainCameraFocusPlayer"]
-[connection signal="changeCameraZoom" from="DialogueManager" to="." method="_mainCameraChangeZoom"]
 [connection signal="changePlayerCharacterState" from="DialogueManager" to="." method="_playerCharacterChangeState"]
 [connection signal="finishedExitAnimation" from="Player" to="." method="_onPlayerExitAnimationFinished"]

@@ -100,3 +100,10 @@ tile_set = ExtResource("1_w73xn")
 occlusion_enabled = false
 collision_enabled = false
 navigation_enabled = false
+
+[node name="cameraZone2" parent="." instance=ExtResource("8_rccfl")]
+position = Vector2(1103, 683)
+collisionShapeTransform = Vector4(0, -71.528, 1.32, 0.7)
+usesCustomTransform = true
+overrideCameraZoom = true
+cameraZoom = 4.5

@@ -6,6 +6,7 @@ class_name playerKick
 
 var hasImpacted:bool = false
 var hasProducedEffect:bool = false
+var hasPerfectKickFlashed:bool = false
 var inKick:bool = false
 var alreadyImpulsedTargets:Array[Node2D] = []
 
@@ -14,16 +15,20 @@ var kickStrengthVertical = 50
 var kickDirection = 1
 var kickPausetime = 0.04
 
-const DEFAULT_HORIZONTAL_KICK_STRENGTH = 100
-const PERFECT_HORIZONTAL_KICK_STRENGTH = 150
+const DEFAULT_HORIZONTAL_KICK_STRENGTH = 60
+const PERFECT_HORIZONTAL_KICK_STRENGTH = 120
 const DEFAULT_VERTICAL_KICK_STRENGTH = 35
 const PERFECT_VERTICAL_KICK_STRENGTH = 50
 
-const MAX_VERTICAL_KICK_STRENGTH := 500
+const MAX_VERTICAL_KICK_STRENGTH := 10
 const MAX_HORIZONTAL_KICK_STRENGTH := 300
 
 const MAX_KICK_WAIT_TIME := 0.5
 const MIN_REQUIRED_MOVEMENT_VELOCITY := 60.0
+
+const PERFECT_KICK_PAUSE_THRESHOLD := 0.46
+
+const KICK_AREA_HORIZONTAL_OFFSET := 8
 
 func enter():
 	print_debug("Initiated a kick")
@@ -41,16 +46,20 @@ func enter():
 	
 	if Input.is_action_pressed("left"):
 		playerSprite.flip_h = true
+		kickArea.position.x = -KICK_AREA_HORIZONTAL_OFFSET
 		kickDirection = -1
 	elif Input.is_action_pressed("right"):
 		playerSprite.flip_h = false
+		kickArea.position.x = KICK_AREA_HORIZONTAL_OFFSET
 		kickDirection = 1
 	
 	kickStopTimer.start(MAX_KICK_WAIT_TIME)
+	hasPerfectKickFlashed = false
 
 
 func exit():
-	pass
+	playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
+	playerSprite.scale = Vector2(1.0, 1.0)
 
 func update(delta: float):
 	if Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
@@ -72,6 +81,10 @@ func physics_update(delta: float):
 	super(delta)
 	
 	if playerSprite.animation == "kick" and playerSprite.frame == 3:
+		if hasPerfectKickFlashed == false: 
+			playerSprite.self_modulate = Color(2.5, 1.5, 1.0)
+			hasPerfectKickFlashed = true
+		
 		if kickArea.has_overlapping_bodies():
 			for i in kickArea.get_overlapping_bodies():
 				if alreadyImpulsedTargets.has(i): continue
@@ -83,19 +96,23 @@ func physics_update(delta: float):
 					kickStrengthHorizontal = DEFAULT_HORIZONTAL_KICK_STRENGTH
 					kickStrengthVertical = DEFAULT_VERTICAL_KICK_STRENGTH
 					
-					
 					var playerOldVelocity = player.velocity
 					
 					kickPausetime = abs(playerOldVelocity.x / 200) + 0.01
 					
 					#region Perfect Kick Code
-					if kickPausetime > 0.46:
+					if kickPausetime > PERFECT_KICK_PAUSE_THRESHOLD:
 						kickStrengthHorizontal = PERFECT_HORIZONTAL_KICK_STRENGTH
 						kickStrengthVertical = PERFECT_VERTICAL_KICK_STRENGTH
 						
+						CameraManager.setZoom(CameraManager.getPlayerZoom() + 2.0)
+						CameraManager.setCurrentFocus(player)
 						
 						playerSprite.self_modulate = Color(99.0, 99.0, 99.0)
-						var hitTimer = get_tree().create_timer(kickPausetime, true, true, true)
+						playerSprite.scale.y += 0.4
+						playerSprite.scale.x -= 0.2
+						
+						var hitTimer = get_tree().create_timer(kickPausetime, true, false, true)
 						animPlayer.pause()
 						kickStopTimer.paused = true
 						
@@ -103,7 +120,7 @@ func physics_update(delta: float):
 							$"../../kickBlinkSFX".play()
 							hasProducedEffect = true
 						
-						Engine.time_scale = 0.1
+						Engine.time_scale = 0.0
 						finishPerfectKick(hitTimer)
 					#endregion
 					
@@ -111,7 +128,7 @@ func physics_update(delta: float):
 						if i is not TeleportableObject: return
 						
 						kickStrengthHorizontal = (kickStrengthHorizontal * kickDirection) * (abs(playerOldVelocity.x)/45 + 1)
-						kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/45 + 1)) * -1
+						kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/60 + 1)) * -1
 						
 						if Input.is_action_pressed("up"):
 							var swappedStrength:float = kickStrengthVertical
@@ -132,6 +149,10 @@ func physics_update(delta: float):
 						hasImpacted = true
 					
 					inKick = false
+	
+	elif playerSprite.animation == "kick" and playerSprite.frame == 4:
+		var colourTween:Tween = get_tree().create_tween()
+		colourTween.tween_property(playerSprite, "self_modulate", Color(1.0,1.0,1.0), 0.8).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	if hasImpacted:
 		friction = 1.0
 	
@@ -143,5 +164,9 @@ func finishPerfectKick(hitTimer:SceneTreeTimer) -> void:
 	await hitTimer.timeout
 	animPlayer.play()
 	playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
+	playerSprite.scale.y -= 0.4
+	playerSprite.scale.x += 0.2
+	
+	CameraManager.removeFocus(player)
 	Engine.time_scale = 1.0
 	return
