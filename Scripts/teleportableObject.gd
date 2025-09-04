@@ -18,12 +18,15 @@ var raycast:PackedScene = preload("res://Instances/Helpers/pumpkinRay.tscn")
 var highlighted:bool = false
 var highlightDistortion : float = 0.0
 
+var bounceCount:int = 0
+
 var newPosition:Vector2
 var newVelocity:Vector2
 
 var lastFrameVelocity:Vector2 = Vector2.ZERO
 
 var gravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var originalGravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 const TELEPORT_VELOCITY_DECAY:Vector2 = Vector2(0, 0.5)
 const TELEPORT_VELOCITY_BUMP:Vector2 = Vector2(0, -60)
@@ -40,23 +43,25 @@ func _ready():
 		sprite.animation = "normal"
 
 func _physics_process(delta):
-	self.velocity.y += gravity * 0.5 * delta
-	
 	if self.is_on_floor():
+		self.velocity.y -= lastFrameVelocity.y * physicsProperties.bounce
+		
 		if abs(self.velocity.x) > MIN_VELOCITY_CUTOFF:
 			self.velocity.x += (sqrt(abs(self.velocity.x)) * physicsProperties.friction) * -1 * signf(self.velocity.x)
-		else:
+		else: 
 			self.velocity.x = 0
+	else:
+		lastFrameVelocity = velocity
+		self.velocity.y += gravity * delta
+		
+		#gravity = gravity + (gravity*1.05)*0.1
+		#lastFrameVelocity.y -= gravity * 0.5 * delta
+		#lastFrameVelocity.y += originalGravity
 	
 	if abs(self.velocity) > Vector2(200, 200):
 		print_debug(self.velocity)
 		self.velocity.y = clampf(self.velocity.y, -200, 200) # hopefully avoids sending the player into space/the void
 	self.velocity.x = clampf(self.velocity.x, -300, 300)
-	
-	if self.is_on_floor():
-		self.velocity.y -= lastFrameVelocity.y
-	else:
-		lastFrameVelocity = velocity
 	
 	lastFrameVelocity = lastFrameVelocity * physicsProperties.bounce
 	

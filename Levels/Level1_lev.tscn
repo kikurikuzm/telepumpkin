@@ -166,16 +166,12 @@ navigation_enabled = false
 
 [node name="cameraZone" parent="." instance=ExtResource("11_u0kaf")]
 position = Vector2(977, 596)
-collisionShapeTransform = Vector4(-206.924, 92.082, 1.1, 0.377)
-usesCustomTransform = true
-overrideCameraZoom = true
+collisionShapeTransform = Rect2(-213.098, 105.264, 1, 1)
 
 [node name="moundNPC" parent="." instance=ExtResource("11_m83ex")]
 position = Vector2(592, 440)
 npcLook = "inspect"
 dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_0h0my")])
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="moundViewFocus" type="Marker2D" parent="."]
 position = Vector2(536, 392)
@@ -194,7 +190,6 @@ npcLook = "inspect"
 facePlayer = false
 dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_pug0n")])
 interactToInitiate = false
-collideToInitiate = false
 
 [node name="entrance" parent="." instance=ExtResource("15_hc0x2")]
 position = Vector2(1331, 116)

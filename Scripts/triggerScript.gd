@@ -55,13 +55,20 @@ func _process(delta: float) -> void:
 		self.interactIcon.position = self.triggerSize.position
 		self.interactIcon.customSize = (self.triggerSize.size as Vector2)
 
-func _unhandled_input(event:InputEvent):
-	if Input.is_action_just_pressed("teleport") and mustInteract and enabled:
-		for node in area2d.get_overlapping_areas():
-			if node.is_in_group("entity_player_interaction_area") and playerTrigger:
-				initiateTrigger(node)
-			elif node.is_in_group("entity_teleportable_object_area") and !playerTrigger:
-				initiateTrigger(node)
+#func _physics_process(delta: float) -> void:
+	#for node in area2d.get_overlapping_areas():
+		#if node.is_in_group("entity_teleportable_object_area") and !playerTrigger:
+			#initiateTrigger(node)
+			#if node.is_in_group("entity_player_interaction_area") and playerTrigger:
+				#initiateTrigger(node)
+
+#func _unhandled_input(event:InputEvent):
+	#if Input.is_action_just_pressed("teleport") and mustInteract and enabled:
+		#for node in area2d.get_overlapping_areas():
+			#if node.is_in_group("entity_player_interaction_area") and playerTrigger:
+				#initiateTrigger(node)
+			#elif node.is_in_group("entity_teleportable_object_area") and !playerTrigger:
+				#initiateTrigger(node)
 				#if node.get_parent().get_node("stateFactory").current_state != node.get_parent().get_node("stateFactory").states["playerbusy"]:
 					#if sceneCutscenePlayer:
 						#if !sceneCutscenePlayer.inCutscene:
@@ -91,7 +98,11 @@ func initiateTrigger(cause:Node2D) -> void:
 	elif !cause.is_in_group("entity_player_interaction_area") and !cause.is_in_group("entity_teleportable_object_area"):
 		triggeredByCause.emit(cause)
 		hasTriggered = true
-	
+
+func triggerInteract(cause:Node2D) -> void:
+	if mustInteract == true and enabled == true:
+		initiateTrigger(cause)
+
 func save():
 	var saveDict = {
 		"name" : name,

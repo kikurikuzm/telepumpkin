@@ -63,6 +63,10 @@ const SHADER_PLAYER_HIGHLIGHT_DISTORTION : float = 0.01
 
 const HORIZONTAL_THROW_VELOCITY_BOOST : float = 200.0
 
+const TELEPORT_DEST_HORIZONTAL_OFFSET : float = 10.0
+const TELEPORT_PLAYER_VERTICAL_OFFSET : float = -15
+const PLAYER_COLLISION_RECT : Rect2 = Rect2(0, 0, 28, 12)
+
 func _physics_process(delta):
 	var interactArray = interactArea.get_overlapping_areas()
 	for area in interactArray:
@@ -131,10 +135,10 @@ func _process(delta):
 				canTeleport = false
 				$Teleport.visible = false
 	
-	tppProcess()
-	
-	if Input.is_action_just_pressed("teleport"):
-		playerInteractionInitiated()
+	#tppProcess()
+	#
+	#if Input.is_action_just_pressed("teleport"):
+		#playerInteractionInitiated()
 
 func tppProcess() -> void:
 	
@@ -209,15 +213,15 @@ func tppHandler() -> void:
 func playerInteractionInitiated() -> void:
 	canTeleport = true
 	for node in interactArea.get_overlapping_areas():
-		#if node.is_in_group("entrance"):
-			#var entrance = node.get_parent()
-			#entrance.enterScene()
-			#return
+		if node.is_in_group("entity_trigger_area"):
+			var entrance = node.get_parent()
+			entrance.enterScene()
+			return
 		if node.is_in_group("local_disableTeleport"):
 			canTeleport = false
-		elif node.is_in_group("entity_trigger_area"):
-			if node.get_parent().playerTrigger == true:
-				return
+		#elif node.is_in_group("entity_trigger_area"):
+			#if node.get_parent().playerTrigger == true:
+				#return
 	
 	tppHandler()
 

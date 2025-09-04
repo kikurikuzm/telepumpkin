@@ -25,7 +25,7 @@ func snapToParent():
 
 func changeParent(newParent):
 	if newParent == null:
-		push_error("Invalid desired parent!")
+		#push_error("Invalid desired parent!")
 		return
 	
 	oldParent = currentParent

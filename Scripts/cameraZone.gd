@@ -2,27 +2,27 @@
 extends EditorElement
 class_name CameraZone
 
-@export var collisionShapeTransform = Vector4.ZERO ##X position, Y position, X scale, Y scale
-@export var usesCustomTransform = false
-@export var overrideCameraZoom = false
+@export var collisionShapeTransform = Rect2(0, 0, 1.0, 1.0) ##X position, Y position, X scale, Y scale
 @export var cameraZoom : float = 3.0
 
 @onready var area2D = $Area2D
 @onready var collisionShape2D = $Area2D/CollisionShape2D
 @onready var exampleCamera = $exampleBounds
 
+func _ready() -> void:
+	collisionShape2D.position.x = collisionShapeTransform.position.x
+	collisionShape2D.position.y = collisionShapeTransform.position.y
+	collisionShape2D.scale.x = collisionShapeTransform.size.x
+	collisionShape2D.scale.y = collisionShapeTransform.size.y
+
 func _process(delta):
-	if usesCustomTransform:
-		collisionShape2D.position.x = collisionShapeTransform.x
-		collisionShape2D.position.y = collisionShapeTransform.y
-		collisionShape2D.scale.x = collisionShapeTransform.z
-		collisionShape2D.scale.y = collisionShapeTransform.w
-	elif !usesCustomTransform:
-		collisionShape2D.position = Vector2.ZERO
-		collisionShape2D.scale = Vector2(1, 1)
+	if Engine.is_editor_hint():
+		collisionShape2D.position.y = collisionShapeTransform.position.y
+		collisionShape2D.position.x = collisionShapeTransform.position.x
+		collisionShape2D.scale.x = collisionShapeTransform.size.x
+		collisionShape2D.scale.y = collisionShapeTransform.size.y
 	
 	if is_instance_valid(exampleCamera):
-		exampleCamera.visible = overrideCameraZoom
 		exampleCamera.zoom = Vector2(cameraZoom, cameraZoom)
 
 #func _physics_process(delta):
@@ -43,9 +43,7 @@ func _on_area_2d_body_exited(body):
 		#cameraZoneReturnCamera()
 
 func cameraZoneGetCamera():
-	if overrideCameraZoom:
-		CameraManager.setZoom(cameraZoom)
-	
+	CameraManager.setZoom(cameraZoom)
 	CameraManager.setCurrentFocus(self)
 
 func cameraZoneReturnCamera():

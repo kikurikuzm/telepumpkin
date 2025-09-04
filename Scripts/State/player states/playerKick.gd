@@ -105,8 +105,8 @@ func physics_update(delta: float):
 						kickStrengthHorizontal = PERFECT_HORIZONTAL_KICK_STRENGTH
 						kickStrengthVertical = PERFECT_VERTICAL_KICK_STRENGTH
 						
-						CameraManager.setZoom(CameraManager.getPlayerZoom() + 2.0)
-						CameraManager.setCurrentFocus(player)
+						CameraManager.setZoom(CameraManager.getPlayerZoom() + 0.5)
+						CameraManager.focusPlayer()
 						
 						playerSprite.self_modulate = Color(99.0, 99.0, 99.0)
 						playerSprite.scale.y += 0.4

@@ -5,6 +5,7 @@ var _playerReference:Player = null
 
 var _currentFocus:Node2D = null
 var _focusStack:Array[Node2D] = []
+var _currentZoom:float = 1.0
 var _zoomStack:Array[float] = []
 
 var _currentLevelZoom:float = 1.0
@@ -17,9 +18,13 @@ func _ready() -> void:
 	##_zoomStack.set(0, _mainCamera.playerZoom)
 
 func _process(delta: float) -> void:
-	if !_focusStack.is_empty() and _mainCamera.getCurrentCameraParent() != _focusStack.back():
+	if !_focusStack.is_empty() and \
+	(_mainCamera.getCurrentCameraParent() != _focusStack.back() or _mainCamera.zoom.x != _zoomStack.back()):
 		_mainCamera.changeParent(_focusStack.back())
 		_currentFocus = _focusStack.back()
+		
+		_mainCamera.changeZoom(_zoomStack.back())
+		_currentZoom = _zoomStack.back()
 	elif _focusStack.is_empty():
 		clearStacks()
 	
@@ -69,6 +74,8 @@ func setZoom(desiredZoom:float) -> void:
 func getZoom() -> float:
 	return _mainCamera.zoom.x
 
+func focusPlayer() -> void:
+	_focusStack.append(_playerReference)
 
 func setCurrentFocus(newFocus:Node2D) -> void:
 	_focusStack.append(newFocus)
@@ -93,3 +100,9 @@ func returnFocusToPlayer() -> void:
 
 func snapToFocusPosition() -> void:
 	_mainCamera.snapToParent()
+
+func debug_getFocusStack() -> Array[Node2D]:
+	return _focusStack.duplicate()
+
+func debug_getZoomStack() -> Array[float]:
+	return _zoomStack.duplicate()

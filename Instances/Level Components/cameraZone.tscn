@@ -31,7 +31,6 @@ wait_time = 0.2
 autostart = true
 
 [node name="exampleBounds" type="Camera2D" parent="."]
-visible = false
 enabled = false
 zoom = Vector2(3, 3)
 

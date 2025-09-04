@@ -6,7 +6,7 @@ extends Node
 @onready var cutsceneManager:CutsceneManager = $CutsceneManager
 @onready var dialogueManager:DialogueManager = $DialogueManager
 @onready var cameraManager:MainSceneCameraManager = $CameraManager
-@onready var debuggerMenu:CanvasLayer = $DebuggerMenu
+@onready var debuggerMenu:DebugUI = $DebuggerMenu
 @onready var pauseMenu:CanvasLayer = $PauseMenu
 
 @onready var levelAmbience:AudioStreamPlayer = $LevelAmbience
@@ -42,6 +42,7 @@ func _on_tree_entered() -> void:
 func _ready() -> void:
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)
 	#cameraManager.setMainCameraReference(mainCameraReference)
+	DebugManager.setDebugUI(debuggerMenu)
 	CameraManager.setMainCameraReference(mainCameraReference)
 	CameraManager.setPlayerReference(playerReference)
 	debuggerMenu.debugLevelList = levelLoader.levelSet
@@ -146,6 +147,7 @@ func initiateLevelChange(levelPath:String = ""):
 	var currentLevelVariables : LevelVariables = levelLoader.getCurrentLevelVariables()
 	levelAmbience.stream = currentLevelVariables.levelAmbience
 	levelAmbience.play()
+	CameraManager.setLevelZoom(currentLevelVariables.playerZoom)
 	CameraManager.setPlayerZoom(currentLevelVariables.playerZoom)
 	CameraManager.clearStacks()
 	CameraManager.snapToFocusPosition()

@@ -32,6 +32,7 @@ var inCutscene = false ##Whether or not the player is currently in a cutscene.
 
 var currentDialogueEntryIndex : int = 0
 var currentEntry : DialogueEntry
+var lastFocusTarget:Node2D = null
 
 var triggerToFire : Trigger = null
 
@@ -72,14 +73,14 @@ func progressDialogue():
 	CameraManager.setZoom(currentEntry.cameraZoom)
 	
 	if currentEntry.focusPlayer:
-		CameraManager.setPlayerZoom(currentEntry.cameraZoom)
-		CameraManager.clearStacks()
+		CameraManager.focusPlayer()
 	elif currentEntry.currentFocus != null and is_instance_valid(get_node(currentEntry.currentFocusAbsolutePath)):
-		CameraManager.resetPlayerZoom()
 		CameraManager.setCurrentFocus(get_node(currentEntry.currentFocusAbsolutePath))
 	else:
-		CameraManager.resetPlayerZoom()
 		CameraManager.setCurrentFocus(dialogueInitializer)
+	
+	if lastFocusTarget != null: CameraManager.removeFocus(lastFocusTarget)
+	lastFocusTarget = CameraManager.getCurrentFocus()
 	
 	if currentEntry.triggerToFire:
 		print_debug(currentEntry.triggerAbsolutePath)

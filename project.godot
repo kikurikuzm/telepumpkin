@@ -30,6 +30,7 @@ default_bus_layout="res://Audio/audio.tres"
 gvars="*res://Scripts/gvars.gd"
 GlobalSignalBus="*res://Scripts/Important Functions/globalSignalBus.gd"
 CameraManager="*res://Scripts/Important Functions/CameraManager.gd"
+DebugManager="*res://Scripts/Important Functions/DebugManager.gd"
 
 [display]
 

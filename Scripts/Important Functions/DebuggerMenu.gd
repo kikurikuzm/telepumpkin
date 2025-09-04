@@ -1,4 +1,7 @@
-extends CanvasLayer
+class_name DebugUI extends CanvasLayer
+
+@onready var _debugOutput:Label = %debugInfo
+
 
 var debugPlayerFlyToggle = false
 var debugLevelList : Array[String]
@@ -10,10 +13,10 @@ signal commandGetLevelList
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_menu"):
-		if self.visible == false:
-			self.visible = true
-		elif self.visible == true:
-			self.visible = false
+		self.visible = !self.visible
+
+func _physics_process(_delta: float) -> void:
+	_debugOutput.text = ""
 
 func commandTogglePlayerFly():
 	if !debugPlayerFlyToggle:
@@ -28,6 +31,10 @@ func commandChangeToLevel(desiredLevelPath:String):
 
 func commandSkipCurrentlyPlayingCutscene():
 	commandSkipCurrentCutscene.emit()
+
+func writeToDebugOutput(text:String) -> void:
+	await get_tree().process_frame
+	_debugOutput.text += text + "\n"
 
 #Signals ---------
 

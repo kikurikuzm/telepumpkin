@@ -45,9 +45,7 @@ zoom = Vector2(2.5, 2.5)
 
 [node name="cameraZone" parent="." instance=ExtResource("10_4jthu")]
 position = Vector2(665, 763)
-collisionShapeTransform = Vector4(-125, 0, 5, 3.5)
-usesCustomTransform = true
-overrideCameraZoom = true
+collisionShapeTransform = Rect2(0, 0, 8.568, 4.191)
 
 [node name="LevelChangeRequester" type="Node" parent="."]
 script = ExtResource("11_8kdam")

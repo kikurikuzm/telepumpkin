@@ -10,19 +10,17 @@ size = Vector2(70, 49)
 [node name="NPC" type="Node2D" groups=["level_npc", "saveable"]]
 script = ExtResource("1_o0077")
 npcLook = "science"
-interactToInitiate = null
-collideToInitiate = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -3)
 sprite_frames = ExtResource("1")
 animation = &"science"
-frame_progress = 0.733003
+frame_progress = 0.645749
 
 [node name="interactAudio" type="AudioStreamPlayer2D" parent="."]
 volume_db = 14.273
 
-[node name="Trigger" parent="." instance=ExtResource("4_1sfc1")]
+[node name="Trigger" parent="." groups=["entity_npc_trigger"] instance=ExtResource("4_1sfc1")]
 triggerSize = Rect2(0, -8, 1.25, 2)
 triggersOnce = false
 mustInteract = true

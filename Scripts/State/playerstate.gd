@@ -1,10 +1,15 @@
-extends State
-class_name PlayerState
+class_name PlayerState extends State
 
 @export var player : CharacterBody2D
+
+@export var interactionArea : Area2D
+
+@export var teleportRange : TeleportRange
+@export var teleportCheckRay : RayCast2D
+
 @export var animPlayer : AnimationPlayer
 @export var playerSprite : AnimatedSprite2D
-@export var teleportRange : Sprite2D
+
 @export var impactAudio : AudioStreamPlayer2D
 
 @export var turnTimer : Timer
@@ -19,6 +24,23 @@ var MAXSPEED = 125
 var ACCELERATE = 0.005
 var AIRTIME = 0.2
 
+func enter() -> void:
+	pass
+
+func exit() -> void:
+	pass
+
+func update(_delta: float) -> void:
+	pass
+
+func physics_update(_delta: float) -> void:
+	if !player.is_on_floor():
+		player.velocity.y += player.gravity
+
+func unhandled_input(event:InputEvent) -> void:
+	if Input.is_action_just_pressed("teleport"):
+		initiateInteraction()
+
 func accelerate(moveDir:int):
 	curveY = 0
 	curveX += ACCELERATE
@@ -26,15 +48,45 @@ func accelerate(moveDir:int):
 	clamp(curveX, -MAXSPEED, MAXSPEED)
 	return(curveY)
 
-func enter():
-	pass
+func interactWithNPC(npcTrigger:Trigger) -> void: # Override to disable
+	npcTrigger.triggerInteract(player)
 
-func exit():
-	pass
+func interactWithTrigger(trigger:Trigger) -> void:
+	trigger.triggerInteract(player)
 
-func update(_delta: float):
-	pass
+func interactTeleport() -> void:
+	if !teleportRange.rangeHasTeleportTargets(): return
+	
+	var teleportDestination:Vector2 = player.global_position
+	
+	if teleportCheckRay.is_colliding():
+		var playerFacingDirection:int = 1
+		if playerSprite.flip_h == true: playerFacingDirection = -1
+		
+		teleportDestination.x += player.TELEPORT_DEST_HORIZONTAL_OFFSET * playerFacingDirection
+		
+	elif !teleportCheckRay.is_colliding():
+		var yOffset = player.PLAYER_COLLISION_RECT.size.y * 0.5
+		teleportDestination.y += yOffset
+		player.global_position.y -= yOffset
+	
+	teleportRange.rangeTeleport(teleportDestination, player.velocity)
 
-func physics_update(_delta: float):
-	if !player.is_on_floor():
-		player.velocity.y += player.gravity
+func initiateInteraction() -> void:
+	for area in interactionArea.get_overlapping_areas():
+		if area.is_in_group("entity_trigger_area"):
+			var trigger:Trigger = area.get_parent()
+			print_debug("tried triggering %s" % str(trigger))
+			if trigger.enabled == false or trigger.mustInteract == false or !trigger.playerTrigger	: continue
+			
+			if trigger.is_in_group("entity_npc_trigger"):
+				print_debug("npc trigger")
+				interactWithNPC(trigger)
+				return
+			else:
+				interactWithTrigger(trigger)
+				return
+			
+			#elif area.is_in_group("entity_tpp_range"):
+		
+	interactTeleport()
