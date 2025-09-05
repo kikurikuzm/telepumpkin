@@ -11,7 +11,6 @@ size = Vector2(32, 32)
 [node name="exit" type="Node2D" groups=["level_exit"]]
 editor_description = "The exit for any given level. Place this where you want to player to exit the level, and set the amount of pumpkins needed to unlock the exit."
 script = ExtResource("2")
-pumpkinsNeeded = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_dufrg")
@@ -41,9 +40,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -10.0
-offset_top = -44.0
+offset_top = -32.0
 offset_right = 10.0
-offset_bottom = -24.0
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -62,4 +61,5 @@ texture = ExtResource("4_1xnd7")
 expand_mode = 1
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="pumpkinCheck" to="." method="_on_pumpkin_check_timeout"]

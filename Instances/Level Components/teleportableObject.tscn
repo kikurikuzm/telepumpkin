@@ -69,7 +69,7 @@ animations = [{
 }]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_o0ivk"]
-points = PackedVector2Array(7.5, -4.57143, 10.5, -2.85714, 10.5, 3.42857, 4.5, 4.57143, -4.5, 4.57143, -10.5, 3.42857, -10.5, -2.85714, -6.5, -4.57143)
+points = PackedVector2Array(7.5, -4, 10.5, -2.85714, 10.5, 3.42857, 4.5, 4.57143, -4.5, 4.57143, -10.5, 3.42857, -10.5, -2.85714, -6.5, -4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7acg"]
 size = Vector2(26, 21)
@@ -133,6 +133,7 @@ scale = Vector2(1, 1.75)
 shape = SubResource("ConvexPolygonShape2D_o0ivk")
 
 [node name="Area2D" type="Area2D" parent="." groups=["entity_teleportable_object_area"]]
+visible = false
 collision_layer = 16
 collision_mask = 16
 
