@@ -57,15 +57,14 @@ cameraZoom = 2.341
 metadata/_edit_lock_ = true
 
 [node name="cameraZone3" parent="." instance=ExtResource("8_hpyeu")]
-position = Vector2(890, 578)
-collisionShapeTransform = Rect2(200, -168.733, 6.185, 2.635)
-cameraZoom = 2.341
-metadata/_edit_lock_ = true
+position = Vector2(1033, 605)
+collisionShapeTransform = Rect2(18.149, -172.198, 5.15, 2.128)
+cameraZoom = 3.354
 
 [node name="cameraZone2" parent="." instance=ExtResource("8_hpyeu")]
-position = Vector2(978, 681)
+position = Vector2(997, 679)
 collisionShapeTransform = Rect2(75, 0, 5.15, 4.419)
-cameraZoom = 3.444
+cameraZoom = 3.841
 
 [node name="bgFar" type="Parallax2D" parent="."]
 modulate = Color(0.52549, 0.52549, 0.52549, 1)

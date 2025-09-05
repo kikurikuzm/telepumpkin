@@ -1,46 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://dygdvbw8bkdya"]
+[gd_scene load_steps=6 format=3 uid="uid://dygdvbw8bkdya"]
 
 [ext_resource type="Script" uid="uid://ck6qhwrdn3efb" path="res://Scripts/exit.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bkaeby7obkady" path="res://Sprites/Misc/exitBasket.png" id="2_dufrg"]
-[ext_resource type="Script" uid="uid://jeam2x01shxw" path="res://Scripts/triggerScript.gd" id="3_5f3yy"]
-[ext_resource type="Script" uid="uid://ja4je5ersew7" path="res://Scripts/interactIcon.gd" id="4_g4bpp"]
-[ext_resource type="Texture2D" uid="uid://caqsjy8qx0b7v" path="res://Resources/Editor Icons/trigger.png" id="5_j0bqe"]
-[ext_resource type="Texture2D" uid="uid://wt3k8w4av4gt" path="res://Sprites/Misc/interact.png" id="5_wf768"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="3_yo2gt"]
+[ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="4_1xnd7"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_331gd"]
-atlas = ExtResource("5_wf768")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v8qwk"]
-atlas = ExtResource("5_wf768")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_lfsyg"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_331gd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v8qwk")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwy6t"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
 size = Vector2(32, 32)
 
 [node name="exit" type="Node2D" groups=["level_exit"]]
 editor_description = "The exit for any given level. Place this where you want to player to exit the level, and set the amount of pumpkins needed to unlock the exit."
 script = ExtResource("2")
+pumpkinsNeeded = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_dufrg")
@@ -57,55 +28,38 @@ shape = SubResource("1")
 [node name="pumpkinCheck" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="trigger" type="Node2D" parent="." groups=["trigger"]]
-script = ExtResource("3_5f3yy")
-triggerSize = Rect2(0, 0, 1, 1)
+[node name="trigger" parent="." instance=ExtResource("3_yo2gt")]
+triggerTargets = Array[NodePath]([NodePath("..")])
 enabled = false
 mustInteract = true
 
-[node name="interactIcon" type="Node2D" parent="trigger"]
-visible = false
-script = ExtResource("4_g4bpp")
-customSize = Vector2(32, 32)
+[node name="pumpkinsRemainingUI" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -44.0
+offset_right = 10.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="trigger/interactIcon"]
-z_index = -1
-texture_filter = 1
-position = Vector2(0, -40)
-sprite_frames = SubResource("SpriteFrames_lfsyg")
-autoplay = "default"
-frame_progress = 0.65462
+[node name="HBoxContainer" type="HBoxContainer" parent="pumpkinsRemainingUI"]
+layout_mode = 2
+size_flags_vertical = 0
 
-[node name="Area2D" type="Area2D" parent="trigger/interactIcon"]
-collision_layer = 16
-collision_mask = 16
-input_pickable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="trigger/interactIcon/Area2D"]
-scale = Vector2(32, 32)
-shape = SubResource("RectangleShape2D_kwy6t")
-
-[node name="Area2D" type="Area2D" parent="trigger"]
+[node name="pumpkinOne" type="TextureRect" parent="pumpkinsRemainingUI/HBoxContainer"]
+modulate = Color(0.149798, 0.149798, 0.149798, 1)
 light_mask = 0
-collision_layer = 16
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="trigger/Area2D"]
-shape = SubResource("RectangleShape2D_nxb7d")
-debug_color = Color(1, 0, 0, 0.278431)
-
-[node name="editorSprite" type="Sprite2D" parent="trigger"]
-light_mask = 524288
-visibility_layer = 524288
-z_index = 100
-z_as_relative = false
-position = Vector2(-1.19209e-07, 0)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("5_j0bqe")
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("4_1xnd7")
+expand_mode = 1
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="pumpkinCheck" to="." method="_on_pumpkin_check_timeout"]
-[connection signal="triggeredByCause" from="trigger" to="." method="_on_trigger_triggered_by_cause"]
-[connection signal="area_entered" from="trigger/interactIcon/Area2D" to="trigger/interactIcon" method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="trigger/interactIcon/Area2D" to="trigger/interactIcon" method="_on_area_2d_area_exited"]
-[connection signal="area_entered" from="trigger/Area2D" to="trigger" method="_on_area_2d_area_entered"]

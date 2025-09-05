@@ -15,7 +15,7 @@
 [sub_resource type="Resource" id="Resource_nh58h"]
 script = ExtResource("11_cv38l")
 dialogueText = "\"H-Hey! CAW! What are you doing here?\""
-dialoguePortrait = ""
+dialoguePortrait = "smoke"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -30,7 +30,7 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_vuo3p"]
 script = ExtResource("11_cv38l")
 dialogueText = "\"I'm still working on this secret. CAW! Good job finding this though!\""
-dialoguePortrait = ""
+dialoguePortrait = "smoke"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -76,8 +76,9 @@ position = Vector2(914, 633)
 zoom = Vector2(2.25, 2.25)
 
 [node name="cameraZone" parent="." instance=ExtResource("9_q5lgr")]
-position = Vector2(799, 701)
-collisionShapeTransform = Rect2(0, 0, 2.5, 1)
+position = Vector2(753, 701)
+collisionShapeTransform = Rect2(0, 0, 0.944, 1)
+cameraZoom = 3.5
 
 [node name="closerForegroundParallax" type="Parallax2D" parent="."]
 modulate = Color(0.74978, 0.74978, 0.74978, 1)

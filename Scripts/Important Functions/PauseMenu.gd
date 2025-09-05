@@ -27,6 +27,8 @@ func _process(_delta) -> void:
 
 func handlePausing():
 	if isPaused:
+		self.visible = true
+		
 		GlobalSignalBus.pauseGame.emit()
 		animationPlayer.play("pauseGame")
 		

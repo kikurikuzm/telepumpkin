@@ -1,16 +1,18 @@
 extends Control
 
-@onready var mainScene:PackedScene = preload("res://Instances/Important/MainGameScene.tscn")
-
 @onready var camera = get_node("MenuCamera")
 @onready var cameraAnimations:AnimationPlayer = get_node("AnimationPlayer")
 
 @onready var mainPanelContainer:Container = $MainPanelContainer
 @onready var settingsPanelContainer:Container = $SettingsPanelContainer
 
-const CAMERA_TRANSITION_DURATION : float = 0.45
+@onready var loadingScreen:PackedScene = preload("res://Instances/Important/LoadingScreen.tscn")
+
+var mainScenePath:String = "res://Instances/Important/MainGameScene.tscn"
 
 signal playerSaveWasDeleted
+
+const CAMERA_TRANSITION_DURATION : float = 0.45
 
 func _ready():
 	get_tree().paused = false
@@ -27,7 +29,8 @@ func _input(event):
 func loadMainScene(initialLevel:String="") -> void:
 	if !initialLevel.is_empty():
 		gvars.levelToLoadInMainScene = initialLevel
-	get_tree().change_scene_to_packed(mainScene)
+	gvars.loadingScreenResourcePath = mainScenePath
+	get_tree().change_scene_to_packed(loadingScreen)
 
 
 func _open_level_select_window():

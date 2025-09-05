@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="4_1sfc1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ittj2"]
-size = Vector2(70, 49)
+size = Vector2(58, 49)
 
 [node name="NPC" type="Node2D" groups=["level_npc", "saveable"]]
 script = ExtResource("1_o0077")
@@ -20,7 +20,7 @@ animation = &"smoke"
 volume_db = 14.273
 
 [node name="Trigger" parent="." groups=["entity_npc_trigger"] instance=ExtResource("4_1sfc1")]
-triggerSize = Rect2(0, -8, 1.25, 2)
+triggerSize = Rect2(0, -8, 1.8, 2)
 triggersOnce = false
 mustInteract = true
 

@@ -30,3 +30,4 @@ var customLoad = null
 var simpleGraphics = false
 
 var levelToLoadInMainScene = ""
+var loadingScreenResourcePath:String = ""

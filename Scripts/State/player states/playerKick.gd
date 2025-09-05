@@ -18,7 +18,7 @@ var kickPausetime = 0.04
 const DEFAULT_HORIZONTAL_KICK_STRENGTH = 60
 const PERFECT_HORIZONTAL_KICK_STRENGTH = 120
 const DEFAULT_VERTICAL_KICK_STRENGTH = 35
-const PERFECT_VERTICAL_KICK_STRENGTH = 50
+const PERFECT_VERTICAL_KICK_STRENGTH = 70 
 
 const MAX_VERTICAL_KICK_STRENGTH := 10
 const MAX_HORIZONTAL_KICK_STRENGTH := 300
@@ -41,8 +41,10 @@ func enter():
 	
 	if playerSprite.flip_h == true:
 		kickDirection = -1
+		kickArea.position.x = -KICK_AREA_HORIZONTAL_OFFSET
 	elif playerSprite.flip_h == false:
 		kickDirection = 1
+		kickArea.position.x = KICK_AREA_HORIZONTAL_OFFSET
 	
 	if Input.is_action_pressed("left"):
 		playerSprite.flip_h = true
@@ -120,7 +122,7 @@ func physics_update(delta: float):
 							$"../../kickBlinkSFX".play()
 							hasProducedEffect = true
 						
-						Engine.time_scale = 0.0
+						Engine.time_scale = 0.01
 						finishPerfectKick(hitTimer)
 					#endregion
 					
@@ -128,11 +130,11 @@ func physics_update(delta: float):
 						if i is not TeleportableObject: return
 						
 						kickStrengthHorizontal = (kickStrengthHorizontal * kickDirection) * (abs(playerOldVelocity.x)/45 + 1)
-						kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/60 + 1)) * -1
+						kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/45 + 1)) * -1
 						
 						if Input.is_action_pressed("up"):
 							var swappedStrength:float = kickStrengthVertical
-							kickStrengthVertical = (abs(kickStrengthHorizontal) * 0.8) * -1
+							kickStrengthVertical = (abs(kickStrengthHorizontal) * 0.9) * -1
 							kickStrengthHorizontal = abs(swappedStrength * 0.25) * kickDirection
 						else:
 							#if kickStrengthVertical > kickStrengthHorizontal:

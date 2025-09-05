@@ -55,7 +55,7 @@ func interactWithTrigger(trigger:Trigger) -> void:
 	trigger.triggerInteract(player)
 
 func interactTeleport() -> void:
-	if !teleportRange.rangeHasTeleportTargets(): return
+	if !teleportRange.rangeHasTeleportTargets() or !teleportRange.canTeleport(): return
 	
 	var teleportDestination:Vector2 = player.global_position
 	
@@ -67,8 +67,10 @@ func interactTeleport() -> void:
 		
 	elif !teleportCheckRay.is_colliding():
 		var yOffset = player.PLAYER_COLLISION_RECT.size.y * 0.5
-		teleportDestination.y += yOffset
-		player.global_position.y -= yOffset
+		teleportDestination.y += yOffset - 2
+		player.global_position.y -= yOffset + 18
+		
+		if player.velocity.y > 0: player.velocity.y = 0
 	
 	teleportRange.rangeTeleport(teleportDestination, player.velocity)
 

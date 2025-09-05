@@ -29,7 +29,7 @@ var gravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var originalGravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 const TELEPORT_VELOCITY_DECAY:Vector2 = Vector2(0, 0.5)
-const TELEPORT_VELOCITY_BUMP:Vector2 = Vector2(0, -60)
+const TELEPORT_VELOCITY_BUMP:Vector2 = Vector2(0, -120)
 
 const MIN_VELOCITY_CUTOFF:float = 5.0
 
@@ -37,7 +37,7 @@ const SHADER_MAX_DISTORTION:float = 0.16
 
 func _ready():
 	sprite.material.set_shader_parameter("distortion_strength", 0.0)
-	if rotting:
+	if rotting == true:
 		sprite.animation = "rotting"
 	else:
 		sprite.animation = "normal"
@@ -52,7 +52,7 @@ func _physics_process(delta):
 			self.velocity.x = 0
 	else:
 		lastFrameVelocity = velocity
-		self.velocity.y += gravity * delta
+		self.velocity.y += gravity * 0.5 * delta
 		
 		#gravity = gravity + (gravity*1.05)*0.1
 		#lastFrameVelocity.y -= gravity * 0.5 * delta

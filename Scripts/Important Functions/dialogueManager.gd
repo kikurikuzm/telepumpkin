@@ -47,7 +47,11 @@ func _ready() -> void:
 
 ##The function that performs setup for dialogue.
 func conversationInitiate(dialogueConversation:Array[DialogueConversation], dialogueConversationID:int, npcInstance:NPC=null): 
-	print("started dialogue from DialogueManager")
+	print_debug("started dialogue from DialogueManager")
+	
+	triggerToFire = null
+	lastFocusTarget = null
+	
 	inDialogue = true
 	dialogueInitializer = npcInstance
 	currentDialogueEntryIndex = 0
@@ -72,13 +76,12 @@ func progressDialogue():
 	
 	CameraManager.setZoom(currentEntry.cameraZoom)
 	
-	if currentEntry.focusPlayer:
+	if currentEntry.focusPlayer == true: # FIXME: idk its borked as hell
 		CameraManager.focusPlayer()
-	elif currentEntry.currentFocus != null and is_instance_valid(get_node(currentEntry.currentFocusAbsolutePath)):
+	elif is_instance_valid(get_node(currentEntry.currentFocusAbsolutePath)):
 		CameraManager.setCurrentFocus(get_node(currentEntry.currentFocusAbsolutePath))
-	else:
-		CameraManager.setCurrentFocus(dialogueInitializer)
 	
+	print_debug(lastFocusTarget)
 	if lastFocusTarget != null: CameraManager.removeFocus(lastFocusTarget)
 	lastFocusTarget = CameraManager.getCurrentFocus()
 	

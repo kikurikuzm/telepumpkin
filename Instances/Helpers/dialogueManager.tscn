@@ -1,10 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://bos8ss8x8l7og"]
+[gd_scene load_steps=16 format=3 uid="uid://bos8ss8x8l7og"]
 
-[ext_resource type="Script" uid="uid://3qkryl4sejod" path="res://Instances/Level Components/dialogueManager.gd" id="1_b43uq"]
+[ext_resource type="Script" uid="uid://3qkryl4sejod" path="res://Scripts/Important Functions/dialogueManager.gd" id="1_b43uq"]
 [ext_resource type="Shader" uid="uid://c2kixvp8ls0q7" path="res://Resources/Shaders/wigglewavy.gdshader" id="2_ea7an"]
 [ext_resource type="Shader" uid="uid://bp7t12p2tmln8" path="res://Resources/Shaders/wavy.gdshader" id="3_kbs7n"]
 [ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="6_o06a1"]
-[ext_resource type="Theme" uid="uid://dsw3unrbpqwqx" path="res://Resources/Themes/dialogueTheme.tres" id="7_8cm2j"]
 [ext_resource type="Texture2D" uid="uid://bobh42kleuhmh" path="res://Sprites/NPCs/Portraits/cloak.png" id="8_7pnb1"]
 [ext_resource type="AudioStream" uid="uid://bwmmara6fxk1j" path="res://Audio/sfx/Tick.wav" id="12_cqag5"]
 [ext_resource type="Texture2D" uid="uid://b8qxi8stcmydv" path="res://Sprites/Misc/dialogArrow.png" id="13_ij6ny"]
@@ -91,20 +90,18 @@ top_level = true
 texture_filter = 1
 material = SubResource("ShaderMaterial_016ig")
 custom_minimum_size = Vector2(100, 100)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -547.5
+anchors_preset = -1
+anchor_left = 0.207
+anchor_right = 0.793
+offset_left = 15.06
 offset_top = 154.0
-offset_right = 547.5
+offset_right = -15.0601
 offset_bottom = 345.0
 grow_horizontal = 2
 theme = ExtResource("6_o06a1")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/dialogBox"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 theme = ExtResource("6_o06a1")
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 24
@@ -129,7 +126,6 @@ z_index = 1
 z_as_relative = false
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
-theme = ExtResource("7_8cm2j")
 bbcode_enabled = true
 text = "test woah [i]SUPER[/i] test"
 fit_content = true

@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://6t3ooigbq4n0"]
+
+[ext_resource type="Script" uid="uid://lgvn1ow7p46e" path="res://Scripts/Important Functions/LoadingScreen.gd" id="1_ny5c0"]
+[ext_resource type="Theme" uid="uid://c3t3dtsco6rf6" path="res://Resources/Themes/MainMenuTheme.tres" id="1_xdx4y"]
+
+[node name="LoadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xdx4y")
+script = ExtResource("1_ny5c0")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="loadingLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Loading stuffs..."
+horizontal_alignment = 1
+
+[node name="loadingProgressBar" type="ProgressBar" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+max_value = 1.0

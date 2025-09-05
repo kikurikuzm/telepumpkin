@@ -56,6 +56,7 @@ func setMainCameraReference(cameraReference:MainCamera) -> void:
 func getMainCameraReference() -> MainCamera:
 	return _mainCamera
 
+
 func resetPlayerZoom() -> void:
 	_mainCamera.playerZoom = _currentLevelZoom
 
@@ -64,6 +65,7 @@ func setPlayerZoom(zoom:float) -> void:
 
 func getPlayerZoom() -> float:
 	return _mainCamera.playerZoom
+
 
 func setLevelZoom(levelZoom:float) -> void:
 	_currentLevelZoom = levelZoom
@@ -74,6 +76,7 @@ func setZoom(desiredZoom:float) -> void:
 func getZoom() -> float:
 	return _mainCamera.zoom.x
 
+
 func focusPlayer() -> void:
 	_focusStack.append(_playerReference)
 
@@ -82,7 +85,7 @@ func setCurrentFocus(newFocus:Node2D) -> void:
 	#if _mainCamera.getCurrentCameraParent() != newFocus:
 
 func getCurrentFocus() -> Node2D:
-	return _mainCamera.currentParent
+	return _focusStack.back()
 
 func removeFocus(focus:Node2D) -> void:
 	var focusIndex:int = _focusStack.rfind(focus)
@@ -90,6 +93,7 @@ func removeFocus(focus:Node2D) -> void:
 		_focusStack.remove_at(focusIndex)
 		_zoomStack.remove_at(focusIndex)
 		_currentFocus = null
+
 
 func returnToPreviousFocus() -> void:
 	_mainCamera.returnToParent()
@@ -100,6 +104,7 @@ func returnFocusToPlayer() -> void:
 
 func snapToFocusPosition() -> void:
 	_mainCamera.snapToParent()
+
 
 func debug_getFocusStack() -> Array[Node2D]:
 	return _focusStack.duplicate()

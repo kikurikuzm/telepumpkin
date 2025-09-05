@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://c3t3dtsco6rf6"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://c3t3dtsco6rf6"]
 
 [ext_resource type="FontFile" uid="uid://d37gk6icy7y45" path="res://Fonts/VCR_OSD_MONO_1.001.ttf" id="1_2bmme"]
 
@@ -66,6 +66,19 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mpaxa"]
+content_margin_left = 48.0
+content_margin_top = 48.0
+content_margin_right = 48.0
+content_margin_bottom = 48.0
+bg_color = Color(0.16033, 0.0767593, 0.0976142, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xkydi"]
+bg_color = Color(0.292288, 0.149771, 6.04522e-05, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_reyhd"]
+bg_color = Color(1, 0.333119, 0.35343, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kaa7i"]
 content_margin_left = 24.0
 content_margin_top = 8.0
@@ -124,6 +137,12 @@ Label/constants/shadow_outline_size = 13
 Label/font_sizes/font_size = 20
 Label/fonts/font = ExtResource("1_2bmme")
 Panel/styles/panel = null
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_mpaxa")
+ProgressBar/constants/outline_size = 4
+ProgressBar/font_sizes/font_size = 32
+ProgressBar/fonts/font = ExtResource("1_2bmme")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_xkydi")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_reyhd")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_kaa7i")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_n17wm")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_n1sg5")

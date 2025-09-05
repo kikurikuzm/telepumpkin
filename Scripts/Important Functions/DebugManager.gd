@@ -9,11 +9,16 @@ func _process(delta: float) -> void:
 	var cameraFocusStack:Array[Node2D] = CameraManager.debug_getFocusStack()
 	var cameraZoomStack:Array[float] = CameraManager.debug_getZoomStack()
 	
-	_debugUI.writeToDebugOutput(str(cameraFocusStack))
+	_debugUI.writeToDebugOutput("Statistics: \nAvg. FPS: " + str(Engine.get_frames_per_second()))
+	_debugUI.writeToDebugOutput("GPU Render time: " + str(RenderingServer.viewport_get_measured_render_time_gpu(get_viewport().get_viewport_rid())))
+	_debugUI.writeToDebugOutput("Camera Manager Info:\nFocus Stack:")
+	_debugUI.writeToDebugOutput(str(cameraFocusStack)  + "\nZoom Stack:")
 	_debugUI.writeToDebugOutput(str(cameraZoomStack))
 
 func setDebugUI(debugui:DebugUI) -> void:
 	_debugUI = debugui
+	
+	RenderingServer.viewport_set_measure_render_time(get_viewport().get_viewport_rid(), true)
 	
 	_debugUI.find_child("skipLevelButton").pressed.connect(debug_skipLevel)
 
