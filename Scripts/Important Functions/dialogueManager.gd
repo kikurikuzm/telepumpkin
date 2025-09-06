@@ -74,15 +74,17 @@ func progressDialogue():
 	dialogueBox.visible = true
 	inDialogue = true
 	
-	CameraManager.setZoom(currentEntry.cameraZoom)
+	if lastFocusTarget != null: CameraManager.removeFocus(lastFocusTarget)
 	
-	if currentEntry.focusPlayer == true: # FIXME: idk its borked as hell
+	CameraManager.setZoom(currentEntry.cameraZoom)
+	CameraManager.setSmoothingAmount(currentEntry.cameraSpeed)
+	
+	if currentEntry.focusPlayer == true: #TODO: allow for no focus to be given by the dialogue manager so the camera remains stationary
 		CameraManager.focusPlayer()
 	elif is_instance_valid(get_node(currentEntry.currentFocusAbsolutePath)):
 		CameraManager.setCurrentFocus(get_node(currentEntry.currentFocusAbsolutePath))
 	
 	print_debug(lastFocusTarget)
-	if lastFocusTarget != null: CameraManager.removeFocus(lastFocusTarget)
 	lastFocusTarget = CameraManager.getCurrentFocus()
 	
 	if currentEntry.triggerToFire:
@@ -133,7 +135,9 @@ func progressDialogue():
 ##The function that ends a given dialogue and performs the necessary cleanup.
 func endDialogue(): 
 	CameraManager.resetPlayerZoom()
-	CameraManager.clearStacks()
+	if lastFocusTarget != null: 
+		CameraManager.removeFocus(lastFocusTarget)
+		lastFocusTarget = null
 	
 	dialogueBox.visible = false
 	dialogueContinue.visible = false

@@ -46,6 +46,12 @@ func returnToParent():
 	
 	currentParent = playerRef
 
+func getSmoothingAmount() -> float:
+	return smoothAmount
+
+func setSmoothingAmount(smoothingAmount:float) -> void:
+	smoothAmount = smoothingAmount
+
 func changeZoom(newZoom:float): ##Stores the current zoom and changes to the provided zoom.
 	if newZoom == 0:
 		returnToOldZoom()

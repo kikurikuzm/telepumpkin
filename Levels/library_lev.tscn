@@ -152,7 +152,7 @@ gotoLevelPosition = Vector2(558, 758)
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(567, 280)
 scale = Vector2(25.2656, 26)
-energy = 0.7
+energy = 0.6
 blend_mode = 1
 texture = SubResource("GradientTexture2D_1boj5")
 metadata/_edit_lock_ = true
@@ -210,4 +210,5 @@ texture = ExtResource("13_xf34m")
 position = Vector2(448, 815)
 collisionShapeTransform = Rect2(0, 0, 5, 3)
 cameraZoom = 6.0
+cameraSmoothing = 0.15
 metadata/_edit_lock_ = true

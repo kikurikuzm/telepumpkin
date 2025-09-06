@@ -28,18 +28,23 @@ var lastFrameVelocity:Vector2 = Vector2.ZERO
 var gravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var originalGravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+var shaderDistortionAmount:float = 0
+
 const TELEPORT_VELOCITY_DECAY:Vector2 = Vector2(0, 0.5)
 const TELEPORT_VELOCITY_BUMP:Vector2 = Vector2(0, -120)
 
 const MIN_VELOCITY_CUTOFF:float = 5.0
 
 const SHADER_MAX_DISTORTION:float = 0.16
+const SHADER_ROTTING_MAX_DISTORTION:float = 0.01
 
 func _ready():
 	sprite.material.set_shader_parameter("distortion_strength", 0.0)
 	if rotting == true:
+		shaderDistortionAmount = SHADER_ROTTING_MAX_DISTORTION
 		sprite.animation = "rotting"
 	else:
+		shaderDistortionAmount = SHADER_MAX_DISTORTION
 		sprite.animation = "normal"
 
 func _physics_process(delta):
@@ -69,24 +74,24 @@ func _physics_process(delta):
 
 func _process(delta):
 	if rotting:
-		if rottingTeleport > 5:
+		if rottingTeleport > 4:
 			sprite.frame = 0
 		else:
 			match rottingTeleport:
-				1:
+				0:
 					sprite.frame = 4
-				2:
+				1:
 					sprite.frame = 3
-				3:
+				2:
 					sprite.frame = 2
-				4:
+				3:
 					sprite.frame = 1
-				5:
+				4:
 					sprite.frame = 0
 
 	
 	if highlighted:
-		highlightDistortion = lerp(highlightDistortion, SHADER_MAX_DISTORTION, 0.1)
+		highlightDistortion = lerp(highlightDistortion, shaderDistortionAmount, 0.1)
 		sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
 		$selectParticles.emitting = true
 		
@@ -114,7 +119,7 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
 	velocity *= TELEPORT_VELOCITY_DECAY
 	velocity += TELEPORT_VELOCITY_BUMP
 		
-	var oldPos:Vector2 = self.global_position + Vector2(0, 20)
+	var oldPos:Vector2 = self.global_position
 	
 	await get_tree().physics_frame
 	self.global_position = newPosition
@@ -129,14 +134,14 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
 	if rotting:
 		var numberInstance = teleportNumber.instantiate()
 		get_parent().add_child(numberInstance)
-		numberInstance.global_position = global_position
-		numberInstance.teleportsRemaining = rottingTeleport
+		numberInstance.global_position = oldPos
+		numberInstance.teleportsRemaining = rottingTeleport+1
 		
 		if rottingTeleport > 0:
 			rottingTeleport -= 1
 			animationPlayer.play("teleport")
 			animationPlayer.queue("idle")
-		if rottingTeleport <= 0:
+		elif rottingTeleport <= 0:
 			#deletes the pumpkin when rottingTeleport reaches 0
 			pumpkinDestroy(true)
 			

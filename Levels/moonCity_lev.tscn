@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=33 format=4 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="9_2uoi1"]
 [ext_resource type="Texture2D" uid="uid://b14mb3oy84jyr" path="res://Sprites/tiles/poster.png" id="9_102g8"]
 [ext_resource type="Resource" uid="uid://cd778qcujcn0e" path="res://Resources/LevelVar Sets/mooncity.tres" id="10_aqax0"]
+[ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="12_4csbh"]
 [ext_resource type="PackedScene" uid="uid://xr8202de1yy1" path="res://Instances/Level Components/lamppost.tscn" id="13_0aphl"]
 
 [sub_resource type="Animation" id="Animation_2uoi1"]
@@ -179,7 +180,7 @@ metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 [sub_resource type="Resource" id="Resource_aaajh"]
 script = ExtResource("9_2uoi1")
 dialogueText = "test"
-dialoguePortrait = "smoke"
+dialoguePortrait = "placeholder"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -199,7 +200,7 @@ metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 [sub_resource type="Resource" id="Resource_2uoi1"]
 script = ExtResource("9_2uoi1")
 dialogueText = "test 2! convo 2"
-dialoguePortrait = "smoke"
+dialoguePortrait = "placeholder"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -399,3 +400,9 @@ audio_bus_name = &"reverb"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="reverbArea"]
 position = Vector2(0, -22.5)
 shape = SubResource("RectangleShape2D_37ck6")
+
+[node name="cameraZone" parent="." instance=ExtResource("12_4csbh")]
+position = Vector2(1460, 732)
+collisionShapeTransform = Rect2(0, 0, 3.736, 1)
+cameraZoom = 6.5
+cameraSmoothing = 0.09

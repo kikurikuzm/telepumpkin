@@ -1,12 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://bos8ss8x8l7og"]
+[gd_scene load_steps=13 format=3 uid="uid://bos8ss8x8l7og"]
 
 [ext_resource type="Script" uid="uid://3qkryl4sejod" path="res://Scripts/Important Functions/dialogueManager.gd" id="1_b43uq"]
 [ext_resource type="Shader" uid="uid://c2kixvp8ls0q7" path="res://Resources/Shaders/wigglewavy.gdshader" id="2_ea7an"]
 [ext_resource type="Shader" uid="uid://bp7t12p2tmln8" path="res://Resources/Shaders/wavy.gdshader" id="3_kbs7n"]
 [ext_resource type="Theme" uid="uid://ccw6y1271j2pb" path="res://Resources/dialogueTheme.tres" id="6_o06a1"]
+[ext_resource type="SpriteFrames" uid="uid://bta3e4rylffdm" path="res://Resources/SpriteFrames/continueDialogue.tres" id="7_a8qr2"]
 [ext_resource type="Texture2D" uid="uid://bobh42kleuhmh" path="res://Sprites/NPCs/Portraits/cloak.png" id="8_7pnb1"]
 [ext_resource type="AudioStream" uid="uid://bwmmara6fxk1j" path="res://Audio/sfx/Tick.wav" id="12_cqag5"]
-[ext_resource type="Texture2D" uid="uid://b8qxi8stcmydv" path="res://Sprites/Misc/dialogArrow.png" id="13_ij6ny"]
 
 [sub_resource type="Curve" id="Curve_o06a1"]
 _data = [Vector2(0.478571, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.2196, 0.0, 0, 0]
@@ -29,28 +29,6 @@ shader = ExtResource("3_kbs7n")
 shader_parameter/height = 0.5
 shader_parameter/frequency = 3.0
 shader_parameter/speed = 2.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ee30a"]
-atlas = ExtResource("13_ij6ny")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ucsnm"]
-atlas = ExtResource("13_ij6ny")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_pra1p"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ee30a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ucsnm")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o06a1"]
 size = Vector2(1084, 185)
@@ -140,7 +118,7 @@ z_as_relative = false
 material = SubResource("ShaderMaterial_a4kcp")
 position = Vector2(1477, 320)
 scale = Vector2(2.4, 2.4)
-sprite_frames = SubResource("SpriteFrames_pra1p")
+sprite_frames = ExtResource("7_a8qr2")
 autoplay = "default"
 
 [node name="RayCast2D" type="RayCast2D" parent="CanvasLayer"]

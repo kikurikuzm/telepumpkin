@@ -5,10 +5,16 @@ var _playerReference:Player = null
 
 var _currentFocus:Node2D = null
 var _focusStack:Array[Node2D] = []
+
 var _currentZoom:float = 1.0
 var _zoomStack:Array[float] = []
 
-var _currentLevelZoom:float = 1.0
+var _currentSmoothing:float = 1.0
+var _smoothingStack:Array[float] = []
+
+var _currentLevelZoom:float = 3.0
+
+const DEFAULT_SMOOTHING_AMOUNT:float = 0.15
 
 func _ready() -> void:
 	set_process(false)
@@ -20,11 +26,13 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if !_focusStack.is_empty() and \
 	(_mainCamera.getCurrentCameraParent() != _focusStack.back() or _mainCamera.zoom.x != _zoomStack.back()):
-		_mainCamera.changeParent(_focusStack.back())
 		_currentFocus = _focusStack.back()
-		
-		_mainCamera.changeZoom(_zoomStack.back())
 		_currentZoom = _zoomStack.back()
+		_currentSmoothing = _smoothingStack.back()
+		
+		_mainCamera.changeParent(_currentFocus)
+		_mainCamera.changeZoom(_currentZoom)
+		_mainCamera.setSmoothingAmount(_currentSmoothing)
 	elif _focusStack.is_empty():
 		clearStacks()
 	
@@ -34,17 +42,27 @@ func _process(delta: float) -> void:
 			_currentFocus = null
 			return
 		var zoom = _zoomStack.get(focusIndex)
-		if zoom == null: return
+		var smoothing = _smoothingStack.get(focusIndex)
+		if zoom == null or smoothing == null: return
 		
 		_mainCamera.changeZoom(_zoomStack.get(focusIndex))
+		_mainCamera.setSmoothingAmount(_smoothingStack.get(focusIndex))
+
+func setupNewFocus(newFocusTarget:Node2D, zoom:float, cameraSmoothingAmount:float = DEFAULT_SMOOTHING_AMOUNT) -> void:
+	self.setZoom(zoom)
+	self.setSmoothingAmount(cameraSmoothingAmount)
+	self.setCurrentFocus(newFocusTarget)
 
 func clearStacks() -> void:
 	_focusStack.clear()
 	_zoomStack.clear()
+	_smoothingStack.clear()
 	
 	_currentFocus = _playerReference
 	_focusStack.append(_playerReference)
 	_zoomStack.append(_mainCamera.playerZoom)
+	_smoothingStack.append(DEFAULT_SMOOTHING_AMOUNT)
+
 
 func setPlayerReference(player:Player) -> void:
 	_playerReference = player
@@ -70,11 +88,19 @@ func getPlayerZoom() -> float:
 func setLevelZoom(levelZoom:float) -> void:
 	_currentLevelZoom = levelZoom
 
+
 func setZoom(desiredZoom:float) -> void:
 	_zoomStack.append(desiredZoom)
 
 func getZoom() -> float:
 	return _mainCamera.zoom.x
+
+
+func setSmoothingAmount(smoothingAmount:float) -> void:
+	_smoothingStack.append(smoothingAmount)
+
+func getSmoothingAmount() -> float:
+	return _currentSmoothing
 
 
 func focusPlayer() -> void:
@@ -92,6 +118,7 @@ func removeFocus(focus:Node2D) -> void:
 	if focusIndex != -1:
 		_focusStack.remove_at(focusIndex)
 		_zoomStack.remove_at(focusIndex)
+		_smoothingStack.remove_at(focusIndex)
 		_currentFocus = null
 
 
@@ -111,3 +138,6 @@ func debug_getFocusStack() -> Array[Node2D]:
 
 func debug_getZoomStack() -> Array[float]:
 	return _zoomStack.duplicate()
+
+func debug_getSmoothingStack() -> Array[float]:
+	return _smoothingStack.duplicate()

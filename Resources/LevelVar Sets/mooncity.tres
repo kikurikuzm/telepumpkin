@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("2_ispy0")
 canTeleport = false
-playerZoom = 5.0
+playerZoom = 7.0
 hasVignette = true
 hasMapView = false
 startsInMap = false

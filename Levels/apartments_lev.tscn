@@ -20,6 +20,7 @@ script = ExtResource("10_s8ry5")
 dialogueText = "..."
 dialoguePortrait = "bald"
 textSpeed = 0.9
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -34,6 +35,7 @@ script = ExtResource("10_s8ry5")
 dialogueText = "[shake rate=10.0 level=2]Oh, sorry, I didn't see you there."
 dialoguePortrait = "bald"
 textSpeed = 0.08
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -48,6 +50,7 @@ script = ExtResource("10_s8ry5")
 dialogueText = "[shake rate=10.0 level=2]A room costs five Fullmoons."
 dialoguePortrait = "bald"
 textSpeed = 0.7
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -67,6 +70,7 @@ script = ExtResource("10_s8ry5")
 dialogueText = "Hey there, little pumpkin thing. Check out my sunglasses! They're extra sunny."
 dialoguePortrait = "cool"
 textSpeed = 0.05
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -81,6 +85,7 @@ script = ExtResource("10_s8ry5")
 dialogueText = "Oh, by the way, I'll probably need your help in the very near future."
 dialoguePortrait = "cool"
 textSpeed = 0.05
+triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
@@ -138,7 +143,7 @@ dialogueArray = Array[ExtResource("9_wg05f")]([SubResource("Resource_7p4we")])
 
 [node name="NPC2" parent="." instance=ExtResource("8_7p4we")]
 z_index = 3
-position = Vector2(1431, 793)
+position = Vector2(1431, 795)
 npcLook = "cool"
 dialogueArray = Array[ExtResource("9_wg05f")]([SubResource("Resource_w3vqp")])
 
@@ -168,7 +173,7 @@ scale = Vector2(1.16, 0.71998)
 energy = 1.11
 
 [node name="hanginglamp2" type="Sprite2D" parent="."]
-position = Vector2(872, 736)
+position = Vector2(803, 736)
 texture = ExtResource("10_u4b3y")
 
 [node name="flickerLight" parent="hanginglamp2" instance=ExtResource("11_flh3b")]
@@ -177,7 +182,8 @@ scale = Vector2(1.16, 0.71998)
 energy = 1.11
 
 [node name="hanginglamp4" type="Sprite2D" parent="."]
-position = Vector2(1431, 736)
+z_index = -1
+position = Vector2(1431, 729)
 texture = ExtResource("10_u4b3y")
 
 [node name="flickerLight" parent="hanginglamp4" instance=ExtResource("11_flh3b")]
@@ -208,3 +214,5 @@ texture = ExtResource("12_wuexf")
 [node name="cameraZone" parent="." instance=ExtResource("13_u3exs")]
 position = Vector2(1398, 795)
 scale = Vector2(1.81, 1)
+cameraZoom = 7.5
+cameraSmoothing = 0.09

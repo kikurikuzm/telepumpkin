@@ -8,6 +8,7 @@ size = Vector2(75, 75)
 [node name="cameraZone" type="Node2D" groups=["level_camerazone"]]
 modulate = Color(1, 1, 1, 0.537255)
 script = ExtResource("1_addt7")
+cameraSmoothing = null
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

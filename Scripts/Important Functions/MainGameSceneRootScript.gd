@@ -147,6 +147,7 @@ func initiateLevelChange(levelPath:String = ""):
 	var currentLevelVariables : LevelVariables = levelLoader.getCurrentLevelVariables()
 	levelAmbience.stream = currentLevelVariables.levelAmbience
 	levelAmbience.play()
+	#CameraManager.setLevelSmoothing(currentLevelVariables.)
 	CameraManager.setLevelZoom(currentLevelVariables.playerZoom)
 	CameraManager.setPlayerZoom(currentLevelVariables.playerZoom)
 	CameraManager.clearStacks()
@@ -212,7 +213,8 @@ func _levelCompleted():
 	gvars.levelToLoadInMainScene = ""
 
 func _levelFailed():
-	restartLevel()
+	#restartLevel()
+	pass
 
 func _onPlayerExitAnimationFinished():
 	initiateLevelChange()

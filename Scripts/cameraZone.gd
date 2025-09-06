@@ -2,8 +2,9 @@
 extends EditorElement
 class_name CameraZone
 
-@export var collisionShapeTransform = Rect2(0, 0, 1.0, 1.0) ##X position, Y position, X scale, Y scale
-@export var cameraZoom : float = 3.0
+@export var collisionShapeTransform : Rect2 = Rect2(0, 0, 1.0, 1.0) ## The dimensions and position of the area which will cause the zone to activate.
+@export_range(1.0, 10.0, 0.1) var cameraZoom : float = 3.0
+@export_range(0.0, 1.0, 0.01) var cameraSmoothing : float = 0.15 ## How fast the camera's movement and zooming should interpolate to the next position.
 
 @onready var area2D = $Area2D
 @onready var collisionShape2D = $Area2D/CollisionShape2D
@@ -43,8 +44,7 @@ func _on_area_2d_body_exited(body):
 		#cameraZoneReturnCamera()
 
 func cameraZoneGetCamera():
-	CameraManager.setZoom(cameraZoom)
-	CameraManager.setCurrentFocus(self)
+	CameraManager.setupNewFocus(self, cameraZoom, cameraSmoothing)
 
 func cameraZoneReturnCamera():
 	CameraManager.removeFocus(self)

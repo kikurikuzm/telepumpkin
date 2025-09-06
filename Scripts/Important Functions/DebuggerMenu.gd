@@ -2,6 +2,7 @@ class_name DebugUI extends CanvasLayer
 
 @onready var _debugOutput:Label = %debugInfo
 
+var _debugOutputText:String = ""
 
 var debugPlayerFlyToggle = false
 var debugLevelList : Array[String]
@@ -15,8 +16,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_menu"):
 		self.visible = !self.visible
 
-func _physics_process(_delta: float) -> void:
-	_debugOutput.text = ""
+func _process(_delta: float) -> void:
+	if Engine.get_process_frames() % 4 == 0:
+		_debugOutput.text = _debugOutputText
+		_debugOutputText = ""
 
 func commandTogglePlayerFly():
 	if !debugPlayerFlyToggle:
@@ -34,7 +37,7 @@ func commandSkipCurrentlyPlayingCutscene():
 
 func writeToDebugOutput(text:String) -> void:
 	await get_tree().process_frame
-	_debugOutput.text += text + "\n"
+	_debugOutputText += text + "\n"
 
 #Signals ---------
 
