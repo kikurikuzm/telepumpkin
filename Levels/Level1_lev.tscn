@@ -99,7 +99,7 @@ tile_set = ExtResource("4_5g41i")
 position = Vector2(784, 687)
 
 [node name="pumpkin" parent="." instance=ExtResource("2")]
-position = Vector2(923, 683)
+position = Vector2(923, 724)
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(977, 596)
@@ -167,18 +167,19 @@ navigation_enabled = false
 [node name="cameraZone" parent="." instance=ExtResource("11_u0kaf")]
 position = Vector2(977, 596)
 collisionShapeTransform = Rect2(-213.098, 105.264, 1, 1)
+cameraSmoothing = 0.15
 
 [node name="moundNPC" parent="." instance=ExtResource("11_m83ex")]
 position = Vector2(592, 422)
-npcLook = "inspect"
 dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_0h0my")])
+npcLook = "inspect"
 
 [node name="moundViewFocus" type="Marker2D" parent="."]
 position = Vector2(536, 392)
 gizmo_extents = 25.0
 
 [node name="pumpkinOfferingTrigger" parent="." instance=ExtResource("14_u8g8w")]
-position = Vector2(620, 464)
+position = Vector2(653, 464)
 triggerTargets = Array[NodePath]([NodePath("../offeringDialogue")])
 triggerSize = Rect2(-3.615, -26.692, 3.358, 2.862)
 playerTrigger = false
@@ -186,9 +187,9 @@ showInteractIcon = false
 
 [node name="offeringDialogue" parent="." instance=ExtResource("11_m83ex")]
 position = Vector2(522, 357)
+dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_pug0n")])
 npcLook = "inspect"
 facePlayer = false
-dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_pug0n")])
 interactToInitiate = false
 
 [node name="entrance" parent="." instance=ExtResource("15_hc0x2")]

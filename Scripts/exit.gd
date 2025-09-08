@@ -34,8 +34,12 @@ func _ready() -> void:
 	
 	var pumpkinDisplay:TextureRect = pumpkinsRemainingUI.find_child("pumpkinOne")
 	
-	for pumpkins in range(1, pumpkinsNeeded):
-		pumpkinDisplayHBox.add_child(pumpkinDisplay.duplicate())
+	if pumpkinsNeeded > 0:
+		for pumpkins in range(1, pumpkinsNeeded):
+			pumpkinDisplayHBox.add_child(pumpkinDisplay.duplicate())
+	else:
+		pumpkinsRemainingUI.hide()
+		playerInteract.enableTrigger()
 
 func reachedMaxPumpkins():
 	GlobalSignalBus.levelComplete.emit()

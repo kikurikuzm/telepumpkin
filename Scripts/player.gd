@@ -33,6 +33,9 @@ var lastPlayerMagnetizedVelocity:Vector2 = Vector2.ZERO
 
 var canTeleport = true
 
+var jumpsRemaining:int = 0
+var maxJumps:int = 2
+
 var inNoclip = false
 var gravity = gvars.playerGravity
 var direction
@@ -78,6 +81,9 @@ func _physics_process(delta):
 					manhole.enterSound(self.velocity.y / 55)
 					position = exitVariables[0]
 					velocity = exitVariables[1]
+	
+	if is_on_floor():
+		jumpsRemaining = maxJumps
 	
 	stateFactory.physics_process(delta)
 	

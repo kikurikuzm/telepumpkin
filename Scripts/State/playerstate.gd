@@ -1,6 +1,6 @@
 class_name PlayerState extends State
 
-@export var player : CharacterBody2D
+@export var player : Player
 
 @export var interactionArea : Area2D
 
@@ -23,6 +23,17 @@ var curveX : float
 var MAXSPEED = 125
 var ACCELERATE = 0.005
 var AIRTIME = 0.2
+
+const STATE_IDLE := "playerIdle"
+const STATE_WALKING := "playerWalking"
+const STATE_STOPPING := "playerStop"
+const STATE_JUMPING := "playerJump"
+const STATE_FALLING := "playerFalling"
+const STATE_STRETCHING := "playerStretch"
+const STATE_BUSY := "playerBusy"
+const STATE_FINISH_LEVEL := "playerFinishLevel"
+const STATE_FLYING := "playerFly"
+const STATE_KICKING := "playerKick"
 
 func enter() -> void:
 	pass

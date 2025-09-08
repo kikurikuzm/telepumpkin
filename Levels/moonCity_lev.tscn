@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://bwif5kh6bhds0"]
+[gd_scene load_steps=35 format=4 uid="uid://bwif5kh6bhds0"]
 
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="1_qmji2"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_tvqtd"]
@@ -177,59 +177,89 @@ script = ExtResource("8_20fxd")
 conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_14eqw")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
-[sub_resource type="Resource" id="Resource_aaajh"]
+[sub_resource type="Resource" id="Resource_4csbh"]
 script = ExtResource("9_2uoi1")
-dialogueText = "test"
-dialoguePortrait = "placeholder"
+dialogueText = "*cough* *hack* *ack-pf*"
+dialoguePortrait = "smoke"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
-cameraZoom = 4.0
+cameraZoom = 6.5
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_1nxtp"]
+script = ExtResource("9_2uoi1")
+dialogueText = "The person seems to almost suffocate to death before they notice you."
+dialoguePortrait = "smoke"
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 6.5
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_ut03f"]
+script = ExtResource("9_2uoi1")
+dialogueText = "\"Hey, little weirdo.\" The scratchy-voiced man coughs."
+dialoguePortrait = "smoke"
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 6.5
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_5ew1j"]
+script = ExtResource("9_2uoi1")
+dialogueText = "He clears his throat before continuing. \"Hope you have a way to get out of here, cause otherwise, you're stuck like the rest of us.\""
+dialoguePortrait = "smoke"
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 6.5
 playerCanMove = false
 goToNextConversation = true
 manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
-[sub_resource type="Resource" id="Resource_20fxd"]
+[sub_resource type="Resource" id="Resource_0qqbf"]
 script = ExtResource("8_20fxd")
-conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_aaajh")])
+conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_4csbh"), SubResource("Resource_1nxtp"), SubResource("Resource_ut03f"), SubResource("Resource_5ew1j")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
-[sub_resource type="Resource" id="Resource_2uoi1"]
+[sub_resource type="Resource" id="Resource_tdgyd"]
 script = ExtResource("9_2uoi1")
-dialogueText = "test 2! convo 2"
-dialoguePortrait = "placeholder"
+dialogueText = "He takes a congested inhale from what's left of his cigarette, before deftly flicking it away and lighting up another.  "
+dialoguePortrait = "inspect"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
 focusPlayer = false
 cameraSpeed = 0.1
-cameraZoom = 4.0
+cameraZoom = 6.5
 playerCanMove = false
 goToNextConversation = false
 manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
-[sub_resource type="Resource" id="Resource_2jwe5"]
-script = ExtResource("9_2uoi1")
-dialogueText = "Enter text here!"
-dialoguePortrait = ""
-textSpeed = 0.07
-triggerToFire = NodePath("")
-currentFocus = NodePath("")
-focusPlayer = false
-cameraSpeed = 0.1
-cameraZoom = 10.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
-metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
-
-[sub_resource type="Resource" id="Resource_8qvt3"]
+[sub_resource type="Resource" id="Resource_gpdw6"]
 script = ExtResource("8_20fxd")
-conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_2uoi1"), SubResource("Resource_2jwe5")])
+conversationArray = Array[ExtResource("9_2uoi1")]([SubResource("Resource_tdgyd")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37ck6"]
@@ -299,8 +329,8 @@ zoom = Vector2(0.4, 0.4)
 
 [node name="NPC5" parent="." instance=ExtResource("3_3vfoy")]
 position = Vector2(1500, 738)
-npcLook = "cloak"
 dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_frmte"), SubResource("Resource_702n2")])
+npcLook = "cloak"
 
 [node name="NPC4" parent="." instance=ExtResource("3_3vfoy")]
 position = Vector2(1358, 1032)
@@ -319,8 +349,9 @@ npcLook = "bald"
 spriteFlip = true
 
 [node name="NPC" parent="." instance=ExtResource("3_3vfoy")]
-position = Vector2(730, 736)
-dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_20fxd"), SubResource("Resource_8qvt3")])
+position = Vector2(747, 739)
+dialogueArray = Array[ExtResource("8_20fxd")]([SubResource("Resource_0qqbf"), SubResource("Resource_gpdw6")])
+facePlayer = false
 
 [node name="apartments entrance" parent="." instance=ExtResource("4_1ugjb")]
 position = Vector2(853, 760)

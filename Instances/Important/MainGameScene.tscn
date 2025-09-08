@@ -249,7 +249,7 @@ outline_color = Color(0.850477, 0.295411, 0.302585, 1)
 
 [sub_resource type="Resource" id="Resource_aiegr"]
 script = ExtResource("13_j1jxu")
-levelList = Array[String](["uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://l65jyprpbqpg", "uid://bve7wh3cybj72", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://bwif5kh6bhds0"])
+levelList = Array[String](["uid://nq1sgehvp5ut", "uid://bxoir4qob1fo8", "uid://d0cu4f2afatpi", "uid://dwskemtt7pawt", "uid://djhmhfpw1ynoo", "uid://l65jyprpbqpg", "uid://dpdr7qdrkm73t", "uid://dt3781et84amr", "uid://iv7mady3j6r1", "uid://u85o0qy38rh6", "uid://bwif5kh6bhds0"])
 
 [node name="MainGameSceneRoot" type="Node"]
 script = ExtResource("1_ip1ij")

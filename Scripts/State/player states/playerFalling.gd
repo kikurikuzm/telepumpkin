@@ -3,12 +3,20 @@ class_name playerFalling
 
 @onready var fallThumpAudio = preload("res://Audio/sfx/fall thump.ogg")
 
+@onready var coyoteTimer:Timer = $"../../coyoteTimer"
+
 var aircontrol = 1
 var currentVelocityY: float
 
 func enter():
 	animPlayer.play("fall")
 	player.gravity = gvars.playerGravity * 2.3
+	
+	if player.jumpsRemaining > 0:
+		playerSprite.self_modulate = Color(2.0, 1.0, 1.5)
+		coyoteTimer.start(AIRTIME)
+	else:
+		playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
 
 func exit():
 	if player.is_on_floor():
@@ -27,19 +35,25 @@ func update(delta: float):
 func physics_update(delta: float):
 	super(delta)
 	
-	if player.velocity.y > 0:
-		player.gravity = gvars.playerGravity * 2.3
-		currentVelocityY = player.velocity.y
+	currentVelocityY = player.velocity.y
+	#if player.velocity.y > 0:
+		#player.gravity = gvars.playerGravity * 1.5
+	#
+	#if player.velocity.y < 0:
+		#player.gravity = gvars.playerGravity
 	
-	if player.velocity.y < 0:
-		player.gravity = gvars.playerGravity
-
 	if Input.is_action_pressed("up"):
-		transitioned.emit(self, "playerstretch")
-	if Input.is_action_pressed("down"):
-		transitioned.emit(self, "playerstretch")
+		if player.jumpsRemaining != player.maxJumps and player.jumpsRemaining > 0:
+			transitionToState(STATE_STRETCHING)
+		elif player.jumpsRemaining == player.maxJumps and coyoteTimer.is_stopped():
+			player.jumpsRemaining -= 1
+			transitionToState(STATE_STRETCHING)
+		elif !coyoteTimer.is_stopped():
+			transitionToState(STATE_STRETCHING)
+	elif Input.is_action_pressed("down"):
+		transitionToState(STATE_STRETCHING)
 	
 	if player.is_on_floor():
-		transitioned.emit(self, "playerstop")
+		transitionToState(STATE_STOPPING)
 	
 	#player.move_and_slide()

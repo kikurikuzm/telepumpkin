@@ -9,13 +9,13 @@ class_name NPC extends Node2D
 @onready var playerCheckArea:Area2D = $playerCheckArea
 @onready var trigger:Trigger = $Trigger
 
+@export var dialogueArray:Array[DialogueConversation]
 @export_group("Appearance")
-@export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke", "science") var npcLook:String
+@export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke", "science", "sign") var npcLook:String
 @export var spriteFlip:bool = false
 @export var facePlayer:bool = true
 @export_group("Dialogue")
 @export var conversationIndex:int ##The [DialogueConversation] to display upon interaction.
-@export var dialogueArray:Array[DialogueConversation]
 @export_group("Interaction")
 @export var interactToInitiate:bool = true
 @export var collideToInitiate:bool = false

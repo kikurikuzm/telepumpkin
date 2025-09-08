@@ -6,15 +6,16 @@ class_name playerJump
 
 @onready var jumpAudio = preload("res://Audio/sfx/jumpNoise.ogg")
 
-var aircontrol = 3
+var aircontrol = 2
 
-const HORIZONTAL_BOOST = 50
+const HORIZONTAL_BOOST = 40
 
 func enter():
 	#audio.pitch_scale = 2.0
 	#audio.volume_db = -10.0
 	#audio.stream = jumpAudio
 	#audio.play()
+	player.jumpsRemaining -= 1
 	coyoteTimer.stop()
 	animPlayer.play("jump")
 	player.velocity.y = player.jumpstrength * -1

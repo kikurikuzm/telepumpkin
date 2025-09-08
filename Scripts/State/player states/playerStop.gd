@@ -15,7 +15,9 @@ func enter():
 		playerSprite.flip_h = true
 	elif direction == 1:
 		playerSprite.flip_h = false
-		
+	
+	playerSprite.self_modulate = Color.WHITE
+	
 	animPlayer.play("stop")
 	turnTimer.start(0.15)
 	

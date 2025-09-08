@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://cpafis3j1jvn0"]
+[gd_scene load_steps=28 format=4 uid="uid://cpafis3j1jvn0"]
 
 [ext_resource type="TileSet" uid="uid://dt4v4h281e2h7" path="res://Tile Sets/apartments.tres" id="1_d4keh"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_r23dv"]
@@ -26,7 +26,7 @@ gradient = SubResource("Gradient_qne3f")
 [sub_resource type="Resource" id="Resource_h7j3t"]
 script = ExtResource("10_cbf0c")
 dialogueText = "\"Have you come to get us out of here?\""
-dialoguePortrait = ""
+dialoguePortrait = "bald"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -41,7 +41,7 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_ndunk"]
 script = ExtResource("10_cbf0c")
 dialogueText = "\"...Who am I kidding. You look too happy to have any business down here.\" The man lets out a heavy, wistful sigh."
-dialoguePortrait = ""
+dialoguePortrait = "bald"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -61,7 +61,7 @@ metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 [sub_resource type="Resource" id="Resource_cbf0c"]
 script = ExtResource("10_cbf0c")
 dialogueText = "\"I remember back when I was just a wee lad, we'd hike to the nearby farm and get some huge pumpkins from the kind farmer there.\""
-dialoguePortrait = ""
+dialoguePortrait = "bald"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -76,7 +76,7 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_32a4c"]
 script = ExtResource("10_cbf0c")
 dialogueText = "\"We had to take turns hauling just a single one, cause our arms got so tired.\""
-dialoguePortrait = ""
+dialoguePortrait = "bald"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -91,7 +91,7 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_dd558"]
 script = ExtResource("10_cbf0c")
 dialogueText = "\"You know, that farm must've supplied our town with thousands of pumpkins over the years.\""
-dialoguePortrait = ""
+dialoguePortrait = "bald"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -106,7 +106,7 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_cy4rm"]
 script = ExtResource("10_cbf0c")
 dialogueText = "\"Heh, thanks for that bit of nostalgia. Maybe I'll get to see that farm again someday.\""
-dialoguePortrait = ""
+dialoguePortrait = "bald"
 textSpeed = 0.07
 triggerToFire = NodePath("")
 currentFocus = NodePath("")
@@ -121,6 +121,26 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_75cgt"]
 script = ExtResource("9_ndunk")
 conversationArray = Array[ExtResource("10_cbf0c")]([SubResource("Resource_cbf0c"), SubResource("Resource_32a4c"), SubResource("Resource_dd558"), SubResource("Resource_cy4rm")])
+metadata/_custom_type_script = "uid://cgtgjpboysb1f"
+
+[sub_resource type="Resource" id="Resource_fujkf"]
+script = ExtResource("10_cbf0c")
+dialogueText = "agga"
+dialoguePortrait = "placeholder"
+textSpeed = 0.07
+triggerToFire = NodePath("")
+currentFocus = NodePath("")
+focusPlayer = false
+cameraSpeed = 0.1
+cameraZoom = 4.0
+playerCanMove = false
+goToNextConversation = false
+manualNextConversation = 0
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_6ikm2"]
+script = ExtResource("9_ndunk")
+conversationArray = Array[ExtResource("10_cbf0c")]([SubResource("Resource_fujkf")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
 [node name="LevelSceneRoot" type="Node"]
@@ -174,8 +194,8 @@ metadata/_edit_lock_ = true
 [node name="deskNPC" parent="." instance=ExtResource("9_g63xh")]
 z_index = -1
 position = Vector2(566, 801)
-npcLook = "bald"
 dialogueArray = Array[ExtResource("9_ndunk")]([SubResource("Resource_3leqj"), SubResource("Resource_75cgt")])
+npcLook = "bald"
 
 [node name="librarygoer" parent="." instance=ExtResource("9_g63xh")]
 position = Vector2(379, 804)
@@ -184,6 +204,7 @@ interactToInitiate = false
 
 [node name="NPC2" parent="." instance=ExtResource("9_g63xh")]
 position = Vector2(451, 416)
+dialogueArray = Array[ExtResource("9_ndunk")]([SubResource("Resource_6ikm2")])
 npcLook = "cool"
 spriteFlip = true
 

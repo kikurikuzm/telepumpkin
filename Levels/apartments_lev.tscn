@@ -138,14 +138,14 @@ texture = ExtResource("7_5sgwh")
 [node name="NPC" parent="." instance=ExtResource("8_7p4we")]
 z_index = -2
 position = Vector2(882, 792)
-npcLook = "bald"
 dialogueArray = Array[ExtResource("9_wg05f")]([SubResource("Resource_7p4we")])
+npcLook = "bald"
 
 [node name="NPC2" parent="." instance=ExtResource("8_7p4we")]
 z_index = 3
 position = Vector2(1431, 795)
-npcLook = "cool"
 dialogueArray = Array[ExtResource("9_wg05f")]([SubResource("Resource_w3vqp")])
+npcLook = "cool"
 
 [node name="areaDarkness" type="PointLight2D" parent="."]
 position = Vector2(1034.5, 742)

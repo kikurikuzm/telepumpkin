@@ -54,7 +54,7 @@ focusPlayer = false
 cameraSpeed = 0.1
 cameraZoom = 4.0
 playerCanMove = false
-goToNextConversation = false
+goToNextConversation = true
 manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
@@ -118,7 +118,7 @@ position = Vector2(705, 794)
 [node name="pumpkin3" parent="." instance=ExtResource("6_benap")]
 position = Vector2(1041, 684)
 rotting = true
-rottingTeleport = 3
+rottingTeleport = 4
 
 [node name="exit" parent="." instance=ExtResource("7_3xhn4")]
 position = Vector2(1041, 880)
@@ -202,9 +202,9 @@ shadow_filter = 2
 shadow_filter_smooth = 0.9
 
 [node name="superSecretGuy" parent="." instance=ExtResource("9_ws0kf")]
-position = Vector2(1295, 388)
-npcLook = "cool"
+position = Vector2(1309, 388)
 dialogueArray = Array[ExtResource("10_w3ywh")]([SubResource("Resource_ynnvn"), SubResource("Resource_v8gtj")])
+npcLook = "cool"
 
 [node name="entrance" parent="." instance=ExtResource("12_ndxfa")]
 position = Vector2(1851, 698)

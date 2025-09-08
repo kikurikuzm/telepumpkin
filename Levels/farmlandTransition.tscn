@@ -59,5 +59,4 @@ position = Vector2(2001, 291)
 [node name="trigger" parent="." groups=["level_levelChangeRequester"] instance=ExtResource("10_hblqf")]
 position = Vector2(1344, 1867)
 scale = Vector2(15.86, 15.86)
-triggerList = Array[NodePath]([NodePath("../exit")])
 isVisibleInGame = true
