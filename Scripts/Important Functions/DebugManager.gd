@@ -2,6 +2,8 @@ extends Node
 
 @onready var _debugUI:DebugUI = null
 
+static var db_showEditorElements:bool = false
+
 func _process(delta: float) -> void:
 	if !is_instance_valid(_debugUI): return
 	if _debugUI.visible == false: return

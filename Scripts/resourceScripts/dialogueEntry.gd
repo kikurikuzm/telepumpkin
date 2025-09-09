@@ -4,7 +4,7 @@ class_name DialogueEntry extends Resource
 @export_group("Dialogue Settings")
 @export_enum("bald", "bovi", "cloak", "cool", "corpse", "inspect", "kid", "kin", "smoke", "placeholder") var dialoguePortrait: String = "placeholder"
 @export_range(0.0, 0.5, 0.005) var textSpeed : float = 0.07 ##How long in seconds to wait before revealing a character.
-@export var triggerToFire : NodePath
+@export_node_path("Trigger") var triggerToFire : NodePath
 var triggerAbsolutePath : String = ""
 @export_group("Focus Settings")
 @export var currentFocus : NodePath ##Who or what the camera should be centered on for this piece of dialogue.

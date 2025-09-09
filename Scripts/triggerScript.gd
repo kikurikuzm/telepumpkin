@@ -5,13 +5,13 @@ extends EditorElement
 class_name Trigger
 ##A level element that can activate other elements.
 
-@export var triggerTargets:Array[NodePath]
+@export_node_path("Node2D") var triggerTargets:Array[NodePath]
 @export var triggerSize:Rect2
-@export_category("Trigger Settings")
+@export_group("Trigger Settings")
 @export var enabled:bool = true ##Should this trigger be visible and active?
 @export var triggersOnce:bool = true ##Should this trigger should only fire once?
-@export var playerTrigger:bool = true ##If the player will be able to trigger this trigger
-@export var mustInteract:bool = false ##Should this trigger require a button press while the [Player] is within range to fire?
+@export var playerTrigger:bool = true ##Should only the player be able to initiate this trigger?
+@export var mustInteract:bool = false ##Should this trigger require a button press while the player is within range to fire?
 @export var showInteractIcon:bool = true ##Should the interact icon for this trigger be visible at all?
 
 @onready var area2d : Area2D = get_node("Area2D")
@@ -23,6 +23,8 @@ var hasTriggered = false ##Whether or not the trigger has already gone off.
 signal triggeredByCause(cause:Node2D) ##Emitted when a valid cause to fire has occured.
 
 func _ready():
+	super()
+	
 	if !Engine.is_editor_hint():
 		super._ready()
 		self.area2d.position = self.triggerSize.position
@@ -48,6 +50,8 @@ func _ready():
 			print_debug("%s doesn't have proper trigger receive method!" % nodeInstance.to_string())
 
 func _process(delta: float) -> void:
+	super(delta)
+	
 	if Engine.is_editor_hint():
 		self.area2d.position = self.triggerSize.position
 		self.areaCollision.scale = self.triggerSize.size
@@ -101,7 +105,13 @@ func initiateTrigger(cause:Node2D) -> void:
 
 func triggerInteract(cause:Node2D) -> void:
 	if mustInteract == true and enabled == true:
-		initiateTrigger(cause)
+		onTriggerFired(cause)
+
+func onTriggerFired(cause:Node2D) -> void:
+	initiateTrigger(cause)
+
+func onTriggeredByTrigger(cause:Node2D) -> void: ## What this trigger should do upon being triggered by another trigger.
+	initiateTrigger(cause)
 
 func save():
 	var saveDict = {
@@ -118,6 +128,9 @@ func loadJSON(nodeData):
 func _on_area_2d_area_entered(area:Area2D) -> void:
 	if mustInteract == false:
 		if area.is_in_group("entity_player_interaction_area") and playerTrigger:
-			initiateTrigger(area)
+			onTriggerFired(area)
 		elif area.is_in_group("entity_teleportable_object_area") and !playerTrigger:
-			initiateTrigger(area)
+			onTriggerFired(area)
+
+func _on_recieve_trigger_notification(cause:Node2D) -> void:
+	onTriggeredByTrigger(cause)

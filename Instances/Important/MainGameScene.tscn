@@ -317,6 +317,10 @@ metadata/_tab_index = 0
 layout_mode = 2
 text = "No-clip"
 
+[node name="showEditorElements" type="CheckButton" parent="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer/Common"]
+layout_mode = 2
+text = "Show Editor Elements"
+
 [node name="Level" type="VBoxContainer" parent="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
@@ -460,6 +464,7 @@ visible = false
 [connection signal="commandModifyPlayerState" from="DebuggerMenu" to="." method="_playerCharacterChangeState"]
 [connection signal="commandSkipCurrentCutscene" from="DebuggerMenu" to="." method="_skipCurrentCutscene"]
 [connection signal="toggled" from="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer/Common/Noclip" to="DebuggerMenu" method="_on_noclip_toggled"]
+[connection signal="toggled" from="DebuggerMenu/PanelContainer/VBoxContainer/TabContainer/Common/showEditorElements" to="DebuggerMenu" method="_on_show_editor_elements_toggled"]
 [connection signal="exitToMenu" from="PauseMenu" to="." method="_playerExitToMenu"]
 [connection signal="pauseGame" from="PauseMenu" to="." method="_pauseGame"]
 [connection signal="restartLevel" from="PauseMenu" to="." method="_playerRestartLevel"]

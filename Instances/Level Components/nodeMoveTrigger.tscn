@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://ggsnbj3dkqpd"]
+
+[ext_resource type="Script" uid="uid://b8giaj070yydx" path="res://Scripts/NodeMoveTrigger.gd" id="1_x1hsm"]
+[ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_ckvo4"]
+[ext_resource type="Texture2D" uid="uid://caqsjy8qx0b7v" path="res://Resources/Editor Icons/trigger.png" id="3_gvowx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
+size = Vector2(32, 32)
+
+[node name="Trigger" type="Node2D" groups=["trigger"]]
+script = ExtResource("1_x1hsm")
+triggerOnModifyFinished = false
+
+[node name="interactIcon" parent="." instance=ExtResource("2_ckvo4")]
+customSize = Vector2(0, 0)
+
+[node name="Area2D" type="Area2D" parent="." groups=["entity_trigger_area"]]
+light_mask = 0
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_nxb7d")
+debug_color = Color(1, 0, 0, 0.278431)
+
+[node name="editorSprite" type="Sprite2D" parent="."]
+light_mask = 524288
+visibility_layer = 524288
+z_index = 100
+z_as_relative = false
+position = Vector2(-1.19209e-07, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_gvowx")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

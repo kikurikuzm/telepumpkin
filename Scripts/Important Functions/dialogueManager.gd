@@ -46,7 +46,7 @@ func _ready() -> void:
 	dialogueBox.visible = false
 
 ##The function that performs setup for dialogue.
-func conversationInitiate(dialogueConversation:Array[DialogueConversation], dialogueConversationID:int, npcInstance:NPC=null): 
+func conversationInitiate(dialogueConversation:Array[DialogueConversation], dialogueConversationID:int, npcInstance:NPC=null) -> void: 
 	print_debug("started dialogue from DialogueManager")
 	
 	triggerToFire = null
@@ -62,7 +62,7 @@ func conversationInitiate(dialogueConversation:Array[DialogueConversation], dial
 	progressDialogue()
 
 ##The function that progresses dialogue and does the bulk of the work. This is where events in the dialogue are performed, such as 'cameraSpeed'.
-func progressDialogue():
+func progressDialogue() -> void:
 	if currentDialogueEntryIndex == len(currentConversation.conversationArray):
 		endDialogue()
 		return
@@ -133,7 +133,7 @@ func progressDialogue():
 		await textSpeed.timeout
 	
 ##The function that ends a given dialogue and performs the necessary cleanup.
-func endDialogue(): 
+func endDialogue() -> void: 
 	CameraManager.resetPlayerZoom()
 	if lastFocusTarget != null: 
 		CameraManager.removeFocus(lastFocusTarget)
@@ -144,31 +144,27 @@ func endDialogue():
 	inDialogue = false
 
 	currentDialogueEntryIndex = 0
-	
-	#changeCameraSmoothingAmount.emit(Vector2(0.2, 0.2))
 
 	changePlayerCharacterState.emit("playerIdle")
-	dialogueInitializer.canTalk = true
 	
-	#mainCamera.desiredZoom = oldZoom
-	#mainCamera.smoothAmount = 0.2
-	#mainCamera.currentParent = mainCamera.playerRef
-	
-	if queuedConvo > -1:
-		conversationInitiate(NPCConversationArray, currentConversationIndex)
-		queuedConvo = -1
-	
-	if triggerToFire != null:
-		print_debug(triggerToFire)
-		triggerToFire.initiateTrigger(dialogueInitializer)
-		triggerToFire = null
+	if is_instance_valid(dialogueInitializer):
+		dialogueInitializer.canTalk = true
+
+		if queuedConvo > -1:
+			conversationInitiate(NPCConversationArray, currentConversationIndex)
+			queuedConvo = -1
+		
+		if triggerToFire != null:
+			print_debug(triggerToFire)
+			triggerToFire.initiateTrigger(dialogueInitializer)
+			triggerToFire = null
 	
 	return
 
 func queueConvo(convoNumb:int) -> void:
 	queuedConvo = convoNumb
 
-func setCurrentLevelChildrenArray(childArray:Array):
+func setCurrentLevelChildrenArray(childArray:Array) -> void:
 	currentLevelChildren = childArray
 
 ##The function that parses through the given .json file and converts it into an array.
@@ -182,7 +178,7 @@ func parseJSON() -> Array:
 	else:
 		return []
 
-func _input(event):
+func _input(event) -> void:
 	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped() and !inCutscene:
 		if dialogueText.visible_characters == len(dialogueText.get_parsed_text()):
 			currentDialogueEntryIndex += 1
@@ -191,7 +187,7 @@ func _input(event):
 			dialogueText.visible_characters = len(dialogueText.get_parsed_text())
 		get_viewport().set_input_as_handled()
 
-func _process(delta):
+func _process(delta) -> void:
 	gvars.inDialogue = inDialogue
 	if dialogueText.visible_characters == len(dialogueText.get_parsed_text()) and inDialogue:
 		dialogueContinue.visible = true

@@ -44,3 +44,7 @@ func writeToDebugOutput(text:String) -> void:
 func _on_noclip_toggled(toggled_on: bool) -> void:
 	debugPlayerFlyToggle = toggled_on
 	commandTogglePlayerFly()
+
+
+func _on_show_editor_elements_toggled(toggled_on: bool) -> void:
+	DebugManager.db_showEditorElements = toggled_on

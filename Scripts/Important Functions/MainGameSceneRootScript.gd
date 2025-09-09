@@ -112,17 +112,19 @@ func disconnnectCallablesFromSignals():
 
 func initiateLevelChange(levelPath:String = ""):
 	#disconnnectCallablesFromSignals()
+	dialogueManager.endDialogue()
 	
 	var levelLoadedExternally : String = ""
 	
 	print_debug(levelPath)
 	
 	if levelPath != "":
-		levelLoadedExternally = levelPath
+		levelLoader.instanceLevelFromPath(levelPath)
 		print_debug("loading passed levelpath")
 	elif gvars.levelToLoadInMainScene != "":
-		levelLoadedExternally = gvars.levelToLoadInMainScene
-		levelLoader.instanceLevelFromPath(levelLoadedExternally)
+		levelLoader.instanceLevelFromPath(gvars.levelToLoadInMainScene)
+		gvars.levelToLoadInMainScene = ""
+		
 		var levelLoaderLevelSet = levelLoader.levelSet
 		var externalLevelUID = ResourceLoader.get_resource_uid(levelLoadedExternally)
 		externalLevelUID = ResourceUID.id_to_text(externalLevelUID)
@@ -136,6 +138,7 @@ func initiateLevelChange(levelPath:String = ""):
 		#levelLoader.instanceLevel()
 	elif ExternalLevelManager.loadedDailyLevel != null:
 		levelLoader.instanceLevelFromPackedScene(ExternalLevelManager.loadedDailyLevel)
+		ExternalLevelManager.loadedDailyLevel = null
 	else:
 		levelLoader.instanceLevel(currentLevelSetIndex)
 	print_debug(levelLoadedExternally)
