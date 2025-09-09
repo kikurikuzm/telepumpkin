@@ -273,6 +273,14 @@ focus_neighbor_bottom = NodePath("../SettingsButton")
 theme = ExtResource("2_kn6pq")
 text = "Start"
 
+[node name="DailyLevelButton" type="Button" parent="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox"]
+material = SubResource("ShaderMaterial_us17e")
+layout_mode = 2
+size_flags_vertical = 3
+focus_neighbor_bottom = NodePath("../SettingsButton")
+theme = ExtResource("2_kn6pq")
+text = "Daily Level"
+
 [node name="SettingsButton" type="Button" parent="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox"]
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
@@ -501,6 +509,7 @@ texture = ExtResource("3_r0kno")
 [connection signal="settingsButtonPressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" to="." method="_on_settings_button_pressed"]
 [connection signal="startButtonPressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/StartButton" to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_on_start_pressed"]
+[connection signal="pressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/DailyLevelButton" to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_on_daily_level_button_pressed"]
 [connection signal="pressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/SettingsButton" to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_on_settings_pressed"]
 [connection signal="pressed" from="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/QuitButton" to="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox" method="_on_quit_pressed"]
 [connection signal="backButtonPressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" to="." method="_on_back_button_pressed"]

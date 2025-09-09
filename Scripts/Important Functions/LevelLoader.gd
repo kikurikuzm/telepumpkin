@@ -52,6 +52,15 @@ func instanceLevelFromPath(levelPath:String) -> bool:
 	
 	return true
 
+func instanceLevelFromPackedScene(scene:PackedScene) -> void:
+	if is_instance_valid(instancedLevel): instancedLevel.queue_free()
+	
+	loadedLevel = scene
+	instancedLevel = loadedLevel.instantiate()
+	currentLevelVariables = instancedLevel.levelVariablesResource
+	
+	add_child(instancedLevel)
+
 func setupExternalLevelNodes(playerReference:CharacterBody2D) -> void:
 	playerReference.global_position = instancedLevel.getLevelSpawnPointPosition()
 	playerReference.velocity = Vector2.ZERO

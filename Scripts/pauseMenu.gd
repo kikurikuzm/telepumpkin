@@ -17,7 +17,7 @@ func _on_resume_pressed():
 
 func _on_quit_pressed():
 	save()
-	get_tree().change_scene_to_file("res://Instances/mainMenu.tscn")
+	get_tree().change_scene_to_file("res://Instances/Important/mainMenu.tscn")
 #	get_tree().paused = false
 	paused = false
 	self.visible = false

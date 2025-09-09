@@ -120,11 +120,8 @@ func initiateLevelChange(levelPath:String = ""):
 	if levelPath != "":
 		levelLoadedExternally = levelPath
 		print_debug("loading passed levelpath")
-	else:
+	elif gvars.levelToLoadInMainScene != "":
 		levelLoadedExternally = gvars.levelToLoadInMainScene
-		print_debug(levelLoadedExternally)
-
-	if levelLoadedExternally != "":
 		levelLoader.instanceLevelFromPath(levelLoadedExternally)
 		var levelLoaderLevelSet = levelLoader.levelSet
 		var externalLevelUID = ResourceLoader.get_resource_uid(levelLoadedExternally)
@@ -137,6 +134,8 @@ func initiateLevelChange(levelPath:String = ""):
 		#gvars.levelToLoadInMainScene = ""
 	#elif levelLoadedExternally == "" and levelLoader.isLevelCurrentlyLoaded():
 		#levelLoader.instanceLevel()
+	elif ExternalLevelManager.loadedDailyLevel != null:
+		levelLoader.instanceLevelFromPackedScene(ExternalLevelManager.loadedDailyLevel)
 	else:
 		levelLoader.instanceLevel(currentLevelSetIndex)
 	print_debug(levelLoadedExternally)
@@ -158,7 +157,7 @@ func restartLevel():
 
 func exitToMenu():
 	CameraManager.set_process(false)
-	get_tree().change_scene_to_file("res://Instances/mainMenu.tscn")
+	get_tree().change_scene_to_file("res://Instances/Important/mainMenu.tscn")
 
 #Signal functions begin here
 

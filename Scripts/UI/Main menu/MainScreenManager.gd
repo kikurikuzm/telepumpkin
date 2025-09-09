@@ -17,10 +17,8 @@ func _ready() -> void:
 func _on_start_pressed():
 	startButtonPressed.emit(!userSaveExists)
 
-
 func _on_settings_pressed():
 	settingsButtonPressed.emit()
-
 
 func _on_quit_pressed():
 	get_tree().quit()
@@ -28,3 +26,10 @@ func _on_quit_pressed():
 func _user_save_removed():
 	$StartButton.text = "Start"
 	userSaveExists = false
+
+func _on_daily_level_button_pressed() -> void:
+	ExternalLevelManager.getDailyLevel()
+	
+	await ExternalLevelManager.downloadedDailyLevel
+	print_debug("Downloaded level")
+	startButtonPressed.emit(!userSaveExists)

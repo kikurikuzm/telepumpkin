@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Telepumpkin 2"
-run/main_scene="res://Instances/mainMenu.tscn"
+run/main_scene="res://Instances/Important/mainMenu.tscn"
 config/features=PackedStringArray("4.4")
 run/max_fps=60
 boot_splash/bg_color=Color(0.423529, 0.337255, 0.443137, 1)
@@ -31,6 +31,7 @@ gvars="*res://Scripts/gvars.gd"
 GlobalSignalBus="*res://Scripts/Important Functions/globalSignalBus.gd"
 CameraManager="*res://Scripts/Important Functions/CameraManager.gd"
 DebugManager="*res://Scripts/Important Functions/DebugManager.gd"
+ExternalLevelManager="*res://Scripts/Important Functions/ExternalLevelManager.gd"
 
 [display]
 
