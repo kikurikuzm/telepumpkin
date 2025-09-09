@@ -25,6 +25,12 @@ func modifyNodes() -> void:
 	for node in modifyTargets:
 		nodeModification(node)
 
+func triggerInteract(cause:Node2D) -> void:
+	if triggerOnModifyFinished == true:
+		return
+	else:
+		initiateTrigger(cause)
+
 func onTriggerFired(cause:Node2D) -> void:
 	startModifyingNodes()
 
