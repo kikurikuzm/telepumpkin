@@ -114,34 +114,26 @@ func initiateLevelChange(levelPath:String = ""):
 	#disconnnectCallablesFromSignals()
 	dialogueManager.endDialogue()
 	
-	var levelLoadedExternally : String = ""
-	
-	print_debug(levelPath)
+	if gvars.levelToLoadInMainScene != "":
+		levelPath = gvars.levelToLoadInMainScene
 	
 	if levelPath != "":
 		levelLoader.instanceLevelFromPath(levelPath)
-		print_debug("loading passed levelpath")
-	elif gvars.levelToLoadInMainScene != "":
-		levelLoader.instanceLevelFromPath(gvars.levelToLoadInMainScene)
 		gvars.levelToLoadInMainScene = ""
 		
 		var levelLoaderLevelSet = levelLoader.levelSet
-		var externalLevelUID = ResourceLoader.get_resource_uid(levelLoadedExternally)
+		var externalLevelUID = ResourceLoader.get_resource_uid(levelPath)
 		externalLevelUID = ResourceUID.id_to_text(externalLevelUID)
-		print_debug(externalLevelUID)
+		
 		if externalLevelUID in levelLoaderLevelSet:
-			print_debug("found current level in levelset")
 			currentLevelSetIndex = levelLoaderLevelSet.find(externalLevelUID)
 		
-		#gvars.levelToLoadInMainScene = ""
-	#elif levelLoadedExternally == "" and levelLoader.isLevelCurrentlyLoaded():
-		#levelLoader.instanceLevel()
 	elif ExternalLevelManager.loadedDailyLevel != null:
 		levelLoader.instanceLevelFromPackedScene(ExternalLevelManager.loadedDailyLevel)
 		ExternalLevelManager.loadedDailyLevel = null
 	else:
 		levelLoader.instanceLevel(currentLevelSetIndex)
-	print_debug(levelLoadedExternally)
+	
 	levelLoader.setupExternalLevelNodes(playerReference)
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
 	#connectToLevelNodeSignals()
