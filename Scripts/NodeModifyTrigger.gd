@@ -1,3 +1,4 @@
+@tool
 class_name NodeModifyTrigger extends Trigger
 
 @export_group("Effected Nodes")
@@ -7,7 +8,8 @@ class_name NodeModifyTrigger extends Trigger
 func _ready() -> void:
 	super()
 	
-	self.set_process(false)
+	if !Engine.is_editor_hint():
+		self.set_process(false)
 
 func startModifyingNodes() -> void:
 	self.set_process(true)
@@ -26,9 +28,9 @@ func modifyNodes() -> void:
 		nodeModification(node)
 
 func triggerInteract(cause:Node2D) -> void:
-	if triggerOnModifyFinished == true:
-		return
-	else:
+	startModifyingNodes()
+	
+	if triggerOnModifyFinished == false:
 		initiateTrigger(cause)
 
 func onTriggerFired(cause:Node2D) -> void:

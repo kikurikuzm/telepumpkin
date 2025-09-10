@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bpjox1o3i6pbq"]
+[gd_scene load_steps=23 format=4 uid="uid://bpjox1o3i6pbq"]
 
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ixl1h"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_2hqk7"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="12_lwogm"]
 [ext_resource type="PackedScene" uid="uid://u436ndnadylb" path="res://Instances/Level Components/pipeSystem.tscn" id="14_lwogm"]
 [ext_resource type="PackedScene" uid="uid://ctcjvamn72bwl" path="res://Instances/Level Components/tpp.tscn" id="15_e8sut"]
+[ext_resource type="PackedScene" uid="uid://ggsnbj3dkqpd" path="res://Instances/Level Components/nodeMoveTrigger.tscn" id="16_7thpm"]
 
 [sub_resource type="Animation" id="Animation_m3ha0"]
 resource_name = "new_animation"
@@ -27,17 +28,10 @@ _data = {
 
 [sub_resource type="Resource" id="Resource_e8sut"]
 script = ExtResource("12_lwogm")
-dialogueText = "Enter text here!"
 dialoguePortrait = "cool"
 textSpeed = 0.05
-triggerToFire = NodePath("")
-currentFocus = NodePath("")
 focusPlayer = true
-cameraSpeed = 0.1
 cameraZoom = 5.5
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_eq704"]
@@ -45,20 +39,20 @@ script = ExtResource("12_lwogm")
 dialogueText = "bababaabasuabsui"
 dialoguePortrait = "kid"
 textSpeed = 0.7
-triggerToFire = NodePath("")
 currentFocus = NodePath("../exit")
-focusPlayer = false
-cameraSpeed = 0.1
 cameraZoom = 2.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_q1qt7"]
 script = ExtResource("11_nvnte")
 conversationArray = Array[ExtResource("12_lwogm")]([SubResource("Resource_e8sut"), SubResource("Resource_eq704")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
+
+[sub_resource type="Curve2D" id="Curve2D_nyqih"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 41, 13, 0, 0, 0, 0, 45, -118, 0, 0, 0, 0, 94, -114, 0, 0, 0, 0, 95, 9, 0, 0, 0, 0, 45, 15, 0, 0, 0, 0, 41, 13)
+}
+point_count = 6
 
 [node name="LevelSceneRoot" type="Node"]
 script = ExtResource("1_ixl1h")
@@ -91,7 +85,7 @@ position = Vector2(869, 737)
 
 [node name="exit" parent="." instance=ExtResource("6_lwogm")]
 position = Vector2(1232, 657)
-pumpkinsNeeded = 1
+pumpkinsNeeded = 4
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(1008, 707)
@@ -112,8 +106,6 @@ metadata/_custom_type_script = "uid://cquqdpkj8ecfv"
 [node name="NPC" parent="." instance=ExtResource("10_eq704")]
 position = Vector2(464, 735)
 dialogueArray = Array[ExtResource("11_nvnte")]([SubResource("Resource_q1qt7")])
-interactToInitiate = true
-collideToInitiate = false
 
 [node name="entrance" parent="." node_paths=PackedStringArray("exitPipe") instance=ExtResource("3_nvnte")]
 z_index = -1
@@ -130,4 +122,14 @@ position = Vector2(52, 543)
 pipes = [NodePath("../entrance"), NodePath("../exit2")]
 
 [node name="tpp" parent="." instance=ExtResource("15_e8sut")]
-position = Vector2(523, 733)
+position = Vector2(644, 632)
+
+[node name="Trigger" parent="." node_paths=PackedStringArray("movementInterpolation") instance=ExtResource("16_7thpm")]
+position = Vector2(700, 749)
+movementInterpolation = NodePath("Path2D")
+movementDuration = 8.0
+modifyTargets = Array[NodePath]([NodePath("../platform")])
+mustInteract = true
+
+[node name="Path2D" type="Path2D" parent="Trigger"]
+curve = SubResource("Curve2D_nyqih")

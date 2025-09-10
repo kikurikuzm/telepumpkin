@@ -6,7 +6,7 @@ class_name EditorElement
 @onready var editorSprite = get_node_or_null("editorSprite")
 
 func _ready():
-	if editorSprite:
+	if editorSprite and !Engine.is_editor_hint():
 		editorSprite.visible = isVisibleInGame
 
 func _process(delta: float) -> void:

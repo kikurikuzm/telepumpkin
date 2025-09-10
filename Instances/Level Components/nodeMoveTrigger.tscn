@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ggsnbj3dkqpd"]
+[gd_scene load_steps=6 format=3 uid="uid://ggsnbj3dkqpd"]
 
 [ext_resource type="Script" uid="uid://b8giaj070yydx" path="res://Scripts/NodeMoveTrigger.gd" id="1_x1hsm"]
 [ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_ckvo4"]
@@ -7,12 +7,19 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
 size = Vector2(32, 32)
 
+[sub_resource type="Curve2D" id="Curve2D_x1hsm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, -24)
+}
+point_count = 2
+
 [node name="Trigger" type="Node2D" groups=["trigger"]]
 script = ExtResource("1_x1hsm")
+destinationActsAsOffset = false
 triggerOnModifyFinished = false
+triggerSize = Rect2(0, 0, 1, 1)
 
 [node name="interactIcon" parent="." instance=ExtResource("2_ckvo4")]
-customSize = Vector2(0, 0)
 
 [node name="Area2D" type="Area2D" parent="." groups=["entity_trigger_area"]]
 light_mask = 0
@@ -31,5 +38,11 @@ z_as_relative = false
 position = Vector2(-1.19209e-07, 0)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_gvowx")
+
+[node name="editor_destinationHint" type="Marker2D" parent="."]
+gizmo_extents = 30.0
+
+[node name="editor_destinationLine" type="Path2D" parent="."]
+curve = SubResource("Curve2D_x1hsm")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

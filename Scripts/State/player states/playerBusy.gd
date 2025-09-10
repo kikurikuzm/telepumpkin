@@ -15,3 +15,4 @@ func update(delta: float):
 
 func physics_update(delta: float):
 	super(delta)
+	player.velocity = Vector2.ZERO

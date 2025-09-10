@@ -1,48 +1,51 @@
+@tool
 class_name NodeMoveTrigger extends NodeModifyTrigger
 
-@export_group("Position")
-@export var destination:Vector2 = Vector2.ZERO ## The final position of the node(s).
-@export var destinationActsAsOffset:bool = false ## Should the [param destination] be used as an offset for the nodes rather than a position?
-@export_group("Interpolation")
+@onready var editor_destinationHint:Marker2D = $editor_destinationHint
+@onready var editor_destinationLine:Path2D = $editor_destinationLine
+
+@export var movementInterpolation:Path2D ## How the X and Y of the [param moveTargets] should interpolate to [param destination].
 @export var movementDuration:float = 1.0 ## How long (in seconds) should it take for the node(s) to reach [param destination]?
-@export var movementInterpolation:Curve ## How the X and Y of the [param moveTargets] should interpolate to [param destination].
 
 var initialPositions:Array[Vector2] = []
 var currentTimeStep:float = 0.0
 
-var editor_destinationPreview:Marker2D
+var editor_currentTargetIndex:int = 0
 
 func _ready() -> void:
 	super()
 	
 	if Engine.is_editor_hint():
-		editor_destinationPreview = Marker2D.new()
-		editor_destinationPreview.global_position = destination
-		self.add_child(editor_destinationPreview)
+		editor_destinationLine.curve.clear_points()
+		editor_destinationLine.curve.add_point(Vector2.ZERO)
+		editor_destinationLine.curve.add_point(Vector2.ZERO)
 	
-	movementInterpolation.bake()
-	for target in modifyTargets:
-		initialPositions.append(get_node(target).global_position)
+	if !Engine.is_editor_hint():
+		for target in modifyTargets:
+			initialPositions.append(get_node(target).global_position)
 
 func _process(delta: float) -> void:
 	super(delta)
 	
-	if currentTimeStep < movementDuration:
-		modifyNodes()
-		currentTimeStep += delta
-	elif currentTimeStep >= movementDuration:
-		currentTimeStep = 0.0
-		finishedModifyingNodes()
+	if !Engine.is_editor_hint():
+		if currentTimeStep < movementDuration:
+			modifyNodes()
+			currentTimeStep += delta
+		elif currentTimeStep >= movementDuration:
+			currentTimeStep = 0.0
+			finishedModifyingNodes()
 
 func nodeModification(nodePath:NodePath) -> void:
 	var nodeIndex:int = modifyTargets.find(nodePath)
 	var newPosition:Vector2 = initialPositions.get(nodeIndex)
-	if destinationActsAsOffset == true:
-		newPosition += destination
+	var progress:float = (currentTimeStep/movementDuration) * movementInterpolation.curve.point_count
+	var node:Variant = get_node(nodePath)
 	
-	newPosition.x = lerpf(newPosition.x, destination.x, movementInterpolation.sample(currentTimeStep/movementDuration))
-	newPosition.y = lerpf(newPosition.y, destination.y, movementInterpolation.sample(currentTimeStep/movementDuration))
+	if !is_instance_valid(node): return
 	
+	newPosition = movementInterpolation.curve.samplef(progress) + movementInterpolation.global_position
+	#print(progress)
+	#print(currentTimeStep)
 	#newPosition.x = smoothstep(newPosition.x, destination.x, currentTimeStep)
 	#newPosition.y = smoothstep(newPosition.y, destination.y, currentTimeStep)
-	get_node(nodePath).global_position = newPosition
+	node.global_position = newPosition

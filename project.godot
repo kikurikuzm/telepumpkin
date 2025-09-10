@@ -12,13 +12,12 @@ config_version=5
 
 config/name="Telepumpkin 2"
 run/main_scene="res://Instances/Important/mainMenu.tscn"
-config/features=PackedStringArray("4.4")
+config/features=PackedStringArray("4.5")
 run/max_fps=60
 boot_splash/bg_color=Color(0.423529, 0.337255, 0.443137, 1)
 boot_splash/fullsize=false
 boot_splash/image="res://Sprites/Misc/icon.png"
 config/icon="res://Sprites/Misc/icon.png"
-boot_splash/minimum_display_time=25
 
 [audio]
 
@@ -230,6 +229,7 @@ kick={
 2d/run_on_separate_thread=true
 2d/physics_engine="GodotPhysics2D"
 3d/physics_engine="Dummy"
+2d/solver/solver_iterations=64
 common/physics_interpolation=true
 2d/stretch/mode="canvas_items"
 2d/stretch/scale=1.0

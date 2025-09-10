@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://d0cu4f2afatpi"]
+[gd_scene load_steps=23 format=4 uid="uid://d0cu4f2afatpi"]
 
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="1_fsv8h"]
 [ext_resource type="Script" uid="uid://c11oms6kjkmfs" path="res://Scripts/Important Functions/LevelSceneRoot.gd" id="1_ksfga"]
@@ -15,8 +15,6 @@
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="13_hc0x2"]
 [ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="14_u8g8w"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="15_hc0x2"]
-[ext_resource type="PackedScene" uid="uid://ggsnbj3dkqpd" path="res://Instances/Level Components/nodeMoveTrigger.tscn" id="16_0h0my"]
-[ext_resource type="Texture2D" uid="uid://bl1sih4l2hc1o" path="res://Sprites/Misc/telecircle.png" id="17_pug0n"]
 
 [sub_resource type="Animation" id="Animation_m3ha0"]
 resource_name = "new_animation"
@@ -31,15 +29,8 @@ _data = {
 script = ExtResource("13_hc0x2")
 dialogueText = "You see a towering mound of grass-covered dirt judging you with a stoic gaze. You feel as though you should offer it something."
 dialoguePortrait = ""
-textSpeed = 0.07
-triggerToFire = NodePath("")
 currentFocus = NodePath("../moundViewFocus")
-focusPlayer = false
-cameraSpeed = 0.1
 cameraZoom = 6.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_0h0my"]
@@ -50,41 +41,20 @@ metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 [sub_resource type="Resource" id="Resource_u8g8w"]
 script = ExtResource("13_hc0x2")
 dialogueText = "As you timidly offer your brilliant-orange lookalike, the air around you begins to feel as though it's electrified."
-dialoguePortrait = "placeholder"
-textSpeed = 0.07
-triggerToFire = NodePath("")
-currentFocus = NodePath("")
-focusPlayer = false
-cameraSpeed = 0.1
 cameraZoom = 6.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_hc0x2"]
 script = ExtResource("13_hc0x2")
 dialogueText = "Suddenly!-"
-dialoguePortrait = "placeholder"
-textSpeed = 0.07
 triggerToFire = NodePath("../offeringCompleteTrigger")
-currentFocus = NodePath("")
-focusPlayer = false
-cameraSpeed = 0.1
 cameraZoom = 6.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_pug0n"]
 script = ExtResource("12_u8g8w")
 conversationArray = Array[ExtResource("13_hc0x2")]([SubResource("Resource_u8g8w"), SubResource("Resource_hc0x2")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
-
-[sub_resource type="Curve" id="Curve_0h0my"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
-point_count = 2
 
 [node name="LevelSceneRoot" type="Node"]
 script = ExtResource("1_ksfga")
@@ -129,7 +99,7 @@ shadow_filter_smooth = 0.9
 
 [node name="exit" parent="." instance=ExtResource("4")]
 z_index = -1
-position = Vector2(1155, 658)
+position = Vector2(1157, 658)
 pumpkinsNeeded = 1
 
 [node name="foregroundParallax" type="Parallax2D" parent="."]
@@ -205,14 +175,3 @@ gotoLevel = "uid://qwes0xww5doy"
 [node name="offeringCompleteTrigger" parent="." instance=ExtResource("14_u8g8w")]
 position = Vector2(1398, 105)
 triggerTargets = Array[NodePath]([NodePath("../entrance")])
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1047, 656)
-texture = ExtResource("17_pug0n")
-
-[node name="movetrigger" parent="." instance=ExtResource("16_0h0my")]
-position = Vector2(861, 620)
-destination = Vector2(950, 620)
-movementInterpolation = SubResource("Curve_0h0my")
-modifyTargets = Array[NodePath]([NodePath("../Sprite2D")])
-mustInteract = true
