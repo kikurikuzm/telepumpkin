@@ -1,12 +1,11 @@
 @tool
 extends Node2D
 
-@onready var interactIcon = get_node("AnimatedSprite2D")
-@onready var area2d = get_node("Area2D")
-@onready var collisionShape : CollisionShape2D = get_node("Area2D/CollisionShape2D")
-
 @export var customSize = Vector2.ZERO
 @export var enabled:bool = true
+
+@onready var interactIcon:AnimatedSprite2D = get_node("AnimatedSprite2D")
+@onready var collisionShape:CollisionShape2D = get_node("Area2D/CollisionShape2D")
 
 const OPACITY_TWEEN_DUR : float = 0.4
 const POSITION_TWEEN_DUR : float = 0.6
@@ -41,10 +40,12 @@ func hideInteract():
 	opacityTween.tween_property(interactIcon, "modulate:a", 0.0, OPACITY_TWEEN_DUR).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	positionTween.tween_property(interactIcon, "position:y", ICON_HIDDEN_POSITION, POSITION_TWEEN_DUR).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
-func _on_area_2d_area_entered(area):
-	if area.is_in_group("entity_player_interaction_area") and enabled == true:
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("entity_player_body") and enabled == true:
 		showInteract()
 
-func _on_area_2d_area_exited(area):
-	if area.is_in_group("entity_player_interaction_area"):
-		hideInteract()
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.is_in_group("entity_player_body") and enabled == true:
+		showInteract()

@@ -6,7 +6,7 @@ class_name Trigger
 ##A level element that can activate other elements.
 
 @export_node_path("Node2D") var triggerTargets:Array[NodePath]
-@export var triggerSize:Rect2
+@export var triggerSize:Rect2 = Rect2(0, 0, 1.0, 1.0)
 @export_group("Trigger Settings")
 @export var enabled:bool = true ##Should this trigger be visible and active?
 @export var triggersOnce:bool = true ##Should this trigger should only fire once?
@@ -107,11 +107,13 @@ func triggerInteract(cause:Node2D) -> void:
 	if mustInteract == true and enabled == true:
 		onTriggerFired(cause)
 
-func onTriggerFired(cause:Node2D) -> void:
+
+func onTriggerFired(cause:Node2D) -> void: ## What this trigger should do upon being triggered by interaction/collision.
 	initiateTrigger(cause)
 
 func onTriggeredByTrigger(cause:Node2D) -> void: ## What this trigger should do upon being triggered by another trigger.
 	initiateTrigger(cause)
+
 
 func save():
 	var saveDict = {
@@ -125,12 +127,12 @@ func save():
 func loadJSON(nodeData):
 	hasTriggered = nodeData["triggered"]
 
-func _on_area_2d_area_entered(area:Area2D) -> void:
+func _on_area_2d_body_entered(body: Node2D) -> void:
 	if mustInteract == false:
-		if area.is_in_group("entity_player_interaction_area") and playerTrigger:
-			onTriggerFired(area)
-		elif area.is_in_group("entity_teleportable_object_area") and !playerTrigger:
-			onTriggerFired(area)
+		if body.is_in_group("entity_player_body") and playerTrigger:
+			onTriggerFired(body)
+		elif body.is_in_group("entity_teleportable_object_body") and !playerTrigger:
+			onTriggerFired(body)
 
 func _on_recieve_trigger_notification(cause:Node2D) -> void:
 	onTriggeredByTrigger(cause)

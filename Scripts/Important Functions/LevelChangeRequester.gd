@@ -30,7 +30,10 @@ func setGotoLevelSpawnPosition(newSpawnPosition:Vector2) -> void:
 func getGotoLevelSpawnPosition() -> Vector2:
 	return spawnPosition
 
-func changeLevel() -> void: ##Makes a level request based on [param levelChangeType].
+func changeLevel(newLevelChangeType:LevelChangeTypes = -1) -> void: ##Makes a level request based on [param levelChangeType].
+	if newLevelChangeType != -1:
+		levelChangeType = newLevelChangeType
+	
 	match levelChangeType:
 		LevelChangeTypes.FAIL:
 			GlobalSignalBus.levelFailed.emit()

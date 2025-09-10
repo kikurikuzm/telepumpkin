@@ -161,8 +161,6 @@ func spawnTracer(oldPosition:Vector2) -> void:
 	
 
 func pumpkinDestroy(failure = false):
-	if failure == true:
-		GlobalSignalBus.levelFailed.emit()
 	self.queue_free()
 
 func save() -> Dictionary:
