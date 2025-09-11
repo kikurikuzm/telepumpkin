@@ -5,25 +5,15 @@
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="3_e7u7u"]
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_1lh87"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="5_ckkgq"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="6_6yo4u"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="7_b7k88"]
 [ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="8_avobt"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="9_b7k88"]
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="9_wtsam"]
 
 [sub_resource type="Resource" id="Resource_6umey"]
 script = ExtResource("9_wtsam")
 dialogueText = "[u]Tip:[/u]
 If you start charging a jump while [outline_size=10][outline_color=white][color=purple]purple[/color][/outline_color][/outline_size], it'll charge much faster!"
-dialoguePortrait = "placeholder"
-textSpeed = 0.07
-triggerToFire = NodePath("")
-currentFocus = NodePath("")
-focusPlayer = false
-cameraSpeed = 0.1
-cameraZoom = 4.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_d7um4"]
@@ -60,10 +50,6 @@ shadow_enabled = true
 shadow_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 shadow_filter = 2
 shadow_filter_smooth = 0.9
-
-[node name="exit" parent="." instance=ExtResource("6_6yo4u")]
-z_index = -1
-position = Vector2(1231, 624)
 
 [node name="backgroundGroundParallax" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.95, 0.95)
@@ -108,3 +94,8 @@ position = Vector2(992, 548)
 dialogueArray = Array[ExtResource("8_avobt")]([SubResource("Resource_d7um4")])
 npcLook = "sign"
 facePlayer = false
+
+[node name="Exit" parent="." instance=ExtResource("9_b7k88")]
+position = Vector2(1231, 624)
+requiredPumpkins = 1
+maximumRequiredPumpkins = 1

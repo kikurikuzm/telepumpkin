@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://xfx0bxxbk2om" path="res://Sprites/NPCs/npc5.png" id="8_wscp7"]
 [ext_resource type="Script" uid="uid://cquqdpkj8ecfv" path="res://Scripts/CutscenePlayer.gd" id="9_bimyj"]
 [ext_resource type="PackedScene" uid="uid://d0ntk07ipfpv4" path="res://Scripts/resourceScripts/cutsceneAnimationTarget.tscn" id="10_ilvus"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="11_pwb7q"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="11_pwb7q"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="12_ykc1l"]
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="13_x553c"]
 [ext_resource type="Texture2D" uid="uid://bvj047u5divdh" path="res://Sprites/NPCs/cloakBroom.png" id="14_3sfx3"]

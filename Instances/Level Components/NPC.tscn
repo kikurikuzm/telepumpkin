@@ -2,7 +2,7 @@
 
 [ext_resource type="SpriteFrames" uid="uid://dcjjt5y3i5fjm" path="res://Resources/npcframes.tres" id="1"]
 [ext_resource type="Script" uid="uid://q6lggoei701w" path="res://Scripts/npcScript.gd" id="1_o0077"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="4_1sfc1"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="4_1sfc1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ittj2"]
 size = Vector2(58, 49)
@@ -23,7 +23,9 @@ volume_db = 14.273
 position = Vector2(0, 8)
 triggerSize = Rect2(0, -8, 1.8, 2)
 triggersOnce = false
-mustInteract = true
+fireForPlayer = true
+fireForPumpkin = false
+fireOnBodyEnter = false
 
 [node name="playerCheckArea" type="Area2D" parent="."]
 collision_layer = 0

@@ -156,7 +156,7 @@ func endDialogue() -> void:
 		
 		if triggerToFire != null:
 			print_debug(triggerToFire)
-			triggerToFire.initiateTrigger(dialogueInitializer)
+			triggerToFire.fireTrigger(dialogueInitializer)
 			triggerToFire = null
 	
 	return

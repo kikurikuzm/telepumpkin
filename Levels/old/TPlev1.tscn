@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" path="res://Instances/Helpers/levelVariables.tscn" id="9_mb50y"]
 [ext_resource type="Resource" uid="uid://cqrj2u4yhvtx3" path="res://Resources/LevelVar Sets/sewers.tres" id="9_uupee"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="11_1w6f3"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="12_vcgpk"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="12_vcgpk"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="13_aohpx"]
 
 [sub_resource type="Gradient" id="Gradient_ysh3s"]

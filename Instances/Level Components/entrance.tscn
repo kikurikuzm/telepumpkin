@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bioh0xk7jtuqe" path="res://Scripts/entrance.gd" id="1_6ejxa"]
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="2_21j2v"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="2_a7qy0"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="2_a7qy0"]
 [ext_resource type="AudioStream" uid="uid://pn1m7mimnnwj" path="res://Audio/sfx/door open sound effect.ogg" id="4_m3rw5"]
 [ext_resource type="Script" uid="uid://cm5xn4ihn31v0" path="res://Scripts/Important Functions/LevelChangeRequester.gd" id="5_hbkgk"]
 

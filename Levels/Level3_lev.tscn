@@ -5,8 +5,8 @@
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_4rebf"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="2_yd1qr"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="3_yb8xn"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4_fkgo1"]
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_vgbee"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="8_pffj5"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="8_rccfl"]
 
 [node name="LevelSceneRoot" type="Node"]
@@ -33,11 +33,6 @@ position = Vector2(1070, 749)
 [node name="pumpkin2" parent="." instance=ExtResource("3_yb8xn")]
 position = Vector2(1138, 750)
 
-[node name="exit" parent="." instance=ExtResource("4_fkgo1")]
-z_index = -1
-position = Vector2(937, 593)
-pumpkinsNeeded = 2
-
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(959, 701)
 zoom = Vector2(3, 3)
@@ -46,13 +41,11 @@ zoom = Vector2(3, 3)
 position = Vector2(977, 705)
 collisionShapeTransform = Rect2(-93.775, 120, 0.394, 1)
 cameraZoom = 3.5
-cameraSmoothing = 0.15
 
 [node name="cameraZone2" parent="." instance=ExtResource("8_rccfl")]
 position = Vector2(1103, 683)
 collisionShapeTransform = Rect2(0, -110.2, 1.313, 1.799)
 cameraZoom = 4.5
-cameraSmoothing = 0.15
 
 [node name="bgFar" type="Parallax2D" parent="."]
 modulate = Color(0.52549, 0.52549, 0.52549, 1)
@@ -105,3 +98,8 @@ tile_set = ExtResource("1_w73xn")
 occlusion_enabled = false
 collision_enabled = false
 navigation_enabled = false
+
+[node name="Exit" parent="." instance=ExtResource("8_pffj5")]
+position = Vector2(937, 593)
+requiredPumpkins = 2
+maximumRequiredPumpkins = 2

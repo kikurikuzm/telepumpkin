@@ -6,8 +6,8 @@
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_li38f"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="5_mpq5e"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="6_udsy7"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="7_reynq"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="9_2akfe"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="9_li38f"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="9_lvo1t"]
 
 [node name="LevelSceneRoot" type="Node"]
@@ -22,7 +22,7 @@ tile_set = ExtResource("3_2akfe")
 
 [node name="platforms" type="TileMapLayer" parent="."]
 z_index = -1
-tile_map_data = PackedByteArray("AAAaABYABAACAAEAACAZABYABAADAAEAADA=")
+tile_map_data = PackedByteArray("AAAaABYABAACAAEAACAZABYABAADAAEAADAjAA8ABAACAAEAADAiAA8ABAACAAEAADAhAA8ABAADAAEAADA=")
 tile_set = ExtResource("4_li38f")
 
 [node name="spawn" parent="." instance=ExtResource("5_mpq5e")]
@@ -32,11 +32,6 @@ position = Vector2(464, 688)
 position = Vector2(673, 710)
 rotting = true
 rottingTeleport = 5
-
-[node name="exit" parent="." instance=ExtResource("7_reynq")]
-z_index = -1
-position = Vector2(927, 722)
-pumpkinsNeeded = 1
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(863, 548)
@@ -72,7 +67,6 @@ navigation_enabled = false
 position = Vector2(703, 725)
 collisionShapeTransform = Rect2(0, 0, 6.759, 3.686)
 cameraZoom = 3.5
-cameraSmoothing = 0.15
 
 [node name="entrance" parent="." instance=ExtResource("9_2akfe")]
 position = Vector2(759, 470)
@@ -82,4 +76,9 @@ gotoLevel = "uid://bnriqhlnxlh4g"
 position = Vector2(981, 420)
 collisionShapeTransform = Rect2(0, -57.611, 7.029, 2.683)
 cameraZoom = 3.665
-cameraSmoothing = 0.15
+
+[node name="Exit" parent="." instance=ExtResource("9_li38f")]
+z_index = -1
+position = Vector2(927, 722)
+requiredPumpkins = 1
+maximumRequiredPumpkins = 1

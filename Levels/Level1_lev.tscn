@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="2"]
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_a2ot6"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4"]
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_5g41i"]
 [ext_resource type="Script" uid="uid://cquqdpkj8ecfv" path="res://Scripts/CutscenePlayer.gd" id="6_2p6ya"]
 [ext_resource type="Animation" uid="uid://ujljuyhppecr" path="res://test.tres" id="8_7fl83"]
@@ -13,8 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="11_u0kaf"]
 [ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="12_u8g8w"]
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="13_hc0x2"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="14_u8g8w"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="14_u8g8w"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="15_hc0x2"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="16_32wqn"]
 
 [sub_resource type="Animation" id="Animation_m3ha0"]
 resource_name = "new_animation"
@@ -97,11 +97,6 @@ shadow_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 shadow_filter = 2
 shadow_filter_smooth = 0.9
 
-[node name="exit" parent="." instance=ExtResource("4")]
-z_index = -1
-position = Vector2(1157, 658)
-pumpkinsNeeded = 1
-
 [node name="foregroundParallax" type="Parallax2D" parent="."]
 modulate = Color(0.74978, 0.74978, 0.74978, 1)
 top_level = true
@@ -143,7 +138,6 @@ navigation_enabled = false
 [node name="cameraZone" parent="." instance=ExtResource("11_u0kaf")]
 position = Vector2(977, 596)
 collisionShapeTransform = Rect2(-213.098, 105.264, 1, 1)
-cameraSmoothing = 0.15
 
 [node name="moundNPC" parent="." instance=ExtResource("11_m83ex")]
 position = Vector2(592, 422)
@@ -158,8 +152,9 @@ gizmo_extents = 25.0
 position = Vector2(653, 464)
 triggerTargets = Array[NodePath]([NodePath("../offeringDialogue")])
 triggerSize = Rect2(-3.615, -26.692, 3.358, 2.862)
-playerTrigger = false
 showInteractIcon = false
+fireForPlayer = true
+fireForPumpkin = true
 
 [node name="offeringDialogue" parent="." instance=ExtResource("11_m83ex")]
 position = Vector2(522, 357)
@@ -175,3 +170,10 @@ gotoLevel = "uid://qwes0xww5doy"
 [node name="offeringCompleteTrigger" parent="." instance=ExtResource("14_u8g8w")]
 position = Vector2(1398, 105)
 triggerTargets = Array[NodePath]([NodePath("../entrance")])
+fireForPlayer = true
+fireForPumpkin = true
+
+[node name="Exit" parent="." instance=ExtResource("16_32wqn")]
+position = Vector2(1154, 657)
+requiredPumpkins = 1
+maximumRequiredPumpkins = 1

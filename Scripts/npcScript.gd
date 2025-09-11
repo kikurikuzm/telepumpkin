@@ -43,12 +43,10 @@ func _ready():
 	animSprite.flip_h = spriteFlip
 	animSprite.play(npcLook)
 	
-	if !interactToInitiate:
-		trigger.disableTrigger()
+	if Engine.is_editor_hint(): return
 	
-	if collideToInitiate:
-		trigger.enableTrigger()
-		trigger.mustInteract = false
+	trigger.fireOnPlayerInteraction = interactToInitiate
+	trigger.fireOnBodyEnter = collideToInitiate
 	
 	for conversation in dialogueArray:
 		for dialogue in conversation.conversationArray:

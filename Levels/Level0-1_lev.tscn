@@ -5,8 +5,8 @@
 [ext_resource type="TileSet" uid="uid://lgbtsst4op3c" path="res://Tile Sets/farmlandTiles.tres" id="3_e7u7u"]
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_1lh87"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="5_ckkgq"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="6_6yo4u"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="7_j10rr"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="8_43shw"]
 
 [node name="LevelSceneRoot" type="Node"]
 script = ExtResource("1_jkwd6")
@@ -38,10 +38,6 @@ shadow_enabled = true
 shadow_color = Color(0.0588235, 0.0588235, 0.0588235, 1)
 shadow_filter = 2
 shadow_filter_smooth = 0.9
-
-[node name="exit" parent="." instance=ExtResource("6_6yo4u")]
-z_index = -1
-position = Vector2(1231, 624)
 
 [node name="foregroundParallax" type="Parallax2D" parent="."]
 modulate = Color(0.74978, 0.74978, 0.74978, 1)
@@ -91,16 +87,18 @@ cameraSmoothing = 0.09
 position = Vector2(657, 675)
 collisionShapeTransform = Rect2(0, 5.063, 3.657, 1.517)
 cameraZoom = 3.7
-cameraSmoothing = 0.15
 
 [node name="cameraZone3" parent="." instance=ExtResource("7_j10rr")]
 position = Vector2(657, 675)
 collisionShapeTransform = Rect2(-7.999, -93.301, 1.965, 1)
 cameraZoom = 3.7
-cameraSmoothing = 0.15
 
 [node name="cameraZone4" parent="." instance=ExtResource("7_j10rr")]
 position = Vector2(1120, 639)
 collisionShapeTransform = Rect2(35.487, 0, 4.846, 5.53)
 cameraZoom = 4.0
-cameraSmoothing = 0.15
+
+[node name="Exit" parent="." instance=ExtResource("8_43shw")]
+position = Vector2(1231, 624)
+requiredPumpkins = 1
+maximumRequiredPumpkins = 1

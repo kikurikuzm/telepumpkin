@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cxe7rdaiojght"]
+[gd_scene load_steps=34 format=3 uid="uid://cxe7rdaiojght"]
 
 [ext_resource type="Script" uid="uid://c5txg6j8beemj" path="res://Scripts/Level Elements/PumpkinLockedTrigger.gd" id="1_tfe3e"]
 [ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_jr3w4"]
@@ -42,6 +42,11 @@ anti_aliasing_size = 0.22
 
 [sub_resource type="Theme" id="Theme_aqc8r"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_5f3yy")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_pmgh4"]
+color = Color(0.58, 0.261, 0, 0.80784315)
+grow_begin = 0.0
+grow_end = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g4bpp"]
 atlas = ExtResource("6_5paxm")
@@ -250,15 +255,18 @@ animations = [{
 [node name="PumpkinLockedTrigger" type="Node2D" groups=["trigger"]]
 script = ExtResource("1_tfe3e")
 lockTexture = ExtResource("2_yidrq")
+fireOnBodyExit = true
+fireOnPlayerInteraction = false
 
 [node name="lockAppearance" type="Sprite2D" parent="."]
+texture = ExtResource("2_yidrq")
 
 [node name="interactIcon" parent="." instance=ExtResource("2_jr3w4")]
 
 [node name="Area2D" type="Area2D" parent="." groups=["entity_trigger_area"]]
 light_mask = 0
-collision_layer = 16
-collision_mask = 16
+collision_layer = 20
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_nxb7d")
@@ -302,20 +310,51 @@ anchor_bottom = 0.5
 offset_left = -8.0
 offset_top = -32.0
 offset_right = 8.0
-offset_bottom = -18.0
+offset_bottom = -19.342985
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(8, 8)
 theme = SubResource("Theme_aqc8r")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="pumpkinsRemainingUI/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="pumpkinsRemainingUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="requiredPumpkinsHbox" type="HBoxContainer" parent="pumpkinsRemainingUI/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 2
 
-[node name="pumpkinOne" type="TextureRect" parent="pumpkinsRemainingUI/PanelContainer/HBoxContainer"]
+[node name="requiredPumpkin" type="TextureRect" parent="pumpkinsRemainingUI/PanelContainer/VBoxContainer/requiredPumpkinsHbox"]
+unique_name_in_owner = true
 modulate = Color(0.15, 0.15, 0.15, 0.705882)
+light_mask = 0
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("5_yidrq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="pumpkinsRemainingUI/PanelContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxLine_pmgh4")
+
+[node name="maximumPumpkinsHbox" type="HBoxContainer" parent="pumpkinsRemainingUI/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+
+[node name="maxPumpkin" type="TextureRect" parent="pumpkinsRemainingUI/PanelContainer/VBoxContainer/maximumPumpkinsHbox"]
+unique_name_in_owner = true
 light_mask = 0
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
@@ -340,4 +379,5 @@ sprite_frames = SubResource("SpriteFrames_me23m")
 animation = &"good"
 autoplay = "default"
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

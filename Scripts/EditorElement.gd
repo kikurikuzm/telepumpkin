@@ -1,5 +1,4 @@
-extends Node2D
-class_name EditorElement
+@abstract class_name EditorElement extends Node2D
 
 @export var isVisibleInGame : bool = false
 

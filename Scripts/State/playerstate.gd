@@ -59,11 +59,11 @@ func accelerate(moveDir:int):
 	clamp(curveX, -MAXSPEED, MAXSPEED)
 	return(curveY)
 
-func interactWithNPC(npcTrigger:Trigger) -> void: # Override to disable
-	npcTrigger.triggerInteract(player)
+func interactWithNPC(npcTrigger:Trigger) -> bool: ## Override to disable. Returns true or false depending on the success of the trigger interact
+	return npcTrigger._triggerInteract(player)
 
-func interactWithTrigger(trigger:Trigger) -> void:
-	trigger.triggerInteract(player)
+func interactWithTrigger(trigger:Trigger) -> bool: ## Override to disable. Returns true or false depending on the success of the trigger interact
+	return trigger._triggerInteract(player)
 
 func interactTeleport() -> void:
 	if !teleportRange.rangeHasTeleportTargets() or !teleportRange.canTeleport(): return
@@ -89,16 +89,14 @@ func initiateInteraction() -> void:
 	for area in interactionArea.get_overlapping_areas():
 		if area.is_in_group("entity_trigger_area"):
 			var trigger:Trigger = area.get_parent()
-			print_debug("tried triggering %s" % str(trigger))
-			if trigger.enabled == false or trigger.mustInteract == false or !trigger.playerTrigger	: continue
+			print_debug("Tried interacting with trigger : %s" % str(trigger))
 			
 			if trigger.is_in_group("entity_npc_trigger"):
 				print_debug("npc trigger")
-				interactWithNPC(trigger)
-				return
+				if interactWithNPC(trigger) == true: return
 			else:
-				interactWithTrigger(trigger)
-				return
+				if interactWithTrigger(trigger) == true: return
+				
 			
 			#elif area.is_in_group("entity_tpp_range"):
 		

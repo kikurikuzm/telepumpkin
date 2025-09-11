@@ -99,7 +99,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				playerInteract.enableTrigger()
 			
 			for trigger in triggersToFire:
-				trigger.initiateTrigger(self)
+				trigger.fireTrigger(self)
 			
 			showPumpkinUI()
 			print_debug("got all pumpkins")

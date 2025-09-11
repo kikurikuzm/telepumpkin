@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+class_name InteractIcon extends Node2D
 
 @export var customSize = Vector2.ZERO
 @export var enabled:bool = true
@@ -47,5 +47,5 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("entity_player_body") and enabled == true:
-		showInteract()
+	if body.is_in_group("entity_player_body"):
+		hideInteract()

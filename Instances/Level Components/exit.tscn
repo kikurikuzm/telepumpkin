@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ck6qhwrdn3efb" path="res://Scripts/exit.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bkaeby7obkady" path="res://Sprites/Misc/exitBasket.png" id="2_dufrg"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="3_yo2gt"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="3_yo2gt"]
 [ext_resource type="Texture2D" uid="uid://bueycvi62oyv6" path="res://Sprites/Misc/pointingArrow.png" id="4_5f3yy"]
 [ext_resource type="Shader" uid="uid://c2kixvp8ls0q7" path="res://Resources/Shaders/wigglewavy.gdshader" id="4_g4bpp"]
 [ext_resource type="Texture2D" uid="uid://quari01f84qd" path="res://Sprites/Misc/cropperPumpkin.png" id="6_g4bpp"]

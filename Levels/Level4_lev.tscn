@@ -6,13 +6,13 @@
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_w3ywh"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="5_ndxfa"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="6_benap"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="7_3xhn4"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="8_vi4w6"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="9_ws0kf"]
 [ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="10_w3ywh"]
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="11_ndxfa"]
 [ext_resource type="PackedScene" uid="uid://bogv68ksmv4pq" path="res://Instances/Level Components/entrance.tscn" id="12_ndxfa"]
-[ext_resource type="PackedScene" uid="uid://ggsnbj3dkqpd" path="res://Instances/Level Components/nodeMoveTrigger.tscn" id="13_benap"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="13_3xhn4"]
+[ext_resource type="PackedScene" uid="uid://ggsnbj3dkqpd" path="res://Instances/Level Components/Triggers/nodeMoveTrigger.tscn" id="13_benap"]
 
 [sub_resource type="Resource" id="Resource_benap"]
 script = ExtResource("11_ndxfa")
@@ -82,10 +82,6 @@ position = Vector2(1041, 684)
 rotting = true
 rottingTeleport = 4
 
-[node name="exit" parent="." instance=ExtResource("7_3xhn4")]
-position = Vector2(1041, 880)
-pumpkinsNeeded = 1
-
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(896, 734)
 zoom = Vector2(2.5, 2.5)
@@ -94,7 +90,6 @@ zoom = Vector2(2.5, 2.5)
 position = Vector2(911, 816)
 collisionShapeTransform = Rect2(-207, -17, 0.855, 1)
 cameraZoom = 3.7
-cameraSmoothing = 0.15
 
 [node name="cameraZone2" parent="." instance=ExtResource("8_vi4w6")]
 position = Vector2(1041, 725)
@@ -179,3 +174,8 @@ showInteractIcon = false
 
 [node name="Path2D" type="Path2D" parent="Trigger"]
 curve = SubResource("Curve2D_3xhn4")
+
+[node name="Exit" parent="." instance=ExtResource("13_3xhn4")]
+position = Vector2(1041, 880)
+requiredPumpkins = 1
+maximumRequiredPumpkins = 1

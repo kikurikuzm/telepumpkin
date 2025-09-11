@@ -1,5 +1,7 @@
 @tool
-class_name NodeModifyTrigger extends Trigger
+@abstract class_name NodeModifyTrigger extends Trigger
+
+## An abstract class of Trigger that modifies provided nodes somehow.
 
 @export_group("Effected Nodes")
 @export_node_path("Node2D") var modifyTargets:Array[NodePath] ## Which nodes to move upon this trigger being triggered (seperate from [param triggerTargets]).
@@ -11,30 +13,33 @@ func _ready() -> void:
 	if !Engine.is_editor_hint():
 		self.set_process(false)
 
-func startModifyingNodes() -> void:
+func startModifyingNodes(cause:Node2D) -> void:
 	self.set_process(true)
+	
+	if triggerOnModifyFinished == false:
+		fireTrigger(cause)
 
 func finishedModifyingNodes() -> void:
 	self.set_process(false)
 	
 	if triggerOnModifyFinished == true:
-		initiateTrigger(self)
+		fireTrigger(self)
 
-func nodeModification(nodePath:NodePath) -> void:
+func nodeModification(_nodePath:NodePath) -> void:
 	pass # Override with code that changes the node somehow
 
 func modifyNodes() -> void:
 	for node in modifyTargets:
 		nodeModification(node)
 
-func triggerInteract(cause:Node2D) -> void:
-	startModifyingNodes()
-	
-	if triggerOnModifyFinished == false:
-		initiateTrigger(cause)
+func onTriggerInteracted(cause:Node2D) -> void:
+	startModifyingNodes(cause)
 
-func onTriggerFired(cause:Node2D) -> void:
-	startModifyingNodes()
+func onTriggerEntered(cause:Node2D) -> void:
+	startModifyingNodes(cause)
+
+func onTriggerExited(cause:Node2D) -> void:
+	startModifyingNodes(cause)
 
 func onTriggeredByTrigger(cause:Node2D) -> void:
-	startModifyingNodes()
+	startModifyingNodes(cause)

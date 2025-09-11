@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dphyf5iofd1ii" path="res://Sprites/Misc/doors.png" id="6_fktvw"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/pipe.tscn" id="8_i8vbr"]
 [ext_resource type="PackedScene" uid="uid://bos8ss8x8l7og" path="res://Instances/Helpers/dialogueManager.tscn" id="9_2yq15"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_06yn4"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="9_06yn4"]
 [ext_resource type="Script" uid="uid://cquqdpkj8ecfv" path="res://Scripts/CutscenePlayer.gd" id="10_dshrw"]
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="10_lfg40"]
 [ext_resource type="PackedScene" path="res://Instances/Level Components/levelChange.tscn" id="11_pfe6o"]

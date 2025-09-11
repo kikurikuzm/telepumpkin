@@ -44,8 +44,4 @@ func nodeModification(nodePath:NodePath) -> void:
 	if !is_instance_valid(node): return
 	
 	newPosition = movementInterpolation.curve.samplef(progress) + movementInterpolation.global_position
-	#print(progress)
-	#print(currentTimeStep)
-	#newPosition.x = smoothstep(newPosition.x, destination.x, currentTimeStep)
-	#newPosition.y = smoothstep(newPosition.y, destination.y, currentTimeStep)
 	node.global_position = newPosition

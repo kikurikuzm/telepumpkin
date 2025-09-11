@@ -9,22 +9,19 @@ size = Vector2(32, 32)
 
 [sub_resource type="Curve2D" id="Curve2D_x1hsm"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 67, -24)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 2
 
-[node name="Trigger" type="Node2D" groups=["trigger"]]
+[node name="NodeMoveTrigger" type="Node2D" groups=["trigger"]]
 script = ExtResource("1_x1hsm")
-destinationActsAsOffset = false
-triggerOnModifyFinished = false
-triggerSize = Rect2(0, 0, 1, 1)
 
 [node name="interactIcon" parent="." instance=ExtResource("2_ckvo4")]
 
 [node name="Area2D" type="Area2D" parent="." groups=["entity_trigger_area"]]
 light_mask = 0
 collision_layer = 16
-collision_mask = 16
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_nxb7d")
@@ -45,4 +42,5 @@ gizmo_extents = 30.0
 [node name="editor_destinationLine" type="Path2D" parent="."]
 curve = SubResource("Curve2D_x1hsm")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

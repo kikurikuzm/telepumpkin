@@ -1,21 +1,23 @@
 [gd_scene load_steps=5 format=3 uid="uid://og6amlgywg1r"]
 
-[ext_resource type="Script" uid="uid://jeam2x01shxw" path="res://Scripts/triggerScript.gd" id="1_hmf4k"]
-[ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_lgav0"]
-[ext_resource type="Texture2D" uid="uid://caqsjy8qx0b7v" path="res://Resources/Editor Icons/trigger.png" id="2_nj6ps"]
+[ext_resource type="Script" uid="uid://jeam2x01shxw" path="res://Scripts/triggerScript.gd" id="1_nkck7"]
+[ext_resource type="PackedScene" uid="uid://c7oa4p0xn7ya" path="res://Instances/interactIcon.tscn" id="2_7y6wy"]
+[ext_resource type="Texture2D" uid="uid://caqsjy8qx0b7v" path="res://Resources/Editor Icons/trigger.png" id="3_712fo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxb7d"]
 size = Vector2(32, 32)
 
 [node name="Trigger" type="Node2D" groups=["trigger"]]
-script = ExtResource("1_hmf4k")
+script = ExtResource("1_nkck7")
+fireForPlayer = null
+fireForPumpkin = null
 
-[node name="interactIcon" parent="." instance=ExtResource("2_lgav0")]
+[node name="interactIcon" parent="." instance=ExtResource("2_7y6wy")]
 
 [node name="Area2D" type="Area2D" parent="." groups=["entity_trigger_area"]]
 light_mask = 0
 collision_layer = 16
-collision_mask = 16
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_nxb7d")
@@ -28,7 +30,7 @@ z_index = 100
 z_as_relative = false
 position = Vector2(-1.19209e-07, 0)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_nj6ps")
+texture = ExtResource("3_712fo")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

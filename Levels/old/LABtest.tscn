@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b31xlhqs4yt5c" path="res://Resources/sewerbg.tres" id="6_ejw0m"]
 [ext_resource type="PackedScene" path="res://Instances/Helpers/levelVariables.tscn" id="8_2ii2o"]
 [ext_resource type="Resource" uid="uid://cqrj2u4yhvtx3" path="res://Resources/LevelVar Sets/sewers.tres" id="8_wu8a2"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="13_aoiod"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="13_aoiod"]
 [ext_resource type="Script" uid="uid://cquqdpkj8ecfv" path="res://Scripts/CutscenePlayer.gd" id="14_vf4t7"]
 
 [sub_resource type="Gradient" id="Gradient_ysh3s"]

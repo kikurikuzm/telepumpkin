@@ -6,9 +6,9 @@
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="4_4i1jg"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="5_fjiiu"]
 [ext_resource type="PackedScene" uid="uid://omxwiw3x34ud" path="res://Instances/Level Components/teleportableObject.tscn" id="6_2m1ul"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="7_yhnns"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="9_124g2"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="9_124g2"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="10_4jthu"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="10_8kdam"]
 [ext_resource type="Script" uid="uid://cm5xn4ihn31v0" path="res://Scripts/Important Functions/LevelChangeRequester.gd" id="11_8kdam"]
 
 [node name="LevelSceneRoot" type="Node"]
@@ -34,11 +34,6 @@ position = Vector2(560, 777)
 rotting = true
 rottingTeleport = 1
 
-[node name="exit" parent="." instance=ExtResource("7_yhnns")]
-z_index = -1
-position = Vector2(913, 813)
-pumpkinsNeeded = 1
-
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(736, 990)
 zoom = Vector2(2.5, 2.5)
@@ -46,7 +41,6 @@ zoom = Vector2(2.5, 2.5)
 [node name="cameraZone" parent="." instance=ExtResource("10_4jthu")]
 position = Vector2(665, 763)
 collisionShapeTransform = Rect2(0, 0, 8.568, 4.191)
-cameraSmoothing = 0.15
 
 [node name="LevelChangeRequester" type="Node" parent="."]
 script = ExtResource("11_8kdam")
@@ -59,6 +53,8 @@ position = Vector2(651, 1111)
 triggerTargets = Array[NodePath]([NodePath("../LevelChangeRequester")])
 triggerSize = Rect2(0, 0, 16.09, 11.78)
 showInteractIcon = false
+fireForPlayer = true
+fireForPumpkin = true
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.95, 0.95)
@@ -73,3 +69,9 @@ tile_set = ExtResource("3_8kdam")
 occlusion_enabled = false
 collision_enabled = false
 navigation_enabled = false
+
+[node name="Exit" parent="." instance=ExtResource("10_8kdam")]
+z_index = -1
+position = Vector2(913, 813)
+requiredPumpkins = 2
+maximumRequiredPumpkins = 2

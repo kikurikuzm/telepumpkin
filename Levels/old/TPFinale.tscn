@@ -15,7 +15,7 @@
 [ext_resource type="Environment" uid="uid://dxo0lyghjrd56" path="res://Resources/Environments/Sewers.tres" id="12_ly0lv"]
 [ext_resource type="PackedScene" uid="uid://cl1u4c1fck5lu" path="res://Instances/Level Components/pipe.tscn" id="12_s82yx"]
 [ext_resource type="PackedScene" uid="uid://uvubvbwf20q5" path="res://Instances/Level Components/peater.tscn" id="14_661bw"]
-[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/trigger.tscn" id="15_gul2f"]
+[ext_resource type="PackedScene" uid="uid://og6amlgywg1r" path="res://Instances/Level Components/Triggers/trigger.tscn" id="15_gul2f"]
 [ext_resource type="PackedScene" uid="uid://csri8fe3u0pq" path="res://Instances/Helpers/player_dummy.tscn" id="16_rhddn"]
 [ext_resource type="PackedScene" path="res://Instances/Level Components/levelChange.tscn" id="17_b6fjp"]
 

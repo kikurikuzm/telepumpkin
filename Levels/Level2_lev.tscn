@@ -6,40 +6,22 @@
 [ext_resource type="Resource" uid="uid://c3e5j3f2h12jj" path="res://Resources/LevelVar Sets/farmlands.tres" id="2_b4cje"]
 [ext_resource type="PackedScene" uid="uid://csigyecrman8f" path="res://Instances/Level Components/Spawnpoint.tscn" id="3"]
 [ext_resource type="TileSet" uid="uid://c0hksqeiy0e1e" path="res://Tile Sets/cityTiles.tres" id="3_twi1l"]
-[ext_resource type="PackedScene" uid="uid://dygdvbw8bkdya" path="res://Instances/Level Components/exit.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://buk438il4heh5" path="res://Instances/Level Components/NPC.tscn" id="9_h5avp"]
 [ext_resource type="PackedScene" uid="uid://bf434ia7tomul" path="res://Instances/Level Components/cameraZone.tscn" id="9_q5lgr"]
 [ext_resource type="Script" uid="uid://cgtgjpboysb1f" path="res://Scripts/resourceScripts/dialogueConversation.gd" id="10_nt3wj"]
 [ext_resource type="Script" uid="uid://d3q3ufenhm5w3" path="res://Scripts/resourceScripts/dialogueEntry.gd" id="11_cv38l"]
+[ext_resource type="PackedScene" uid="uid://cxe7rdaiojght" path="res://Instances/Level Components/Triggers/pumpkinLockedTrigger.tscn" id="11_nt3wj"]
 
 [sub_resource type="Resource" id="Resource_nh58h"]
 script = ExtResource("11_cv38l")
 dialogueText = "\"H-Hey! CAW! What are you doing here?\""
 dialoguePortrait = "smoke"
-textSpeed = 0.07
-triggerToFire = NodePath("")
-currentFocus = NodePath("")
-focusPlayer = false
-cameraSpeed = 0.1
-cameraZoom = 4.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_vuo3p"]
 script = ExtResource("11_cv38l")
 dialogueText = "\"I'm still working on this secret. CAW! Good job finding this though!\""
 dialoguePortrait = "smoke"
-textSpeed = 0.07
-triggerToFire = NodePath("")
-currentFocus = NodePath("")
-focusPlayer = false
-cameraSpeed = 0.1
-cameraZoom = 4.0
-playerCanMove = false
-goToNextConversation = false
-manualNextConversation = 0
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_jf3tg"]
@@ -60,10 +42,6 @@ tile_set = ExtResource("1_0u83h")
 tile_set = ExtResource("3_twi1l")
 occlusion_enabled = false
 
-[node name="exit" parent="." instance=ExtResource("4")]
-position = Vector2(688, 721)
-pumpkinsNeeded = 1
-
 [node name="spawn" parent="." instance=ExtResource("3")]
 position = Vector2(626, 685)
 
@@ -78,7 +56,6 @@ zoom = Vector2(2.25, 2.25)
 position = Vector2(753, 701)
 collisionShapeTransform = Rect2(35.422, 0, 0.944, 1)
 cameraZoom = 3.5
-cameraSmoothing = 0.15
 
 [node name="closerForegroundParallax" type="Parallax2D" parent="."]
 modulate = Color(0.74978, 0.74978, 0.74978, 1)
@@ -122,3 +99,8 @@ position = Vector2(446, 478)
 dialogueArray = Array[ExtResource("10_nt3wj")]([SubResource("Resource_jf3tg")])
 interactToInitiate = false
 collideToInitiate = true
+
+[node name="Exit" parent="." instance=ExtResource("11_nt3wj")]
+position = Vector2(688, 721)
+requiredPumpkins = 1
+maximumRequiredPumpkins = 1
