@@ -35,6 +35,11 @@ const STATE_FINISH_LEVEL := "playerFinishLevel"
 const STATE_FLYING := "playerFly"
 const STATE_KICKING := "playerKick"
 
+const PLAYER_DEFAULT_COLOUR:Color = Color(1.0, 1.0, 1.0)
+const PLAYER_FLASH_COLOUR:Color = Color(3.0, 3.0, 3.0)
+const MAGIC_FULL_CHARGED_COLOUR:Color = Color(2.0, 1.0, 1.5)
+const MAGIC_READY_FLASH:Color = Color(3.0, 2.0, 1.5)
+
 func enter() -> void:
 	pass
 

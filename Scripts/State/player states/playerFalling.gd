@@ -2,23 +2,33 @@ extends PlayerState
 class_name playerFalling
 
 @onready var fallThumpAudio = preload("res://Audio/sfx/fall thump.ogg")
-
 @onready var coyoteTimer:Timer = $"../../coyoteTimer"
+
+var magicColourTween:Tween
 
 var aircontrol = 1
 var currentVelocityY: float
 
 func enter():
+	if magicColourTween:
+		magicColourTween.kill()
+	
+	magicColourTween = self.create_tween()
+	
 	animPlayer.play("fall")
 	player.gravity = gvars.playerGravity * 2.3
 	
 	if player.jumpsRemaining > 0:
-		playerSprite.self_modulate = Color(2.0, 1.0, 1.5)
+		playerSprite.self_modulate = MAGIC_READY_FLASH
 		coyoteTimer.start(AIRTIME)
+		
+		magicColourTween.tween_property(playerSprite, "self_modulate", MAGIC_FULL_CHARGED_COLOUR, 0.5)
 	else:
-		playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
+		playerSprite.self_modulate = PLAYER_DEFAULT_COLOUR
 
 func exit():
+	magicColourTween.kill()
+	
 	if player.is_on_floor():
 		impactAudio.stream = fallThumpAudio
 		impactAudio.pitch_scale = randf_range(0.75, 1.0)

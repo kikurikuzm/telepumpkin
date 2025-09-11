@@ -5,7 +5,7 @@ extends EditorElement
 class_name Trigger
 ##A level element that can activate other elements.
 
-@export_node_path("Node2D") var triggerTargets:Array[NodePath]
+@export_node_path("Node") var triggerTargets:Array[NodePath]
 @export var triggerSize:Rect2 = Rect2(0, 0, 1.0, 1.0)
 @export_group("Trigger Settings")
 @export var enabled:bool = true ##Should this trigger be visible and active?
@@ -73,6 +73,8 @@ func disableTrigger():
 func fireTrigger(cause:Node2D) -> void: ## Emits the triggered signal to the provided targets.
 	if hasTriggered == true and triggersOnce == true: return
 	elif enabled == false: return
+	
+	print_debug("Trigger fired: %s" % str(self))
 	
 	triggeredByCause.emit(cause)
 	hasTriggered = true
