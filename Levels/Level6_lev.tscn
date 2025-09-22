@@ -65,7 +65,7 @@ navigation_enabled = false
 
 [node name="cameraZone" parent="." instance=ExtResource("9_lvo1t")]
 position = Vector2(703, 725)
-collisionShapeTransform = Rect2(0, 0, 6.759, 3.686)
+collisionShapeTransform = Rect2(0, 33.281, 6.759, 3.686)
 cameraZoom = 3.5
 
 [node name="entrance" parent="." instance=ExtResource("9_2akfe")]

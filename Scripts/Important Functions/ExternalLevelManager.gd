@@ -3,14 +3,20 @@ extends Node
 static var dailyServerConnection:HTTPClient
 static var loadedDailyLevel:PackedScene = null
 
+var connectedToDailyLevelServer:bool = false
+
 const DAILY_SERVER_ADDRESS := "http://localhost"
 const DAILY_SERVER_ENDPOINT := "/daily"
 
+signal establishedConnectionToDailyServer
 signal downloadedDailyLevel
 
 func _ready() -> void:
 	dailyServerConnection = HTTPClient.new()
 	establishDailyServerConnection()
+
+func isConnectedToDailyServer() -> bool:
+	return connectedToDailyLevelServer
 
 func establishDailyServerConnection() -> void:
 	var err = dailyServerConnection.connect_to_host(DAILY_SERVER_ADDRESS, 5000)
@@ -26,7 +32,10 @@ func establishDailyServerConnection() -> void:
 	
 	if dailyServerConnection.get_status() != HTTPClient.STATUS_CONNECTED:
 		print_debug("Daily-Server: Failed to connect. Err: %d" % dailyServerConnection.get_status())
-	return
+		return
+	
+	establishedConnectionToDailyServer.emit()
+	connectedToDailyLevelServer = true
 
 func getDailyLevel() -> PackedScene:
 	var dailyLevel:PackedScene = null

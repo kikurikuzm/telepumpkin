@@ -148,14 +148,6 @@ npcLook = "inspect"
 position = Vector2(536, 392)
 gizmo_extents = 25.0
 
-[node name="pumpkinOfferingTrigger" parent="." instance=ExtResource("14_u8g8w")]
-position = Vector2(653, 464)
-triggerTargets = Array[NodePath]([NodePath("../offeringDialogue")])
-triggerSize = Rect2(-3.615, -26.692, 3.358, 2.862)
-showInteractIcon = false
-fireForPlayer = true
-fireForPumpkin = true
-
 [node name="offeringDialogue" parent="." instance=ExtResource("11_m83ex")]
 position = Vector2(522, 357)
 dialogueArray = Array[ExtResource("12_u8g8w")]([SubResource("Resource_pug0n")])
@@ -172,6 +164,15 @@ position = Vector2(1398, 105)
 triggerTargets = Array[NodePath]([NodePath("../entrance")])
 fireForPlayer = true
 fireForPumpkin = true
+
+[node name="PumpkinLockedTrigger" parent="." instance=ExtResource("16_32wqn")]
+position = Vector2(655, 472)
+lockTexture = null
+requiredPumpkins = 1
+maximumRequiredPumpkins = 1
+pumpkinUIVisible = false
+triggerTargets = Array[NodePath]([NodePath("../offeringDialogue")])
+triggerSize = Rect2(0, -8.405, 2.731, 1)
 
 [node name="Exit" parent="." instance=ExtResource("16_32wqn")]
 position = Vector2(1154, 657)

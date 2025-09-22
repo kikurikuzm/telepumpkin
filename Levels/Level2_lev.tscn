@@ -39,6 +39,8 @@ tile_map_data = PackedByteArray("AAAQABIAAAADAAUAAAAQABEAAAAHAAMAAAAPABEAAAAFAAU
 tile_set = ExtResource("1_0u83h")
 
 [node name="platform2" type="TileMapLayer" parent="."]
+z_index = -1
+tile_map_data = PackedByteArray("AAASABIABAADAAEAACARABIABAACAAEAACAQABIABAACAAEAACA=")
 tile_set = ExtResource("3_twi1l")
 occlusion_enabled = false
 

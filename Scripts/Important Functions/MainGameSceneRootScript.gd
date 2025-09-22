@@ -200,8 +200,9 @@ func _dialogueManagerBeginDialogue(emittingNPCConversation:DialogueConversation,
 	dialogueManager.conversationInitiate([emittingNPCConversation], 0, emittingNPCInstanceReference)
 
 func _levelCompleted():
+	print_debug("level complete")
 	currentLevelSetIndex += 1
-	playerReference.changeState("playerFinishLevel")
+	playerReference.changeState(PlayerState.STATE_FINISH_LEVEL)
 	#Changes level because of the player animation finishing
 	
 	gvars.levelToLoadInMainScene = ""

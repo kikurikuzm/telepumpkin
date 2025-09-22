@@ -8,6 +8,10 @@ signal startButtonPressed(requestTutorial:bool)
 var userSaveExists:bool = false
 
 func _ready() -> void:
+	ExternalLevelManager.establishedConnectionToDailyServer.connect(func():
+		%DailyLevelButton.show()
+	)
+	
 	if FileAccess.file_exists("user://save.dat"):
 		$StartButton.text = "Resume"
 		userSaveExists = true

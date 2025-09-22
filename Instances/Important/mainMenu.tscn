@@ -76,21 +76,21 @@ outline_size = 9
 outline_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
 shadow_size = 629
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv8hh"]
+content_margin_left = 10.0
+bg_color = Color(0, 0, 0, 0.313726)
+border_width_top = 4
+border_color = Color(0.945098, 0.360784, 0.109804, 0)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qu4y0"]
 content_margin_left = 8.0
 content_margin_right = 8.0
 bg_color = Color(0, 0, 0, 0.313726)
 border_width_top = 4
 border_color = Color(0.945098, 0.360784, 0.109804, 0.756863)
-border_blend = true
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv8hh"]
-content_margin_left = 10.0
-bg_color = Color(0, 0, 0, 0.313726)
-border_width_top = 4
-border_color = Color(0.945098, 0.360784, 0.109804, 0)
 border_blend = true
 corner_radius_top_left = 4
 corner_radius_top_right = 4
@@ -274,6 +274,8 @@ theme = ExtResource("2_kn6pq")
 text = "Start"
 
 [node name="DailyLevelButton" type="Button" parent="MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox"]
+unique_name_in_owner = true
+visible = false
 material = SubResource("ShaderMaterial_us17e")
 layout_mode = 2
 size_flags_vertical = 3
@@ -336,8 +338,8 @@ custom_minimum_size = Vector2(700, 500)
 layout_mode = 2
 size_flags_vertical = 6
 theme = ExtResource("2_kn6pq")
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_qu4y0")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_kv8hh")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_qu4y0")
 tab_alignment = 1
 current_tab = 0
 clip_tabs = false

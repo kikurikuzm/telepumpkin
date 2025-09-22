@@ -6,6 +6,9 @@ var achieveParticles:PackedScene = preload("res://Instances/Particles/pumpkinAch
 @export var lockTexture:Texture2D = null
 @export var requiredPumpkins:int = 0 ## The minimum amount of pumpkins required to unlock this lock.
 @export var maximumRequiredPumpkins:int = 0 ## The maximum amount of pumpkins this lock expects in the level.
+@export_group("Appearance Settings")
+@export var pumpkinUIVisible:bool = true
+
 @export_group("Trigger Settings")
 @export_subgroup("Fire Conditions")
 @export var fireOnMinPumpkins:bool = false ## Should this fire upon the required amount of pumpkins being reached?
@@ -59,28 +62,36 @@ func _ready():
 			for pumpkin in range(1, maximumRequiredPumpkins):
 				maximumPumpkinsHBox.add_child(%maxPumpkin.duplicate())
 		
-		showPumpkinUI()
+		if pumpkinUIVisible == true:
+			showPumpkinUI()
+		else:
+			hidePumpkinUI()
+
+func fireTrigger(cause:Node2D) -> void:
+	super(cause)
+	
+	self.visible = false
+	self.set_process(false)
 
 func onTriggerInteracted(_cause:Node2D) -> void:
 	if collectedPumpkins >= requiredPumpkins:
-		progressToNextLevel()
+		fireTrigger(_cause)
 
 func onTriggerEntered(cause:Node2D) -> void:
 	print_debug("Trigger entered by %s" % str(cause))
-	if cause is Player: 
+	if cause is Player and pumpkinUIVisible == true: 
 		showPumpkinUI()
 	elif cause is TeleportableObject and collectedPumpkins < requiredPumpkins:
 		pumpkinsCollectedIncrement(cause)
 
 func onTriggerExited(cause:Node2D) -> void:
 	print_debug("Trigger exited by %s" % str(cause))
-	if cause is Player:
+	if cause is Player and pumpkinUIVisible == true:
 		hidePumpkinUI()
 
 func progressToNextLevel():
 	levelChangeRequester.changeLevel(LevelChangeRequester.LevelChangeTypes.SUCCESS)
-	self.visible = false
-	self.set_process(false)
+
 
 func pumpkinsCollectedIncrement(pumpkin:TeleportableObject) -> void:
 	pumpkin.pumpkinDestroy()
@@ -104,7 +115,8 @@ func pumpkinsCollectedIncrement(pumpkin:TeleportableObject) -> void:
 		if fireOnMinPumpkins == true:
 			fireTrigger(self)
 		
-		showPumpkinUI()
+		if pumpkinUIVisible == true:
+			showPumpkinUI()
 	
 	var particleInst:Node2D = achieveParticles.instantiate()
 	self.add_child(particleInst)

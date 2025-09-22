@@ -1,5 +1,4 @@
-extends PlayerState
-class_name playerStretch
+class_name playerStretch extends PlayerState
 
 @onready var coyoteTimer:Timer = $"../../coyoteTimer"
 @onready var debugLabel = $"../../debugText"
@@ -59,7 +58,7 @@ func physics_update(delta: float):
 	
 	if !player.is_on_floor() and coyoteTimer.is_stopped() and player.jumpsRemaining > 0 and hasHadAirTimer == false:
 		coyoteTimer.start(AIRTIME)
-		playerSprite.self_modulate = Color(2.0, 1.0, 1.5)
+		playerSprite.self_modulate = MAGIC_FULL_CHARGED_COLOUR
 		hasHadAirTimer = true
 	
 	var direction = 0
@@ -103,9 +102,9 @@ func physics_update(delta: float):
 				modulateTween = self.create_tween()
 				
 				maxJumpStrengthReached = true
-				playerSprite.self_modulate = Color(3.0, 3.0, 3.0)
+				playerSprite.self_modulate = PLAYER_FLASH_COLOUR
 				
-				modulateTween.tween_property(playerSprite, "self_modulate", Color(2.0, 1.0, 1.5), 0.5).set_trans(Tween.TRANS_CUBIC)
+				modulateTween.tween_property(playerSprite, "self_modulate", MAGIC_FULL_CHARGED_COLOUR, 0.5).set_trans(Tween.TRANS_CUBIC)
 			
 		#if !stretchAnimationUpPlayed:
 			#animPlayer.play("stretchUp")
@@ -122,7 +121,7 @@ func physics_update(delta: float):
 		animPlayer.play("snapBack")
 		
 		if modulateTween: modulateTween.kill()
-		playerSprite.self_modulate = Color(1.0, 1.0, 1.0)
+		playerSprite.self_modulate = PLAYER_DEFAULT_COLOUR
 		
 		if player.is_on_floor():
 			transitionToState(STATE_JUMPING)
@@ -138,10 +137,10 @@ func physics_update(delta: float):
 			var playerVelocityDirection:Vector2 = player.velocity.normalized()
 			transitionToState(STATE_JUMPING)
 			
-			playerSprite.self_modulate = Color(3.0, 3.0, 3.0)
+			playerSprite.self_modulate = PLAYER_FLASH_COLOUR
 			modulateTween = self.create_tween()
 			
-			modulateTween.tween_property(playerSprite, "self_modulate", Color(1.0, 1.0, 1.0), 0.2)
+			modulateTween.tween_property(playerSprite, "self_modulate", PLAYER_DEFAULT_COLOUR, 0.2)
 			
 			%doublejumpParticles.process_material.direction = Vector3(-playerVelocityDirection.x, playerVelocityDirection.y, 0)
 			%doublejumpParticles.restart()
