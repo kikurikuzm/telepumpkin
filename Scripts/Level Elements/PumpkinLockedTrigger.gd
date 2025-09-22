@@ -35,6 +35,8 @@ const PUMPKIN_UI_ARROW_SHOW_OFFSET:Vector2 = Vector2(0, 7)
 func _ready():
 	super()
 	
+	GlobalSignalBus.levelFailed.connect(_on_pumpkin_lost)
+	
 	if requiredPumpkins == 0: fireOnPlayerInteraction = true
 	if maximumRequiredPumpkins < requiredPumpkins: maximumRequiredPumpkins = requiredPumpkins
 	
@@ -132,3 +134,12 @@ func hidePumpkinUI() -> void:
 	
 	pointingArrow.pause()
 	%status.pause()
+
+func _on_pumpkin_lost() -> void:
+	pointingArrow.play()
+	%status.play("sad")
+	
+	pointingArrow.frame = 0
+	%status.frame = 0
+	
+	showPumpkinUI()
