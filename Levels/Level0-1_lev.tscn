@@ -24,7 +24,7 @@ tile_map_data = PackedByteArray("AAAZABQABAACAAEAAAAaABQABAACAAEAAAATABIABAACAAE
 tile_set = ExtResource("4_1lh87")
 
 [node name="spawn" parent="." instance=ExtResource("5_ckkgq")]
-position = Vector2(590, 720)
+position = Vector2(591, 718)
 
 [node name="thumb" type="Camera2D" parent="." groups=["level_mapcamera"]]
 position = Vector2(977, 596)

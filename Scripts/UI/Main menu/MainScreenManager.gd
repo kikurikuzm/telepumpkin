@@ -13,7 +13,7 @@ func _ready() -> void:
 	)
 	
 	if FileAccess.file_exists("user://save.dat"):
-		$StartButton.text = "Resume"
+		#$StartButton.text = "Resume"
 		userSaveExists = true
 	$StartButton.grab_focus()
 

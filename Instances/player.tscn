@@ -1,6 +1,7 @@
 [gd_scene load_steps=78 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
+[ext_resource type="Shape2D" uid="uid://cetb0crij0clv" path="res://Resources/collision/playerCollisionShape.tres" id="2_2vvt4"]
 [ext_resource type="Script" uid="uid://b2rcdd2cjidp7" path="res://Scripts/State/stateFactory.gd" id="2_7igkb"]
 [ext_resource type="Script" uid="uid://cijpwtkshve6r" path="res://Scripts/State/player states/playerIdle.gd" id="3_k086q"]
 [ext_resource type="Texture2D" uid="uid://dr1cy8d7cna7w" path="res://Sprites/TPP/tppfull.png" id="4_ky4s4"]
@@ -41,10 +42,6 @@
 [ext_resource type="TileSet" uid="uid://bffawxnah4r6u" path="res://Tile Sets/indoorMoontiles.tres" id="36_kkynl"]
 [ext_resource type="PackedScene" uid="uid://df87xnhlrr345" path="res://Instances/Helpers/PumpkinMagnet.tscn" id="40_qffwg"]
 [ext_resource type="Texture2D" uid="uid://c3vrr0n8ysvel" path="res://Sprites/Misc/telepoof.png" id="41_posx8"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qffwg"]
-radius = 12.0
-height = 28.0
 
 [sub_resource type="GDScript" id="GDScript_1gwht"]
 script/source = "extends PlayerState
@@ -562,7 +559,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_posx8"]
 resource_name = "kick"
-length = 0.6
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -638,7 +635,6 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_2vvt4"]
 resource_name = "kickWindup"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1435,27 +1431,36 @@ turbulence_enabled = true
 size = Vector2(32, 38)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyegr"]
-radius = 16.2162
+radius = 18.48765
 
 [sub_resource type="LabelSettings" id="LabelSettings_eyegr"]
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_posx8"]
-size = Vector2(19, 21.3108)
+size = Vector2(21.391895, 12.972981)
 
 [node name="Player" type="CharacterBody2D" groups=["entity_player_body", "level_canEnterPipe"]]
-physics_interpolation_mode = 1
 scale = Vector2(0.925, 0.925)
 collision_layer = 26
 collision_mask = 10
 collision_priority = 0.5
+platform_on_leave = 1
 platform_floor_layers = 4294901774
 script = ExtResource("1_cr5rv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
-shape = SubResource("CapsuleShape2D_qffwg")
+shape = ExtResource("2_2vvt4")
+
+[node name="playerCollisionArea" type="Area2D" parent="."]
+position = Vector2(0, 2.1621623)
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerCollisionArea"]
+shape = ExtResource("2_2vvt4")
 
 [node name="stateFactory" type="Node" parent="." node_paths=PackedStringArray("debugtext", "initial_state")]
 script = ExtResource("2_7igkb")
@@ -1665,7 +1670,7 @@ shape = SubResource("RectangleShape2D_4bcid")
 [node name="kickArea" type="Area2D" parent="."]
 position = Vector2(14, 8)
 collision_layer = 4
-collision_mask = 4
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="kickArea"]
 position = Vector2(0, -2.16216)
@@ -1684,6 +1689,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="kickFailTimer" type="Timer" parent="."]
+process_callback = 0
 one_shot = true
 
 [node name="debugText" type="Label" parent="."]
@@ -1746,13 +1752,15 @@ collide_with_bodies = false
 
 [node name="teleportSpaceCheck" type="RayCast2D" parent="."]
 target_position = Vector2(0, -37)
+collision_mask = 3
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="pumpkinCollision" type="StaticBody2D" parent="."]
 collision_layer = 4
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -0.155418)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pumpkinCollision"]
+position = Vector2(-1.1959467, -4.324328)
+scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_posx8")
 
 [connection signal="frame_changed" from="AnimatedSprite2D" to="footstepManager" method="_on_animated_sprite_2d_frame_changed"]

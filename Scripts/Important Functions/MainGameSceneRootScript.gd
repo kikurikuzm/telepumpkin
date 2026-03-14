@@ -253,6 +253,8 @@ func _levelChangeRequested(levelPath:String, spawnCoordinates:Vector2):
 	initiateLevelChange(levelPath)
 	if spawnCoordinates != Vector2.ZERO:
 		_playerCharacterChangePosition(spawnCoordinates)
+	#else:
+		#_playerCharacterChangePosition()
 	_playerCharacterChangeState("playerIdle")
 
 func _pauseGame():

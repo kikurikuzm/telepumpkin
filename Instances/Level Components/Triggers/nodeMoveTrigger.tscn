@@ -42,5 +42,6 @@ gizmo_extents = 30.0
 [node name="editor_destinationLine" type="Path2D" parent="."]
 curve = SubResource("Curve2D_x1hsm")
 
+[connection signal="child_order_changed" from="." to="." method="_on_child_order_changed"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,16 +1,15 @@
 extends Node
 class_name StateFactory
 
-@export var debugtext : Label
-@export var initial_state : State
+@export var debugtext: Label
+@export var initial_state: State
 
-@onready var player:Player = $".."
+@onready var player: Player = $".."
 
-var loaded = false
+var loaded: bool = false
 
-
-var current_state : State
-var states : Dictionary = {}
+var current_state: State
+var states: Dictionary = {}
 
 func _ready():
 	loaded = true
@@ -25,18 +24,13 @@ func _ready():
 		current_state = initial_state
 
 func _process(delta):
-	if !loaded:
-		return
-	
-	
-	#debugtext.text = str(current_state)
+	if !loaded: return
 	
 	if current_state:
 		current_state.update(delta)
 	
 func physics_process(delta):
-	if !loaded:
-		return
+	if !loaded: return
 		
 	if current_state:
 		current_state.physics_update(delta)
@@ -50,6 +44,7 @@ func getCurrentStateName() -> String:
 	return current_state.name
 
 func on_child_transition(state, new_state_name):
+	print_debug("Transitioned to state: %s" % new_state_name)
 	if state != current_state:
 		return
 	
@@ -61,5 +56,4 @@ func on_child_transition(state, new_state_name):
 		current_state.exit()
 		
 	new_state.enter()
-	
 	current_state = new_state

@@ -45,7 +45,7 @@ tile_set = ExtResource("3_twi1l")
 occlusion_enabled = false
 
 [node name="spawn" parent="." instance=ExtResource("3")]
-position = Vector2(626, 685)
+position = Vector2(648, 693)
 
 [node name="pumpkin" parent="." instance=ExtResource("2")]
 position = Vector2(854, 692)

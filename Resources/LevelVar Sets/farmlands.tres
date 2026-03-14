@@ -7,16 +7,7 @@
 
 [resource]
 script = ExtResource("1_jseul")
-canTeleport = true
-playerZoom = 4.5
-hasVignette = false
-hasMapView = true
 startsInMap = true
-mapCameraLocked = true
 levelAmbience = ExtResource("1_tdxme")
-levelTransition = 1
-musicChance = 0.2
-levelGravity = 9.8
-isDark = false
 levelBackground = ExtResource("2_1rxyd")
 worldEnvironment = ExtResource("5_7xwel")

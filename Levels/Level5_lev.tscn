@@ -21,22 +21,11 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_08inn"]
 script = ExtResource("11_deb3b")
 dialogueText = "Be sure to time it so that you flash before getting stopped by the pumpkin. "
-goToNextConversation = true
 metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 
 [sub_resource type="Resource" id="Resource_hpyeu"]
 script = ExtResource("10_uu7ub")
 conversationArray = Array[ExtResource("11_deb3b")]([SubResource("Resource_xfgph"), SubResource("Resource_08inn")])
-metadata/_custom_type_script = "uid://cgtgjpboysb1f"
-
-[sub_resource type="Resource" id="Resource_uu7ub"]
-script = ExtResource("11_deb3b")
-dialogueText = "The kick can do things that teleporting can't, but the teleport can do things that kicking can't. Keep this in mind if you're ever stumped!"
-metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
-
-[sub_resource type="Resource" id="Resource_deb3b"]
-script = ExtResource("10_uu7ub")
-conversationArray = Array[ExtResource("11_deb3b")]([SubResource("Resource_uu7ub")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
 [sub_resource type="Resource" id="Resource_hgjbs"]
@@ -69,6 +58,16 @@ metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
 [sub_resource type="Resource" id="Resource_cyw8v"]
 script = ExtResource("10_uu7ub")
 conversationArray = Array[ExtResource("11_deb3b")]([SubResource("Resource_7rkx8"), SubResource("Resource_4ryps")])
+metadata/_custom_type_script = "uid://cgtgjpboysb1f"
+
+[sub_resource type="Resource" id="Resource_uu7ub"]
+script = ExtResource("11_deb3b")
+dialogueText = "The kick can do things that teleporting can't, but the teleport can do things that kicking can't. Keep this in mind if you're ever stumped!"
+metadata/_custom_type_script = "uid://d3q3ufenhm5w3"
+
+[sub_resource type="Resource" id="Resource_deb3b"]
+script = ExtResource("10_uu7ub")
+conversationArray = Array[ExtResource("11_deb3b")]([SubResource("Resource_uu7ub")])
 metadata/_custom_type_script = "uid://cgtgjpboysb1f"
 
 [node name="LevelSceneRoot" type="Node"]
@@ -175,16 +174,24 @@ navigation_enabled = false
 [node name="Exit" parent="." instance=ExtResource("8_t8w06")]
 position = Vector2(1057, 721)
 requiredPumpkins = 2
-maximumRequiredPumpkins = 3
+maximumRequiredPumpkins = 2
 
 [node name="NPC" parent="." instance=ExtResource("9_mvefr")]
 z_index = -1
-position = Vector2(800, 469)
-dialogueArray = Array[ExtResource("10_uu7ub")]([SubResource("Resource_hpyeu"), SubResource("Resource_deb3b")])
+position = Vector2(737, 483)
+dialogueArray = Array[ExtResource("10_uu7ub")]([SubResource("Resource_hpyeu")])
 npcLook = "sign"
 
 [node name="NPC2" parent="." instance=ExtResource("9_mvefr")]
 position = Vector2(195, 213)
 dialogueArray = Array[ExtResource("10_uu7ub")]([SubResource("Resource_2tncn"), SubResource("Resource_cyw8v")])
 npcLook = "sign"
+facePlayer = false
+
+[node name="NP3" parent="." instance=ExtResource("9_mvefr")]
+z_index = -1
+position = Vector2(864, 470)
+dialogueArray = Array[ExtResource("10_uu7ub")]([SubResource("Resource_deb3b")])
+npcLook = "sign"
+spriteFlip = true
 facePlayer = false

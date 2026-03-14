@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddp3f62huxqab"]
 
-[ext_resource type="Script" path="res://Scripts/debugUI.gd" id="1"]
+[ext_resource type="Script" uid="uid://dmtmoyttxt8t4" path="res://Scripts/debugUI.gd" id="1"]
 [ext_resource type="Theme" uid="uid://dp05gprq6tj11" path="res://Resources/debugMenu.tres" id="2_2c7kl"]
 
 [sub_resource type="Theme" id="1"]
@@ -35,9 +35,11 @@ current_tab = 1
 visible = false
 layout_mode = 2
 theme = SubResource("1")
+metadata/_tab_index = 0
 
 [node name="Debug Settings" type="Panel" parent="TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="secondaryVbox" type="VBoxContainer" parent="TabContainer/Debug Settings"]
 layout_mode = 0
@@ -149,6 +151,7 @@ theme = ExtResource("2_2c7kl")
 [node name="Instance Spawner" type="ItemList" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [connection signal="item_activated" from="TabContainer/LevelSelect" to="." method="_on_Levels_item_activated"]
 [connection signal="toggled" from="TabContainer/Debug Settings/secondaryVbox/mouseFly" to="." method="_on_mouse_fly_toggled"]

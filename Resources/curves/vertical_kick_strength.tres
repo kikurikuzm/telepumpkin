@@ -1,0 +1,5 @@
+[gd_resource type="Curve" format=3 uid="uid://imccg1cemicr"]
+
+[resource]
+_data = [Vector2(0.18946618, 0.1504845), 0.0, 0.71703726, 0, 1, Vector2(0.5308518, 0.3952707), 0.71703726, 0.27854362, 1, 1, Vector2(1, 0.52594894), 0.27854362, 0.0, 1, 0]
+point_count = 3

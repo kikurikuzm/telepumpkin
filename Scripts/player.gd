@@ -2,11 +2,12 @@ class_name Player
 extends CharacterBody2D
 
 @onready var spriteAnim:AnimatedSprite2D = $AnimatedSprite2D
-@onready var teleportRange = $Teleport
+@onready var teleportRange:TeleportRange = $Teleport
 @onready var interactArea:Area2D = $interactArea
 @onready var tpp = $AnimatedSprite2D/tpp
 @onready var tppLine = $tppLine
 @onready var playerCollision:CollisionShape2D = $CollisionShape2D
+@onready var playerCollisionArea:Area2D = $playerCollisionArea
 #@onready var flashlightHand = $AnimatedSprite2D/flashlightHand
 
 @onready var pumpkinMagnet:RayCast2D = $pumpkinMagnet
@@ -22,6 +23,7 @@ extends CharacterBody2D
 @onready var tpLoad = load("res://Instances/Level Components/tpp.tscn")
 
 var jumpstrength: float
+var airControl: float = 2
 
 var hasTPP = false
 var holdingTPP = false
@@ -71,6 +73,8 @@ const TELEPORT_PLAYER_VERTICAL_OFFSET : float = -15
 const PLAYER_COLLISION_RECT : Rect2 = Rect2(0, 0, 28, 12)
 
 func _physics_process(delta):
+	DebugManager.writeToDebugOutput("Player Velocity: %s" % str(velocity))
+	
 	var interactArray = interactArea.get_overlapping_areas()
 	for area in interactArray:
 		if area.get_parent().is_in_group("manhole"):
@@ -84,6 +88,8 @@ func _physics_process(delta):
 	
 	if is_on_floor():
 		jumpsRemaining = maxJumps
+	
+	
 	
 	stateFactory.physics_process(delta)
 	
@@ -126,20 +132,32 @@ func _physics_process(delta):
 		#lastPlayerMagnetizedVelocity = Vector2.ZERO
 		
 	
-	if abs(self.global_position.x) > 2000 or abs(self.global_position.y) > 2000 or self.global_position == Vector2.ZERO:
+	if abs(self.global_position.x) > 10000 or abs(self.global_position.y) > 5000 or self.global_position == Vector2.ZERO:
 		print_debug("Player left the bounds!")
 		GlobalSignalBus.restartLevel.emit()
 	self.move_and_slide()
 
 func _process(delta):
 	$velocityVisualizer.target_position = self.velocity
-	$debugText.text = str(self.velocity)
+	#$debugText.text = str(self.velocity)
 	
 	$Teleport.visible = true
 	for node in interactArea.get_overlapping_areas():
 		if node.is_in_group("local_disableTeleport"):
 				canTeleport = false
 				$Teleport.visible = false
+	
+	# This kinda stinks... sue me
+	teleportRange.cannotTeleportOverride = false
+	var bodiesOverlappingPlayer:Array[Node2D] = playerCollisionArea.get_overlapping_bodies()
+	if bodiesOverlappingPlayer.size() > 0:
+		for body in bodiesOverlappingPlayer:
+			if body is TileMapLayer:
+				for cell in body.get_used_cells():
+					var cellGlobalPos:Vector2 = body.to_global(body.map_to_local(cell))
+					if self.global_position > cellGlobalPos * 0.9 and self.global_position < cellGlobalPos * 1.1:
+						teleportRange.cannotTeleportOverride = true
+						break
 
 func tppProcess() -> void:
 	
@@ -227,11 +245,13 @@ func playerInteractionInitiated() -> void:
 	tppHandler()
 
 	if canTeleport and (teleportRange.canTeleport() == true or is_instance_valid(tppInst) and tppInst.tppHasValidTargets()):
-		var teleportDestination:Vector2 = self.global_position
-		teleportDestination.y += playerCollision.shape.get_rect().size.y * 0.5
 		var kickbackVelocity:Vector2
+		var teleportDestination:Vector2 = self.global_position
+		
+		teleportDestination.y += playerCollision.shape.get_rect().size.y * 0.5
+		
 		if !teleportSpaceCheck.is_colliding() and self.is_on_floor(): # If the player is grounded and there isn't anything above them
-			self.global_position.y -= 15
+			self.global_position.y -= teleportDestination.y - self.global_position.y
 			await get_tree().physics_frame
 		elif teleportSpaceCheck.is_colliding(): # If the player has something above them, nudge the destination to the side of the player
 			var direction:int = 1

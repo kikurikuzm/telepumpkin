@@ -21,7 +21,9 @@ z_as_relative = false
 position = Vector2(0, -21)
 triggerSize = Rect2(0, 0, 1, 2)
 triggersOnce = false
-mustInteract = true
+fireForPlayer = true
+fireForPumpkin = false
+fireOnBodyEnter = false
 
 [node name="doorSprite" type="Sprite2D" parent="."]
 position = Vector2(1, -22)

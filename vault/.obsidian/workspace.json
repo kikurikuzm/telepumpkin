@@ -34,9 +34,21 @@
               "icon": "lucide-file",
               "title": "Pumpkin Kick Crash"
             }
+          },
+          {
+            "id": "35fb3ba3512f42fb",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.14"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.14"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -93,8 +105,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "d6296d7bd2933bb8",
@@ -185,7 +196,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7791beeeb10f4542",
+  "active": "35fb3ba3512f42fb",
   "lastOpenFiles": [
     "Screenshot From 2025-08-25 10-31-08.png.import",
     "Screenshot From 2025-08-25 10-32-08.png.import",

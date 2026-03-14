@@ -13,7 +13,6 @@ config_version=5
 config/name="Telepumpkin 2"
 run/main_scene="res://Instances/Important/mainMenu.tscn"
 config/features=PackedStringArray("4.5")
-run/max_fps=60
 boot_splash/bg_color=Color(0.423529, 0.337255, 0.443137, 1)
 boot_splash/fullsize=false
 boot_splash/image="res://Sprites/Misc/icon.png"
@@ -36,9 +35,7 @@ ExternalLevelManager="*res://Scripts/Important Functions/ExternalLevelManager.gd
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="canvas_items"
-window/vsync/vsync_mode=2
 window/use_physical_light_units=false
 
 [editor]
@@ -145,6 +142,7 @@ teleport={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":69,"physical_keycode":0,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":2,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
 debug_skip={
@@ -223,6 +221,7 @@ kick={
 2d_physics/layer_4="pipeCollision"
 2d_physics/layer_5="playerInteraction"
 2d_physics/layer_6="peaterLayer"
+2d_physics/layer_7="playerOnly"
 
 [physics]
 

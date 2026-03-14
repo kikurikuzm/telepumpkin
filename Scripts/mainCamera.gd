@@ -16,8 +16,8 @@ func _process(delta):
 		print_debug("Invalid parent!")
 		currentParent = $"../Player"
 	
-	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount)
-	zoom = lerp(zoom, Vector2(desiredZoom,desiredZoom), smoothAmount)
+	global_position = lerp(global_position, Vector2(currentParent.global_position.x, currentParent.global_position.y - 20), smoothAmount * 50 * delta)
+	zoom = lerp(zoom, Vector2(desiredZoom,desiredZoom), smoothAmount * 50 * delta)
 
 func snapToParent():
 	global_position = currentParent.global_position

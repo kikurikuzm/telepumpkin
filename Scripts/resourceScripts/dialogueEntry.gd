@@ -12,7 +12,7 @@ var currentFocusAbsolutePath : String = ""
 @export var focusPlayer : bool = false ##If the camera should be focused on the player or not. Ignored if a node is provided for [param currentFocus].
 @export_group("Camera Settings")
 @export var cameraSpeed : float = 0.1 ##How fast the camera should interpolate to its next position.
-@export var cameraZoom : float = 4.0
+@export var cameraZoom : float = 6.0
 @export_group("Player Settings")
 @export var playerCanMove : bool = false ##Whether or not the player should be able to move during the dialogue.
 @export_group("Conversation Settings")

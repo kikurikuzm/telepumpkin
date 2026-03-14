@@ -54,8 +54,11 @@ func physics_update(delta: float):
 			transitioned.emit(self, "playerwalking")
 			return
 			
-	if !player.is_on_floor():
+	if !player.is_on_floor() and player.velocity.y > 0:
 		transitioned.emit(self, "playerFalling")
+		return
+	elif !player.is_on_floor() and player.velocity.y < 0:
+		transitioned.emit(self, STATE_FALLING)
 		return
 	
 	stopDust.emitting = true

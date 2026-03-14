@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b75y4tjamjhxd"]
+[gd_scene load_steps=6 format=3 uid="uid://b75y4tjamjhxd"]
 
 [ext_resource type="Texture2D" uid="uid://bl1sih4l2hc1o" path="res://Sprites/Misc/telecircle.png" id="1_w6wk4"]
 [ext_resource type="Script" uid="uid://djerlii6lnvou" path="res://Scripts/Teleport.gd" id="2_i76v6"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tntab"]
 radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1s665"]
 
 [node name="Teleport" type="Sprite2D"]
 modulate = Color(1, 1, 1, 0.47451)
@@ -28,3 +30,10 @@ one_shot = true
 
 [node name="teleportAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_i142d")
+
+[node name="teleportCheckCast" type="ShapeCast2D" parent="."]
+position = Vector2(-1024, 0)
+shape = SubResource("CircleShape2D_1s665")
+target_position = Vector2(2048, 0)
+max_results = 4
+collision_mask = 4

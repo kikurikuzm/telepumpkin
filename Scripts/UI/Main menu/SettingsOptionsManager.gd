@@ -1,4 +1,4 @@
-extends Control
+extends TabContainer
 
 @onready var resolutionChange:OptionButton = %ResolutionDropdown
 @onready var simpleGraphicsToggle:CheckBox = %SimpleGraphicsToggle
@@ -30,6 +30,9 @@ func loadSettingsFromSave(configFile):
 	muteToggle.button_pressed = tempIndex
 	_on_mute_toggled(tempIndex)
 
+
+func _ready() -> void:
+	self.get_tab_bar().focus_mode = Control.FOCUS_ALL
 
 
 func _on_fullscreen_toggled(button_pressed):

@@ -1,9 +1,16 @@
 {
 	"disabled_build_options": {
 		"disable_3d": true,
-		"disable_3d_physics": true,
-		"disable_navigation": true,
-		"openxr": false
+		"disable_navigation_2d": true,
+		"disable_navigation_3d": true,
+		"disable_physics_3d": true,
+		"disable_xr": true,
+		"forward_plus_renderer": false,
+		"metal": false,
+		"module_godot_physics_3d_enabled": false,
+		"module_jolt_physics_enabled": false,
+		"module_openxr_enabled": false,
+		"opengl3": false
 	},
 	"disabled_classes": [
 		"Node3D"

@@ -16,10 +16,14 @@ var modulateTween:Tween = null
 var hasHadAirTimer = false
 
 const MIN_JUMPSTRENGTH = 0
-const MAX_JUMPSTRENGTH = 277
-const JUMPSTRENGTH_INCREASE = 2
+const MAX_JUMPSTRENGTH = 250
+const JUMPSTRENGTH_INCREASE = 2.1
 
 const MAX_STRETCH_WALK_SPEED = 45
+const MAX_RESIDUAL_WALK_SPEED = 125
+
+const RESIDUAL_SPEED_DECREASE_STR = 0.1
+const WALK_SPEED_DECREASE_STR = 0.1
 
 func enter():
 	if player.is_on_floor():
@@ -43,7 +47,7 @@ func exit():
 	teleportRange.scaleOverridden = false
 	stretchAnimationDownPlayed = false
 	stretchAnimationUpPlayed = false
-	
+	playerSprite.self_modulate = PLAYER_DEFAULT_COLOUR
 
 func update(delta: float):
 	#if !player.is_on_floor() and coyoteTimer.is_stopped() and hasHadAirTimer == true:
@@ -61,7 +65,7 @@ func physics_update(delta: float):
 		playerSprite.self_modulate = MAGIC_FULL_CHARGED_COLOUR
 		hasHadAirTimer = true
 	
-	var direction = 0
+	var direction: int = 0
 	debugLabel.text = str(player.jumpstrength)
 	#if sign(player.velocity.y) == 1:
 		#coyoteTimer.start(1)
@@ -127,12 +131,14 @@ func physics_update(delta: float):
 			transitionToState(STATE_JUMPING)
 			return
 		
-		if !coyoteTimer.is_stopped() and player.jumpsRemaining == player.maxJumps:
+		#Check to avoid using up a jump even when the coyote timer is active
+		if !coyoteTimer.is_stopped() and player.jumpsRemaining == player.maxJumps: 
 			transitionToState(STATE_JUMPING)
 			return
 		elif coyoteTimer.is_stopped() and player.jumpsRemaining == player.maxJumps:
 			player.jumpsRemaining -= 1
-			
+		
+		#Different visuals for a mid-air jump
 		if player.jumpsRemaining != player.maxJumps and player.jumpsRemaining > 0:
 			var playerVelocityDirection:Vector2 = player.velocity.normalized()
 			transitionToState(STATE_JUMPING)
@@ -143,7 +149,14 @@ func physics_update(delta: float):
 			modulateTween.tween_property(playerSprite, "self_modulate", PLAYER_DEFAULT_COLOUR, 0.2)
 			
 			%doublejumpParticles.process_material.direction = Vector3(-playerVelocityDirection.x, playerVelocityDirection.y, 0)
-			%doublejumpParticles.restart()
+			var particles: GPUParticles2D = %doublejumpParticles.duplicate()
+			get_tree().root.add_child(particles)
+			particles.finished.connect(func():
+				particles.queue_free()
+			)
+			
+			particles.global_position = player.global_position
+			particles.restart()
 		else:
 			transitioned.emit(self, "playerfalling")
 		
@@ -153,10 +166,10 @@ func physics_update(delta: float):
 	if Input.is_action_just_pressed("kick"):
 		transitioned.emit(self, "playerKick")
 	
-	player.velocity.x = lerp(player.velocity.x, 0.0, 0.1)
-	residualSpeed = lerp(residualSpeed, 0.0, 0.1)
+	
+	player.velocity.x = lerp(player.velocity.x, 0.0, WALK_SPEED_DECREASE_STR)
+	residualSpeed = lerp(residualSpeed, 0.0, RESIDUAL_SPEED_DECREASE_STR)
 	residualSpeed = floorf(residualSpeed)
 	
 	player.velocity.x = clampf(player.velocity.x, -(MAXSPEED + abs(residualSpeed)), (MAXSPEED + abs(residualSpeed)))
-	residualSpeed = clampf(residualSpeed, -125, 125)
-	#player.move_and_slide()
+	residualSpeed = clampf(residualSpeed, -MAX_RESIDUAL_WALK_SPEED, MAX_RESIDUAL_WALK_SPEED)

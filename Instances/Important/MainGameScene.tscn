@@ -334,13 +334,14 @@ text = "Go to next level"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="debugInfo" type="Label" parent="DebuggerMenu/PanelContainer/VBoxContainer/debugInfoContainer"]
+[node name="debugInfo" type="RichTextLabel" parent="DebuggerMenu/PanelContainer/VBoxContainer/debugInfoContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 50)
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 text = "Debug Info: "
-autowrap_mode = 3
+scroll_active = false
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 process_mode = 3

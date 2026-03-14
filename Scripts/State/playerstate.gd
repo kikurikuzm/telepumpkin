@@ -20,7 +20,7 @@ class_name PlayerState extends State
 var curveY : float
 var curveX : float
 
-var MAXSPEED = 125
+var MAXSPEED : float = 125.0
 var ACCELERATE = 0.005
 var AIRTIME = 0.2
 
@@ -49,19 +49,19 @@ func exit() -> void:
 func update(_delta: float) -> void:
 	pass
 
-func physics_update(_delta: float) -> void:
+func physics_update(delta: float) -> void:
 	if !player.is_on_floor():
-		player.velocity.y += player.gravity
+		player.velocity.y += player.gravity * 60 * delta
 
 func unhandled_input(event:InputEvent) -> void:
 	if Input.is_action_just_pressed("teleport"):
 		initiateInteraction()
 
-func accelerate(moveDir:int):
+func accelerate(moveDir:int) -> float:
 	curveY = 0
 	curveX += ACCELERATE
 	curveY = (accelCurve.sample(curveX) * 7) * moveDir
-	clamp(curveX, -MAXSPEED, MAXSPEED)
+	#curveX = clampf(curveX, -MAXSPEED, MAXSPEED)
 	return(curveY)
 
 func interactWithNPC(npcTrigger:Trigger) -> bool: ## Override to disable. Returns true or false depending on the success of the trigger interact

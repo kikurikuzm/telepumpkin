@@ -5,7 +5,7 @@ extends EditorElement
 class_name Trigger
 ##A level element that can activate other elements.
 
-@export_node_path("Node") var triggerTargets:Array[NodePath]
+@export_node_path("Node") var triggerTargets:Array[NodePath] ##The [Node]s to call [code]trigger()[/code] on when this [Trigger] is triggered.
 @export var triggerSize:Rect2 = Rect2(0, 0, 1.0, 1.0)
 @export_group("Trigger Settings")
 @export var enabled:bool = true ##Should this trigger be visible and active?
@@ -43,6 +43,9 @@ func _ready():
 			var nodeInstance:Node = get_node(node)
 			if nodeInstance.has_method("_on_receive_trigger_notification"):
 				triggeredByCause.connect(nodeInstance._on_receive_trigger_notification)
+				print_debug("Successfully connected to %s" % nodeInstance.to_string())
+			elif nodeInstance.has_method("_on_recieve_trigger_notification"):
+				triggeredByCause.connect(nodeInstance._on_recieve_trigger_notification)
 				print_debug("Successfully connected to %s" % nodeInstance.to_string())
 			else:
 				print_debug("%s doesn't have proper trigger receive method!" % nodeInstance.to_string())

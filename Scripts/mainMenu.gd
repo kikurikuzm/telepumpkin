@@ -6,6 +6,9 @@ extends Control
 @onready var mainPanelContainer:Container = $MainPanelContainer
 @onready var settingsPanelContainer:Container = $SettingsPanelContainer
 
+@onready var settingsButton: Button = $MainPanelContainer/PanelContainer/VBoxContainer/MainVBox/MainButtonsVBox/SettingsButton
+@onready var backButton: Button = $SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/BackButton
+
 @onready var loadingScreen:PackedScene = preload("res://Instances/Important/LoadingScreen.tscn")
 
 var mainScenePath:String = "res://Instances/Important/MainGameScene.tscn"
@@ -44,11 +47,13 @@ func _on_level_dialogue_file_selected(path):
 func _on_settings_button_pressed() -> void:
 	var cameraTween:Tween = get_tree().create_tween()
 	cameraTween.tween_property(camera, "global_position", settingsPanelContainer.global_position, CAMERA_TRANSITION_DURATION).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	backButton.grab_focus()
 
 
 func _on_back_button_pressed() -> void:
 	var cameraTween:Tween = get_tree().create_tween()
 	cameraTween.tween_property(camera, "global_position", mainPanelContainer.global_position, CAMERA_TRANSITION_DURATION).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	settingsButton.grab_focus()
 
 
 func _on_start_button_pressed(requestTutorial:bool) -> void:

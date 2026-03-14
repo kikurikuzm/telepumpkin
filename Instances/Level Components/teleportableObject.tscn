@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://omxwiw3x34ud"]
+[gd_scene load_steps=26 format=3 uid="uid://omxwiw3x34ud"]
 
 [ext_resource type="Texture2D" uid="uid://fckcvdwledes" path="res://Sprites/Misc/new pumpkin.png" id="1"]
 [ext_resource type="Script" uid="uid://ccrrayh3a5ihb" path="res://Scripts/teleportableObject.gd" id="2"]
@@ -11,10 +11,154 @@ bounce = 0.65
 
 [sub_resource type="Animation" id="Animation_cn0hs"]
 resource_name = "idle"
+loop_mode = 2
+
+[sub_resource type="Animation" id="Animation_o0ivk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pumpkinSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pumpkinSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5.75)]
+}
+
+[sub_resource type="Animation" id="Animation_xlw66"]
+resource_name = "teleport"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pumpkinSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.054832328, 0.1, 0.16666666, 0.26666668, 0.394408),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 3.035), Vector2(1.717, 0.518), Vector2(0.6, 1.4), Vector2(1.263, 0.907), Vector2(0.95, 1.08), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pumpkinSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.3333898e-05, 0.054832328, 0.10003335, 0.16666666, 0.26666668, 0.394408),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -17.207), Vector2(0, -38.547), Vector2(0, 1.693), Vector2(0, -12.421), Vector2(0, -4.495), Vector2(0, -7.334), Vector2(0, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_hwngm"]
+resource_name = "bounce_wall_right"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pumpkinSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.31422877),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.48, 1.564), Vector2(1.1, 0.9), Vector2(0.98, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pumpkinSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.31422877),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6.319, -11.947), Vector2(1.262, -4.39), Vector2(0.3, -7.573), Vector2(0, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_bpr1p"]
+resource_name = "bounce_wall_left"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pumpkinSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.31422877),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.48, 1.564), Vector2(1.1, 0.9), Vector2(0.98, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pumpkinSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.20000002, 0.31422877),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-6.319, -11.947), Vector2(-1.262, -4.39), Vector2(-0.3, -7.573), Vector2(0, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_6bgrl"]
+resource_name = "bounce_floor"
+length = 0.32
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pumpkinSprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.564, 0.48), Vector2(0.844, 1.193), Vector2(1.2, 0.8), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pumpkinSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.26666668),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 4), Vector2(0, -9.681), Vector2(0, -2.806), Vector2(0, -6)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8ej3c"]
 _data = {
-&"idle": SubResource("Animation_cn0hs")
+&"RESET": SubResource("Animation_o0ivk"),
+&"bounce_floor": SubResource("Animation_6bgrl"),
+&"bounce_wall_left": SubResource("Animation_bpr1p"),
+&"bounce_wall_right": SubResource("Animation_hwngm"),
+&"idle": SubResource("Animation_cn0hs"),
+&"teleport": SubResource("Animation_xlw66")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_44wpi"]
@@ -123,7 +267,7 @@ libraries = {
 
 [node name="pumpkinSprite" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_23knt")
-position = Vector2(0, -6)
+position = Vector2(0, -5.75)
 sprite_frames = SubResource("SpriteFrames_kg253")
 animation = &"normal"
 
@@ -133,7 +277,6 @@ scale = Vector2(1, 1.75)
 shape = SubResource("ConvexPolygonShape2D_o0ivk")
 
 [node name="Area2D" type="Area2D" parent="." groups=["entity_teleportable_object_area"]]
-visible = false
 collision_layer = 16
 collision_mask = 16
 

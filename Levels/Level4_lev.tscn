@@ -166,9 +166,8 @@ npcLook = "cool"
 [node name="entrance" parent="." instance=ExtResource("12_ndxfa")]
 position = Vector2(1851, 698)
 
-[node name="Trigger" parent="." node_paths=PackedStringArray("movementInterpolation") instance=ExtResource("13_benap")]
+[node name="Trigger" parent="." instance=ExtResource("13_benap")]
 position = Vector2(1141, 440)
-movementInterpolation = NodePath("Path2D")
 movementDuration = 2.0
 showInteractIcon = false
 

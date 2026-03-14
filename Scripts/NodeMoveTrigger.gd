@@ -25,9 +25,8 @@ func _ready() -> void:
 		for target in modifyTargets:
 			initialPositions.append(get_node(target).global_position)
 
-func _process(delta: float) -> void:
-	super(delta)
-	
+
+func _physics_process(delta: float) -> void:
 	if !Engine.is_editor_hint():
 		if currentTimeStep < movementDuration:
 			modifyNodes()
@@ -39,6 +38,10 @@ func _process(delta: float) -> void:
 			else:
 				startModifyingNodes(self)
 
+func _process(delta: float) -> void:
+	super(delta)
+
+
 func nodeModification(nodePath:NodePath) -> void:
 	var nodeIndex:int = modifyTargets.find(nodePath)
 	var newPosition:Vector2 = initialPositions.get(nodeIndex)
@@ -49,3 +52,12 @@ func nodeModification(nodePath:NodePath) -> void:
 	
 	newPosition = movementPath.curve.samplef(progress) + movementPath.global_position
 	node.global_position = newPosition
+
+
+func _on_child_order_changed() -> void:
+	if Engine.is_editor_hint():
+		for child in self.get_children():
+			if child is Path2D and child.name != "editor_destinationLine" and !movementPath:
+				movementPath = child
+				EditorInterface.get_editor_toaster().push_toast("Automatically Set Movement Path of NodeMoveTrigger \"%s\" to child Path2D \"%s\"." % [self.name, child.name], EditorToaster.SEVERITY_INFO)
+				break

@@ -18,6 +18,7 @@ var achieveParticles:PackedScene = preload("res://Instances/Particles/pumpkinAch
 
 @onready var requiredPumpkinsHBox:HBoxContainer = %requiredPumpkinsHbox
 @onready var maximumPumpkinsHBox:HBoxContainer = %maximumPumpkinsHbox
+@onready var pumpkinsNeededLabel:RichTextLabel = %pumpkinsNeededLabel
 
 @onready var pointingArrow:AnimatedSprite2D = %pointingArrow
 
@@ -35,6 +36,7 @@ const PUMPKIN_UI_SHOW_POSITION:Vector2 = Vector2(-10, -18)
 const PUMPKIN_UI_ARROW_HIDE_OFFSET:Vector2 = Vector2(0, 12)
 const PUMPKIN_UI_ARROW_SHOW_OFFSET:Vector2 = Vector2(0, 7)
 
+
 func _ready():
 	super()
 	
@@ -43,9 +45,10 @@ func _ready():
 	if requiredPumpkins == 0: fireOnPlayerInteraction = true
 	if maximumRequiredPumpkins < requiredPumpkins: maximumRequiredPumpkins = requiredPumpkins
 	
+	lockAppearance.texture = lockTexture
+	
 	if !Engine.is_editor_hint():
 		self.add_child(levelChangeRequester)
-		lockAppearance.texture = lockTexture
 		
 		if requiredPumpkins > 0: # TODO: Differentiate optional pumpkins in the pumpkins remaining ui
 			for pumpkins in range(1, requiredPumpkins):
@@ -58,14 +61,17 @@ func _ready():
 			
 			maximumPumpkinsHBox.show()
 			$pumpkinsRemainingUI/PanelContainer/VBoxContainer/HSeparator.show()
+			pumpkinsNeededLabel.show()
+			pumpkinsNeededLabel.text = pumpkinsNeededLabel.text % requiredPumpkins
 			
-			for pumpkin in range(1, maximumRequiredPumpkins):
-				maximumPumpkinsHBox.add_child(%maxPumpkin.duplicate())
+			#for pumpkin in range(1, maximumRequiredPumpkins):
+				#maximumPumpkinsHBox.add_child(%maxPumpkin.duplicate())
 		
 		if pumpkinUIVisible == true:
 			showPumpkinUI()
 		else:
 			hidePumpkinUI()
+
 
 func fireTrigger(cause:Node2D) -> void:
 	super(cause)
@@ -146,6 +152,7 @@ func hidePumpkinUI() -> void:
 	
 	pointingArrow.pause()
 	%status.pause()
+
 
 func _on_pumpkin_lost() -> void:
 	pointingArrow.play()

@@ -21,7 +21,7 @@ func update(delta: float):
 		transitioned.emit(self, "playerstretch")
 
 func physics_update(delta: float):
-	player.velocity.y += 3
+	super(delta)
 	if abs(player.velocity.x) > 50:
 		transitioned.emit(self, "playerStop")
 	elif abs(player.velocity.x) < 50:
@@ -29,8 +29,9 @@ func physics_update(delta: float):
 	
 	#if pumpkinRaycast.get_collider().is_in_group("pumpkin"):
 		#player.velocity.y = 0
-	if !player.is_on_floor():
+	if !player.is_on_floor() and player.velocity.y > 0:
 		coyoteTimer.start(AIRTIME)
 		transitioned.emit(self, "playerfalling")
-	
-	#player.move_and_slide()
+	elif !player.is_on_floor() and player.velocity.y < 0:
+		#coyoteTimer.start(AIRTIME)
+		transitioned.emit(self, STATE_FALLING)

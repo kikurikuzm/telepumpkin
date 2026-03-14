@@ -6,9 +6,8 @@ class_name playerJump
 
 @onready var jumpAudio = preload("res://Audio/sfx/jumpNoise.ogg")
 
-var aircontrol = 2
-
-const HORIZONTAL_BOOST = 40
+const HORIZONTAL_BOOST := 40
+const DEFAULT_AIR_CONTROL := 2.0
 
 func enter():
 	#audio.pitch_scale = 2.0
@@ -30,6 +29,7 @@ func enter():
 
 func exit():
 	player.jumpstrength = 0
+	player.airControl = DEFAULT_AIR_CONTROL
 
 func update(delta: float):
 	pass
@@ -37,9 +37,9 @@ func update(delta: float):
 func physics_update(delta: float):
 	super(delta)
 	if Input.is_action_pressed("left"):
-		player.velocity.x -= aircontrol
+		player.velocity.x -= player.airControl
 	if Input.is_action_pressed("right"):
-		player.velocity.x += aircontrol
+		player.velocity.x += player.airControl
 	
 	#if Input.is_action_just_pressed("kick"):
 		#player.gravity = gvars.playerGravity * 2
@@ -47,5 +47,6 @@ func physics_update(delta: float):
 	
 	if player.velocity.y >= 0:
 		transitioned.emit(self, "playerfalling")
-	
+	#elif player.is_on_floor():
+		#transitioned.emit(self, "playerstop")
 	#player.move_and_slide()

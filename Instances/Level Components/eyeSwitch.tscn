@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5p2pcyaff23h"]
+
+[ext_resource type="Script" uid="uid://qr3kvy2qlqu2" path="res://Scripts/Level Elements/EyeSwitch.gd" id="1_63l2c"]
+[ext_resource type="Texture2D" uid="uid://1v1ma8132ylx" path="res://Sprites/icon.png" id="1_j0wgo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j0wgo"]
+radius = 42.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jseaq"]
+radius = 13.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_63l2c"]
+radius = 2.0
+
+[node name="EyeSwitch" type="Node2D"]
+script = ExtResource("1_63l2c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.9073486e-06, -1.9073486e-06)
+scale = Vector2(0.31250006, 0.31250003)
+texture = ExtResource("1_j0wgo")
+
+[node name="attractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+gravity_space_override = 3
+gravity_point = true
+gravity_point_unit_distance = 44.336
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 201.111
+linear_damp_space_override = 3
+linear_damp = 100.0
+angular_damp_space_override = 4
+angular_damp = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attractArea"]
+shape = SubResource("CircleShape2D_j0wgo")
+debug_color = Color(0.9, 0.23399998, 0.5448, 0.27450982)
+
+[node name="pumpkinGrabArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pumpkinGrabArea"]
+shape = SubResource("CircleShape2D_jseaq")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_63l2c")

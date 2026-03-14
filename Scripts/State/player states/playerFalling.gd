@@ -16,7 +16,9 @@ func enter():
 	magicColourTween = self.create_tween()
 	
 	animPlayer.play("fall")
-	player.gravity = gvars.playerGravity * 2.3
+	print(player.velocity.y)
+	if player.velocity.y > 0:
+		player.gravity = gvars.playerGravity * 2.3
 	
 	if player.jumpsRemaining > 0:
 		playerSprite.self_modulate = MAGIC_READY_FLASH
@@ -64,6 +66,6 @@ func physics_update(delta: float):
 		transitionToState(STATE_STRETCHING)
 	
 	if player.is_on_floor():
-		transitionToState(STATE_STOPPING)
+		transitionToState(STATE_IDLE)
 	
 	#player.move_and_slide()

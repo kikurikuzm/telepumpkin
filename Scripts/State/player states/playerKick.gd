@@ -1,7 +1,12 @@
 extends PlayerState
 class_name playerKick
 
-@onready var kickArea = $"../../kickArea"
+@onready var horizontalStrCurve: Curve = preload("res://Resources/curves/horizontal_kick_strength.tres")
+@onready var verticalStrCurve: Curve = preload("res://Resources/curves/vertical_kick_strength.tres")
+@onready var upHorizontalCurve: Curve = preload("res://Resources/curves/upward_horizontal_kick_strength.tres")
+@onready var upVerticalCurve: Curve = preload("res://Resources/curves/upward_vertical_kick_strength.tres")
+
+@onready var kickArea: Area2D = $"../../kickArea"
 @onready var kickStopTimer:Timer = $"../../kickFailTimer"
 
 var hasImpacted:bool = false
@@ -15,12 +20,12 @@ var kickStrengthVertical = 50
 var kickDirection = 1
 var kickPausetime = 0.04
 
-const DEFAULT_HORIZONTAL_KICK_STRENGTH = 60
-const PERFECT_HORIZONTAL_KICK_STRENGTH = 120
-const DEFAULT_VERTICAL_KICK_STRENGTH = 35
-const PERFECT_VERTICAL_KICK_STRENGTH = 70 
+const DEFAULT_HORIZONTAL_KICK_STRENGTH = 125
+const PERFECT_HORIZONTAL_KICK_STRENGTH = 200
+const DEFAULT_VERTICAL_KICK_STRENGTH = 350
+const PERFECT_VERTICAL_KICK_STRENGTH = 450
 
-const MAX_VERTICAL_KICK_STRENGTH := 10
+const MAX_VERTICAL_KICK_STRENGTH := 200
 const MAX_HORIZONTAL_KICK_STRENGTH := 300
 
 const MAX_KICK_WAIT_TIME := 0.5
@@ -65,19 +70,21 @@ func exit():
 
 func update(delta: float):
 	if Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
-		print(player.velocity)
 		if abs(player.velocity.x) < MIN_REQUIRED_MOVEMENT_VELOCITY and kickStopTimer.is_stopped():
 			print_debug("kick did not succeed, changing to playerstop")
 			transitioned.emit(self, "playerStop")
-	elif !Input.is_action_pressed("kick") and animPlayer.current_animation == "kickWindup":
-		friction = 0.01
-		animPlayer.play("kick")
+	elif !Input.is_action_pressed("kick"):
+		if animPlayer.current_animation == "kickWindup":
+			friction = 0.01
+			animPlayer.play("kick")
+			if !player.is_on_floor():
+				animPlayer.seek(0.25)
 		#await animPlayer.animation_finished
 		#transitioned.emit(self, "playerIdle")
 			
 	if !animPlayer.is_playing() and !inKick and Engine.time_scale == 1.0:
 		print_debug("Finished kick, changing to playerstop")
-		transitioned.emit(self, "playerStop")
+		transitionToState(STATE_STOPPING)
 
 func physics_update(delta: float):
 	super(delta)
@@ -89,13 +96,26 @@ func physics_update(delta: float):
 		
 		if kickArea.has_overlapping_bodies():
 			for i in kickArea.get_overlapping_bodies():
+				if i is TileMapLayer:
+					if !player.is_on_floor() and player.velocity.y < 300 and (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
+						print_debug(player.velocity)
+						player.jumpstrength = 200
+						player.airControl = 0.5
+						if player.jumpsRemaining <= 1: player.jumpsRemaining = 2
+						if !playerSprite.flip_h: player.velocity.x = abs(player.velocity.x) * -0.8 - 60
+						else: player.velocity.x = abs(player.velocity.x) * 0.8 + 60
+						transitionToState(STATE_JUMPING)
+						Engine.time_scale = 0.4
+						await get_tree().create_timer(0.15, true, false, true).timeout
+						Engine.time_scale = 1.0
+						return
 				if alreadyImpulsedTargets.has(i): continue
 				
 				if i != null and i is TeleportableObject:
 					inKick = true
 					hasProducedEffect = false
 					
-					kickStrengthHorizontal = DEFAULT_HORIZONTAL_KICK_STRENGTH
+					kickStrengthHorizontal = DEFAULT_HORIZONTAL_KICK_STRENGTH * kickDirection
 					kickStrengthVertical = DEFAULT_VERTICAL_KICK_STRENGTH
 					
 					var playerOldVelocity = player.velocity
@@ -104,17 +124,18 @@ func physics_update(delta: float):
 					
 					#region Perfect Kick Code
 					if kickPausetime > PERFECT_KICK_PAUSE_THRESHOLD:
-						kickStrengthHorizontal = PERFECT_HORIZONTAL_KICK_STRENGTH
+						kickStrengthHorizontal = PERFECT_HORIZONTAL_KICK_STRENGTH * kickDirection
 						kickStrengthVertical = PERFECT_VERTICAL_KICK_STRENGTH
 						
 						CameraManager.setZoom(CameraManager.getPlayerZoom() + 0.5)
+						CameraManager.setSmoothingAmount(1.0)
 						CameraManager.focusPlayer()
 						
 						playerSprite.self_modulate = Color(99.0, 99.0, 99.0)
 						playerSprite.scale.y += 0.4
 						playerSprite.scale.x -= 0.2
 						
-						var hitTimer = get_tree().create_timer(kickPausetime, true, false, true)
+						var hitTimer = get_tree().create_timer(kickPausetime, true, true, true)
 						animPlayer.pause()
 						kickStopTimer.paused = true
 						
@@ -122,31 +143,36 @@ func physics_update(delta: float):
 							$"../../kickBlinkSFX".play()
 							hasProducedEffect = true
 						
+						player.velocity.y = 0
 						Engine.time_scale = 0.01
 						finishPerfectKick(hitTimer)
 					#endregion
 					
-					if !alreadyImpulsedTargets.has(i) and i != null:
+					if !alreadyImpulsedTargets.has(i) and i != null and !hasImpacted:
 						if i is not TeleportableObject: return
 						
-						kickStrengthHorizontal = (kickStrengthHorizontal * kickDirection) * (abs(playerOldVelocity.x)/45 + 1)
-						kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/45 + 1)) * -1
+						#kickStrengthHorizontal = (kickStrengthHorizontal * kickDirection) * (abs(playerOldVelocity.x)/45 + 1)
+						#kickStrengthVertical = (abs(kickStrengthVertical)*(abs(playerOldVelocity.y)/45 + 1))
 						
 						if Input.is_action_pressed("up"):
-							var swappedStrength:float = kickStrengthVertical
-							kickStrengthVertical = (abs(kickStrengthHorizontal) * 0.9) * -1
-							kickStrengthHorizontal = abs(swappedStrength * 0.25) * kickDirection
+							var strSamplePoint:float = (abs(playerOldVelocity.x) + abs(playerOldVelocity.y)) / MAXSPEED
+							kickStrengthHorizontal = (upHorizontalCurve.sample(strSamplePoint) * kickStrengthHorizontal)
+							kickStrengthVertical = (upVerticalCurve.sample(strSamplePoint) * kickStrengthVertical)
 						else:
+							var strSamplePoint:float = abs(playerOldVelocity.x) / MAXSPEED
+							kickStrengthHorizontal = (horizontalStrCurve.sample(strSamplePoint) * kickStrengthHorizontal)
+							kickStrengthVertical = (verticalStrCurve.sample(strSamplePoint) * kickStrengthVertical)
 							#if kickStrengthVertical > kickStrengthHorizontal:
 								#var swappedStrength:float = kickStrengthHorizontal
 								#kickStrengthHorizontal = kickStrengthVertical
 								#kickStrengthVertical = swappedStrength
 								
-							kickStrengthVertical = clampf(kickStrengthVertical, -MAX_VERTICAL_KICK_STRENGTH, MAX_VERTICAL_KICK_STRENGTH)
+							#kickStrengthVertical = clampf(-kickStrengthVertical, -MAX_VERTICAL_KICK_STRENGTH, MAX_VERTICAL_KICK_STRENGTH)
+							#print_debug(kickStrengthVertical)
 						
 						print_debug("Kick strength vector : %s, player velocity : %s" % [str(Vector2(kickStrengthHorizontal, kickStrengthVertical)), str(playerOldVelocity)])
 						
-						i.setVelocity(Vector2(kickStrengthHorizontal, kickStrengthVertical))
+						(i as TeleportableObject).setVelocity(Vector2(kickStrengthHorizontal, kickStrengthVertical))
 						alreadyImpulsedTargets.append(i)
 						hasImpacted = true
 					

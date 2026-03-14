@@ -1,6 +1,6 @@
 class_name DebugUI extends CanvasLayer
 
-@onready var _debugOutput:Label = %debugInfo
+@onready var _debugOutput:RichTextLabel = %debugInfo
 
 var _debugOutputText:String = ""
 

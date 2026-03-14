@@ -25,12 +25,12 @@ var newVelocity:Vector2
 
 var lastFrameVelocity:Vector2 = Vector2.ZERO
 
-var gravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
+var gravity:float = 0.0
 var originalGravity:float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var shaderDistortionAmount:float = 0
 
-const TELEPORT_VELOCITY_DECAY:Vector2 = Vector2(0, 0.5)
+const TELEPORT_VELOCITY_DECAY:Vector2 = Vector2(0.1, 0.5)
 const TELEPORT_VELOCITY_BUMP:Vector2 = Vector2(0, -120)
 
 const MIN_VELOCITY_CUTOFF:float = 5.0
@@ -48,27 +48,45 @@ func _ready():
 		sprite.animation = "normal"
 
 func _physics_process(delta):
-	if self.is_on_floor():
-		self.velocity.y -= lastFrameVelocity.y * physicsProperties.bounce
+	if self.is_on_wall_only():
+		if abs(lastFrameVelocity.x) - abs(self.velocity.x) > 5.0:
+			self.velocity.x -= floorf(lastFrameVelocity.x * physicsProperties.bounce * 0.25)
+			
+			if self.velocity.x < 0: 
+				animationPlayer.play("bounce_wall_right")
+			elif self.velocity.x > 0:
+				animationPlayer.play("bounce_wall_left")
+	
+	if self.is_on_floor() or self.is_on_ceiling(): 
+		if abs(lastFrameVelocity.y) - abs(self.velocity.y) > 5.0:
+			self.velocity.y -= floorf(lastFrameVelocity.y * physicsProperties.bounce)
+		
+		if self.velocity.y < -8.0:
+			var blendAmount:float = clampf(abs(self.velocity.y), 0.0, 1.0)
+			print_debug( self.velocity.y )
+			animationPlayer.stop()
+			animationPlayer.play("bounce_floor", 0.01)
 		
 		if abs(self.velocity.x) > MIN_VELOCITY_CUTOFF:
 			self.velocity.x += (sqrt(abs(self.velocity.x)) * physicsProperties.friction) * -1 * signf(self.velocity.x)
 		else: 
 			self.velocity.x = 0
 	else:
-		lastFrameVelocity = velocity
-		self.velocity.y += gravity * 0.5 * delta
+		lastFrameVelocity = floor(velocity)
+		self.velocity.y += self.get_gravity().y * 0.5 * delta
 		
 		#gravity = gravity + (gravity*1.05)*0.1
 		#lastFrameVelocity.y -= gravity * 0.5 * delta
 		#lastFrameVelocity.y += originalGravity
 	
 	if abs(self.velocity) > Vector2(200, 200):
-		print_debug(self.velocity)
+		#print_debug(self.velocity)
 		self.velocity.y = clampf(self.velocity.y, -200, 200) # hopefully avoids sending the player into space/the void
-	self.velocity.x = clampf(self.velocity.x, -300, 300)
 	
-	lastFrameVelocity = lastFrameVelocity * physicsProperties.bounce
+	self.velocity.x += self.get_gravity().x * delta
+	
+	self.velocity.x = clampf(self.velocity.x, -300, 300)
+	#lastFrameVelocity = lastFrameVelocity * physicsProperties.bounce
 	
 	self.move_and_slide()
 
@@ -103,6 +121,7 @@ func _process(delta):
 	highlighted = false
 
 func setVelocity(newVelocity:Vector2) -> void:
+	lastFrameVelocity = newVelocity
 	self.velocity = newVelocity
 
 func getVelocity():
@@ -116,8 +135,10 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
 	newPosition = destination
 	newVelocity = inheritedVelocity
 	
+	velocity.x += inheritedVelocity.x
 	velocity *= TELEPORT_VELOCITY_DECAY
 	velocity += TELEPORT_VELOCITY_BUMP
+	print_debug(velocity.x)
 		
 	var oldPos:Vector2 = self.global_position
 	
@@ -131,6 +152,9 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
 	spawnTracer(oldPos)
 	poofInstance.show()
 	
+	animationPlayer.play("teleport")
+	#animationPlayer.queue("idle")
+	
 	if rotting:
 		var numberInstance = teleportNumber.instantiate()
 		get_parent().add_child(numberInstance)
@@ -139,8 +163,7 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
 		
 		if rottingTeleport > 0:
 			rottingTeleport -= 1
-			animationPlayer.play("teleport")
-			animationPlayer.queue("idle")
+			
 		elif rottingTeleport <= 0:
 			#deletes the pumpkin when rottingTeleport reaches 0
 			pumpkinDestroy(true)
@@ -161,6 +184,7 @@ func spawnTracer(oldPosition:Vector2) -> void:
 	
 
 func pumpkinDestroy(failure = false):
+	GlobalSignalBus.levelFailed.emit()
 	self.queue_free()
 
 func save() -> Dictionary:
