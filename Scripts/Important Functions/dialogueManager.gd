@@ -9,12 +9,12 @@ class_name DialogueManager extends Node
 @export_file("*.json") var dialogueJSONPath: String ##The path to a .json file containing dialogue. The node will not function without one.
 @export var cutsceneManager : CutscenePlayer ##If the dialogue of a given scene contains a cutscene, then this node is required.
 
-@onready var dialogueBox = $CanvasLayer/dialogBox ##The dialogue box containing the text and portraits of the dialogue.
+@onready var dialogueBox: Container = $CanvasLayer/dialogBox ##The dialogue box containing the text and portraits of the dialogue.
 
-@onready var dialogueText = $CanvasLayer/dialogBox/MarginContainer/HBoxContainer/text ##The text box containing dialogue.
-@onready var dialoguePortrait = $CanvasLayer/dialogBox/MarginContainer/HBoxContainer/MarginContainer/portrait ##The NPC image shown during dialogue.
-@onready var dialogueContinue = $CanvasLayer/progress ##The little arrow at the bottom right of the dialogue box that indicates when the dialogue can be progressed.
-@onready var dialogueFromArrow = $CanvasLayer/fromArrow
+@onready var dialogueText: RichTextLabel = %dialogText ##The text box containing dialogue.
+@onready var dialoguePortrait: TextureRect = %portraitTexture ##The NPC image shown during dialogue.
+@onready var dialogueContinue: AnimatedSprite2D = $CanvasLayer/progress ##The little arrow at the bottom right of the dialogue box that indicates when the dialogue can be progressed.
+@onready var dialogueFromArrow: Line2D = $CanvasLayer/fromArrow
 
 @onready var textSpeed:Timer = $textSpeed ##A timer used to have the letters show every given amount of time.
 
@@ -91,7 +91,12 @@ func progressDialogue() -> void:
 		print_debug(currentEntry.triggerAbsolutePath)
 		triggerToFire = get_node(currentEntry.triggerAbsolutePath)
 	
-	dialoguePortrait.texture = load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png")
+	dialoguePortrait.texture = ImageTexture.create_from_image(load("res://Sprites/NPCs/Portraits/" + currentEntry.dialoguePortrait + ".png"))
+	if currentEntry.dialoguePortrait == "inspect" or currentEntry.dialoguePortrait.is_empty():
+		%portraitContainer.hide()
+	else:
+		%portraitContainer.show()
+	
 	dialogueText.text = currentEntry.dialogueText
 
 	#changeCameraSmoothingAmount.emit(currentEntry.cameraSpeed)
