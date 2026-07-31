@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://csaq7aevdwlws"]
+
+[ext_resource type="Texture2D" uid="uid://b0tr7dgyjv7pp" path="res://Sprites/Misc/graffiti1.png" id="1_dpurr"]
+
+[node name="EditorTriggersThisIndicator" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dpurr")

@@ -46,3 +46,7 @@ func onTriggerExited(cause:Node2D) -> void:
 
 func onTriggeredByTrigger(cause:Node2D) -> void:
 	startModifyingNodes(cause)
+
+func assignEditorTriggeredThings() -> void:
+	editor_triggeredThings = triggerTargets
+	editor_triggeredThings.append_array(modifyTargets)

@@ -23,6 +23,9 @@ class_name Trigger
 @onready var areaCollision:CollisionShape2D = get_node("Area2D/CollisionShape2D")
 @onready var interactIcon:InteractIcon = $interactIcon
 
+var editor_triggeredThings: Array[NodePath] = []
+var editor_triggersThisIndicators: Dictionary[NodePath, Path2D] = {}
+
 var hasTriggered = false ##Whether or not the trigger has already gone off.
 
 signal triggeredByCause(cause:Node2D) ##Emitted when a valid cause to fire has occured.
@@ -54,6 +57,29 @@ func _process(delta: float) -> void:
 	super(delta)
 	
 	if Engine.is_editor_hint():
+		assignEditorTriggeredThings()
+		if !editor_triggeredThings.is_empty() and EditorInterface.get_selection().get_selected_nodes().has(self):
+			for target in editor_triggeredThings:
+				if editor_triggersThisIndicators.has(target) or get_node(target) is not Node2D: continue
+				
+				var targetPointer: Path2D = Path2D.new()
+				self.add_child(targetPointer)
+				targetPointer.top_level = true
+				targetPointer.material = load("res://Resources/Shaders/editor_TriggersThisMaterial.tres")
+				targetPointer.global_position = self.global_position
+				editor_triggersThisIndicators.set(target, targetPointer)
+				
+				targetPointer.curve = Curve2D.new()
+				targetPointer.curve.add_point(Vector2.ZERO)
+				targetPointer.curve.add_point(get_node(target).global_position - targetPointer.global_position)
+				
+		elif !editor_triggersThisIndicators.is_empty() and !EditorInterface.get_selection().get_selected_nodes().has(self):
+			for pointer in editor_triggersThisIndicators.values():
+				self.remove_child(pointer)
+				pointer.queue_free()
+			editor_triggersThisIndicators.clear()
+			
+		
 		self.area2d.position = self.triggerSize.position
 		self.areaCollision.scale = self.triggerSize.size
 		
@@ -109,6 +135,9 @@ func _triggerInteract(cause:Node2D) -> bool: ## Call this on trigger interaction
 		return true
 	
 	return false
+
+func assignEditorTriggeredThings() -> void: ## Meant to be overridden to allow more things to be considered as trigger targets by the editor gizmo pointer thing
+	editor_triggeredThings = triggerTargets
 
 func save():
 	var saveDict = {

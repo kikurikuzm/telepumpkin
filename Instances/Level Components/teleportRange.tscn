@@ -32,6 +32,7 @@ one_shot = true
 stream = ExtResource("3_i142d")
 
 [node name="teleportCheckCast" type="ShapeCast2D" parent="."]
+visible = false
 position = Vector2(-1024, 0)
 shape = SubResource("CircleShape2D_1s665")
 target_position = Vector2(2048, 0)

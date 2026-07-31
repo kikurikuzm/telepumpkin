@@ -1,0 +1,70 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://dnwb6k2e7w4qr"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_d6hks"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_vj5um"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_381vk"]
+default_input_values = [0, 0.0, 1, 4.88]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_6q22a"]
+function = 0
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_ss5gn"]
+default_input_values = [0, 0.0, 1, 0.2, 2, 10.0]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ssymb"]
+input_name = "time"
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void vertex() {
+// Input:6
+	float n_out6p0 = TIME;
+
+
+// FloatOp:2
+	float n_in2p1 = 4.88000;
+	float n_out2p0 = n_out6p0 * n_in2p1;
+
+
+// FloatFunc:3
+	float n_out3p0 = sin(n_out2p0);
+
+
+// Clamp:4
+	float n_in4p1 = 0.20000;
+	float n_in4p2 = 10.00000;
+	float n_out4p0 = clamp(n_out3p0, n_in4p1, n_in4p2);
+
+
+// Output:0
+	COLOR.a = n_out4p0;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2(660, 100)
+nodes/vertex/2/node = SubResource("VisualShaderNodeFloatOp_381vk")
+nodes/vertex/2/position = Vector2(120, 240)
+nodes/vertex/3/node = SubResource("VisualShaderNodeFloatFunc_6q22a")
+nodes/vertex/3/position = Vector2(320, 240)
+nodes/vertex/4/node = SubResource("VisualShaderNodeClamp_ss5gn")
+nodes/vertex/4/position = Vector2(320, 340)
+nodes/vertex/6/node = SubResource("VisualShaderNodeInput_ssymb")
+nodes/vertex/6/position = Vector2(-160, 260)
+nodes/vertex/connections = PackedInt32Array(2, 0, 3, 0, 3, 0, 4, 0, 6, 0, 2, 0, 4, 0, 0, 3)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_d6hks")
+nodes/fragment/5/position = Vector2(-680, 220)
+nodes/fragment/6/node = SubResource("VisualShaderNodeInput_vj5um")
+nodes/fragment/6/position = Vector2(-680, 60)
