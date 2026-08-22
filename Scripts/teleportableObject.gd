@@ -14,6 +14,7 @@ var raycast:PackedScene = preload("res://Instances/Helpers/pumpkinRay.tscn")
 
 @onready var animationPlayer = $AnimationPlayer
 @onready var sprite = $pumpkinSprite
+@onready var pumpkinDetectArea: Area2D = $pumpkinDetectArea
 
 var highlighted:bool = false
 var highlightDistortion : float = 0.0
@@ -57,13 +58,14 @@ func _physics_process(delta):
 			elif self.velocity.x > 0:
 				animationPlayer.play("bounce_wall_left")
 	
-	if self.is_on_floor() or self.is_on_ceiling(): 
+	if self.is_on_floor(): 
 		if abs(lastFrameVelocity.y) - abs(self.velocity.y) > 5.0:
 			self.velocity.y -= floorf(lastFrameVelocity.y * physicsProperties.bounce)
 		
 		if self.velocity.y < -8.0:
+			print_debug(self.velocity.y)
 			var blendAmount:float = clampf(abs(self.velocity.y), 0.0, 1.0)
-			print_debug( self.velocity.y )
+			#print_debug( self.velocity.y )
 			animationPlayer.stop()
 			animationPlayer.play("bounce_floor", 0.01)
 		
@@ -131,18 +133,31 @@ func traverseManhole(exitPos: Vector2, exitVel: Vector2):
 	self.position = exitPos
 	self.velocity = exitVel
 
-func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
+func teleport(destination:Vector2, inheritedVelocity:Vector2, bringNearbyObjects: bool = true) -> Vector2:
+	self.velocity = Vector2.ZERO
+	var highestPosition: Vector2 = destination
+	highestPosition.y -= $CollisionShape2D.shape.get_rect().size.y / 2
+	
+	if bringNearbyObjects:
+		for overlappingArea in pumpkinDetectArea.get_overlapping_areas():
+			if overlappingArea.get_parent() is TeleportableObject:
+				var accompanyingObject: TeleportableObject = overlappingArea.get_parent() # an object that should be teleported alongside the pumpkin
+				var positionDifference: Vector2 = self.global_position - accompanyingObject.global_position + Vector2(0, 4)
+				if positionDifference.y > 0:
+					accompanyingObject.velocity.y = 0
+					highestPosition = accompanyingObject.teleport(destination - positionDifference, inheritedVelocity * 0.25, true)
+	
+	
 	newPosition = destination
 	newVelocity = inheritedVelocity
 	
 	velocity.x += inheritedVelocity.x
 	velocity *= TELEPORT_VELOCITY_DECAY
 	velocity += TELEPORT_VELOCITY_BUMP
-	print_debug(velocity.x)
 		
 	var oldPos:Vector2 = self.global_position
 	
-	await get_tree().physics_frame
+	#await get_tree().physics_frame
 	self.global_position = newPosition
 	
 	var poofInstance:Node2D = poofs.instantiate()
@@ -168,9 +183,7 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2) -> void:
 			#deletes the pumpkin when rottingTeleport reaches 0
 			pumpkinDestroy(true)
 			
-	#if !rotting:
-		#animationPlayer.play("normalTeleport")
-		#animationPlayer.queue("normalIdle")
+	return highestPosition
 
 
 func spawnTracer(oldPosition:Vector2) -> void:

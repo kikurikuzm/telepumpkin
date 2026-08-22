@@ -98,8 +98,8 @@ func rangeHasPlayer() -> bool:
 	return foundPlayer
 
 
-func rangeTeleport(teleportPos:Vector2, teleportVelocity:Vector2) -> Vector2:
-	if teleArea.get_overlapping_bodies().size() <= 0 or !teleTimer.is_stopped() or cannotTeleportOverride == true: return Vector2.ZERO
+func rangeTeleport(teleportPos:Vector2, teleportVelocity:Vector2) -> Array:
+	if teleArea.get_overlapping_bodies().size() <= 0 or !teleTimer.is_stopped() or cannotTeleportOverride == true: return [Vector2.ZERO, Vector2.ZERO]
 	
 	#getting all the physics bodies within the teleport range
 	var selected = teleArea.get_overlapping_bodies()
@@ -128,17 +128,17 @@ func rangeTeleport(teleportPos:Vector2, teleportVelocity:Vector2) -> Vector2:
 		#print("teleported new nearest")
 			return teleportMove(teleportPos, teleportVelocity, nearestPumpkin)
 		
-	return Vector2.ZERO
+	return [Vector2.ZERO, Vector2.ZERO]
 
 
-func teleportMove(teleportPos:Vector2, teleportVelocity:Vector2, teleportableObject:TeleportableObject) -> Vector2:
+func teleportMove(teleportPos:Vector2, teleportVelocity:Vector2, teleportableObject:TeleportableObject) -> Array:
 	var pumpkinPosition:Vector2 = teleportableObject.global_position
 	var kickbackVelocity:Vector2 = teleportPos - pumpkinPosition # A directional impulse against the player as a result of teleportation. 
 	kickbackVelocity *= KICKBACK_MOD
 	
-	teleportableObject.teleport(teleportPos, teleportVelocity)
+	var highestTeleportPosition: Vector2 = teleportableObject.teleport(teleportPos, teleportVelocity)
 	#teleportableObject.translate(Vector2(0, -15))
 	$teleportAudio.pitch_scale = randf_range(0.8, 1.2)
 	$teleportAudio.play()
 	teleTimer.start(TELEPORT_COOLDOWN)
-	return kickbackVelocity
+	return [kickbackVelocity, highestTeleportPosition]

@@ -229,42 +229,49 @@ func tppHandler() -> void:
 					self.holdingTPP = true
 					return
 
-func playerInteractionInitiated() -> void:
-	canTeleport = true
-	for node in interactArea.get_overlapping_areas():
-		if node.is_in_group("entity_trigger_area"):
-			var entrance = node.get_parent()
-			entrance.enterScene()
-			return
-		if node.is_in_group("local_disableTeleport"):
-			canTeleport = false
-		#elif node.is_in_group("entity_trigger_area"):
-			#if node.get_parent().playerTrigger == true:
-				#return
-	
-	tppHandler()
-
-	if canTeleport and (teleportRange.canTeleport() == true or is_instance_valid(tppInst) and tppInst.tppHasValidTargets()):
-		var kickbackVelocity:Vector2
-		var teleportDestination:Vector2 = self.global_position
-		
-		teleportDestination.y += playerCollision.shape.get_rect().size.y * 0.5
-		
-		if !teleportSpaceCheck.is_colliding() and self.is_on_floor(): # If the player is grounded and there isn't anything above them
-			self.global_position.y -= teleportDestination.y - self.global_position.y
-			await get_tree().physics_frame
-		elif teleportSpaceCheck.is_colliding(): # If the player has something above them, nudge the destination to the side of the player
-			var direction:int = 1
-			if spriteAnim.flip_h == false: direction = -1
-			
-			teleportDestination.x += (playerCollision.shape.get_rect().size.x * 0.5 + 10) * direction 
-		
-		if hasTPP and !holdingTPP:
-			kickbackVelocity = tppInst.teleportFromTPP(teleportDestination, self.velocity)
-		else:
-			kickbackVelocity = teleportRange.rangeTeleport(teleportDestination, self.velocity)
-		
-		if !self.is_on_floor(): self.velocity += kickbackVelocity
+#func playerInteractionInitiated() -> void:
+	#canTeleport = true
+	#for node in interactArea.get_overlapping_areas():
+		#if node.is_in_group("entity_trigger_area"):
+			#var entrance = node.get_parent()
+			#entrance.enterScene()
+			#return
+		#if node.is_in_group("local_disableTeleport"):
+			#canTeleport = false
+		##elif node.is_in_group("entity_trigger_area"):
+			##if node.get_parent().playerTrigger == true:
+				##return
+	#
+	#tppHandler()
+#
+	#if canTeleport and (teleportRange.canTeleport() == true or is_instance_valid(tppInst) and tppInst.tppHasValidTargets()):
+		#var kickbackVelocity:Vector2
+		#var teleportDestination:Vector2 = self.global_position
+		#var teleportSpaceAvailable: bool = false
+		#
+		#if !teleportSpaceCheck.is_colliding() and self.is_on_floor(): teleportSpaceAvailable = true
+		#
+		#if hasTPP and !holdingTPP:
+			#kickbackVelocity = tppInst.teleportFromTPP(teleportDestination, self.velocity)
+		#else:
+			#var teleportVelAndPos: Array = teleportRange.rangeTeleport(teleportDestination, self.velocity)
+			#kickbackVelocity = teleportVelAndPos[0]
+			#teleportDestination = teleportVelAndPos[1]
+		#
+		#teleportDestination.y += playerCollision.shape.get_rect().size.y * 0.5
+		#
+		#if teleportSpaceAvailable: # If the player is grounded and there isn't anything above them
+			#self.global_position.y -= teleportDestination.y - self.global_position.y
+			#await get_tree().physics_frame
+		#elif teleportSpaceCheck.is_colliding(): # If the player has something above them, nudge the destination to the side of the player
+			#var direction:int = 1
+			#if spriteAnim.flip_h == false: direction = -1
+			#
+			#teleportDestination.x += (playerCollision.shape.get_rect().size.x * 0.5 + 10) * direction 
+		#
+		#
+		#
+		#if !self.is_on_floor(): self.velocity += kickbackVelocity
 
 
 func changeState(state:String) -> void:

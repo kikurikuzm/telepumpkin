@@ -7,6 +7,7 @@ class_name playerIdle
 func enter():
 	playerSprite.rotation_degrees = 0
 	animPlayer.play("newIdle")
+	playerSprite.self_modulate = Color.WHITE
 
 func exit():
 	pass

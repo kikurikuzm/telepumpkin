@@ -74,6 +74,10 @@ func interactTeleport() -> void:
 	if !teleportRange.rangeHasTeleportTargets() or !teleportRange.canTeleport(): return
 	
 	var teleportDestination:Vector2 = player.global_position
+	var playerTeleportDestination: Vector2 = teleportDestination
+	var yOffset = player.PLAYER_COLLISION_RECT.size.y * 0.5
+	
+	#player.playerCollision.disabled = true
 	
 	if teleportCheckRay.is_colliding():
 		var playerFacingDirection:int = 1
@@ -81,14 +85,19 @@ func interactTeleport() -> void:
 		
 		teleportDestination.x += player.TELEPORT_DEST_HORIZONTAL_OFFSET * playerFacingDirection
 		
-	elif !teleportCheckRay.is_colliding():
-		var yOffset = player.PLAYER_COLLISION_RECT.size.y * 0.5
+	if !teleportCheckRay.is_colliding():
+		
 		teleportDestination.y += yOffset - 2
-		player.global_position.y -= yOffset + 18
+		#player.global_position.y -= yOffset + 18
 		
 		if player.velocity.y > 0: player.velocity.y = 0
 	
-	teleportRange.rangeTeleport(teleportDestination, player.velocity)
+	var teleportVelAndPos: Array = teleportRange.rangeTeleport(teleportDestination, player.velocity)
+	playerTeleportDestination = teleportVelAndPos[1] - Vector2(0, yOffset + 18)
+	
+	player.global_position = playerTeleportDestination
+	#player.playerCollision.disabled = false
+
 
 func initiateInteraction() -> void:
 	for area in interactionArea.get_overlapping_areas():

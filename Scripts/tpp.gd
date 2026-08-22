@@ -64,7 +64,7 @@ func stretchDown():
 	teleportRange.scale = lerp(teleportRange.scale, HORIZONTAL_STRETCH_SCALE, 0.1)
 
 func teleportFromTPP(playerPosition:Vector2, playerVelocity:Vector2) -> Vector2:
-	return teleportRange.rangeTeleport(playerPosition, playerVelocity)
+	return teleportRange.rangeTeleport(playerPosition, playerVelocity)[0]
 
 func tppReturn():
 	print_debug("returned")

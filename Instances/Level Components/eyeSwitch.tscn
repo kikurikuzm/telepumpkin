@@ -28,8 +28,8 @@ gravity_point = true
 gravity_point_unit_distance = 44.336
 gravity_point_center = Vector2(0, 0)
 gravity_direction = Vector2(0, 0)
-gravity = 201.111
-linear_damp_space_override = 3
+gravity = 150.0
+linear_damp_space_override = 1
 linear_damp = 100.0
 angular_damp_space_override = 4
 angular_damp = 100.0
@@ -49,3 +49,4 @@ shape = SubResource("CircleShape2D_jseaq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("CircleShape2D_63l2c")
+disabled = true
