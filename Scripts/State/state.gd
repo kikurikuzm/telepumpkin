@@ -2,7 +2,7 @@ class_name State extends Node
 
 signal transitioned(fromState:State, toStateName:String)
 
-func enter():
+func enter(args: Array = []):
 	pass
 
 func exit():
@@ -17,5 +17,5 @@ func physics_update(_delta: float):
 func unhandled_input(event: InputEvent) -> void:
 	pass
 
-func transitionToState(stateName:String) -> void:
-	transitioned.emit(self, stateName)
+func transitionToState(stateName:String, ...args: Array) -> void:
+	transitioned.emit(self, stateName, args)

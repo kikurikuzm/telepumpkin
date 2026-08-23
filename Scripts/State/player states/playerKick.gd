@@ -35,7 +35,7 @@ const PERFECT_KICK_PAUSE_THRESHOLD := 0.46
 
 const KICK_AREA_HORIZONTAL_OFFSET := 8
 
-func enter():
+func enter(args := []):
 	print_debug("Initiated a kick")
 	hasImpacted = false
 	alreadyImpulsedTargets.clear()
@@ -96,8 +96,9 @@ func physics_update(delta: float):
 		
 		if kickArea.has_overlapping_bodies():
 			for i in kickArea.get_overlapping_bodies():
+				#region floor kicking jump
 				if i is TileMapLayer:
-					if !player.is_on_floor() and player.velocity.y < 300 and (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
+					if !player.is_on_floor() and (Input.is_action_pressed("left") or Input.is_action_pressed("right")):
 						print_debug(player.velocity)
 						player.jumpstrength = 200
 						player.airControl = 0.5
@@ -109,6 +110,7 @@ func physics_update(delta: float):
 						await get_tree().create_timer(0.15, true, false, true).timeout
 						Engine.time_scale = 1.0
 						return
+				#endregion
 				if alreadyImpulsedTargets.has(i): continue
 				
 				if i != null and i is TeleportableObject:

@@ -43,17 +43,18 @@ func _unhandled_input(event: InputEvent) -> void:
 func getCurrentStateName() -> String:
 	return current_state.name
 
-func on_child_transition(state, new_state_name):
+func on_child_transition(state: State, new_state_name: String, args: Array = []):
 	print_debug("Transitioned to state: %s" % new_state_name)
+	print(args)
 	if state != current_state:
 		return
 	
-	var new_state = states.get(new_state_name.to_lower())
+	var new_state: State = states.get(new_state_name.to_lower())
 	if !new_state:
 		return
 	
 	if current_state:
 		current_state.exit()
 		
-	new_state.enter()
+	new_state.enter(args)
 	current_state = new_state

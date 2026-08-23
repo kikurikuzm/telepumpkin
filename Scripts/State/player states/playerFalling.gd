@@ -9,7 +9,7 @@ var magicColourTween:Tween
 var aircontrol = 1
 var currentVelocityY: float
 
-func enter():
+func enter(args := []):
 	if magicColourTween:
 		magicColourTween.kill()
 	

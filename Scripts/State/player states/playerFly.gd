@@ -1,7 +1,7 @@
 extends PlayerState
 class_name playerFly
 
-func enter():
+func enter(args := []):
 	player.velocity = Vector2.ZERO
 	playerSprite.rotation_degrees = 0
 	animPlayer.play("idle")

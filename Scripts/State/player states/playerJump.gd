@@ -6,15 +6,22 @@ class_name playerJump
 
 @onready var jumpAudio = preload("res://Audio/sfx/jumpNoise.ogg")
 
+@export var hoistContainer: HoistContainer = null
+
 const HORIZONTAL_BOOST := 40
 const DEFAULT_AIR_CONTROL := 2.0
 
-func enter():
+func enter(args := []):
 	#audio.pitch_scale = 2.0
 	#audio.volume_db = -10.0
 	#audio.stream = jumpAudio
 	#audio.play()
 	player.jumpsRemaining -= 1
+	
+	if is_instance_valid(hoistContainer):
+		if !hoistContainer.current_objects.is_empty():
+			player.jumpsRemaining = 0
+	
 	coyoteTimer.stop()
 	animPlayer.play("jump")
 	player.velocity.y = player.jumpstrength * -1

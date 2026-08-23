@@ -5,7 +5,7 @@ class_name playerMoving
 
 const TILTAMOUNT = 5.0
 
-func enter():
+func enter(args := []):
 	MAXSPEED = 125
 	ACCELERATE = 0.005
 	animPlayer.play("walk")

@@ -14,8 +14,8 @@ var cannotTeleportOverride:bool = false
 const TELEPORT_COOLDOWN : float = 0.55
 const KICKBACK_MOD : float = 1.1
 
-const HORIZONTAL_STRETCH_SCALE : Vector2 = Vector2(3.5, 0.7)
-const VERTICAL_STRETCH_SCALE : Vector2 = Vector2(0.7, 3.5)
+const HORIZONTAL_STRETCH_SCALE : Vector2 = Vector2(3.0, 0.9)
+const VERTICAL_STRETCH_SCALE : Vector2 = Vector2(0.9, 3.5)
 const BOTH_STRETCH_SCALE : Vector2 = Vector2(2.0, 2.0)
 const NONE_STRETCH_SCALE : Vector2 = Vector2(1.0, 1.0)
 

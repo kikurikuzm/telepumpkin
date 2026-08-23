@@ -25,7 +25,7 @@ const MAX_RESIDUAL_WALK_SPEED = 125
 const RESIDUAL_SPEED_DECREASE_STR = 0.1
 const WALK_SPEED_DECREASE_STR = 0.1
 
-func enter():
+func enter(args := []):
 	if player.is_on_floor():
 		player.jumpstrength = 165
 		jumpStrengthIncrease = JUMPSTRENGTH_INCREASE
@@ -95,8 +95,8 @@ func physics_update(delta: float):
 		#player.velocity.x = 0
 	
 	if Input.is_action_pressed("up"):
-		teleportRange.scale.x = lerp(teleportRange.scale.x, 0.9, 0.07)
-		teleportRange.scale.y = lerp(teleportRange.scale.y, 3.0, 0.085)
+		teleportRange.scale.x = lerp(teleportRange.scale.x, TeleportRange.VERTICAL_STRETCH_SCALE.x, 0.07)
+		teleportRange.scale.y = lerp(teleportRange.scale.y, TeleportRange.VERTICAL_STRETCH_SCALE.y, 0.085)
 		if player.is_on_floor() or !coyoteTimer.is_stopped():
 			player.jumpstrength += jumpStrengthIncrease
 			player.jumpstrength = clamp(player.jumpstrength, MIN_JUMPSTRENGTH, MAX_JUMPSTRENGTH)
@@ -115,8 +115,8 @@ func physics_update(delta: float):
 			#stretchAnimationUpPlayed = true
 		
 	if Input.is_action_pressed("down"):
-		teleportRange.scale.x = lerp(teleportRange.scale.x, 3.5, 0.085)
-		teleportRange.scale.y = lerp(teleportRange.scale.y, 0.9, 0.07)
+		teleportRange.scale.x = lerp(teleportRange.scale.x, TeleportRange.HORIZONTAL_STRETCH_SCALE.x, 0.085)
+		teleportRange.scale.y = lerp(teleportRange.scale.y, TeleportRange.HORIZONTAL_STRETCH_SCALE.y, 0.07)
 		if !stretchAnimationDownPlayed:
 			#animPlayer.play("stretchDown")
 			stretchAnimationDownPlayed = true

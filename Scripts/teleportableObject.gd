@@ -200,6 +200,23 @@ func pumpkinDestroy(failure = false):
 	GlobalSignalBus.levelFailed.emit()
 	self.queue_free()
 
+func onHoist() -> void:
+	$CollisionShape2D.disabled = true
+	
+	highlighted = false
+	highlightDistortion = 0
+	sprite.material.set_shader_parameter("distortion_strength", highlightDistortion)
+	$selectParticles.emitting = false
+	
+	self.set_physics_process(false)
+	self.set_process(false)
+	
+
+func onUnhoist() -> void:
+	$CollisionShape2D.disabled = false
+	self.set_physics_process(true)
+	self.set_process(true)
+
 func save() -> Dictionary:
 	var saveDict = {
 		"name" : name,

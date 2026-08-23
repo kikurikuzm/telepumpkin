@@ -9,7 +9,7 @@ var direction : int = -1
 const TILTAMOUNT = 10.0
 const SKEWAMOUNT = 10.0
 
-func enter():
+func enter(args := []):
 	direction = sign(player.velocity.x)
 	if direction == -1:
 		playerSprite.flip_h = true
