@@ -26,7 +26,7 @@ func hoistObject(object: Node2D) -> void:
 				if child is CollisionShape2D:
 					object.global_position.y -= child.shape.get_rect().size.y * current_objects.size()
 					break
-				
+		object.reset_physics_interpolation()
 		#self.add_child(object)
 		current_objects.append(object)
 
@@ -36,6 +36,7 @@ func dropHoistedObject() -> void:
 	var dropping_object = current_objects.pop_back()
 	dropping_object.reparent(parent.get_parent(), false)
 	dropping_object.global_position = parent.global_position
+	dropping_object.reset_physics_interpolation()
 	for child in dropping_object.get_children():
 		if child is CollisionShape2D:
 			parent.global_position.y -= child.shape.get_rect().size.y * 4

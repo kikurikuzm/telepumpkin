@@ -39,13 +39,12 @@ func exit():
 		impactAudio.play()
 
 func update(delta: float):
-	if Input.is_action_pressed("left"):
-		player.velocity.x -= aircontrol
-	if Input.is_action_pressed("right"):
-		player.velocity.x += aircontrol
+	pass
 
 func physics_update(delta: float):
 	super(delta)
+	
+	player.velocity.x += aircontrol * Input.get_axis("left", "right")
 	
 	currentVelocityY = player.velocity.y
 	#if player.velocity.y > 0:

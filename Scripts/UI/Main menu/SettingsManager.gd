@@ -7,21 +7,13 @@ signal loadLevelButtonPressed
 signal playerSaveDeleted
 
 func _ready() -> void:
-	if FileAccess.file_exists("user://cfg.dat"):
-		var cfgFile = FileAccess.open("user://cfg.dat", FileAccess.READ)
-		OptionsContainer.loadSettingsFromSave(cfgFile)
-	if FileAccess.file_exists("user://save.dat"):
-		$SettingsButtonsContainer/SaveRemoveButton.disabled = false
+	pass
 
 
 func _on_apply_pressed():
-	ProjectSettings.save_custom("override.cfg")
-	DirAccess.remove_absolute("user://cfg.dat")
-	
-	var file = FileAccess.open("user://cfg.dat", FileAccess.WRITE)
-	OptionsContainer.saveSettingsForSave(file)
-	
-	file.close()
+	ConfigManager.readControlValues(OptionsContainer)
+	ConfigManager.saveToFile()
+	ConfigManager.applyConfig()
 	
 	print("Saved user config.")
 

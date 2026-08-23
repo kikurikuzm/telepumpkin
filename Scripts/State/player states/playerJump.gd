@@ -27,12 +27,7 @@ func enter(args := []):
 	player.velocity.y = player.jumpstrength * -1
 	player.gravity = gvars.playerGravity / 1.2
 	
-	if Input.is_action_pressed("left"):
-		player.velocity.x -= HORIZONTAL_BOOST
-		#player.move_and_slide()
-	elif Input.is_action_pressed("right"):
-		player.velocity.x += HORIZONTAL_BOOST
-		#player.move_and_slide()
+	player.velocity.x += HORIZONTAL_BOOST * Input.get_axis("left", "right")
 
 func exit():
 	player.jumpstrength = 0

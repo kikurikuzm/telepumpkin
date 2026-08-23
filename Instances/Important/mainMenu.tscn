@@ -385,6 +385,8 @@ popup/item_1/text = "1920x1080"
 popup/item_1/id = 1
 popup/item_2/text = "1280x800"
 popup/item_2/id = 2
+metadata/oname = "resolution"
+metadata/sec = "visual"
 
 [node name="SimpleGraphicsToggle" type="CheckBox" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics"]
 unique_name_in_owner = true
@@ -399,6 +401,8 @@ focus_next = NodePath("../FullscreenToggle")
 focus_previous = NodePath("../ResolutionDropdown")
 theme = ExtResource("2_kn6pq")
 text = "Fast Graphics"
+metadata/oname = "fast_graphics"
+metadata/sec = "visual"
 
 [node name="FullscreenToggle" type="CheckBox" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics"]
 unique_name_in_owner = true
@@ -411,6 +415,10 @@ focus_neighbor_right = NodePath(".")
 focus_neighbor_bottom = NodePath("../../../SettingsButtonsContainer/ApplyButton")
 theme = ExtResource("2_kn6pq")
 text = "Fullscreen"
+metadata/oname = "window_mode"
+metadata/sec = "visual"
+metadata/true = 3
+metadata/false = 0
 
 [node name="Audio" type="VBoxContainer" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer"]
 visible = false
@@ -555,10 +563,6 @@ metadata/_edit_lock_ = true
 [connection signal="backButtonPressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" to="." method="_on_back_button_pressed"]
 [connection signal="loadLevelButtonPressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" to="." method="_open_level_select_window"]
 [connection signal="playerSaveDeleted" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" to="." method="_on_player_save_deleted"]
-[connection signal="item_selected" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics/ResolutionDropdown" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_resolution_settings_item_selected"]
-[connection signal="toggled" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics/SimpleGraphicsToggle" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_graphics_settings_toggled"]
-[connection signal="toggled" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Graphics/FullscreenToggle" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_fullscreen_toggled"]
-[connection signal="toggled" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Audio/MuteToggle" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer" method="_on_mute_toggled"]
 [connection signal="pressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/ApplyButton" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" method="_on_apply_pressed"]
 [connection signal="pressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/BackButton" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" method="_on_back_button_pressed"]
 [connection signal="pressed" from="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsButtonsContainer/LoadLevelButton" to="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu" method="_on_load_level_button_pressed"]

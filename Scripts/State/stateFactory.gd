@@ -45,7 +45,6 @@ func getCurrentStateName() -> String:
 
 func on_child_transition(state: State, new_state_name: String, args: Array = []):
 	print_debug("Transitioned to state: %s" % new_state_name)
-	print(args)
 	if state != current_state:
 		return
 	

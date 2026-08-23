@@ -19,6 +19,10 @@ const CAMERA_TRANSITION_DURATION : float = 0.45
 
 func _ready():
 	get_tree().paused = false
+	ConfigManager.initializeConfig()
+	print(ConfigManager.config_file.encode_to_text())
+	ConfigManager.saveToFile()
+	ConfigManager.applyConfig()
 	
 	if not DirAccess.dir_exists_absolute("user://levelSaves/"):
 		DirAccess.make_dir_absolute("user://levelSaves/")

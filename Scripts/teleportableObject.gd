@@ -202,6 +202,8 @@ func pumpkinDestroy(failure = false):
 
 func onHoist() -> void:
 	$CollisionShape2D.disabled = true
+	$Area2D/CollisionShape2D.disabled = true
+	$pumpkinDetectArea/CollisionShape2D.disabled = true
 	
 	highlighted = false
 	highlightDistortion = 0
@@ -214,6 +216,9 @@ func onHoist() -> void:
 
 func onUnhoist() -> void:
 	$CollisionShape2D.disabled = false
+	$Area2D/CollisionShape2D.disabled = false
+	$pumpkinDetectArea/CollisionShape2D.disabled = false
+	
 	self.set_physics_process(true)
 	self.set_process(true)
 

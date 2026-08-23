@@ -4,7 +4,7 @@ class_name playerHoisting
 @export var animationObjectTarget: Marker2D
 @export var hoistContainer: HoistContainer
 
-const HOIST_DURATION := 1.0
+const HOIST_DURATION := 1.1
 var hoistTimer: Timer = null
 var hoistedObject: Node2D = null
 var animatingObject: bool = false
@@ -16,18 +16,29 @@ func enter(args := []):
 		hoistTimer.one_shot = true
 		hoistTimer.autostart = false
 		hoistTimer.wait_time = HOIST_DURATION
-	if args.size() > 0 and args[0] is Node2D: hoistedObject = args[0]
 	
 	animatingObject = false
+	if args.size() > 0 and args[0] is Node2D: hoistedObject = args[0]
+	var positionDiff: Vector2 = player.global_position - hoistedObject.global_position
+	print(positionDiff)
+	if positionDiff.x > 0: 
+		playerSprite.flip_h = true
+	else: 
+		playerSprite.flip_h = false
 	
 	hoistTimer.start()
 	animPlayer.play("hoistObject")
 
 func exit():
-	curveX = 0
 	playerSprite.rotation_degrees = 0
+	animatingObject = false
 
 func update(delta: float):
+	super(delta)
+	
+	
+
+func physics_update(delta: float):
 	super(delta)
 	
 	if !hoistTimer.is_stopped() and animationObjectTarget.visible == true \
@@ -37,13 +48,10 @@ func update(delta: float):
 			hoistedObject.call("onHoist")
 		elif hoistedObject.has_method("on_hoist"):
 			hoistedObject.call("on_hoist")
+		await get_tree().physics_frame
 		hoistedObject.reparent(animationObjectTarget, false)
 		hoistedObject.global_position = animationObjectTarget.global_position
 	
 	if hoistTimer.is_stopped():
 		hoistContainer.hoistObject(hoistedObject)
 		transitionToState("playeridle")
-
-func physics_update(delta: float):
-	super(delta)
-	

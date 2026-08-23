@@ -40,6 +40,7 @@ func enter(args := []):
 	teleportRange.scaleOverridden = true
 	maxJumpStrengthReached = false
 	
+	animPlayer.speed_scale = 1.0
 	animPlayer.play("jumpSquat")
 
 func exit():
@@ -71,28 +72,13 @@ func physics_update(delta: float):
 		#coyoteTimer.start(1)
 		#print("started timer")
 	
-	if Input.is_action_pressed("left"):
-		direction = -1
-		#playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, -3.0, 0.2)
-		#playerSprite.skew = deg_to_rad(lerp(deg_to_rad(playerSprite.skew), -15.0, 0.001))
-		if abs(player.velocity.x) < MAX_STRETCH_WALK_SPEED:
-			player.velocity.x += walkspeed * direction
-		playerSprite.flip_h = true
+	var move_axis: float = Input.get_axis("left", "right")
+	if move_axis < 0: playerSprite.flip_h = true
+	elif move_axis > 0: playerSprite.flip_h = false
 	
-	if Input.is_action_pressed("right"):
-		direction = 1
-		#playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, 3.0, 0.2)
-		#playerSprite.skew = deg_to_rad(lerp(deg_to_rad(playerSprite.skew), 15.0, 0.001))
-		if abs(player.velocity.x) < MAX_STRETCH_WALK_SPEED:
-			player.velocity.x += walkspeed * direction
-		playerSprite.flip_h = false
-		
-	#if Input.is_action_just_released("left") or \
-	#Input.is_action_just_released("right"):
-		#curveX = 0
+	if abs(player.velocity.x) < MAX_STRETCH_WALK_SPEED:
+		player.velocity.x += walkspeed * move_axis
 	
-	#if direction == 0:
-		#player.velocity.x = 0
 	
 	if Input.is_action_pressed("up"):
 		teleportRange.scale.x = lerp(teleportRange.scale.x, TeleportRange.VERTICAL_STRETCH_SCALE.x, 0.07)

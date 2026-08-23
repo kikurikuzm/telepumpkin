@@ -56,9 +56,14 @@ func _ready():
 func _process(delta: float) -> void:
 	super(delta)
 	
+	
 	if Engine.is_editor_hint():
 		assignEditorTriggeredThings()
-		if !editor_triggeredThings.is_empty() and EditorInterface.get_selection().get_selected_nodes().has(self):
+		
+		var editor_interface = Engine.get_singleton(&"EditorInterface")
+		if !editor_interface: return
+		
+		if !editor_triggeredThings.is_empty() and editor_interface.get_selection().get_selected_nodes().has(self):
 			for target in editor_triggeredThings:
 				if editor_triggersThisIndicators.has(target) or get_node(target) is not Node2D: continue
 				
@@ -73,7 +78,7 @@ func _process(delta: float) -> void:
 				targetPointer.curve.add_point(Vector2.ZERO)
 				targetPointer.curve.add_point(get_node(target).global_position - targetPointer.global_position)
 				
-		elif !editor_triggersThisIndicators.is_empty() and !EditorInterface.get_selection().get_selected_nodes().has(self):
+		elif !editor_triggersThisIndicators.is_empty() and !editor_interface.get_selection().get_selected_nodes().has(self):
 			for pointer in editor_triggersThisIndicators.values():
 				self.remove_child(pointer)
 				pointer.queue_free()

@@ -15,7 +15,7 @@ class_name PlayerState extends State
 @export var turnTimer : Timer
 @export var friction = 6
 
-@onready var accelCurve = load("res://Resources/movement_accel.tres")
+@onready var accelCurve: Curve = load("res://Resources/movement_accel.tres")
 
 var curveY : float
 var curveX : float
@@ -57,11 +57,10 @@ func unhandled_input(event:InputEvent) -> void:
 	if Input.is_action_just_pressed("teleport"):
 		initiateInteraction()
 
-func accelerate(moveDir:int) -> float:
-	curveY = 0
+func accelerate(moveDir:float) -> float:
 	curveX += ACCELERATE
 	curveY = (accelCurve.sample(curveX) * 7) * moveDir
-	#curveX = clampf(curveX, -MAXSPEED, MAXSPEED)
+	curveX = clampf(curveX, -MAXSPEED, MAXSPEED)
 	return(curveY)
 
 func interactWithNPC(npcTrigger:Trigger) -> bool: ## Override to disable. Returns true or false depending on the success of the trigger interact

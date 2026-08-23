@@ -44,9 +44,11 @@ func _process(delta: float) -> void:
 		var zoom = _zoomStack.get(focusIndex)
 		var smoothing = _smoothingStack.get(focusIndex)
 		if zoom == null or smoothing == null: return
-		
-		_mainCamera.changeZoom(_zoomStack.get(focusIndex))
-		_mainCamera.setSmoothingAmount(_smoothingStack.get(focusIndex))
+		var zoom_influence: float = Input.get_axis("camera_zoom_out", "camera_zoom_in")
+		var max_zoom_change: float = 1.5
+		zoom = zoom + (max_zoom_change * zoom_influence)
+		_mainCamera.changeZoom(zoom)
+		_mainCamera.setSmoothingAmount(smoothing)
 
 func setupNewFocus(newFocusTarget:Node2D, zoom:float, cameraSmoothingAmount:float = DEFAULT_SMOOTHING_AMOUNT) -> void:
 	self.setZoom(zoom)

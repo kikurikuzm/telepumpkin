@@ -79,7 +79,7 @@ collision_enabled = false
 navigation_enabled = false
 
 [node name="cameraZone" parent="." instance=ExtResource("6_fylhd")]
-position = Vector2(951, 586)
+position = Vector2(951, 616)
 collisionShapeTransform = Rect2(-67.207, 45.172, 2.108, 4.034)
 cameraZoom = 3.6
 cameraSmoothing = 0.09
