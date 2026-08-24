@@ -454,6 +454,7 @@ volume_db = -19.025
 [node name="Player" parent="." instance=ExtResource("14_rdcvr")]
 
 [node name="MainCamera" type="Camera2D" parent="."]
+physics_interpolation_mode = 2
 zoom = Vector2(5, 5)
 script = ExtResource("15_lq855")
 

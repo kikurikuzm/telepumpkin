@@ -16,15 +16,15 @@ func exit():
 func update(delta: float):
 	if Input.is_action_just_pressed("object_hoist"):
 		if hoistContainer.canHoist():
-			for node in interactionArea.get_overlapping_bodies():
-				for child in node.get_children():
+			for node in interactionArea.get_overlapping_bodies() + interactionArea.get_overlapping_areas():
+				var children: Array[Node] = node.get_parent().get_children() if node is Area2D else node.get_children()
+				var parent: Node = node if node is not Area2D else node.get_parent()
+				for child in children:
 					if child is HoistAttributes:
-						transitionToState("playerhoisting", node)
+						transitionToState("playerhoisting", parent)
 						return
 		if hoistContainer.canDrop():
-			player.jumpstrength = 100
-			transitionToState("playerjump")
-			hoistContainer.dropHoistedObject()
+			transitionToState("playerunhoisting")
 			return
 	
 	if Input.is_action_pressed("left") or \

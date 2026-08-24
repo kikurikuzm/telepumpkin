@@ -19,9 +19,10 @@ const CAMERA_TRANSITION_DURATION : float = 0.45
 
 func _ready():
 	get_tree().paused = false
-	ConfigManager.initializeConfig()
-	print(ConfigManager.config_file.encode_to_text())
-	ConfigManager.saveToFile()
+	#ConfigManager.initializeConfig()
+	#print(ConfigManager.config_file.encode_to_text())
+	#ConfigManager.saveToFile()
+	ConfigManager.loadFromFile()
 	ConfigManager.applyConfig()
 	
 	if not DirAccess.dir_exists_absolute("user://levelSaves/"):
@@ -49,6 +50,8 @@ func _on_level_dialogue_file_selected(path):
 
 
 func _on_settings_button_pressed() -> void:
+	ConfigManager.populateControlValues(settingsPanelContainer)
+	
 	var cameraTween:Tween = get_tree().create_tween()
 	cameraTween.tween_property(camera, "global_position", settingsPanelContainer.global_position, CAMERA_TRANSITION_DURATION).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	backButton.grab_focus()

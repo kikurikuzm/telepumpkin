@@ -23,7 +23,7 @@ var kickPausetime = 0.04
 const DEFAULT_HORIZONTAL_KICK_STRENGTH = 125
 const PERFECT_HORIZONTAL_KICK_STRENGTH = 200
 const DEFAULT_VERTICAL_KICK_STRENGTH = 350
-const PERFECT_VERTICAL_KICK_STRENGTH = 450
+const PERFECT_VERTICAL_KICK_STRENGTH = 500
 
 const MAX_VERTICAL_KICK_STRENGTH := 200
 const MAX_HORIZONTAL_KICK_STRENGTH := 300
@@ -34,6 +34,10 @@ const MIN_REQUIRED_MOVEMENT_VELOCITY := 60.0
 const PERFECT_KICK_PAUSE_THRESHOLD := 0.46
 
 const KICK_AREA_HORIZONTAL_OFFSET := 8
+
+const WALLKICK_HORIZONTAL_VEL_BOOST := 30
+const WALLKICK_HORIZONTAL_VEL_DECAY := 0.8
+
 
 func enter(args := []):
 	print_debug("Initiated a kick")
@@ -102,13 +106,31 @@ func physics_update(delta: float):
 						print_debug(player.velocity)
 						player.jumpstrength = 200
 						player.airControl = 0.5
+						
 						if player.jumpsRemaining <= 1: player.jumpsRemaining = 2
-						if !playerSprite.flip_h: player.velocity.x = abs(player.velocity.x) * -0.8 - 60
-						else: player.velocity.x = abs(player.velocity.x) * 0.8 + 60
-						transitionToState(STATE_JUMPING)
-						Engine.time_scale = 0.4
-						await get_tree().create_timer(0.15, true, false, true).timeout
+						
+						player.velocity *= 0.1
+						player.gravity = 0
+						
+						animPlayer.pause()
+						
+						Engine.time_scale = 0.3
+						await get_tree().create_timer(0.2, true, false, true).timeout
 						Engine.time_scale = 1.0
+						
+						if playerSprite.flip_h:
+							%kickImpactParticles.position.x = -16
+							%kickImpactParticles.rotation_degrees = -45
+						else:
+							%kickImpactParticles.position.x = 16
+							%kickImpactParticles.rotation_degrees = 196
+						%kickImpactParticles.emitting = true
+						
+						if !playerSprite.flip_h: player.velocity.x = abs(player.velocity.x) * -WALLKICK_HORIZONTAL_VEL_DECAY - WALLKICK_HORIZONTAL_VEL_BOOST
+						else: player.velocity.x = abs(player.velocity.x) * WALLKICK_HORIZONTAL_VEL_DECAY + WALLKICK_HORIZONTAL_VEL_BOOST
+						
+						transitionToState(STATE_JUMPING)
+						
 						return
 				#endregion
 				if alreadyImpulsedTargets.has(i): continue
@@ -137,7 +159,7 @@ func physics_update(delta: float):
 						playerSprite.scale.y += 0.4
 						playerSprite.scale.x -= 0.2
 						
-						var hitTimer = get_tree().create_timer(kickPausetime, true, true, true)
+						var hitTimer = get_tree().create_timer(kickPausetime, true, false, true)
 						animPlayer.pause()
 						kickStopTimer.paused = true
 						

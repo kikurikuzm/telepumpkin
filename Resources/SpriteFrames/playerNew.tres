@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=33 format=3 uid="uid://dx3ffhiakq180"]
+[gd_resource type="SpriteFrames" load_steps=37 format=3 uid="uid://dx3ffhiakq180"]
 
 [ext_resource type="Texture2D" uid="uid://bg5c6q3i5107" path="res://Sprites/Kin/new kin.png" id="1_kyw8e"]
 [ext_resource type="Texture2D" uid="uid://bi0vfpytm73wn" path="res://Sprites/Kin/kin2.png" id="2_6ghgl"]
@@ -122,6 +122,22 @@ region = Rect2(416, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1de48"]
 atlas = ExtResource("2_6ghgl")
 region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v13y"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(992, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4fvw"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(1024, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnpuc"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(1056, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qqgg"]
+atlas = ExtResource("2_6ghgl")
+region = Rect2(1088, 0, 32, 32)
 
 [resource]
 animations = [{
@@ -261,5 +277,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"kick",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v13y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4fvw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnpuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qqgg")
+}],
+"loop": true,
+"name": &"unhoist",
 "speed": 5.0
 }]

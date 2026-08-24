@@ -26,8 +26,10 @@ func enter(args := []):
 	else: 
 		playerSprite.flip_h = false
 	
-	hoistTimer.start()
-	animPlayer.play("hoistObject")
+	var weight_factor: float = float(hoistContainer.current_objects.size()) / float(hoistContainer.max_objects)
+	
+	#hoistTimer.start(HOIST_DURATION + HOIST_DURATION * weight_factor)
+	animPlayer.play("hoistObject", -1, max(0.1, 1.0 - weight_factor))
 
 func exit():
 	playerSprite.rotation_degrees = 0
@@ -41,7 +43,7 @@ func update(delta: float):
 func physics_update(delta: float):
 	super(delta)
 	
-	if !hoistTimer.is_stopped() and animationObjectTarget.visible == true \
+	if animPlayer.current_animation == "hoistObject" and animationObjectTarget.visible == true \
 	and is_instance_valid(hoistedObject) and animatingObject == false:
 		animatingObject = true
 		if hoistedObject.has_method("onHoist"):
@@ -50,8 +52,9 @@ func physics_update(delta: float):
 			hoistedObject.call("on_hoist")
 		await get_tree().physics_frame
 		hoistedObject.reparent(animationObjectTarget, false)
+		#hoistedObject.create_tween().tween_property(hoistedObject, "global_position"), 
 		hoistedObject.global_position = animationObjectTarget.global_position
 	
-	if hoistTimer.is_stopped():
+	if animPlayer.current_animation != "hoistObject":
 		hoistContainer.hoistObject(hoistedObject)
 		transitionToState("playeridle")

@@ -317,13 +317,13 @@ text = "Quit"
 
 [node name="SettingsPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1920.0
-offset_top = -41.0
-offset_right = 1920.0
-offset_bottom = -41.0
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = -0.038000003
+anchor_right = 2.0
+anchor_bottom = 0.9620001
+offset_top = 0.040000916
+offset_bottom = 0.039916992
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_r0kno")
@@ -427,11 +427,25 @@ metadata/_tab_index = 1
 
 [node name="MuteToggle" type="CheckBox" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Audio"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 tooltip_text = "Enable or disable fullscreen"
 focus_neighbor_bottom = NodePath("../../../SettingsButtonsContainer/ApplyButton")
 theme = ExtResource("2_kn6pq")
 text = "Mute Audio"
+
+[node name="master_slider" type="VBoxContainer" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Audio"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Audio/master_slider"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolume" type="HSlider" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu/SettingsOptionsContainer/Audio/master_slider"]
+layout_mode = 2
+value = 50.0
+metadata/oname = "master"
+metadata/sec = "audio"
 
 [node name="HSeparator" type="HSeparator" parent="SettingsPanelContainer/SettingsVBoxContainer/SettingsMenu"]
 custom_minimum_size = Vector2(500, 0)

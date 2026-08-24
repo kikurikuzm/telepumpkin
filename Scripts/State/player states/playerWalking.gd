@@ -1,13 +1,19 @@
 extends PlayerState
 class_name playerMoving
 
+@export var hoist_container: HoistContainer
 @onready var coyoteTimer = $"../../coyoteTimer"
 
 const TILTAMOUNT = 5.0
+const DEFAULT_ACCEL = 0.005
 
 func enter(args := []):
 	MAXSPEED = 125
 	ACCELERATE = 0.005
+	
+	if hoist_container and not hoist_container.current_objects.is_empty():
+		ACCELERATE = DEFAULT_ACCEL / hoist_container.current_objects.size()
+	
 	animPlayer.play("walk")
 
 func exit():
@@ -27,7 +33,6 @@ func physics_update(delta: float):
 		return
 	
 	var move_axis = Input.get_axis("left", "right")
-	animPlayer.speed_scale = abs(move_axis)
 	
 	if move_axis < 0: playerSprite.flip_h = true
 	elif move_axis > 0: playerSprite.flip_h = false
@@ -35,6 +40,8 @@ func physics_update(delta: float):
 	playerSprite.rotation_degrees = lerp(playerSprite.rotation_degrees, TILTAMOUNT* (move_axis * -1), 0.2)
 	var accel = accelerate(move_axis)
 	player.velocity.x += accel
+	
+	animPlayer.speed_scale = max(0.2, abs(player.velocity.x) / MAXSPEED)
 	
 	if Input.is_action_just_released("left") or \
 	Input.is_action_just_released("right"):

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=54 format=3 uid="uid://lgbtsst4op3c"]
+[gd_resource type="TileSet" load_steps=56 format=3 uid="uid://lgbtsst4op3c"]
 
 [ext_resource type="Texture2D" uid="uid://bwear5qercn3r" path="res://Sprites/Ground/grasstilemap.png" id="1_kvu3i"]
 [ext_resource type="Texture2D" uid="uid://dskhnuoiiewe" path="res://Sprites/tiles/fence.png" id="2_bcora"]
@@ -32,6 +32,9 @@ polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kbbxl"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fr1kt"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_nlqxr"]
@@ -140,6 +143,9 @@ polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gxjai"]
+polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_k2kbe"]
 polygon = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jarbv"]
@@ -452,6 +458,7 @@ texture_region_size = Vector2i(32, 32)
 2:0/1/transpose = true
 2:0/1/terrain_set = 0
 2:0/1/terrain = 0
+2:0/1/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_fr1kt")
 2:0/1/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:0/1/terrains_peering_bit/right_side = 0
 2:0/1/terrains_peering_bit/left_side = 0
@@ -1048,6 +1055,7 @@ texture_region_size = Vector2i(32, 32)
 7:5/0 = 0
 7:5/0/terrain_set = 0
 7:5/0/terrain = 0
+7:5/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_k2kbe")
 7:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:2/next_alternative_id = 9
 5:2/0 = 0

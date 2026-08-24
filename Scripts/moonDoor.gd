@@ -36,7 +36,7 @@ func _process(delta):
 	if !Engine.is_editor_hint():
 		if Input.is_action_just_pressed("teleport"):
 			for i in area.get_overlapping_bodies():
-				if i.is_in_group("player"):
+				if i.is_in_group("entity_player_body"):
 					if delayTimer.is_stopped() and !locked:
 						if isOpen:
 							beepAudioStream.stream = beepOpen

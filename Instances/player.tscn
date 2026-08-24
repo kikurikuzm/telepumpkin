@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://dfn02ff1m04mi"]
+[gd_scene load_steps=88 format=3 uid="uid://dfn02ff1m04mi"]
 
 [ext_resource type="Script" uid="uid://cjueo043tknu2" path="res://Scripts/player.gd" id="1_cr5rv"]
 [ext_resource type="Shape2D" uid="uid://cetb0crij0clv" path="res://Resources/collision/playerCollisionShape.tres" id="2_2vvt4"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" uid="uid://bkrhqxcq6bxbm" path="res://Scripts/State/player states/playerHoisting.gd" id="13_inqhq"]
 [ext_resource type="AudioStream" uid="uid://junj2m4vfse4" path="res://Audio/sfx/concretestep3.ogg" id="13_yi6rr"]
 [ext_resource type="AudioStream" uid="uid://d4aw3nbwb6ct" path="res://Audio/sfx/wood_step-01.ogg" id="14_mbwwd"]
+[ext_resource type="Script" uid="uid://cmarovdnaf2g3" path="res://Scripts/State/player states/playerUnhoisting.gd" id="14_wy1o5"]
 [ext_resource type="Texture2D" uid="uid://quari01f84qd" path="res://Sprites/Misc/cropperPumpkin.png" id="15_5tg1k"]
 [ext_resource type="AudioStream" uid="uid://osbuu3ys72w0" path="res://Audio/sfx/wood_step-02.ogg" id="15_breqs"]
 [ext_resource type="AudioStream" uid="uid://dnvw53ep1vrqw" path="res://Audio/sfx/wood_step-03.ogg" id="16_1x2s6"]
@@ -45,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://df87xnhlrr345" path="res://Instances/Helpers/PumpkinMagnet.tscn" id="40_qffwg"]
 [ext_resource type="Texture2D" uid="uid://c3vrr0n8ysvel" path="res://Sprites/Misc/telepoof.png" id="41_posx8"]
 [ext_resource type="Script" uid="uid://b8yu7duhr0yrm" path="res://Scripts/Important Functions/HoistContainer.gd" id="43_e5s0j"]
+[ext_resource type="Texture2D" uid="uid://bq2e4iudg60hj" path="res://Sprites/Particles/kick_impact.png" id="47_lwpt6"]
 
 [sub_resource type="GDScript" id="GDScript_1gwht"]
 script/source = "extends PlayerState
@@ -340,6 +342,18 @@ tracks/22/keys = {
 "update": 0,
 "values": [Vector2(0, -11.8918915)]
 }
+tracks/23/type = "value"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("%hoistContainer:scale")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_gpbgi"]
 resource_name = "fall"
@@ -506,7 +520,7 @@ tracks/6/path = NodePath("../animation_object_target:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.62026525, 0.7656666, 0.8080306, 0.8791619, 1.0421),
+"times": PackedFloat32Array(0, 0.6, 0.62026525, 0.80897224, 0.85133624, 0.8791619, 1.0421),
 "transitions": PackedFloat32Array(1, 1, 0.55946094, 2.1276453, 1, 1, 1),
 "update": 0,
 "values": [Vector2(8.648649, 11.8918915), Vector2(8.648649, 11.8918915), Vector2(6.4864864, -31.35135), Vector2(-0.645, -37.201), Vector2(-1.081, 3.952), Vector2(0, -6.4864855), Vector2(0, -6.4864855)]
@@ -518,7 +532,7 @@ tracks/7/path = NodePath("../animation_object_target:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.6045952, 0.6682006, 0.76502305),
+"times": PackedFloat32Array(0, 0.6, 0.6045952, 0.6682006, 0.8083287),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0.99999994, 0.99999994), Vector2(0.99999994, 0.99999994), Vector2(0.598, 2.047), Vector2(0.891, 1.193), Vector2(0.99999994, 0.99999994)]
@@ -530,7 +544,7 @@ tracks/8/path = NodePath("../animation_object_target:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.60537827, 0.6699826, 0.76666665, 0.8079435, 0.87970364, 1.0421),
+"times": PackedFloat32Array(0, 0.6, 0.60537827, 0.6699826, 0.8099723, 0.85124916, 0.87970364, 1.0421),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 0.16231562, -0.09424778, -0.16755160819145604, 0.12740903539558626, 0.04014257279586978, 0.04014257279586978]
@@ -542,7 +556,7 @@ tracks/9/path = NodePath("../animation_object_target:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.6),
+"times": PackedFloat32Array(0, 0.56666666),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -558,6 +572,30 @@ tracks/10/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [0.0, 0.116937056, 0.16057029118347813, 0.0, 0.0, 0.10297442, 0.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("%hoistContainer:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.51430124, 0.6010318, 0.64757746, 0.76666665, 0.81447965, 0.8479553),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -6.4864864), Vector2(0.804, -2.162), Vector2(0.804, -2.254), Vector2(0.804, -2.162), Vector2(0.804, -17.601), Vector2(0.804, -21.637), Vector2(0.804, 2.116), Vector2(0.569, -0.909)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("%hoistContainer:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.5996793, 0.61052096, 0.7, 0.77074254, 0.8131245, 0.8205781, 0.8479553),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(0.304, 2.08), Vector2(1, 1), Vector2(1, 1), Vector2(0.664, 1.318), Vector2(1.527, 0.773), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_dvtsf"]
@@ -1605,6 +1643,106 @@ tracks/3/keys = {
 "values": [Vector2(1, 1), Vector2(0.6875, 1.40625)]
 }
 
+[sub_resource type="Animation" id="Animation_5tg1k"]
+resource_name = "unhoistObject"
+length = 0.5686
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"unhoist"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.26666668, 0.33333334, 0.512189),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.26563662, 0.26827064, 0.36666667, 0.46308535, 0.51148856, 0.5666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.818, 3.135), Vector2(0, -20), Vector2(0, -15), Vector2(0, -5.387), Vector2(0, -1.832), Vector2(0, -2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.26571307, 0.26666668, 0.40495867, 0.46426278, 0.50900036, 0.51194614),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.029670598, 0.0, -0.04363323, -0.04363323, 0.05934119456780681, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.26563662, 0.26666668, 0.37162533, 0.47752696, 0.5086077, 0.51152545, 0.51215446, 0.56666666),
+"transitions": PackedFloat32Array(1, 1, 0.2786721, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.804054), Vector2(0.475, 1.456), Vector2(1, 1), Vector2(1, 1), Vector2(0.749, 1.235), Vector2(0.749, 1.235), Vector2(1.402, 0.849), Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:skew")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.26563662, 0.26666665),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.116937056, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../animation_object_target:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.51157755),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../animation_object_target:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(2.5326087, 1),
+"update": 0,
+"values": [Vector2(0, -9.159), Vector2(0, 7.368)]
+}
+
 [sub_resource type="Animation" id="Animation_m7s4w"]
 resource_name = "walk"
 length = 0.55
@@ -1713,6 +1851,7 @@ _data = {
 &"stretch": SubResource("Animation_v0gao"),
 &"stretchDown": SubResource("Animation_tq1i8"),
 &"stretchUp": SubResource("Animation_ulrw5"),
+&"unhoistObject": SubResource("Animation_5tg1k"),
 &"walk": SubResource("Animation_m7s4w")
 }
 
@@ -1779,6 +1918,25 @@ scale_curve = SubResource("CurveTexture_5tg1k")
 alpha_curve = SubResource("CurveTexture_e5s0j")
 turbulence_enabled = true
 
+[sub_resource type="Curve" id="Curve_r6fqa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vgti0"]
+curve = SubResource("Curve_r6fqa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wvpxt"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+spread = 63.996
+initial_velocity_min = 133.06999
+initial_velocity_max = 133.06999
+gravity = Vector3(0, 0, 0)
+scale_min = 0.58
+scale_max = 0.58
+scale_curve = SubResource("CurveTexture_vgti0")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bcid"]
 size = Vector2(32, 38)
 
@@ -1831,8 +1989,9 @@ playerSprite = NodePath("../../AnimatedSprite2D")
 impactAudio = NodePath("../../fallThump")
 turnTimer = NodePath("../../turnTimer")
 
-[node name="playerWalking" type="Node" parent="stateFactory" node_paths=PackedStringArray("player", "interactionArea", "teleportRange", "teleportCheckRay", "animPlayer", "playerSprite", "impactAudio", "turnTimer")]
+[node name="playerWalking" type="Node" parent="stateFactory" node_paths=PackedStringArray("hoist_container", "player", "interactionArea", "teleportRange", "teleportCheckRay", "animPlayer", "playerSprite", "impactAudio", "turnTimer")]
 script = ExtResource("4_v361r")
+hoist_container = NodePath("../../hoistContainer")
 player = NodePath("../..")
 interactionArea = NodePath("../../interactArea")
 teleportRange = NodePath("../../Teleport")
@@ -1943,6 +2102,20 @@ impactAudio = NodePath("../../fallThump")
 turnTimer = NodePath("../../turnTimer")
 metadata/_custom_type_script = "uid://bkrhqxcq6bxbm"
 
+[node name="playerUnhoisting" type="Node" parent="stateFactory" node_paths=PackedStringArray("animationObjectTarget", "hoistContainer", "player", "interactionArea", "teleportRange", "teleportCheckRay", "animPlayer", "playerSprite", "impactAudio", "turnTimer")]
+script = ExtResource("14_wy1o5")
+animationObjectTarget = NodePath("../../animation_object_target")
+hoistContainer = NodePath("../../hoistContainer")
+player = NodePath("../..")
+interactionArea = NodePath("../../interactArea")
+teleportRange = NodePath("../../Teleport")
+teleportCheckRay = NodePath("../../teleportSpaceCheck")
+animPlayer = NodePath("../../AnimationPlayer")
+playerSprite = NodePath("../../AnimatedSprite2D")
+impactAudio = NodePath("../../fallThump")
+turnTimer = NodePath("../../turnTimer")
+metadata/_custom_type_script = "uid://cmarovdnaf2g3"
+
 [node name="tppLine" type="Line2D" parent="."]
 visible = false
 light_mask = 0
@@ -2025,6 +2198,19 @@ randomness = 0.05
 trail_lifetime = 0.19
 trail_section_subdivisions = 1
 process_material = SubResource("ParticleProcessMaterial_wy1o5")
+
+[node name="kickImpactParticles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(16, 8.649)
+rotation = 3.4225907
+emitting = false
+amount = 4
+texture = ExtResource("47_lwpt6")
+lifetime = 0.19
+one_shot = true
+explosiveness = 0.99
+randomness = 0.26
+process_material = SubResource("ParticleProcessMaterial_wvpxt")
 
 [node name="exitBasket" type="Sprite2D" parent="."]
 visible = false

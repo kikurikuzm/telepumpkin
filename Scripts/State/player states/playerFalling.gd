@@ -17,8 +17,8 @@ func enter(args := []):
 	
 	animPlayer.play("fall")
 	print(player.velocity.y)
-	if player.velocity.y > 0:
-		player.gravity = gvars.playerGravity * 2.3
+	#if player.velocity.y > 0:
+	player.gravity = gvars.playerGravity * 2.5
 	
 	if player.jumpsRemaining > 0:
 		playerSprite.self_modulate = MAGIC_READY_FLASH
@@ -39,7 +39,9 @@ func exit():
 		impactAudio.play()
 
 func update(delta: float):
-	pass
+	if Input.is_action_just_pressed("kick"):
+		transitionToState("playerkick")
+		return
 
 func physics_update(delta: float):
 	super(delta)

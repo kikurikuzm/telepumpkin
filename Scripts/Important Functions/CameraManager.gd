@@ -1,4 +1,6 @@
 extends Node
+## Camera Manager Singleton
+
 
 var _mainCamera:MainCamera = null
 var _playerReference:Player = null
@@ -13,6 +15,9 @@ var _currentSmoothing:float = 1.0
 var _smoothingStack:Array[float] = []
 
 var _currentLevelZoom:float = 3.0
+
+var lock_zoom_override: bool = false
+var locked_zoom_override: float = 0.0
 
 const DEFAULT_SMOOTHING_AMOUNT:float = 0.15
 
@@ -44,11 +49,34 @@ func _process(delta: float) -> void:
 		var zoom = _zoomStack.get(focusIndex)
 		var smoothing = _smoothingStack.get(focusIndex)
 		if zoom == null or smoothing == null: return
+		
 		var zoom_influence: float = Input.get_axis("camera_zoom_out", "camera_zoom_in")
+		if not lock_zoom_override:
+			locked_zoom_override = zoom_influence
+		else:
+			zoom_influence = locked_zoom_override
+		var pan_influence: float = Input.get_axis("camera_pan_left", "camera_pan_right")
 		var max_zoom_change: float = 1.5
-		zoom = zoom + (max_zoom_change * zoom_influence)
+		zoom = clampf(zoom + (max_zoom_change * zoom_influence), 1.5, 6.0)
 		_mainCamera.changeZoom(zoom)
 		_mainCamera.setSmoothingAmount(smoothing)
+		
+		var panned_position: Vector2 = Vector2.ZERO
+		panned_position.x = (pan_influence * 500)
+		
+		_mainCamera.position = lerp(
+			_mainCamera.position, 
+			_mainCamera.position - (_currentFocus.global_position - _playerReference.global_position),
+			(zoom_influence + 0.1) * 0.05
+			)
+		
+		_mainCamera.position.x = lerp(_mainCamera.position.x, _mainCamera.position.x + panned_position.x, 0.01)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_released("lock_camera_zoom"):
+		lock_zoom_override = !lock_zoom_override
+
 
 func setupNewFocus(newFocusTarget:Node2D, zoom:float, cameraSmoothingAmount:float = DEFAULT_SMOOTHING_AMOUNT) -> void:
 	self.setZoom(zoom)
