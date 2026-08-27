@@ -2314,8 +2314,9 @@ modulate = Color(0.331642, 4.21144e-08, 0.155947, 1)
 collide_with_bodies = false
 
 [node name="teleportSpaceCheck" type="RayCast2D" parent="."]
-target_position = Vector2(0, -37)
+target_position = Vector2(0, -45)
 collision_mask = 3
+hit_from_inside = true
 
 [node name="pumpkinCollision" type="StaticBody2D" parent="."]
 collision_layer = 4

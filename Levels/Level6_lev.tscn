@@ -27,7 +27,7 @@ tile_set = ExtResource("3_2akfe")
 
 [node name="platforms" type="TileMapLayer" parent="."]
 z_index = -1
-tile_map_data = PackedByteArray("AAAaABYABAACAAEAACAZABYABAADAAEAADAjAA8ABAACAAEAADAiAA8ABAACAAEAADAhAA8ABAADAAEAADA=")
+tile_map_data = PackedByteArray("AAAaABYABAACAAEAACAZABYABAADAAEAADAjAA8ABAACAAEAADAiAA8ABAACAAEAADAhAA8ABAADAAEAADAZABcABAACAAEAAAA=")
 tile_set = ExtResource("4_li38f")
 
 [node name="spawn" parent="." instance=ExtResource("5_mpq5e")]

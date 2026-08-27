@@ -21,8 +21,12 @@ var highlightDistortion : float = 0.0
 
 var bounceCount:int = 0
 
-var newPosition:Vector2
-var newVelocity:Vector2
+var hasUncommittedTransform: bool = false
+var uncommittedPosition: Vector2 = Vector2.ZERO
+var uncommittedVelocity: Vector2 = Vector2.ZERO
+
+var newPosition: Vector2
+var newVelocity: Vector2
 
 var lastFrameVelocity:Vector2 = Vector2.ZERO
 
@@ -133,8 +137,9 @@ func traverseManhole(exitPos: Vector2, exitVel: Vector2):
 	self.position = exitPos
 	self.velocity = exitVel
 
-func teleport(destination:Vector2, inheritedVelocity:Vector2, bringNearbyObjects: bool = true) -> Vector2:
+func teleport(destination:Vector2, inheritedVelocity:Vector2, bringNearbyObjects: bool = true) -> Array:
 	self.velocity = Vector2.ZERO
+	var modifiedObjects: Array[Node2D] = [self]
 	var highestPosition: Vector2 = destination
 	highestPosition.y -= $CollisionShape2D.shape.get_rect().size.y / 2
 	
@@ -145,19 +150,28 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2, bringNearbyObjects
 				var positionDifference: Vector2 = self.global_position - accompanyingObject.global_position + Vector2(0, 4)
 				if positionDifference.y > 0:
 					accompanyingObject.velocity.y = 0
-					highestPosition = accompanyingObject.teleport(destination - positionDifference, inheritedVelocity * 0.25, true)
+					var teleportPositionAndObjects: Array = accompanyingObject.teleport(destination - positionDifference, inheritedVelocity * 0.25, true)
+					highestPosition = teleportPositionAndObjects[0]
+					modifiedObjects.append_array(teleportPositionAndObjects[1])
 	
 	
-	newPosition = destination
-	newVelocity = inheritedVelocity
+	setPendingTransforms(destination, inheritedVelocity)
 	
-	velocity.x += inheritedVelocity.x
+	return [highestPosition, modifiedObjects]
+
+
+func applyPendingTransforms() -> void:
+	if !hasUncommittedTransform: return
+	
+	newPosition = uncommittedPosition
+	newVelocity = uncommittedVelocity
+	
+	velocity.x += newVelocity.x
 	velocity *= TELEPORT_VELOCITY_DECAY
 	velocity += TELEPORT_VELOCITY_BUMP
 		
 	var oldPos:Vector2 = self.global_position
 	
-	#await get_tree().physics_frame
 	self.global_position = newPosition
 	
 	var poofInstance:Node2D = poofs.instantiate()
@@ -182,8 +196,22 @@ func teleport(destination:Vector2, inheritedVelocity:Vector2, bringNearbyObjects
 		elif rottingTeleport <= 0:
 			#deletes the pumpkin when rottingTeleport reaches 0
 			pumpkinDestroy(true)
-			
-	return highestPosition
+	
+	hasUncommittedTransform = false
+	uncommittedPosition = Vector2.ZERO
+	uncommittedVelocity = Vector2.ZERO
+
+
+func setPendingTransforms(new_position: Vector2, new_velocity: Vector2) -> void:
+	hasUncommittedTransform = true
+	uncommittedPosition = new_position
+	uncommittedVelocity = new_velocity
+
+
+func discardPendingTransforms() -> void:
+	hasUncommittedTransform = false
+	uncommittedPosition = Vector2.ZERO
+	uncommittedVelocity = Vector2.ZERO
 
 
 func spawnTracer(oldPosition:Vector2) -> void:

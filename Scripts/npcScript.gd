@@ -22,6 +22,8 @@ class_name NPC extends Node2D
 
 var canTalk = true
 
+const CONVO_FINISH_COOLDOWN: float = 0.25
+
 func _process(delta):
 	if Engine.is_editor_hint():
 		animSprite.flip_h = spriteFlip
@@ -69,7 +71,8 @@ func NPCBeginConversation():
 	canTalk = false
 
 func NPCFinishConversation():
-	pass
+	await get_tree().create_timer(CONVO_FINISH_COOLDOWN).timeout
+	canTalk = true
 
 func save() -> Dictionary:
 	var saveDict = {

@@ -2,64 +2,56 @@ class_name LevelLoader extends Node
 
 #This node should handle the loading of levels.
 
-@export var levelSetResource : LevelSet = load("res://Resources/LevelSets/testLevelSet.res")
-var levelSet : Array
+@export var levelSetResource: LevelSet = load("res://Resources/LevelSets/testLevelSet.res")
+var levelSet: Array
 
-var currentLevelVariables : LevelVariables
+var currentLevelVariables: LevelVariables
 
-var loadedLevel
-var currentLevelFilePath : String = ""
-var instancedLevel:LevelSceneRoot
+var loadedLevel: Resource
+var currentLevelFilePath: String = ""
+var instancedLevel: LevelSceneRoot
+
+const ACTIVE_LEVEL_GROUP := "main_active_level"
 
 signal emitError(String)
 
 func _ready() -> void:
 	levelSet = levelSetResource.levelList
 
-func instanceLevel(levelSetIndex:int) -> void:
+
+func _instanceLevel(filePath: String) -> void:
+	if loadedLevel != null:
+		loadedLevel = null
+	if is_instance_valid(instancedLevel):
+		instancedLevel.queue_free()
+	
+	var currentLevelToLoad: String = filePath
+	currentLevelFilePath = currentLevelToLoad
+	loadedLevel = load(currentLevelToLoad)
+	
+	if loadedLevel == null:
+		printerr("LevelLoader: Failed to load level with path \"%s\"." % filePath)
+		return
+	
+	instancedLevel = loadedLevel.instantiate()
+	instancedLevel.add_to_group(ACTIVE_LEVEL_GROUP)
+	currentLevelVariables = instancedLevel.levelVariablesResource
+	add_child(instancedLevel)
+
+func instanceLevelFromSet(levelSetIndex:int) -> void:
 	if levelSetIndex + 1 > len(levelSet):
 		return
-
-	if loadedLevel != null:
-		loadedLevel = null
-	if instancedLevel != null:
-		instancedLevel.queue_free()
 	
-	var currentLevelToLoad = levelSet[levelSetIndex]
-	currentLevelFilePath = currentLevelToLoad
-	loadedLevel = load(currentLevelToLoad)
-	
-	instancedLevel = loadedLevel.instantiate()
-	currentLevelVariables = instancedLevel.levelVariablesResource
-	add_child(instancedLevel)
+	_instanceLevel(levelSet[levelSetIndex])
 
 func instanceLevelFromPath(levelPath:String) -> bool:
-	#if !validateLevel(levelPath):
-		#print("invalid level - " + levelPath)
-		#return false
-	if loadedLevel != null:
-		loadedLevel = null
-	if instancedLevel != null:
-		instancedLevel.queue_free()
-	
-	var currentLevelToLoad = levelPath
-	currentLevelFilePath = currentLevelToLoad
-	loadedLevel = load(currentLevelToLoad)
-	
-	instancedLevel = loadedLevel.instantiate()
-	currentLevelVariables = instancedLevel.levelVariablesResource
-	add_child(instancedLevel)
+	_instanceLevel(levelPath)
 	
 	return true
 
 func instanceLevelFromPackedScene(scene:PackedScene) -> void:
-	if is_instance_valid(instancedLevel): instancedLevel.queue_free()
-	
-	loadedLevel = scene
-	instancedLevel = loadedLevel.instantiate()
-	currentLevelVariables = instancedLevel.levelVariablesResource
-	
-	add_child(instancedLevel)
+	_instanceLevel(scene.resource_path)
+
 
 func setupExternalLevelNodes(playerReference:CharacterBody2D) -> void:
 	playerReference.global_position = instancedLevel.getLevelSpawnPointPosition()

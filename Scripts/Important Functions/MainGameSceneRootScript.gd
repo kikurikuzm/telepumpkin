@@ -131,21 +131,25 @@ func initiateLevelChange(levelPath:String = ""):
 	elif ExternalLevelManager.loadedDailyLevel != null:
 		levelLoader.instanceLevelFromPackedScene(ExternalLevelManager.loadedDailyLevel)
 		ExternalLevelManager.loadedDailyLevel = null
+	elif !levelLoader.currentLevelFilePath.is_empty():
+		levelLoader.instanceLevelFromPath(levelLoader.currentLevelFilePath)
 	else:
-		levelLoader.instanceLevel(currentLevelSetIndex)
+		levelLoader.instanceLevelFromSet(currentLevelSetIndex)
 	
 	levelLoader.setupExternalLevelNodes(playerReference)
 	dialogueManager.setCurrentLevelChildrenArray(levelLoader.getCurrentLevelChildren())
-	#connectToLevelNodeSignals()
 	
 	var currentLevelVariables : LevelVariables = levelLoader.getCurrentLevelVariables()
 	levelAmbience.stream = currentLevelVariables.levelAmbience
 	levelAmbience.play()
-	#CameraManager.setLevelSmoothing(currentLevelVariables.)
+	
 	CameraManager.setLevelZoom(currentLevelVariables.playerZoom)
 	CameraManager.setPlayerZoom(currentLevelVariables.playerZoom)
 	CameraManager.clearStacks()
 	CameraManager.snapToFocusPosition()
+
+func gotoNextLevel():
+	initiateLevelChange(levelLoader.levelSet[currentLevelSetIndex])
 
 func restartLevel():
 	initiateLevelChange()
@@ -212,7 +216,7 @@ func _levelFailed():
 	pass
 
 func _onPlayerExitAnimationFinished():
-	initiateLevelChange()
+	gotoNextLevel()
 
 func _levelCutsceneBegin(passedCutscenePlayerCharacter, passedCutsceneCamera, passedCutscenePlayerInstance):
 	cutsceneManager.setupCutscene(passedCutscenePlayerCharacter, passedCutsceneCamera, passedCutscenePlayerInstance)

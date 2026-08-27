@@ -8,6 +8,7 @@ const HOIST_DURATION := 1.1
 var hoistTimer: Timer = null
 var hoistedObject: Node2D = null
 var animatingObject: bool = false
+var originalParent: Node = null
 
 func enter(args := []):
 	if hoistTimer == null:
@@ -51,10 +52,12 @@ func physics_update(delta: float):
 		elif hoistedObject.has_method("on_hoist"):
 			hoistedObject.call("on_hoist")
 		await get_tree().physics_frame
+		
+		originalParent = hoistedObject.get_parent()
+		
 		hoistedObject.reparent(animationObjectTarget, false)
-		#hoistedObject.create_tween().tween_property(hoistedObject, "global_position"), 
 		hoistedObject.global_position = animationObjectTarget.global_position
 	
 	if animPlayer.current_animation != "hoistObject":
-		hoistContainer.hoistObject(hoistedObject)
+		hoistContainer.hoistObject(hoistedObject, originalParent)
 		transitionToState("playeridle")

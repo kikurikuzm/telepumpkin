@@ -7,11 +7,13 @@ class_name TeleportRange extends Sprite2D
 var selectedPumpkin : Node2D
 var scaleOverridden = false
 
+var objectsPendingTeleportCommit: Array[Node2D] = []
+
 var canHighlightTargets:bool = true
 
 var cannotTeleportOverride:bool = false
 
-const TELEPORT_COOLDOWN : float = 0.55
+const TELEPORT_COOLDOWN : float = 0.7
 const KICKBACK_MOD : float = 1.1
 
 const HORIZONTAL_STRETCH_SCALE : Vector2 = Vector2(3.0, 0.9)
@@ -136,9 +138,25 @@ func teleportMove(teleportPos:Vector2, teleportVelocity:Vector2, teleportableObj
 	var kickbackVelocity:Vector2 = teleportPos - pumpkinPosition # A directional impulse against the player as a result of teleportation. 
 	kickbackVelocity *= KICKBACK_MOD
 	
-	var highestTeleportPosition: Vector2 = teleportableObject.teleport(teleportPos, teleportVelocity)
-	#teleportableObject.translate(Vector2(0, -15))
+	var teleportChanges: Array = teleportableObject.teleport(teleportPos, teleportVelocity)
+	var highestTeleportPosition: Vector2 = teleportChanges[0]
+	objectsPendingTeleportCommit = teleportChanges[1]
+	
+	return [kickbackVelocity, highestTeleportPosition]
+
+
+func commitTeleport() -> void:
+	for object: TeleportableObject in objectsPendingTeleportCommit:
+		object.applyPendingTransforms()
+	
+	objectsPendingTeleportCommit.clear()
+	
 	$teleportAudio.pitch_scale = randf_range(0.8, 1.2)
 	$teleportAudio.play()
 	teleTimer.start(TELEPORT_COOLDOWN)
-	return [kickbackVelocity, highestTeleportPosition]
+
+func discardTeleport() -> void:
+	for object: TeleportableObject in objectsPendingTeleportCommit:
+		object.discardPendingTransforms()
+	
+	objectsPendingTeleportCommit.clear()

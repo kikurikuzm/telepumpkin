@@ -72,30 +72,50 @@ func interactWithTrigger(trigger:Trigger) -> bool: ## Override to disable. Retur
 func interactTeleport() -> void:
 	if !teleportRange.rangeHasTeleportTargets() or !teleportRange.canTeleport(): return
 	
-	var teleportDestination:Vector2 = player.global_position
+	var teleportDestination: Vector2 = player.global_position
 	var playerTeleportDestination: Vector2 = teleportDestination
-	var yOffset = player.PLAYER_COLLISION_RECT.size.y * 0.5
+	var yOffset := player.PLAYER_COLLISION_RECT.size.y * 0.5
+	var xOffset := Vector2.ZERO
 	
-	#player.playerCollision.disabled = true
 	
 	if teleportCheckRay.is_colliding():
 		var playerFacingDirection:int = 1
 		if playerSprite.flip_h == true: playerFacingDirection = -1
 		
-		teleportDestination.x += player.TELEPORT_DEST_HORIZONTAL_OFFSET * playerFacingDirection
+		#teleportDestination.x += player.TELEPORT_DEST_HORIZONTAL_OFFSET * playerFacingDirection
+		xOffset.x = player.TELEPORT_DEST_HORIZONTAL_OFFSET * playerFacingDirection
+		#teleportCheckRay.global_position = teleportDestination - Vector2(0, yOffset + 18)
+		#teleportCheckRay.force_raycast_update()
+		#if teleportCheckRay.is_colliding():
+			#teleportCheckRay.position = Vector2.ZERO
+			#return
+		#teleportCheckRay.position = Vector2.ZERO
 		
 	if !teleportCheckRay.is_colliding():
-		
 		teleportDestination.y += yOffset - 2
-		#player.global_position.y -= yOffset + 18
-		
 		if player.velocity.y > 0: player.velocity.y = 0
 	
 	var teleportVelAndPos: Array = teleportRange.rangeTeleport(teleportDestination, player.velocity)
 	playerTeleportDestination = teleportVelAndPos[1] - Vector2(0, yOffset + 18)
 	
-	player.global_position = playerTeleportDestination
-	#player.playerCollision.disabled = false
+	
+	teleportCheckRay.global_position = (playerTeleportDestination - xOffset)
+	#teleportCheckRay.target_position.y /= 3
+	#await get_tree().physics_frame
+	#teleportCheckRay.force_update_transform()
+	#await get_tree().physics_frame
+	#teleportCheckRay.force_raycast_update()
+	#await get_tree().physics_frame
+	
+	if teleportCheckRay.is_colliding():
+		teleportRange.discardTeleport()
+	else:
+		teleportRange.commitTeleport()
+		player.global_position = playerTeleportDestination - xOffset
+	
+	#teleportCheckRay.target_position.y *= 3
+	teleportCheckRay.global_position = player.global_position
+	
 
 
 func initiateInteraction() -> void:
@@ -104,7 +124,7 @@ func initiateInteraction() -> void:
 			var trigger:Trigger = area.get_parent()
 			print_debug("Tried interacting with trigger : %s" % str(trigger))
 			
-			if trigger.is_in_group("entity_npc_trigger"):
+			if trigger.is_in_group("entity_npc_trigger") and gvars.inDialogue == false:
 				print_debug("npc trigger")
 				if interactWithNPC(trigger) == true: return
 			else:

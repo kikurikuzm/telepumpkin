@@ -53,6 +53,7 @@ func conversationInitiate(dialogueConversation:Array[DialogueConversation], dial
 	lastFocusTarget = null
 	
 	inDialogue = true
+	gvars.inDialogue = inDialogue
 	dialogueInitializer = npcInstance
 	currentDialogueEntryIndex = 0
 	NPCConversationArray = dialogueConversation
@@ -73,6 +74,7 @@ func progressDialogue() -> void:
 	dialogueText.visible_characters = 0
 	dialogueBox.visible = true
 	inDialogue = true
+	gvars.inDialogue = inDialogue
 	
 	if lastFocusTarget != null: CameraManager.removeFocus(lastFocusTarget)
 	
@@ -147,13 +149,14 @@ func endDialogue() -> void:
 	dialogueBox.visible = false
 	dialogueContinue.visible = false
 	inDialogue = false
-
+	gvars.inDialogue = inDialogue
+	
 	currentDialogueEntryIndex = 0
 
 	changePlayerCharacterState.emit("playerIdle")
 	
 	if is_instance_valid(dialogueInitializer):
-		dialogueInitializer.canTalk = true
+		dialogueInitializer.NPCFinishConversation()
 
 		if queuedConvo > -1:
 			conversationInitiate(NPCConversationArray, currentConversationIndex)
@@ -184,12 +187,13 @@ func parseJSON() -> Array:
 		return []
 
 func _input(event) -> void:
-	if Input.is_action_just_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped() and !inCutscene:
+	if event.is_action_pressed("teleport") and inDialogue and $textSkipDelay.is_stopped() and !inCutscene:
 		if dialogueText.visible_characters == len(dialogueText.get_parsed_text()):
 			currentDialogueEntryIndex += 1
 			progressDialogue()
 		else:
 			dialogueText.visible_characters = len(dialogueText.get_parsed_text())
+			
 		get_viewport().set_input_as_handled()
 
 func _process(delta) -> void:

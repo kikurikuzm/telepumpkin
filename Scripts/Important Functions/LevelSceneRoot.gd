@@ -61,8 +61,8 @@ func initializeLevel():
 			newBackgroundSprite.texture = levelVariablesResource.levelBackground
 			add_child(newParallax2D)
 			newParallax2D.scroll_offset = Vector2(990, 660)
-			newParallax2D.scroll_scale = Vector2(0.7, 0.7)
-			newParallax2D.scale = Vector2(0.75, 0.75)
+			newParallax2D.scroll_scale = Vector2(0.02, 0.02)
+			newParallax2D.scale = Vector2(1, 1)
 			newParallax2D.z_index = -5
 			newParallax2D.add_child(newBackgroundSprite)
 			
@@ -177,13 +177,25 @@ func getPlayerPositionChangingNodeReferences():
 		return null
 
 func tool_createNewInstance(instancePath : NodePath):
+	var editorInterface = Engine.get_singleton("EditorInterface")
+	if !editorInterface: return
+	var editor_viewport: SubViewport = editorInterface.get_editor_viewport_2d()
+	var current_editor_position: Vector2 = (editor_viewport.global_canvas_transform.get_origin() * -1)
+	current_editor_position = (Vector2.ONE / editor_viewport.global_canvas_transform.get_scale()) * current_editor_position
+	#current_editor_position.x *= 2
+	
 	var resource = load(instancePath)
 	var instance = resource.instantiate()
 	self.add_child(instance)
+	
+	instance.position = current_editor_position
+	
+	print((Vector2.ONE / editor_viewport.global_canvas_transform.get_scale()))
+	print(current_editor_position)
 	instance.owner = self
 
 func tool_newPumpkin():
-	tool_createNewInstance("res://Instances/Level Components/pumpkin.tscn")
+	tool_createNewInstance("res://Instances/Level Components/teleportableObject.tscn")
 
 func tool_newNPC():
 	tool_createNewInstance("res://Instances/Level Components/NPC.tscn")

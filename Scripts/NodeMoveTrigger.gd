@@ -59,5 +59,5 @@ func _on_child_order_changed() -> void:
 		for child in self.get_children():
 			if child is Path2D and child.name != "editor_destinationLine" and !movementPath:
 				movementPath = child
-				EditorInterface.get_editor_toaster().push_toast("Automatically Set Movement Path of NodeMoveTrigger \"%s\" to child Path2D \"%s\"." % [self.name, child.name], EditorToaster.SEVERITY_INFO)
+				Engine.get_singleton("EditorInterface").get_editor_toaster().push_toast("Automatically Set Movement Path of NodeMoveTrigger \"%s\" to child Path2D \"%s\"." % [self.name, child.name], EditorToaster.SEVERITY_INFO)
 				break

@@ -8,8 +8,6 @@ class_name playerJump
 
 @export var hoistContainer: HoistContainer = null
 
-var last_transition: String = ""
-
 const HORIZONTAL_BOOST := 40
 const DEFAULT_AIR_CONTROL := 2.0
 
@@ -36,8 +34,7 @@ func exit():
 	player.airControl = DEFAULT_AIR_CONTROL
 
 func update(delta: float):
-	if Input.is_action_just_pressed("kick") and last_transition != STATE_KICKING:
-		last_transition = STATE_KICKING
+	if Input.is_action_just_pressed("kick"):
 		transitionToState(STATE_KICKING)
 		return
 
@@ -53,7 +50,6 @@ func physics_update(delta: float):
 		#transitioned.emit(self, "playerkick")
 	
 	if player.velocity.y >= 0:
-		last_transition = STATE_FALLING
 		transitionToState(STATE_FALLING)
 	#elif player.is_on_floor():
 		#transitioned.emit(self, "playerstop")
