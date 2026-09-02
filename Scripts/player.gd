@@ -72,6 +72,7 @@ const TELEPORT_DEST_HORIZONTAL_OFFSET : float = 10.0
 const TELEPORT_PLAYER_VERTICAL_OFFSET : float = -15
 const PLAYER_COLLISION_RECT : Rect2 = Rect2(0, 0, 28, 12)
 
+
 func _physics_process(delta):
 	DebugManager.writeToDebugOutput("Player Velocity: %s" % str(velocity))
 	
@@ -89,53 +90,13 @@ func _physics_process(delta):
 	if is_on_floor():
 		jumpsRemaining = maxJumps
 	
-	
-	
 	stateFactory.physics_process(delta)
-	
-	#self.velocity = pumpkinMagnet.magnetizePlayerVelocity(self.velocity)
-	
-	#if pumpkinMagnet.is_colliding() or magnetLeft.is_colliding() or magnetRight.is_colliding():
-		#var collider:Node2D
-		#var colliderVelocity:Vector2
-		#
-		#
-		#for collisionIndex in pumpkinMagnet.get_collision_count():
-			#collider = pumpkinMagnet.get_collider()
-			#if collider != null and collider.is_in_group("pumpkin"):
-				#break
-			#
-		#if collider == null: return
-		#
-		#colliderVelocity = collider.linear_velocity
-		#
-		#if abs(self.velocity.x) > abs(colliderVelocity.x):
-			#self.velocity.x += colliderVelocity.x
-		#else:
-			#print_debug(str(colliderVelocity))
-			#self.velocity.x = colliderVelocity.x
-		#
-		##if self.velocity.y < colliderVelocity.y:
-			##self.velocity.y += colliderVelocity.y
-		##else:
-			##self.velocity.y = colliderVelocity.y
-		#
-		## Gives the player the force of the impact if the pumpkin suddenly stops
-		#if lastPlayerMagnetizedVelocity != Vector2.ZERO and abs(lastPlayerMagnetizedVelocity.x)/2 > abs(collider.linear_velocity.x):
-			##self.velocity.y = (abs(lastPlayerMagnetizedVelocity.y) + 5) * -1
-			#
-			#print_debug("boosted player velocity to : %s " % str(lastPlayerMagnetizedVelocity))
-		#lastPlayerMagnetizedVelocity = collider.linear_velocity
-	#else:
-		#if lastPlayerMagnetizedVelocity != Vector2.ZERO:
-			#print_debug("reset velocity")
-		#lastPlayerMagnetizedVelocity = Vector2.ZERO
-		
 	
 	if abs(self.global_position.x) > 10000 or abs(self.global_position.y) > 5000 or self.global_position == Vector2.ZERO:
 		print_debug("Player left the bounds!")
 		GlobalSignalBus.restartLevel.emit()
 	self.move_and_slide()
+
 
 func _process(delta):
 	$velocityVisualizer.target_position = self.velocity

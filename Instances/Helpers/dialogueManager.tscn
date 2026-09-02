@@ -107,12 +107,17 @@ scroll_active = false
 shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
 
-[node name="progress" type="AnimatedSprite2D" parent="CanvasLayer"]
-visible = false
+[node name="Control" type="Control" parent="CanvasLayer/dialogBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="progress" type="AnimatedSprite2D" parent="CanvasLayer/dialogBox/Control"]
+unique_name_in_owner = true
 modulate = Color(0, 0, 0, 1)
 z_as_relative = false
 material = SubResource("ShaderMaterial_a4kcp")
-position = Vector2(1477, 320)
+position = Vector2(-49.5, -43)
 scale = Vector2(2.4, 2.4)
 sprite_frames = ExtResource("7_a8qr2")
 autoplay = "default"

@@ -1938,7 +1938,7 @@ scale_max = 0.58
 scale_curve = SubResource("CurveTexture_vgti0")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4bcid"]
-size = Vector2(32, 38)
+size = Vector2(32, 42.7027)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyegr"]
 radius = 18.48765
@@ -2227,7 +2227,8 @@ collision_layer = 16
 collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactArea"]
-position = Vector2(0, -1)
+position = Vector2(0, 1.3513508)
+scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_4bcid")
 
 [node name="kickArea" type="Area2D" parent="."]

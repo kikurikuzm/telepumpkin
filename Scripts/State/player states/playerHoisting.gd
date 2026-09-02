@@ -30,7 +30,7 @@ func enter(args := []):
 	var weight_factor: float = float(hoistContainer.current_objects.size()) / float(hoistContainer.max_objects)
 	
 	#hoistTimer.start(HOIST_DURATION + HOIST_DURATION * weight_factor)
-	animPlayer.play("hoistObject", -1, max(0.1, 1.0 - weight_factor))
+	animPlayer.play("hoistObject", -1, max(0.1, 1.35 - weight_factor))
 
 func exit():
 	playerSprite.rotation_degrees = 0

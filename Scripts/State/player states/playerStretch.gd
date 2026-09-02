@@ -152,10 +152,10 @@ func physics_update(delta: float):
 	if Input.is_action_just_pressed("kick"):
 		transitioned.emit(self, "playerKick")
 	
-	
-	player.velocity.x = lerp(player.velocity.x, 0.0, WALK_SPEED_DECREASE_STR)
-	residualSpeed = lerp(residualSpeed, 0.0, RESIDUAL_SPEED_DECREASE_STR)
-	residualSpeed = floorf(residualSpeed)
-	
-	player.velocity.x = clampf(player.velocity.x, -(MAXSPEED + abs(residualSpeed)), (MAXSPEED + abs(residualSpeed)))
-	residualSpeed = clampf(residualSpeed, -MAX_RESIDUAL_WALK_SPEED, MAX_RESIDUAL_WALK_SPEED)
+	if player.is_on_floor():
+		player.velocity.x = lerp(player.velocity.x, 0.0, WALK_SPEED_DECREASE_STR)
+		residualSpeed = lerp(residualSpeed, 0.0, RESIDUAL_SPEED_DECREASE_STR)
+		residualSpeed = floorf(residualSpeed)
+		
+		player.velocity.x = clampf(player.velocity.x, -(MAXSPEED + abs(residualSpeed)), (MAXSPEED + abs(residualSpeed)))
+		residualSpeed = clampf(residualSpeed, -MAX_RESIDUAL_WALK_SPEED, MAX_RESIDUAL_WALK_SPEED)

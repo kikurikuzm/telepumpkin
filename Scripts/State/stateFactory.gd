@@ -6,14 +6,10 @@ class_name StateFactory
 
 @onready var player: Player = $".."
 
-var loaded: bool = false
-
-var current_state: State
+var current_state: State = null
 var states: Dictionary = {}
 
 func _ready():
-	loaded = true
-	
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
@@ -24,21 +20,17 @@ func _ready():
 		current_state = initial_state
 
 func _process(delta):
-	if !loaded: return
-	
 	if current_state:
 		current_state.update(delta)
 	
-func physics_process(delta):
-	if !loaded: return
-		
+func physics_process(delta): # Ran by the main player script
 	if current_state:
 		current_state.physics_update(delta)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if !loaded: return
-	
-	if current_state: current_state.unhandled_input(event)
+	if current_state: 
+		current_state.unhandled_input(event)
+
 
 func getCurrentStateName() -> String:
 	return current_state.name

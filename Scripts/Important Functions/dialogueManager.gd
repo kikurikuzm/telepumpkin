@@ -13,7 +13,7 @@ class_name DialogueManager extends Node
 
 @onready var dialogueText: RichTextLabel = %dialogText ##The text box containing dialogue.
 @onready var dialoguePortrait: TextureRect = %portraitTexture ##The NPC image shown during dialogue.
-@onready var dialogueContinue: AnimatedSprite2D = $CanvasLayer/progress ##The little arrow at the bottom right of the dialogue box that indicates when the dialogue can be progressed.
+@onready var dialogueContinue: AnimatedSprite2D = %progress ##The little arrow at the bottom right of the dialogue box that indicates when the dialogue can be progressed.
 @onready var dialogueFromArrow: Line2D = $CanvasLayer/fromArrow
 
 @onready var textSpeed:Timer = $textSpeed ##A timer used to have the letters show every given amount of time.

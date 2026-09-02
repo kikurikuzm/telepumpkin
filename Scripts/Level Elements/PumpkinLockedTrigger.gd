@@ -37,6 +37,11 @@ const PUMPKIN_UI_ARROW_HIDE_OFFSET:Vector2 = Vector2(0, 12)
 const PUMPKIN_UI_ARROW_SHOW_OFFSET:Vector2 = Vector2(0, 7)
 
 
+func _exit_tree() -> void:
+	if GlobalSignalBus.levelFailed.is_connected(_on_pumpkin_lost):
+		GlobalSignalBus.levelFailed.disconnect(_on_pumpkin_lost)
+
+
 func _ready():
 	super()
 	

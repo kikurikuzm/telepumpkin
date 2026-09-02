@@ -13,7 +13,7 @@ func enter(args := []):
 	if magicColourTween:
 		magicColourTween.kill()
 	
-	magicColourTween = self.create_tween()
+	
 	
 	animPlayer.play("fall")
 	print(player.velocity.y)
@@ -23,13 +23,14 @@ func enter(args := []):
 	if player.jumpsRemaining > 0:
 		playerSprite.self_modulate = MAGIC_READY_FLASH
 		coyoteTimer.start(AIRTIME)
-		
+		magicColourTween = self.create_tween()
 		magicColourTween.tween_property(playerSprite, "self_modulate", MAGIC_FULL_CHARGED_COLOUR, 0.5)
 	else:
 		playerSprite.self_modulate = PLAYER_DEFAULT_COLOUR
 
 func exit():
-	magicColourTween.kill()
+	if magicColourTween:
+		magicColourTween.kill()
 	
 	if player.is_on_floor():
 		impactAudio.stream = fallThumpAudio

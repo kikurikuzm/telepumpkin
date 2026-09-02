@@ -5,9 +5,10 @@ func enter(args := []):
 	player.velocity = Vector2.ZERO
 	playerSprite.rotation_degrees = 0
 	animPlayer.play("idle")
+	player.playerCollision.disabled = true
 
 func exit():
-	pass
+	player.playerCollision.disabled = false
 
 func update(delta: float):
 	pass

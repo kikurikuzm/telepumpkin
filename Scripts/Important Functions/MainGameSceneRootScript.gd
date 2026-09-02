@@ -36,8 +36,7 @@ func _on_tree_entered() -> void:
 	#GlobalSignalBus.requestCameraZoomChange.connect(_levelCameraZoneChangeMainCameraZoom)
 	
 	GlobalSignalBus.initiateDialogue.connect(_levelNPCInstanceBeginConversation)
-	
-	
+
 
 func _ready() -> void:
 	cutsceneManager.setPlayerCharacterAndMainCameraReferences(playerReference, mainCameraReference)

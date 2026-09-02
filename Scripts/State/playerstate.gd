@@ -54,7 +54,7 @@ func physics_update(delta: float) -> void:
 		player.velocity.y += player.gravity * 60 * delta
 
 func unhandled_input(event:InputEvent) -> void:
-	if Input.is_action_just_pressed("teleport"):
+	if event.is_action_pressed("teleport"):
 		initiateInteraction()
 
 func accelerate(moveDir:float) -> float:

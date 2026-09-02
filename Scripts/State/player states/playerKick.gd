@@ -35,8 +35,8 @@ const PERFECT_KICK_PAUSE_THRESHOLD := 0.46
 
 const KICK_AREA_HORIZONTAL_OFFSET := 8
 
-const WALLKICK_HORIZONTAL_VEL_BOOST := 30
-const WALLKICK_HORIZONTAL_VEL_DECAY := 0.8
+const WALLKICK_HORIZONTAL_VEL_BOOST := 105
+const WALLKICK_HORIZONTAL_VEL_DECAY := 0.6
 
 
 func enter(args := []):
@@ -109,6 +109,7 @@ func physics_update(delta: float):
 						
 						if player.jumpsRemaining <= 1: player.jumpsRemaining = 2
 						
+						var oldVelocity := player.velocity
 						player.velocity *= 0.1
 						player.gravity = 0
 						
@@ -126,10 +127,13 @@ func physics_update(delta: float):
 							%kickImpactParticles.rotation_degrees = 196
 						%kickImpactParticles.emitting = true
 						
-						if !playerSprite.flip_h: player.velocity.x = abs(player.velocity.x) * -WALLKICK_HORIZONTAL_VEL_DECAY - WALLKICK_HORIZONTAL_VEL_BOOST
-						else: player.velocity.x = abs(player.velocity.x) * WALLKICK_HORIZONTAL_VEL_DECAY + WALLKICK_HORIZONTAL_VEL_BOOST
+						var newVelocity: float = ((abs(oldVelocity.x) * WALLKICK_HORIZONTAL_VEL_DECAY) + WALLKICK_HORIZONTAL_VEL_BOOST)
+						newVelocity *= -1 if playerSprite.flip_h == false else 1
+						#if (signf(oldVelocity.x) * -1) == 0:
+						#else:
+							#newVelocity *= (signf(oldVelocity.x) * -1)
 						
-						transitionToState(STATE_JUMPING)
+						transitionToState(STATE_JUMPING, newVelocity)
 						
 						return
 				#endregion
